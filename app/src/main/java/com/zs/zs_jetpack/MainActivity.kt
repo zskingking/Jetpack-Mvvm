@@ -1,12 +1,17 @@
 package com.zs.zs_jetpack
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.zs.base_library.base.BaseVmActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseVmActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun init(savedInstanceState: Bundle?) {
+
     }
+
+    override fun getLayoutId(): Int? {
+        return R.layout.activity_main
+    }
+
+
 }

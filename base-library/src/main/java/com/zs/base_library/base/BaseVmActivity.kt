@@ -26,14 +26,14 @@ abstract class BaseVmActivity : AppCompatActivity(){
     }
 
     /**
-     * 短时长toast
+     * 短 toast
      */
     protected fun showToastShort(msg:String){
         Toast.makeText(this,msg, Toast.LENGTH_SHORT).show()
     }
 
     /**
-     * 长时长toast
+     * 长 toast
      */
     protected fun showToastLong(msg:String){
         Toast.makeText(this,msg, Toast.LENGTH_LONG).show()

@@ -2,20 +2,18 @@ package com.zs.zs_jetpack.http
 import com.google.gson.JsonParseException
 import com.zs.base_library.http.ApiException
 import io.reactivex.Observer
-import io.reactivex.disposables.Disposable
 import org.json.JSONException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.lang.reflect.ParameterizedType
-import java.util.*
 
 
 /**
  * des 给Response脱壳,对服务器错误统一处理
  *
  * @author zs
- * @date 2020-03-13
+ * @date 2020-05-09
  */
 abstract class HttpDefaultObserver<T> : Observer<BaseResponse<T>> {
 
@@ -25,7 +23,6 @@ abstract class HttpDefaultObserver<T> : Observer<BaseResponse<T>> {
 
     override fun onNext(t: BaseResponse<T>) {
         if (t.errorCode==0) {
-
             if (t.data==null){
                 val tClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<T>
                 t.data = tClass.newInstance()
