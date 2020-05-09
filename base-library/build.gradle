@@ -40,15 +40,20 @@ dependencies {
 
     //rxjava 已存在3.0版本
     api "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjavaVersion"
+
     //rxandroid
     api "io.reactivex.rxjava2:rxandroid:$rootProject.ext.rxandroidVersion"
+
+    //okhttp
     api "com.squareup.okhttp3:okhttp:$rootProject.ext.okhttpVersion"
-    // Retrofit库
+    api "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okhttpVersion"
+
+    // Retrofit相关库
     api "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofitVersion"
     api "com.squareup.retrofit2:converter-scalars:$rootProject.ext.retrofitVersion"
     api "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofitVersion"
     api "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofitVersion"
-    api "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.okhttpVersion"
 
-
+    //cookie持久化
+    api "com.github.franmontiel:PersistentCookieJar:v1.0.1"
 }
