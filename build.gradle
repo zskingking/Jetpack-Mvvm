@@ -27,3 +27,22 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    rxjavaVersion = "2.2.12"
+    rxandroidVersion = "2.1.1"
+    okhttpVersion = "3.12.3"
+    retrofitVersion = "2.7.2"
+    glideVersion = "4.11.0"
+    bannerVersion = "2.2.7@aar"
+    refreshLayoutVersion = "1.1.0"
+    refreshHeaderVersion = "1.1.0"
+    eventBusVersion = "3.2.0"
+    baseAdapterVersion = "2.9.50"
+    aviLibraryVersion = "2.1.3"
+    greenDaoVersion = "3.2.2"
+    magicVersion = "1.6.0"
+    permissionVersion = "3.0.0"
+    labelsViewVersion = "1.6.1"
+    cookieVersion = "v1.0.1"
+}
