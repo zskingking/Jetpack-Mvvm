@@ -1,4 +1,5 @@
 package com.zs.zs_jetpack.http
+
 import com.google.gson.JsonParseException
 import com.zs.base_library.http.ApiException
 import io.reactivex.Observer
@@ -15,16 +16,17 @@ import java.lang.reflect.ParameterizedType
  * @author zs
  * @date 2020-05-09
  */
-abstract class HttpDefaultObserver<T> : Observer<BaseResponse<T>> {
+abstract class HttpDefaultObserver<T> : Observer<ApiResponse<T>> {
 
     override fun onComplete() {
     }
 
-
-    override fun onNext(t: BaseResponse<T>) {
+    override fun onNext(t: ApiResponse<T>) {
+        //如果业务执行成功data可能为null(比如收藏),此时通过反射将null转为Any类型Empty对象
         if (t.errorCode==0) {
             if (t.data==null){
-                val tClass = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<T>
+                val tClass = (javaClass.genericSuperclass
+                        as ParameterizedType).actualTypeArguments[0] as Class<T>
                 t.data = tClass.newInstance()
             }
             t.data?.let { onSuccess(it) }
@@ -45,7 +47,7 @@ abstract class HttpDefaultObserver<T> : Observer<BaseResponse<T>> {
         } else if (e is ConnectException) {
             "连接错误"
         } else if (e is ApiException){
-            e.businessMessage
+            e.errorMessage
         } else{
             "未知错误"
         }

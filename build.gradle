@@ -47,4 +47,6 @@ ext {
     permissionVersion = "3.0.0"
     labelsViewVersion = "1.6.1"
     cookieVersion = "v1.0.1"
+    navigationVersion = "2.0.0"
+    kotlin_coroutines = "1.3.1"
 }

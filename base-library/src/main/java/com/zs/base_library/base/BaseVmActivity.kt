@@ -73,11 +73,11 @@ abstract class BaseVmActivity : AppCompatActivity(){
     /**
      * 通过activity获取viewModel，跟随activity生命周期
      */
-    protected open fun <T : ViewModel?> getActivityViewModel(modelClass: Class<T>): T {
+    protected open fun <T : ViewModel?> getActivityViewModel(modelClass: Class<T>): T? {
         if (mActivityProvider == null) {
             mActivityProvider = ViewModelProvider(this)
         }
-        return mActivityProvider!!.get(modelClass)
+        return mActivityProvider?.get(modelClass)
     }
 
     /**
