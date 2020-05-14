@@ -1,7 +1,6 @@
 package com.zs.base_library.base
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -22,34 +21,21 @@ abstract class BaseVmActivity : AppCompatActivity(){
         setStatusColor()
         setSystemInvadeBlack()
         initViewModel()
+        observe()
         init(savedInstanceState)
-    }
-
-    /**
-     * 短 toast
-     */
-    protected fun showToastShort(msg:String){
-        Toast.makeText(this,msg, Toast.LENGTH_SHORT).show()
-    }
-
-    /**
-     * 长 toast
-     */
-    protected fun showToastLong(msg:String){
-        Toast.makeText(this,msg, Toast.LENGTH_LONG).show()
     }
 
     /**
      * 设置状态栏背景颜色
      */
-    protected open fun setStatusColor() {
+    protected fun setStatusColor() {
         StatusUtils.setUseStatusBarColor(this, ColorUtils.parseColor("#00ffffff"))
     }
 
     /**
      * 沉浸式状态
      */
-    protected open fun setSystemInvadeBlack() {
+    protected fun setSystemInvadeBlack() {
         //第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
         StatusUtils.setSystemStatus(this, true, true)
     }
@@ -60,7 +46,6 @@ abstract class BaseVmActivity : AppCompatActivity(){
      * observe同理
      */
     open fun initViewModel(){
-
     }
 
     /**
@@ -73,7 +58,7 @@ abstract class BaseVmActivity : AppCompatActivity(){
     /**
      * 通过activity获取viewModel，跟随activity生命周期
      */
-    protected open fun <T : ViewModel?> getActivityViewModel(modelClass: Class<T>): T? {
+    protected fun <T : ViewModel?> getActivityViewModel(modelClass: Class<T>): T? {
         if (mActivityProvider == null) {
             mActivityProvider = ViewModelProvider(this)
         }
@@ -89,6 +74,5 @@ abstract class BaseVmActivity : AppCompatActivity(){
      * 获取layout布局
      */
     abstract fun getLayoutId():Int?
-
 
 }

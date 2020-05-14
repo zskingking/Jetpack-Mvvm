@@ -14,6 +14,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
+
     }
 
     buildTypes {
@@ -28,11 +29,11 @@ dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api 'androidx.appcompat:appcompat:1.1.0'
+    api 'com.android.support:design:29.0.0'
+    api "androidx.viewpager2:viewpager2:1.1.0-alpha01"
     api 'androidx.core:core-ktx:1.2.0'
     //navigation
-    //noinspection GradleDependency
     api "androidx.navigation:navigation-fragment-ktx:$rootProject.ext.navigationVersion"
-    //noinspection GradleDependency
     api "androidx.navigation:navigation-ui-ktx:$rootProject.ext.navigationVersion"
 
     //依赖协程核心库
@@ -66,4 +67,5 @@ dependencies {
 
     //cookie持久化
     api "com.github.franmontiel:PersistentCookieJar:v1.0.1"
+    api "androidx.paging:paging-runtime:$rootProject.ext.pagingVersion"
 }

@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">ZS-Jetpack</string>
+    <string name="app_name">Jetpack-WanAndroid</string>
+
+    <string name="tab_1">首页</string>
+    <string name="tab_2">项目</string>
+    <string name="tab_3">广场</string>
+    <string name="tab_4">公众号</string>
+    <string name="tab_5">我</string>
 </resources>

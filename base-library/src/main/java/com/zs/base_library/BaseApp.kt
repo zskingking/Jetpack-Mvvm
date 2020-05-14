@@ -7,7 +7,7 @@ import android.content.Context
  * @date 2020/5/9
  * @author zs
  */
-class BaseApplication :Application() {
+class BaseApp :Application() {
 
 
     override fun onCreate() {
@@ -16,10 +16,10 @@ class BaseApplication :Application() {
     }
 
     companion object{
-        private var baseApplication:BaseApplication? = null
+        private lateinit var baseApplication:BaseApp
 
         fun getContext(): Context {
-            return baseApplication!!
+            return baseApplication
         }
     }
 }

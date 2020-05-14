@@ -19,18 +19,12 @@ import androidx.lifecycle.ViewModelProvider
 abstract class BaseVmFragment : Fragment() {
 
     private lateinit var mActivity:AppCompatActivity
-    private var mActivityProvider: ViewModelProvider? = null
+    private var privider: ViewModelProvider? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mActivity = context as AppCompatActivity
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initViewModel()
-    }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,24 +39,10 @@ abstract class BaseVmFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViewModel()
         init(savedInstanceState)
-        //observe一定要在初始化之后，因为observe会收到黏性事件，随后对ui做处理
+        initViewModel()
+        //observe一定要在初始化最后，因为observe会收到黏性事件，随后对ui做处理
         observe()
-    }
-
-    /**
-     * 短时长toast
-     */
-    protected fun showToastShort(msg:String){
-        Toast.makeText(mActivity,msg, Toast.LENGTH_SHORT).show()
-    }
-
-    /**
-     * 长时长toast
-     */
-    protected fun showToastLong(msg:String){
-        Toast.makeText(mActivity,msg, Toast.LENGTH_LONG).show()
     }
 
     /**
@@ -84,21 +64,21 @@ abstract class BaseVmFragment : Fragment() {
     /**
      * 通过activity获取viewModel，跟随activity生命周期
      */
-    protected open fun <T : ViewModel?> getActivityViewModel(modelClass: Class<T>): T {
-        if (mActivityProvider == null) {
-            mActivityProvider = ViewModelProvider(mActivity)
+    protected fun <T : ViewModel?> getActivityViewModel(modelClass: Class<T>): T {
+        if (privider == null) {
+            privider = ViewModelProvider(mActivity)
         }
-        return mActivityProvider!!.get(modelClass)
+        return privider!!.get(modelClass)
     }
 
     /**
      * 通过fragment获取viewModel，跟随fragment生命周期
      */
     protected open fun <T : ViewModel?> getFragmentViewModel(modelClass: Class<T>): T {
-        if (mActivityProvider == null) {
-            mActivityProvider = ViewModelProvider(this)
+        if (privider == null) {
+            privider = ViewModelProvider(this)
         }
-        return mActivityProvider!!.get(modelClass)
+        return privider!!.get(modelClass)
     }
 
     /**

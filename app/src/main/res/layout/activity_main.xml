@@ -7,7 +7,11 @@
     tools:context=".MainActivity">
 
     <fragment
+        android:id="@+id/host_fragment"
+        android:name="com.zs.zs_jetpack.ui.main.MainFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

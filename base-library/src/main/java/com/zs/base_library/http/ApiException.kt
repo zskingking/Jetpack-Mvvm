@@ -7,4 +7,4 @@ package com.zs.base_library.http
  * @date 2020-05-09
  */
 class ApiException(val errorMessage: String, val errorCode: Int) :
-    Exception()
+    Throwable()
