@@ -68,4 +68,6 @@ dependencies {
     //cookie持久化
     api "com.github.franmontiel:PersistentCookieJar:v1.0.1"
     api "androidx.paging:paging-runtime:$rootProject.ext.pagingVersion"
+
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
 }

@@ -21,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_main.*
 class MainFragment : BaseVmFragment() {
 
     private val fragmentList = arrayListOf<Fragment>()
-
     private val homeFragment by lazy { HomeFragment() }
     private val projectFragment by lazy { ProjectFragment() }
     private val squareFragment by lazy { SquareFragment() }
@@ -41,8 +40,10 @@ class MainFragment : BaseVmFragment() {
     override fun init(savedInstanceState: Bundle?) {
         //初始化viewpager2
         vpHome.initFragment(this,fragmentList).run {
+            //全部缓存,避免切换回重新加载
             offscreenPageLimit = fragmentList.size
         }
+        vpHome.isUserInputEnabled = false
         vpHome.registerOnPageChangeCallback(object :ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)

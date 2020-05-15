@@ -59,7 +59,6 @@ open class BaseViewModel:ViewModel() {
         }
     }
 
-
     /**
      * 错误信息处理
      */
