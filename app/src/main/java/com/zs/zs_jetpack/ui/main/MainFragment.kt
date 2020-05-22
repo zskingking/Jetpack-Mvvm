@@ -43,6 +43,7 @@ class MainFragment : BaseVmFragment() {
             //全部缓存,避免切换回重新加载
             offscreenPageLimit = fragmentList.size
         }
+        //取消viewPager2滑动
         vpHome.isUserInputEnabled = false
         vpHome.registerOnPageChangeCallback(object :ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {

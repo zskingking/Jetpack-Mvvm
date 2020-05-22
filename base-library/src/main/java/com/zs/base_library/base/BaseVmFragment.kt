@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 
 /**
  * des mvvm 基础 fragment
@@ -43,6 +43,7 @@ abstract class BaseVmFragment : Fragment() {
         initViewModel()
         //observe一定要在初始化最后，因为observe会收到黏性事件，随后对ui做处理
         observe()
+        onClick()
     }
 
     /**
@@ -79,6 +80,20 @@ abstract class BaseVmFragment : Fragment() {
             privider = ViewModelProvider(this)
         }
         return privider!!.get(modelClass)
+    }
+
+    /**
+     * fragment跳转
+     */
+    protected fun nav(actionId:Int){
+        NavHostFragment.findNavController(this).navigate(actionId)
+    }
+
+    /**
+     * 点击事件
+     */
+    open fun onClick(){
+
     }
 
     /**

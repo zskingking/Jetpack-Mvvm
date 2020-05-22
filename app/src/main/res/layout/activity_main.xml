@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/host_fragment"
-        android:name="com.zs.zs_jetpack.ui.main.MainFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:defaultNavHost="true"
