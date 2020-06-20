@@ -19,7 +19,8 @@ import androidx.navigation.fragment.NavHostFragment
 abstract class BaseVmFragment : Fragment() {
 
     private lateinit var mActivity:AppCompatActivity
-    private var privider: ViewModelProvider? = null
+    private var fragmentProvider: ViewModelProvider? = null
+    private var activityProvider: ViewModelProvider? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -66,20 +67,20 @@ abstract class BaseVmFragment : Fragment() {
      * 通过activity获取viewModel，跟随activity生命周期
      */
     protected fun <T : ViewModel?> getActivityViewModel(modelClass: Class<T>): T {
-        if (privider == null) {
-            privider = ViewModelProvider(mActivity)
+        if (activityProvider == null) {
+            activityProvider = ViewModelProvider(mActivity)
         }
-        return privider!!.get(modelClass)
+        return activityProvider!!.get(modelClass)
     }
 
     /**
      * 通过fragment获取viewModel，跟随fragment生命周期
      */
     protected open fun <T : ViewModel?> getFragmentViewModel(modelClass: Class<T>): T {
-        if (privider == null) {
-            privider = ViewModelProvider(this)
+        if (fragmentProvider == null) {
+            fragmentProvider = ViewModelProvider(this)
         }
-        return privider!!.get(modelClass)
+        return fragmentProvider!!.get(modelClass)
     }
 
     /**

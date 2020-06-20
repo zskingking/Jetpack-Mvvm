@@ -1,14 +1,20 @@
-package com.zs.base_library.utils
+package com.zs.base_library.common
 
+import android.content.ClipboardManager
+import android.content.Context
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 
 /**
- * des 关于视图的工具类
+ * des 视图扩展方法
  * @date 2020/5/14
  * @author zs
+ */
+
+/**
+ * viewPager适配fragment
  */
 fun ViewPager2.initFragment(
     fragment: Fragment,
@@ -49,3 +55,14 @@ fun View.clickNoRepeat(interval: Long = 400, onClick: (View) -> Unit) {
         onClick(it)
     }
 }
+
+/**
+ * 复制剪切板
+ */
+fun copy(context: Context, msg: String) {
+    val clip = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    clip.text = msg
+    toast("已复制")
+}
+
+

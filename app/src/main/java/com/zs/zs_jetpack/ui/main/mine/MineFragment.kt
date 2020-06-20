@@ -1,10 +1,9 @@
 package com.zs.zs_jetpack.ui.main.mine
 
 
-import androidx.navigation.Navigation
 import com.zs.base_library.base.LazyVmFragment
-import com.zs.base_library.utils.setNoRepeatClick
-import com.zs.base_library.utils.toast
+import com.zs.base_library.common.setNoRepeatClick
+import com.zs.base_library.common.toast
 import com.zs.zs_jetpack.R
 import kotlinx.android.synthetic.main.fragment_mine.*
 
@@ -26,9 +25,11 @@ class MineFragment : LazyVmFragment() {
     }
 
     override fun onClick() {
-        setNoRepeatClick(ivHead,tvName,tvId,llHistory,llRanking
-            ,clIntegral,clCollect,clArticle,clWebsite,clGirl,clSet){
-            when(it.id){
+        setNoRepeatClick(
+            ivHead, tvName, tvId, llHistory, llRanking
+            , clIntegral, clCollect, clArticle, clWebsite, clGirl, clSet
+        ) {
+            when (it.id) {
                 R.id.ivHead -> toast("我只是一只睡着的小老鼠...")
                 R.id.tvName -> toast("请先登录～")
                 R.id.tvId -> {

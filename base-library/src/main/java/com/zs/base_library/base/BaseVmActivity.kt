@@ -28,14 +28,14 @@ abstract class BaseVmActivity : AppCompatActivity(){
     /**
      * 设置状态栏背景颜色
      */
-    protected fun setStatusColor() {
+    open fun setStatusColor() {
         StatusUtils.setUseStatusBarColor(this, ColorUtils.parseColor("#00ffffff"))
     }
 
     /**
      * 沉浸式状态
      */
-    protected fun setSystemInvadeBlack() {
+    open fun setSystemInvadeBlack() {
         //第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
         StatusUtils.setSystemStatus(this, true, true)
     }
