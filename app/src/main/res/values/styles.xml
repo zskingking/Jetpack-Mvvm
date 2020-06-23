@@ -8,4 +8,32 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="text_1">
+        <item name="android:textColor">@color/text_1</item>
+        <item name="android:textSize">@dimen/text_1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="text_2">
+        <item name="android:textColor">@color/text_2</item>
+        <item name="android:textSize">@dimen/text_2</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="text_3">
+        <item name="android:textColor">@color/text_3</item>
+        <item name="android:textSize">@dimen/text_3</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+    <style name="text_title">
+        <item name="android:textColor">@color/text_1</item>
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
 </resources>

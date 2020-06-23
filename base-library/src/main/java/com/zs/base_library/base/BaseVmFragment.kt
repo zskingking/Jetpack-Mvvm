@@ -5,12 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import okhttp3.OkHttpClient
+import androidx.navigation.fragment.NavHostFragment
 
 /**
  * des mvvm 基础 fragment
@@ -19,13 +20,18 @@ import okhttp3.OkHttpClient
  */
 abstract class BaseVmFragment : Fragment() {
 
-    private lateinit var mActivity:AppCompatActivity
+    private lateinit var mActivity: AppCompatActivity
     private var fragmentProvider: ViewModelProvider? = null
     private var activityProvider: ViewModelProvider? = null
+    private var dataBindingConfig: DataBindingConfig? = null
+    private var mBinding: ViewDataBinding? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mActivity = context as AppCompatActivity
+        //TODO 必须要在Activity与Fragment绑定后，因为如果Fragment可能获取的是Activity中ViewModel
+        // 必须在onCreateView之前初始化viewModel，因为onCreateView中需要通过ViewModel与DataBinding绑定
+        initViewModel()
     }
 
     override fun onCreateView(
@@ -34,7 +40,22 @@ abstract class BaseVmFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         getLayoutId()?.let {
-            return inflater.inflate(it, null)
+            //获取ViewDataBinding
+            val binding: ViewDataBinding =
+                DataBindingUtil.inflate(inflater, it, container, false)
+            //将ViewDataBinding生命周期与Fragment绑定
+            binding.lifecycleOwner = this
+            dataBindingConfig = getDataBindingConfig()
+            dataBindingConfig?.apply {
+                val bindingParams = bindingParams
+                //TODO 将bindingParams逐个加入到ViewDataBinding中的Variable
+                // 这一步很重要,否则xml中拿不到variable中内容
+                for (i in 0 until bindingParams.size()) {
+                    binding.setVariable(bindingParams.keyAt(i), bindingParams.valueAt(i))
+                }
+            }
+            mBinding = binding
+            return binding.root
         }
         return super.onCreateView(inflater, container, savedInstanceState)
     }
@@ -42,9 +63,9 @@ abstract class BaseVmFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init(savedInstanceState)
-        initViewModel()
         //observe一定要在初始化最后，因为observe会收到黏性事件，随后对ui做处理
         observe()
+        onClick()
     }
 
     /**
@@ -52,14 +73,14 @@ abstract class BaseVmFragment : Fragment() {
      * 之所以没有设计为抽象，是因为部分简单activity可能不需要viewModel
      * observe同理
      */
-    open fun initViewModel(){
+    open fun initViewModel() {
 
     }
 
     /**
      * 注册观察者
      */
-    open fun observe(){
+    open fun observe() {
 
     }
 
@@ -84,6 +105,20 @@ abstract class BaseVmFragment : Fragment() {
     }
 
     /**
+     * fragment跳转
+     */
+    protected fun nav(actionId: Int) {
+        NavHostFragment.findNavController(this).navigate(actionId)
+    }
+
+    /**
+     * 点击事件
+     */
+    open fun onClick() {
+
+    }
+
+    /**
      * activity入口
      */
     abstract fun init(savedInstanceState: Bundle?)
@@ -91,6 +126,10 @@ abstract class BaseVmFragment : Fragment() {
     /**
      * 获取layout布局
      */
-    abstract fun getLayoutId():Int?
+    abstract fun getLayoutId(): Int?
 
+    /**
+     * 获取dataBinding配置项
+     */
+    abstract fun getDataBindingConfig(): DataBindingConfig?
 }

@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.zs.base_library.base.BaseVmFragment
-import com.zs.base_library.utils.initFragment
+import com.zs.base_library.base.DataBindingConfig
+import com.zs.base_library.common.initFragment
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.ui.main.home.HomeFragment
 import com.zs.zs_jetpack.ui.main.mine.MineFragment
@@ -43,6 +44,7 @@ class MainFragment : BaseVmFragment() {
             //全部缓存,避免切换回重新加载
             offscreenPageLimit = fragmentList.size
         }
+        //取消viewPager2滑动
         vpHome.isUserInputEnabled = false
         vpHome.registerOnPageChangeCallback(object :ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
@@ -68,5 +70,9 @@ class MainFragment : BaseVmFragment() {
 
     override fun getLayoutId(): Int? {
         return R.layout.fragment_main
+    }
+
+    override fun getDataBindingConfig(): DataBindingConfig? {
+        return null
     }
 }

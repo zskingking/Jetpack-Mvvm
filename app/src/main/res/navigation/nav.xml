@@ -7,32 +7,20 @@
 
     <fragment
         android:id="@+id/main_fragment"
-        android:name="com.zs.zs_jetpack.ui.main.MainFragment">
+        android:label="MainFragment"
+        android:name="com.zs.zs_jetpack.ui.main.MainFragment"
+        tools:layout="@layout/fragment_main">
+        <!--历史-->
         <action
-            android:id="@+id/action_main_fragment_to_home_fragment" />
-        <action
-            android:id="@+id/action_mainfragment_to_mine_fragment" />
-        <action
-            android:id="@+id/action_mainfragment_to_project_fragment" />
+            android:id="@+id/action_main_fragment_to_history_fragment"
+            app:destination="@+id/history_fragment"/>
     </fragment>
 
     <fragment
-        android:id="@+id/home_fragment"
-        android:name="com.zs.zs_jetpack.ui.main.home.HomeFragment">
+        android:id="@+id/history_fragment"
+        android:label="HistoryFragment"
+        android:name="com.zs.zs_jetpack.ui.history.HistoryFragment"
+        tools:layout="@layout/fragment_history">
 
-    </fragment>
-
-    <fragment
-        android:id="@+id/mine_fragment"
-        android:name="com.zs.zs_jetpack.ui.main.mine.MineFragment">
-
-    </fragment>
-    <fragment
-        android:id="@+id/project_fragment"
-        android:name="com.zs.zs_jetpack.ui.main.project.ProjectFragment">
-
-        <action
-            android:id="@+id/action_project_fragment_self"
-            app:destination="@id/project_fragment" />
     </fragment>
 </navigation>

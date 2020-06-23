@@ -1,26 +1,24 @@
-package com.zs.zs_jetpack.ui.main.public
+package com.zs.zs_jetpack.ui.history
 
+import androidx.fragment.app.Fragment
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
 import com.zs.zs_jetpack.R
 
 /**
- * des 公众号
- * @author zs
- * @date 2020-05-14
+ * A simple [Fragment] subclass.
  */
-class PublicNumberFragment : LazyVmFragment() {
+class HistoryFragment : LazyVmFragment() {
 
     override fun lazyInit() {
     }
 
     override fun getLayoutId(): Int? {
-        return R.layout.fragment_public_number
+        return R.layout.fragment_history
     }
 
     override fun getDataBindingConfig(): DataBindingConfig? {
         return null
     }
-
 
 }

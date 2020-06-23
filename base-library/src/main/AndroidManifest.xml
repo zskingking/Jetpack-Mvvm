@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zs.base_library">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application>
-        <activity android:name=".base.BaseActivity"></activity>
+
     </application>
 
 </manifest>

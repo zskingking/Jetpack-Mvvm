@@ -1,4 +1,4 @@
-package com.zs.base_library.utils
+package com.zs.base_library.common
 
 import android.content.Context
 import android.widget.Toast

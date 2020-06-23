@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -37,9 +38,9 @@ dependencies {
     api "androidx.navigation:navigation-ui-ktx:$rootProject.ext.navigationVersion"
 
     //依赖协程核心库
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.ext.kotlin_coroutines"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.ext.kotlin_coroutines"
     //依赖当前平台所对应的平台库
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.ext.kotlin_coroutines"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.ext.kotlin_coroutines"
 
     // liveData
     api 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-alpha02'
@@ -69,5 +70,5 @@ dependencies {
     api "com.github.franmontiel:PersistentCookieJar:v1.0.1"
     api "androidx.paging:paging-runtime:$rootProject.ext.pagingVersion"
 
-    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.50'
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.0'
 }

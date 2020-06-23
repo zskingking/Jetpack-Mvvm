@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_1">15dp</dimen>
+    <dimen name="text_2">13dp</dimen>
+    <dimen name="text_3">11dp</dimen>
+    <dimen name="text_title">19dp</dimen>
+    <dimen name="dialog_text_content">17dp</dimen>
+    <dimen name="padding">20dp</dimen>
+    <dimen name="set_padding">26dp</dimen>
+    <dimen name="dividing_line">30dp</dimen>
+</resources>

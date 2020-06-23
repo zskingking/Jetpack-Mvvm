@@ -9,9 +9,9 @@ import com.zs.base_library.http.HttpLoggingInterceptor
 import com.zs.zs_jetpack.constants.ApiConstants
 import com.zs.zs_jetpack.constants.Constants
 import okhttp3.Cache
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
 import java.util.concurrent.TimeUnit
@@ -26,20 +26,6 @@ object RetrofitFactory {
     //缓存100Mb
     private val okHttpClientBuilder: OkHttpClient.Builder
         get() {
-            //http log 拦截器
-            val loggingInterceptor =
-                HttpLoggingInterceptor("OkHttp")
-            loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.BODY)
-            loggingInterceptor.setColorLevel(Level.INFO)
-            val cacheFile =
-                File(getContext().cacheDir, "cache")
-            //缓存100Mb
-            val cache = Cache(cacheFile, 1024 * 1024 * 100)
-            //做cookie持久化
-            val cookieJar: ClearableCookieJar = PersistentCookieJar(
-                SetCookieCache(),
-                SharedPrefsCookiePersistor(getContext())
-            )
             return OkHttpClient.Builder()
                 .readTimeout(
                     Constants.DEFAULT_TIMEOUT.toLong(),
@@ -49,9 +35,9 @@ object RetrofitFactory {
                     Constants.DEFAULT_TIMEOUT.toLong(),
                     TimeUnit.MILLISECONDS
                 )
-                .addInterceptor(loggingInterceptor)
-                .cookieJar(cookieJar)
-                .cache(cache)
+                .addInterceptor(getLogInterceptor())
+                .cookieJar(getCookie())
+                .cache(getCache())
         }
 
     fun factory(): Retrofit {
@@ -61,5 +47,35 @@ object RetrofitFactory {
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(ApiConstants.BASE_URL)
             .build()
+    }
+
+    /**
+     * 获取日志拦截器
+     */
+    private fun getLogInterceptor():Interceptor{
+        //http log 拦截器
+        return HttpLoggingInterceptor("OkHttp").apply {
+                setPrintLevel(HttpLoggingInterceptor.Level.BODY)
+                setColorLevel(Level.INFO)
+            }
+    }
+
+    /**
+     * 获取cookie持久化
+     */
+    private fun getCookie():ClearableCookieJar{
+        return PersistentCookieJar(
+            SetCookieCache(),
+            SharedPrefsCookiePersistor(getContext())
+        )
+    }
+
+    /**
+     * 获取缓存方式
+     */
+    private fun getCache():Cache{
+        //缓存100Mb
+        return Cache( File(getContext().cacheDir, "cache")
+            , 1024 * 1024 * 100)
     }
 }
