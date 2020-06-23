@@ -119,7 +119,7 @@ abstract class BaseVmFragment : Fragment() {
     }
 
     /**
-     * activity入口
+     * 初始化入口
      */
     abstract fun init(savedInstanceState: Bundle?)
 
