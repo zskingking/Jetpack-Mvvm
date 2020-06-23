@@ -1,6 +1,7 @@
 package com.zs.zs_jetpack.ui.main.square
 
 
+import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
 import com.zs.zs_jetpack.R
 
@@ -16,6 +17,10 @@ class SquareFragment : LazyVmFragment() {
 
     override fun getLayoutId(): Int? {
         return R.layout.fragment_square
+    }
+
+    override fun getDataBindingConfig(): DataBindingConfig? {
+        return null
     }
 
 

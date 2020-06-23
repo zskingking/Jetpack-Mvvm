@@ -1,6 +1,7 @@
 package com.zs.zs_jetpack.ui.main.mine
 
 
+import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
 import com.zs.base_library.common.setNoRepeatClick
 import com.zs.base_library.common.toast
@@ -22,6 +23,10 @@ class MineFragment : LazyVmFragment() {
 
     override fun getLayoutId(): Int? {
         return R.layout.fragment_mine
+    }
+
+    override fun getDataBindingConfig(): DataBindingConfig? {
+        return null
     }
 
     override fun onClick() {

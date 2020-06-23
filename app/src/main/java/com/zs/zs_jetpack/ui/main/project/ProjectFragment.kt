@@ -1,6 +1,7 @@
 package com.zs.zs_jetpack.ui.main.project
 
 
+import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
 import com.zs.zs_jetpack.R
 
@@ -17,6 +18,10 @@ class ProjectFragment : LazyVmFragment() {
 
     override fun getLayoutId(): Int? {
         return R.layout.fragment_project
+    }
+
+    override fun getDataBindingConfig(): DataBindingConfig? {
+        return null
     }
 
 

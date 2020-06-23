@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.zs.base_library.base.BaseVmFragment
+import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.initFragment
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.ui.main.home.HomeFragment
@@ -69,5 +70,9 @@ class MainFragment : BaseVmFragment() {
 
     override fun getLayoutId(): Int? {
         return R.layout.fragment_main
+    }
+
+    override fun getDataBindingConfig(): DataBindingConfig? {
+        return null
     }
 }
