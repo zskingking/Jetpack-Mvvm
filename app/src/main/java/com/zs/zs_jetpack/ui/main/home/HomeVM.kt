@@ -14,7 +14,6 @@ class HomeVM :BaseViewModel(){
     val title = ObservableField<String>()
 
     fun setTitle(){
-        Log.i("HomeVM","setTitle")
         title.set("我变成了music wanandroid")
     }
 }

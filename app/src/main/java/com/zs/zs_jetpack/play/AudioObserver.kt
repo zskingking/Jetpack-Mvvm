@@ -7,7 +7,7 @@ import com.zs.zs_jetpack.play.bean.AudioBean
  * @author zs
  * @data 2020/6/25
  */
-interface PlayObserver {
+interface AudioObserver {
 
     /**
      * 歌曲信息
@@ -23,6 +23,11 @@ interface PlayObserver {
      * 当前播放进度
      */
     fun onProgress(progress:Int)
+
+    /**
+     * 播放模式
+     */
+    fun onPlayMode(playMode:Int)
 
 
 }

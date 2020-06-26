@@ -7,7 +7,7 @@ import android.content.Context
  * @date 2020/5/9
  * @author zs
  */
-class BaseApp :Application() {
+open class BaseApp :Application() {
 
 
     override fun onCreate() {

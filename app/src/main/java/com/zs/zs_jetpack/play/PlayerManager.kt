@@ -1,6 +1,9 @@
 package com.zs.zs_jetpack.play
 
+import android.content.Context
+import android.util.Log
 import com.zs.base_library.play.IPlayer
+import com.zs.base_library.play.IPlayerStatus
 import com.zs.base_library.play.MediaPlayerHelper
 import com.zs.zs_jetpack.play.bean.AudioBean
 
@@ -12,7 +15,7 @@ import com.zs.zs_jetpack.play.bean.AudioBean
  * @author zs
  * @data 2020/6/25
  */
-class PlayerManager private constructor() {
+class PlayerManager private constructor() : IPlayerStatus {
 
     /**
      * 单例创建PlayerManager
@@ -23,6 +26,14 @@ class PlayerManager private constructor() {
         }
     }
 
+    /**
+     * 音乐观察者集合,目前有三个
+     * 1.播放界面
+     * 2.悬浮窗
+     * 3.通知栏
+     */
+    private val observers = mutableListOf<AudioObserver>()
+
     private val playerHelper: IPlayer = MediaPlayerHelper()
 
     /**
@@ -30,11 +41,33 @@ class PlayerManager private constructor() {
      */
     private var currentAudioBean: AudioBean? = null
 
+
+    /**
+     * 播放列表
+     */
+    private lateinit var playList: PlayList
+
+    fun init(context: Context) {
+        playList = PlayList(context)
+        playerHelper.setPlayStatus(this)
+    }
+
+    /**
+     * 第一次进入,播放器未被初始化,默认模仿第一个
+     */
+    fun start() {
+
+        playList.startAudio()?.let {
+            play(it)
+        }
+    }
+
     /**
      * 播放一个新的音频
      */
     fun play(audioBean: AudioBean) {
         audioBean.path?.let { playerHelper.play(it) }
+        sendAudioToObserver(audioBean)
     }
 
     /**
@@ -42,6 +75,7 @@ class PlayerManager private constructor() {
      */
     fun resume() {
         playerHelper.resume()
+        sendPlayingToObserver(true)
     }
 
     /**
@@ -49,6 +83,7 @@ class PlayerManager private constructor() {
      */
     fun pause() {
         playerHelper.pause()
+        sendPlayingToObserver(false)
     }
 
     /**
@@ -56,6 +91,13 @@ class PlayerManager private constructor() {
      */
     fun seekTo(duration: Int) {
         playerHelper.seekTo(duration)
+    }
+
+    /**
+     * 跳转至指定播放位置
+     */
+    fun switchPlayMode() {
+        sendPlayModeToObserver(playList.switchPlayMode())
     }
 
     /**
@@ -71,6 +113,65 @@ class PlayerManager private constructor() {
     fun clear() {
         playerHelper.reset()
         playerHelper.release()
+        playList.clear()
+    }
+
+    /**
+     * 注册观察者
+     */
+    fun register(audioObserver: AudioObserver) {
+        observers.add(audioObserver)
+    }
+
+    /**
+     * 解除观察者
+     */
+    fun unregister(audioObserver: AudioObserver) {
+        observers.remove(audioObserver)
+    }
+
+    /**
+     * 给观察者发送音乐信息
+     */
+    private fun sendAudioToObserver(audioBean: AudioBean) {
+        observers.forEach {
+            it.onAudioBean(audioBean)
+        }
+    }
+
+    /**
+     * 给观察者发送播放状态
+     */
+    private fun sendPlayingToObserver(isPlaying: Boolean) {
+        observers.forEach {
+            it.onPlaying(isPlaying)
+        }
+    }
+
+    /**
+     * 给观察者发送进度
+     */
+    private fun sendProgressToObserver(duration: Int) {
+        observers.forEach {
+            it.onProgress(duration)
+        }
+    }
+
+    /**
+     * 给观察者发送播放模式
+     */
+    private fun sendPlayModeToObserver(playMode: Int) {
+        observers.forEach {
+            it.onPlayMode(playList.switchPlayMode())
+        }
+    }
+
+    override fun onBufferingUpdate(percent: Int) {
+
+    }
+
+    override fun onComplete() {
+        playList.nextAudio()?.let { play(it) }
     }
 
 }
