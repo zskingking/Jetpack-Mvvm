@@ -1,16 +1,10 @@
 package com.zs.zs_jetpack.ui.play
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.setNoRepeatClick
 import com.zs.zs_jetpack.BR
-
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.play.AudioObserver
 import com.zs.zs_jetpack.play.PlayerManager
@@ -18,15 +12,15 @@ import com.zs.zs_jetpack.play.bean.AudioBean
 import kotlinx.android.synthetic.main.fragment_player.*
 
 /**
- * A simple [Fragment] subclass.
+ * des 播放
+ * @author zs
+ * @date 2020-06-25
  */
 class PlayerFragment : BaseVmFragment() ,AudioObserver{
 
     private var playVM:PlayVM? = null
 
-
     override fun init(savedInstanceState: Bundle?) {
-        Log.i("PlayerFragment","register")
         PlayerManager.instance.register(this)
     }
 
@@ -34,49 +28,66 @@ class PlayerFragment : BaseVmFragment() ,AudioObserver{
         playVM = getActivityViewModel(PlayVM::class.java)
     }
 
+
     override fun getLayoutId(): Int? {
         return R.layout.fragment_player
     }
 
     override fun getDataBindingConfig(): DataBindingConfig? {
-        return DataBindingConfig(R.layout.fragment_home, playVM)
+        return DataBindingConfig(R.layout.fragment_player, playVM)
             .addBindingParam(BR.vm, playVM)
     }
 
     override fun onClick() {
-        setNoRepeatClick(tvPre,tvPlay,tvNext){
+        setNoRepeatClick(ivPrevious,ivPlay,ivNext){
             when(it.id){
-                R.id.tvPre->{
+                R.id.ivPrevious->{
                     PlayerManager.instance.previous()
                 }
-                R.id.tvPlay->{
+                R.id.ivPlay->{
                     PlayerManager.instance.controlPlay()
                 }
-                R.id.tvNext->{
+                R.id.ivNext->{
                     PlayerManager.instance.next()
                 }
             }
         }
     }
 
+    /**
+     * 观察播放信息
+     */
     override fun onAudioBean(audioBean: AudioBean) {
-        Log.i("PlayerFragment", audioBean.toString())
+
     }
 
+    /**
+     * 观察播放状态
+     */
     override fun onPlaying(playing: Boolean) {
-        Log.i("PlayerFragment", "playing$playing")
+        if (playing){
+            ivPlay.setImageResource(R.mipmap.play_resume)
+        }else{
+            ivPlay.setImageResource(R.mipmap.play_pause)
+        }
+    }
+
+    /**
+     * 观察播放进度
+     */
+    override fun onProgress(currentDuration: Int) {
 
     }
 
-    override fun onProgress(progress: Int) {
-    }
-
+    /**
+     * 观察播放模式
+     */
     override fun onPlayMode(playMode: Int) {
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        Log.i("PlayerFragment","unregister")
         PlayerManager.instance.unregister(this)
     }
 

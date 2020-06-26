@@ -42,6 +42,7 @@ fun readPlayList(context:Context,audioList:MutableList<AudioBean>){
                 audioBean.albumId =
                     cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
 
+
                 audioList.add(audioBean)
             }
             cursor.close()

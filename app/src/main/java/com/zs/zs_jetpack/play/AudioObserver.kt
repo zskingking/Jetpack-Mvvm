@@ -22,7 +22,7 @@ interface AudioObserver {
     /**
      * 当前播放进度
      */
-    fun onProgress(progress:Int)
+    fun onProgress(currentDuration:Int)
 
     /**
      * 播放模式

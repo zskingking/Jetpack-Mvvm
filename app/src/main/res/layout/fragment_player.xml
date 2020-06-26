@@ -12,34 +12,43 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.play.PlayerFragment"
-        android:fitsSystemWindows="true">
+        android:background="#FF9797"
+        tools:context=".ui.play.PlayerFragment">
 
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:id="@+id/tvPre"
-            android:gravity="center"
-            android:text="tvPre"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/ivBackground"/>
 
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:id="@+id/tvPlay"
-            android:gravity="center"
-            android:text="tvPlay"
-            app:layout_constraintTop_toBottomOf="@id/tvPre"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/ivPrevious"
+            android:src="@mipmap/play_previous"
+            android:padding="6dp"
+            app:layout_constraintTop_toTopOf="@+id/ivPlay"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPlay"
+            app:layout_constraintRight_toLeftOf="@+id/ivPlay"
+            android:layout_marginRight="50dp"/>
+        <ImageView
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:id="@+id/ivPlay"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginBottom="30dp"
+            android:src="@mipmap/play_pause"/>
 
-        <TextView
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:id="@+id/tvNext"
-            android:gravity="center"
-            android:text="tvNext"
-            app:layout_constraintTop_toBottomOf="@id/tvPlay"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:id="@+id/ivNext"
+            android:src="@mipmap/play_next"
+            android:padding="6dp"
+            app:layout_constraintTop_toTopOf="@+id/ivPlay"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPlay"
+            app:layout_constraintLeft_toRightOf="@+id/ivPlay"
+            android:layout_marginLeft="50dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
