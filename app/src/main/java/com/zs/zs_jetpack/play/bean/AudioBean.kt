@@ -1,5 +1,9 @@
 package com.zs.zs_jetpack.play.bean
 
+import android.content.ContentUris
+import android.net.Uri
+import com.zs.base_library.common.albumById
+
 /**
  * des mp3文件封装类,遵循mp3格式,从ContentProvider获取
  * @author zs

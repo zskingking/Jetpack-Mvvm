@@ -1,6 +1,7 @@
 package com.zs.zs_jetpack.play
 
 import android.content.Context
+import android.util.Log
 import com.zs.base_library.play.IPlayer
 import com.zs.base_library.play.IPlayerStatus
 import com.zs.base_library.play.MediaPlayerHelper
@@ -163,6 +164,8 @@ class PlayerManager private constructor() : IPlayerStatus {
      */
     fun register(audioObserver: AudioObserver) {
         observers.add(audioObserver)
+        //TODO 注册时手动更新观察者,相当于粘性通知
+        notifyObserver(audioObserver)
     }
 
     /**
@@ -170,6 +173,16 @@ class PlayerManager private constructor() : IPlayerStatus {
      */
     fun unregister(audioObserver: AudioObserver) {
         observers.remove(audioObserver)
+    }
+
+    /**
+     * 手动更新观察者
+     */
+    private fun notifyObserver(audioObserver: AudioObserver){
+        currentAudioBean?.let { audioObserver.onAudioBean(it) }
+        audioObserver.onPlayMode(playList.getCurrentMode())
+        audioObserver.onPlaying(playerHelper.isPlaying())
+        audioObserver.onProgress(playerHelper.getProgress())
     }
 
     /**
@@ -204,7 +217,7 @@ class PlayerManager private constructor() : IPlayerStatus {
      */
     private fun sendPlayModeToObserver(playMode: Int) {
         observers.forEach {
-            it.onPlayMode(playList.switchPlayMode())
+            it.onPlayMode(playMode)
         }
     }
 

@@ -1,7 +1,9 @@
 package com.zs.zs_jetpack.play
 
 import android.content.Context
+import android.util.Log
 import com.zs.base_library.common.isListEmpty
+import com.zs.base_library.common.toast
 import com.zs.zs_jetpack.play.bean.AudioBean
 
 /**
@@ -87,15 +89,25 @@ class PlayList constructor(context: Context) {
     fun switchPlayMode(): Int {
         when (playMode) {
             PlayMode.ORDER_PLAY_MODE -> {
+                toast("单曲循环")
                 playMode = PlayMode.SINGLE_PLAY_MODE
             }
             PlayMode.SINGLE_PLAY_MODE -> {
+                toast("随机播放")
                 playMode = PlayMode.RANDOM_PLAY_MODE
             }
             PlayMode.RANDOM_PLAY_MODE -> {
+                toast("列表循环")
                 playMode = PlayMode.ORDER_PLAY_MODE
             }
         }
+        return playMode
+    }
+
+    /**
+     * 获取当前播放模式
+     */
+    fun getCurrentMode(): Int{
         return playMode
     }
 

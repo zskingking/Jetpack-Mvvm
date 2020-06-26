@@ -74,4 +74,5 @@ dependencies {
     api "androidx.paging:paging-runtime:$rootProject.ext.pagingVersion"
 
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.0'
+    api 'jp.wasabeef:glide-transformations:4.1.0'
 }

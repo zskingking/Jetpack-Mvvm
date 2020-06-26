@@ -20,6 +20,10 @@ import androidx.navigation.fragment.NavHostFragment
  */
 abstract class BaseVmFragment : Fragment() {
 
+    /**
+     * 开放给外部使用
+     */
+    lateinit var mContext: Context
     private lateinit var mActivity: AppCompatActivity
     private var fragmentProvider: ViewModelProvider? = null
     private var activityProvider: ViewModelProvider? = null
@@ -28,6 +32,7 @@ abstract class BaseVmFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        mContext = context
         mActivity = context as AppCompatActivity
         //TODO 必须要在Activity与Fragment绑定后，因为如果Fragment可能获取的是Activity中ViewModel
         // 必须在onCreateView之前初始化viewModel，因为onCreateView中需要通过ViewModel与DataBinding绑定
