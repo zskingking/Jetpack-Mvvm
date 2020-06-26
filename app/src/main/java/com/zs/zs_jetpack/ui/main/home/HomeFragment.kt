@@ -26,7 +26,7 @@ class HomeFragment : LazyVmFragment() {
     override fun lazyInit() {
         tvTitle.clickNoRepeat {
             homeVm?.setTitle()
-            PlayerManager.instance.start()
+
         }
     }
 

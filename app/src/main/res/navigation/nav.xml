@@ -14,6 +14,11 @@
         <action
             android:id="@+id/action_main_fragment_to_history_fragment"
             app:destination="@+id/history_fragment"/>
+
+        <!--播放-->
+        <action
+            android:id="@+id/action_main_fragment_to_play_fragment"
+            app:destination="@+id/play_fragment"/>
     </fragment>
 
     <fragment
@@ -21,6 +26,14 @@
         android:label="HistoryFragment"
         android:name="com.zs.zs_jetpack.ui.history.HistoryFragment"
         tools:layout="@layout/fragment_history">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/play_fragment"
+        android:label="PlayerFragment"
+        android:name="com.zs.zs_jetpack.ui.play.PlayerFragment"
+        tools:layout="@layout/fragment_player">
 
     </fragment>
 </navigation>
