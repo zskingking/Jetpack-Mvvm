@@ -2,6 +2,7 @@ package com.zs.base_library.play
 
 import android.media.MediaPlayer
 import android.media.MediaPlayer.*
+import com.zs.base_library.common.toast
 
 /**
  * des 基于MediaPlayer实现的音频播放
@@ -34,8 +35,14 @@ class MediaPlayerHelper : IPlayer,
 
     override fun play(path: String) {
         mediaPlayer.reset()
-        mediaPlayer.setDataSource(path)
-        mediaPlayer.prepare()
+        //可能会抛FileNotFound异常
+        kotlin.runCatching {
+            mediaPlayer.setDataSource(path)
+        }.onSuccess {
+            mediaPlayer.prepare()
+        }.onFailure {
+            toast("无效文件")
+        }
     }
 
     override fun resume() {
