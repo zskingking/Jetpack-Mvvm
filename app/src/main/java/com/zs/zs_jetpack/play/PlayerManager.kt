@@ -6,6 +6,10 @@ import com.zs.base_library.play.IPlayer
 import com.zs.base_library.play.IPlayerStatus
 import com.zs.base_library.play.MediaPlayerHelper
 import com.zs.zs_jetpack.play.bean.AudioBean
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import java.util.concurrent.TimeUnit
 
 /**
  * des 音频管理
@@ -37,6 +41,11 @@ class PlayerManager private constructor() : IPlayerStatus {
     private val playerHelper: IPlayer = MediaPlayerHelper()
 
     /**
+     * 用于关闭rxJava
+     */
+    private var disposable: Disposable? = null
+
+    /**
      * 当前播放的对象
      */
     private var currentAudioBean: AudioBean? = null
@@ -49,6 +58,22 @@ class PlayerManager private constructor() : IPlayerStatus {
     fun init(context: Context) {
         playList = PlayList(context)
         playerHelper.setPlayStatus(this)
+        startTimer()
+    }
+
+    /**
+     * 开启定时器,用于更新进度
+     * 每500毫秒更新一次
+     */
+    private fun startTimer(){
+        disposable = Observable.interval(1000,TimeUnit.MILLISECONDS)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+                //仅在播放状态下通知观察者
+                if (playerHelper.isPlaying()){
+                    sendProgressToObserver(playerHelper.getProgress())
+                }
+            }
     }
 
     /**
@@ -150,9 +175,17 @@ class PlayerManager private constructor() : IPlayerStatus {
     }
 
     /**
+     * 获取当前正在播放的音频信息
+     */
+    fun getPlayListSize(): Int? {
+        return playList.getPlayListSize()
+    }
+
+    /**
      * 重置并释放播放器
      */
     fun clear() {
+        disposable?.dispose()
         currentAudioBean = null
         playerHelper.reset()
         playerHelper.release()
@@ -178,11 +211,11 @@ class PlayerManager private constructor() : IPlayerStatus {
     /**
      * 手动更新观察者
      */
-    private fun notifyObserver(audioObserver: AudioObserver){
+    private fun notifyObserver(audioObserver: AudioObserver) {
         currentAudioBean?.let { audioObserver.onAudioBean(it) }
         audioObserver.onPlayMode(playList.getCurrentMode())
         audioObserver.onPlaying(playerHelper.isPlaying())
-        audioObserver.onProgress(playerHelper.getProgress())
+        currentAudioBean?.duration?.let { audioObserver.onProgress(playerHelper.getProgress(), it) }
     }
 
     /**
@@ -208,7 +241,7 @@ class PlayerManager private constructor() : IPlayerStatus {
      */
     private fun sendProgressToObserver(duration: Int) {
         observers.forEach {
-            it.onProgress(duration)
+            currentAudioBean?.duration?.let { it1 -> it.onProgress(duration, it1) }
         }
     }
 

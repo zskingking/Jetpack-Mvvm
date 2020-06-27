@@ -2,11 +2,16 @@ package com.zs.zs_jetpack.ui.play
 
 import android.net.Uri
 import android.os.Bundle
+import android.widget.SeekBar
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.fragment.findNavController
 import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.albumById
 import com.zs.base_library.common.loadBlurTrans
 import com.zs.base_library.common.setNoRepeatClick
+import com.zs.base_library.common.stringForTime
+import com.zs.base_library.utils.StatusUtils
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.play.AudioObserver
@@ -21,12 +26,23 @@ import kotlinx.android.synthetic.main.fragment_player.*
  * @author zs
  * @date 2020-06-25
  */
-class PlayerFragment : BaseVmFragment(), AudioObserver {
+open class PlayerFragment : BaseVmFragment(), AudioObserver {
 
     private var playVM: PlayVM? = null
-
+    private val playListFragment = PlayListFragment()
     override fun init(savedInstanceState: Bundle?) {
         PlayerManager.instance.register(this)
+        setMarginTop()
+        initSeek()
+    }
+
+    /**
+     * 设置顶部信息marginTop,适配状态栏高度
+     */
+    private fun setMarginTop() {
+        val params = ivBack.layoutParams as ConstraintLayout.LayoutParams
+        params.topMargin = StatusUtils.getStatusBarHeight(mContext)
+        ivBack.layoutParams = params
     }
 
     /**
@@ -34,6 +50,27 @@ class PlayerFragment : BaseVmFragment(), AudioObserver {
      */
     private fun setBgBlur(uri: Uri) {
         ivBackground.loadBlurTrans(mContext, uri, 90)
+    }
+
+    /**
+     * 初始化seekBar
+     */
+    private fun initSeek() {
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+                tvStartTime.text = stringForTime(seekBar.progress)
+            }
+
+            /**
+             * 拖动放开
+             */
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                PlayerManager.instance.seekTo(seekBar.progress)
+            }
+        })
     }
 
     override fun initViewModel() {
@@ -50,8 +87,11 @@ class PlayerFragment : BaseVmFragment(), AudioObserver {
     }
 
     override fun onClick() {
-        setNoRepeatClick(ivMode,ivPrevious, ivPlay, ivNext,ivList) {
+        setNoRepeatClick(ivBack,ivMode, ivPrevious, ivPlay, ivNext, ivList) {
             when (it.id) {
+                R.id.ivBack -> {
+                    findNavController().popBackStack()
+                }
                 R.id.ivMode -> {
                     PlayerManager.instance.switchPlayMode()
                 }
@@ -65,7 +105,7 @@ class PlayerFragment : BaseVmFragment(), AudioObserver {
                     PlayerManager.instance.next()
                 }
                 R.id.ivList -> {
-                    PlayerManager.instance.previous()
+                    playListFragment.show(mActivity.supportFragmentManager,"")
                 }
             }
         }
@@ -76,6 +116,10 @@ class PlayerFragment : BaseVmFragment(), AudioObserver {
      */
     override fun onAudioBean(audioBean: AudioBean) {
         setBgBlur(albumById(audioBean.albumId))
+        tvSinger.text = audioBean.singer
+        tvSongName.text = audioBean.name
+        tvEndTime.text = stringForTime(audioBean.duration)
+        seekBar.max = audioBean.duration
     }
 
     /**
@@ -91,9 +135,12 @@ class PlayerFragment : BaseVmFragment(), AudioObserver {
 
     /**
      * 观察播放进度
+     * @param currentDuration 当前播放到的事件
+     * @param totalDuration   总时长
      */
-    override fun onProgress(currentDuration: Int) {
-
+    override fun onProgress(currentDuration: Int, totalDuration: Int) {
+        seekBar.progress = currentDuration
+        tvStartTime.text = stringForTime(currentDuration)
     }
 
     /**
@@ -112,6 +159,14 @@ class PlayerFragment : BaseVmFragment(), AudioObserver {
             }
         }
     }
+
+    /**
+     * 设置状态栏背景颜色
+     */
+    override fun setSystemInvadeBlack() {
+        StatusUtils.setSystemStatus(mActivity, true, false)
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

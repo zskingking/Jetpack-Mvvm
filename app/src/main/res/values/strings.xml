@@ -7,6 +7,6 @@
     <string name="tab_4">公众号</string>
     <string name="tab_5">我</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="play_default_time">00:00</string>
 </resources>

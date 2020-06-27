@@ -132,6 +132,12 @@ class PlayList constructor(context: Context) {
         return 0
     }
 
+    /**
+     * 获取播放列表长度
+     */
+    fun getPlayListSize(): Int {
+        return audioList.size
+    }
 
     class PlayMode {
         companion object {

@@ -12,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
+import com.zs.base_library.utils.ColorUtils
+import com.zs.base_library.utils.StatusUtils
 
 /**
  * des mvvm 基础 fragment
@@ -24,7 +26,7 @@ abstract class BaseVmFragment : Fragment() {
      * 开放给外部使用
      */
     lateinit var mContext: Context
-    private lateinit var mActivity: AppCompatActivity
+    lateinit var mActivity: AppCompatActivity
     private var fragmentProvider: ViewModelProvider? = null
     private var activityProvider: ViewModelProvider? = null
     private var dataBindingConfig: DataBindingConfig? = null
@@ -45,6 +47,8 @@ abstract class BaseVmFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         getLayoutId()?.let {
+            setStatusColor()
+            setSystemInvadeBlack()
             //获取ViewDataBinding
             val binding: ViewDataBinding =
                 DataBindingUtil.inflate(inflater, it, container, false)
@@ -121,6 +125,22 @@ abstract class BaseVmFragment : Fragment() {
      */
     open fun onClick() {
 
+    }
+
+
+       /**
+     * 设置状态栏背景颜色
+     */
+    open fun setStatusColor() {
+        StatusUtils.setUseStatusBarColor(mActivity, ColorUtils.parseColor("#00ffffff"))
+    }
+
+    /**
+     * 沉浸式状态
+     */
+    open fun setSystemInvadeBlack() {
+        //第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
+        StatusUtils.setSystemStatus(mActivity, true, true)
     }
 
     /**

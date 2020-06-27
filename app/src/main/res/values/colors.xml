@@ -10,6 +10,10 @@
     <color name="normal_color">#bfbfbf</color>
 
 
+
+    <color name="transparent">#00FFFFFF</color>
+
+
     <!--    #F60B0B-->
     <color name="text_1">#333333</color>
     <color name="text_2">#666666</color>
@@ -28,6 +32,7 @@
     <color name="division_line_thickening">#F8F8F8</color>
 
     <color name="orange">#ea9518</color>
+    <color name="seek_end">#D5D4D4</color>
 
 
 </resources>

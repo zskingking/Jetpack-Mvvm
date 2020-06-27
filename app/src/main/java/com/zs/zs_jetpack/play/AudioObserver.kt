@@ -11,18 +11,21 @@ interface AudioObserver {
 
     /**
      * 歌曲信息
+     * 空实现,部分界面可不用实现
      */
-    fun onAudioBean(audioBean: AudioBean)
+    fun onAudioBean(audioBean: AudioBean){}
 
     /**
      * 播放状态-暂停/播放
+     * 空实现,部分界面可不用实现
      */
-    fun onPlaying(playing:Boolean)
+    fun onPlaying(playing:Boolean){}
 
     /**
      * 当前播放进度
+     * 空实现,部分界面可不用实现
      */
-    fun onProgress(currentDuration:Int)
+    fun onProgress(currentDuration: Int,totalDuration:Int){}
 
     /**
      * 播放模式
