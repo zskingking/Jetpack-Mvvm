@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:background="@drawable/ripple_bg"
+    android:gravity="center_vertical">
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="16dp"
+        android:id="@+id/ivPlaying"
+        android:paddingRight="4dp"
+        android:src="@mipmap/playing"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvSongName"
+        android:maxLength="15"
+        android:ellipsize="end"
+        android:textSize="@dimen/text_1"
+        android:textColor="@color/text_1"
+        tools:text="枫叶"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvSinger"
+        android:textSize="@dimen/text_3"
+        android:textColor="@color/text_3"
+        android:layout_marginLeft="3dp"
+        android:layout_marginTop="2dp"
+        tools:text="-伍佰"/>
+</LinearLayout>

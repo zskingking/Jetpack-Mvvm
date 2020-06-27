@@ -182,6 +182,13 @@ class PlayerManager private constructor() : IPlayerStatus {
     }
 
     /**
+     * 获取播放列表
+     */
+    fun getPlayList(): MutableList<AudioBean> {
+        return playList.getPlayList()
+    }
+
+    /**
      * 重置并释放播放器
      */
     fun clear() {

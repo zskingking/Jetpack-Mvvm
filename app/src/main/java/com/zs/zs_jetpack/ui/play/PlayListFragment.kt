@@ -36,6 +36,11 @@ class PlayListFragment : DialogFragment(), AudioObserver {
         PlayerManager.instance.register(this)
         click()
         tvListSize.text = String.format("(%s)",PlayerManager.instance.getPlayListSize())
+        setPlayList()
+    }
+
+    private fun setPlayList(){
+        rvPlayList.adapter = AudioAdapter()
     }
 
     private fun click() {

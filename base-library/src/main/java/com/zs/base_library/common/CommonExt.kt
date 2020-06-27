@@ -25,3 +25,7 @@ fun stringForTime(timeMs:Int):String{
 
     return Formatter().format("%02d:%02d",minutes,seconds).toString();
 }
+
+fun getRandom(start:Int,end:Int):Int{
+    return ((start+Math.random()*(end-start+1)).toInt())
+}

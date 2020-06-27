@@ -2,6 +2,7 @@ package com.zs.zs_jetpack.play
 
 import android.content.Context
 import android.util.Log
+import com.zs.base_library.common.getRandom
 import com.zs.base_library.common.isListEmpty
 import com.zs.base_library.common.toast
 import com.zs.zs_jetpack.play.bean.AudioBean
@@ -56,11 +57,23 @@ class PlayList constructor(context: Context) {
     fun nextAudio(): AudioBean? {
         val index = getIndex()
         if (!isListEmpty(audioList)) {
-            currentAudio = if (index < audioList.size - 1) {
-                audioList[index + 1]
-            } else {
-                audioList[0]
+            when(playMode){
+                //顺序
+                PlayMode.ORDER_PLAY_MODE->{
+                    currentAudio = if (index < audioList.size - 1) {
+                        audioList[index + 1]
+                    } else {
+                        audioList[0]
+                    }
+                }
+                //单曲(不做处理)
+                PlayMode.SINGLE_PLAY_MODE->{ }
+                //随机
+                PlayMode.RANDOM_PLAY_MODE->{
+                    currentAudio = audioList[getRandom(0,audioList.size-1)]
+                }
             }
+
         }
         return currentAudio
     }
@@ -71,10 +84,21 @@ class PlayList constructor(context: Context) {
     fun previousAudio(): AudioBean? {
         val index = getIndex()
         if (!isListEmpty(audioList)) {
-            currentAudio = if (index > 0) {
-                audioList[index - 1]
-            } else {
-                audioList[audioList.size-1]
+            when(playMode){
+                //顺序
+                PlayMode.ORDER_PLAY_MODE->{
+                    currentAudio = if (index > 0) {
+                        audioList[index - 1]
+                    } else {
+                        audioList[audioList.size-1]
+                    }
+                }
+                //单曲(不做处理)
+                PlayMode.SINGLE_PLAY_MODE->{ }
+                //随机
+                PlayMode.RANDOM_PLAY_MODE->{
+                    currentAudio = audioList[getRandom(0,audioList.size-1)]
+                }
             }
         }
         return currentAudio
@@ -138,6 +162,14 @@ class PlayList constructor(context: Context) {
     fun getPlayListSize(): Int {
         return audioList.size
     }
+
+    /**
+     * 获取播放列表长度
+     */
+    fun getPlayList(): MutableList<AudioBean> {
+        return audioList
+    }
+
 
     class PlayMode {
         companion object {
