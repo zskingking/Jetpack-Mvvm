@@ -35,10 +35,21 @@ class PlayList constructor(context: Context) {
     private var currentAudio: AudioBean? = null
 
     /**
+     * 当前的角标
+     */
+    private var currentIndex = 0
+    /**
      * 当前正在播放的音频
      */
     fun currentAudio(): AudioBean? {
         return currentAudio
+    }
+
+    /**
+     * 设置当前index
+     */
+    fun setIndex(audioBean: AudioBean){
+        currentIndex = getIndexByAudio(audioBean)
     }
 
     /**
@@ -55,26 +66,25 @@ class PlayList constructor(context: Context) {
      * 下一个音频
      */
     fun nextAudio(): AudioBean? {
-        val index = getIndex()
         if (!isListEmpty(audioList)) {
             when(playMode){
                 //顺序
                 PlayMode.ORDER_PLAY_MODE->{
-                    currentAudio = if (index < audioList.size - 1) {
-                        audioList[index + 1]
+                    currentIndex = if (currentIndex < audioList.size - 1) {
+                        currentIndex + 1
                     } else {
-                        audioList[0]
+                        0
                     }
                 }
                 //单曲(不做处理)
                 PlayMode.SINGLE_PLAY_MODE->{ }
                 //随机
                 PlayMode.RANDOM_PLAY_MODE->{
-                    currentAudio = audioList[getRandom(0,audioList.size-1)]
+                    currentIndex = getRandom(0,audioList.size-1)
                 }
             }
-
         }
+        currentAudio = audioList[currentIndex]
         return currentAudio
     }
 
@@ -82,25 +92,25 @@ class PlayList constructor(context: Context) {
      * 上一个音频
      */
     fun previousAudio(): AudioBean? {
-        val index = getIndex()
         if (!isListEmpty(audioList)) {
             when(playMode){
                 //顺序
                 PlayMode.ORDER_PLAY_MODE->{
-                    currentAudio = if (index > 0) {
-                        audioList[index - 1]
+                    currentIndex = if (currentIndex > 0) {
+                        currentIndex - 1
                     } else {
-                        audioList[audioList.size-1]
+                        audioList.size-1
                     }
                 }
                 //单曲(不做处理)
                 PlayMode.SINGLE_PLAY_MODE->{ }
                 //随机
                 PlayMode.RANDOM_PLAY_MODE->{
-                    currentAudio = audioList[getRandom(0,audioList.size-1)]
+                    currentIndex = getRandom(0,audioList.size-1)
                 }
             }
         }
+        currentAudio = audioList[currentIndex]
         return currentAudio
     }
 
@@ -146,9 +156,9 @@ class PlayList constructor(context: Context) {
      * 通过currentAudio获取所在的index
      * 之所以没有全局开放一个index,是为了尽可能的降低 index 的操作权限
      */
-    private fun getIndex(): Int {
+    private fun getIndexByAudio(audioBean: AudioBean): Int {
         for (index in 0 until audioList.size) {
-            if (currentAudio == audioList[index]) {
+            if (audioBean == audioList[index]) {
                 return index
             }
         }

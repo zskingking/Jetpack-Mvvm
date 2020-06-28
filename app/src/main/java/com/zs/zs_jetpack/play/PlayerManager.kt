@@ -131,6 +131,7 @@ class PlayerManager private constructor() : IPlayerStatus {
      */
     fun play(audioBean: AudioBean) {
         currentAudioBean = audioBean
+        playList.setIndex(audioBean)
         audioBean.path?.let { playerHelper.play(it) }
         sendAudioToObserver(audioBean)
         sendPlayingToObserver(true)
