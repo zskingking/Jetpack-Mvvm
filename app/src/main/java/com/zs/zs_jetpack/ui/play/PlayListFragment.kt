@@ -8,6 +8,7 @@ import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.play.AudioObserver
 import com.zs.zs_jetpack.play.PlayList
 import com.zs.zs_jetpack.play.PlayerManager
+import com.zs.zs_jetpack.play.bean.AudioBean
 import kotlinx.android.synthetic.main.fragment_play_list.*
 
 
@@ -17,6 +18,8 @@ import kotlinx.android.synthetic.main.fragment_play_list.*
  * @data 2020/6/27
  */
 class PlayListFragment : DialogFragment(), AudioObserver {
+
+    private val adapter by lazy { AudioAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +43,7 @@ class PlayListFragment : DialogFragment(), AudioObserver {
     }
 
     private fun setPlayList(){
-        rvPlayList.adapter = AudioAdapter()
+        rvPlayList.adapter = adapter
     }
 
     private fun click() {
@@ -55,6 +58,10 @@ class PlayListFragment : DialogFragment(), AudioObserver {
     override fun onDestroyView() {
         super.onDestroyView()
         PlayerManager.instance.unregister(this)
+    }
+
+    override fun onAudioBean(audioBean: AudioBean) {
+        adapter.updateCurrentPlaying()
     }
 
     override fun onPlayMode(playMode: Int) {

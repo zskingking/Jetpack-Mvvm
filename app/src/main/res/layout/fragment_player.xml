@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.zs.zs_jetpack.ui.play.PlayVM" />
+            type="com.zs.zs_jetpack.PlayViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +19,8 @@
         <ImageView
             android:id="@+id/ivBackground"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            imgPlayBlur="@{vm.albumPic}"/>
         <!--为背景加图层,避免图片过于生硬-->
         <ImageView
             android:layout_width="match_parent"
@@ -27,65 +28,71 @@
             android:background="#776B6B6B" />
 
         <ImageView
+            android:id="@+id/ivBack"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:id="@+id/ivBack"
-            android:src="@mipmap/play_back"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginLeft="10dp"/>
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@+id/ivBack"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/ivBack"
-            android:layout_marginRight="20dp"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:layout_marginLeft="10dp"
-            android:id="@+id/tvSongName"
-            android:textSize="17dp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            tools:text="公路之歌"/>
+            android:src="@mipmap/play_back"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tvSongName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:text="@{vm.songName}"
+            app:layout_constraintLeft_toRightOf="@+id/ivBack"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivBack"
+            tools:text="公路之歌" />
+
+        <TextView
+            android:id="@+id/tvSinger"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/tvSongName"
-            app:layout_constraintLeft_toLeftOf="@+id/tvSongName"
-            android:id="@+id/tvSinger"
-            android:textSize="@dimen/text_2"
+            android:text="@{vm.singer}"
             android:textColor="#E8E8E8"
-            tools:text="痛仰"/>
+            android:textSize="@dimen/text_2"
+            app:layout_constraintLeft_toLeftOf="@+id/tvSongName"
+            app:layout_constraintTop_toBottomOf="@+id/tvSongName"
+            tools:text="痛仰" />
+
         <TextView
             android:id="@+id/tvStartTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding"
             android:layout_marginLeft="@dimen/padding"
+            android:text="@{vm.currentDuration}"
             android:textColor="@color/white"
             android:textSize="@dimen/text_3"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/seekBar"
-            app:layout_constraintTop_toTopOf="@+id/seekBar"
-            android:text="@string/play_default_time" />
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/seekBar" />
 
         <androidx.appcompat.widget.AppCompatSeekBar
             android:id="@+id/seekBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:maxHeight="2.5dp"
-            android:minHeight="2.5dp"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
             android:layout_marginBottom="20dp"
-            android:thumb="@drawable/seekbar_thumb"
+            android:maxHeight="2.5dp"
+            android:minHeight="2.5dp"
             android:progressDrawable="@drawable/seek_bg"
+            android:thumb="@drawable/seekbar_thumb"
+            android:max="@{vm.maxProgress}"
+            android:progress="@{vm.playProgress}"
             app:layout_constraintBottom_toTopOf="@+id/ivPlay"
             app:layout_constraintLeft_toRightOf="@+id/tvStartTime"
-            app:layout_constraintRight_toLeftOf="@+id/tvEndTime"/>
+            app:layout_constraintRight_toLeftOf="@+id/tvEndTime" />
 
         <TextView
             android:id="@+id/tvEndTime"
@@ -93,19 +100,20 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/padding"
             android:layout_marginRight="@dimen/padding"
+            android:text="@{vm.maxDuration}"
             android:textColor="@color/white"
             android:textSize="@dimen/text_3"
-            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="@+id/seekBar"
-            app:layout_constraintTop_toTopOf="@+id/seekBar"
-            android:text="@string/play_default_time" />
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/seekBar" />
+
         <ImageView
             android:id="@+id/ivMode"
+            imgSrc="@{vm.playModePic}"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginRight="30dp"
             android:padding="9dp"
-            android:src="@mipmap/play_order"
             app:layout_constraintBottom_toBottomOf="@+id/ivPlay"
             app:layout_constraintRight_toLeftOf="@+id/ivPrevious"
             app:layout_constraintTop_toTopOf="@+id/ivPlay" />
@@ -126,6 +134,7 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginBottom="25dp"
+            imgPlay="@{vm.playStatus}"
             android:src="@mipmap/play_pause"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"

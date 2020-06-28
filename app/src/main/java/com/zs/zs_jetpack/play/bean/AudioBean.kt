@@ -40,7 +40,7 @@ class AudioBean {
     var id: Long = 0
 
     override fun toString(): String {
-        return "AudioBean(name=$name, singer=$singer, size=$size, duration=$duration, path=$path, albumId=$albumId, id=$id)"
+        return "\nAudioBean(name=$name, singer=$singer, size=$size, duration=$duration, path=$path, albumId=$albumId, id=$id)"
     }
 
 }

@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/main_fragment"
         android:label="MainFragment"
-        android:name="com.zs.zs_jetpack.ui.main.MainFragment"
+        android:name="com.zs.zs_jetpack.ui.MainFragment"
         tools:layout="@layout/fragment_main">
         <!--历史-->
         <action

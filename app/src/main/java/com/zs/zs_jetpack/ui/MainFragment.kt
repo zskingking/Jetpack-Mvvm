@@ -1,4 +1,4 @@
-package com.zs.zs_jetpack.ui.main
+package com.zs.zs_jetpack.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -40,13 +40,13 @@ class MainFragment : BaseVmFragment() {
 
     override fun init(savedInstanceState: Bundle?) {
         //初始化viewpager2
-        vpHome.initFragment(this,fragmentList).run {
+        vpHome.initFragment(this, fragmentList).run {
             //全部缓存,避免切换回重新加载
             offscreenPageLimit = fragmentList.size
         }
         //取消viewPager2滑动
         vpHome.isUserInputEnabled = false
-        vpHome.registerOnPageChangeCallback(object :ViewPager2.OnPageChangeCallback(){
+        vpHome.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 btnNav.menu.getItem(position).isChecked = true
@@ -56,17 +56,18 @@ class MainFragment : BaseVmFragment() {
         btnNav.run {
             setOnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
-                    R.id.menu_home -> vpHome.setCurrentItem(0,false)
-                    R.id.menu_project -> vpHome.setCurrentItem(1,false)
-                    R.id.menu_square -> vpHome.setCurrentItem(2,false)
-                    R.id.menu_official_account -> vpHome.setCurrentItem(3,false)
-                    R.id.menu_mine -> vpHome.setCurrentItem(4,false)
+                    R.id.menu_home -> vpHome.setCurrentItem(0, false)
+                    R.id.menu_project -> vpHome.setCurrentItem(1, false)
+                    R.id.menu_square -> vpHome.setCurrentItem(2, false)
+                    R.id.menu_official_account -> vpHome.setCurrentItem(3, false)
+                    R.id.menu_mine -> vpHome.setCurrentItem(4, false)
                 }
                 // 这里注意返回true,否则点击失效
                 true
             }
         }
     }
+
 
     override fun getLayoutId(): Int? {
         return R.layout.fragment_main
@@ -75,4 +76,5 @@ class MainFragment : BaseVmFragment() {
     override fun getDataBindingConfig(): DataBindingConfig? {
         return null
     }
+
 }

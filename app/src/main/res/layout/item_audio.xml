@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvSongName"
-        android:maxLength="15"
+        android:maxLength="20"
         android:ellipsize="end"
         android:textSize="@dimen/text_1"
         android:textColor="@color/text_1"

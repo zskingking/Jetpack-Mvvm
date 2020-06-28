@@ -28,7 +28,7 @@ fun readPlayList(context:Context,audioList:MutableList<AudioBean>){
             while (cursor.moveToNext()) {
                 val audioBean = AudioBean()
                 audioBean.name =
-                    cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DISPLAY_NAME))
+                    cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
                 audioBean.id =
                     cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media._ID))
                 audioBean.singer =
@@ -41,9 +41,10 @@ fun readPlayList(context:Context,audioList:MutableList<AudioBean>){
                     cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE))
                 audioBean.albumId =
                     cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
-
-
-                audioList.add(audioBean)
+                //筛选大于一分钟的音频
+                if (audioBean.duration>60000){
+                    audioList.add(audioBean)
+                }
             }
             cursor.close()
             Log.i("PlayList","$audioList")

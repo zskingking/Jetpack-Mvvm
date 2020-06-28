@@ -1,6 +1,5 @@
 package com.zs.zs_jetpack.ui.main.home
 
-import android.util.Log
 import androidx.databinding.ObservableField
 import com.zs.base_library.base.BaseViewModel
 
