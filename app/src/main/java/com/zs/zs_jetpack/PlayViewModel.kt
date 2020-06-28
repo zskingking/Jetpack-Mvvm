@@ -55,7 +55,6 @@ class PlayViewModel :BaseViewModel(){
         set("00:00")
     }
 
-
     /**
      * 总长度
      */

@@ -6,6 +6,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.initFragment
+import com.zs.zs_jetpack.BR
+import com.zs.zs_jetpack.PlayViewModel
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.ui.main.home.HomeFragment
 import com.zs.zs_jetpack.ui.main.mine.MineFragment
@@ -28,6 +30,8 @@ class MainFragment : BaseVmFragment() {
     private val publicNumberFragment by lazy { PublicNumberFragment() }
     private val mineFragment by lazy { MineFragment() }
 
+    private var playViewModel: PlayViewModel? = null
+
     init {
         fragmentList.apply {
             add(homeFragment)
@@ -36,6 +40,10 @@ class MainFragment : BaseVmFragment() {
             add(publicNumberFragment)
             add(mineFragment)
         }
+    }
+
+    override fun initViewModel() {
+        playViewModel = getActivityViewModel(PlayViewModel::class.java)
     }
 
     override fun init(savedInstanceState: Bundle?) {
@@ -74,7 +82,8 @@ class MainFragment : BaseVmFragment() {
     }
 
     override fun getDataBindingConfig(): DataBindingConfig? {
-        return null
+        return DataBindingConfig(R.layout.fragment_main, playViewModel)
+            .addBindingParam(BR.vm, playViewModel)
     }
 
 }

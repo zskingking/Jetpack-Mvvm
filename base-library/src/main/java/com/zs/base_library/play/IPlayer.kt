@@ -2,7 +2,7 @@ package com.zs.base_library.play
 
 
 /**
- * des 所有的音频播放控制器必须实现该接口,目的是为了让PlayManager不依赖任何
+ * des 所有的具体Player必须实现该接口,目的是为了让PlayManager不依赖任何
  *     具体的音频播放实现,原因大概有两点
  *
  *     1.PlayManager包含业务信息,Player不应该与业务信息进行耦合,否则每次改动都会对业务造成影响
