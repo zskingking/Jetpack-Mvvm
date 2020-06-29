@@ -1,5 +1,7 @@
 package com.zs.zs_jetpack.ui
 
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.zs.base_library.common.albumById
@@ -62,6 +64,15 @@ object PlayBindAdapter {
     @JvmStatic
     fun floatImgAlbum(view: FloatPlayLayout, albumId: Long?) {
         view.setAlbumPic(albumId)
+    }
+
+    /**
+     * 悬浮-图片
+     */
+    @BindingAdapter(value = ["rotate"])
+    @JvmStatic
+    fun rotate(view : View, isPlying:Boolean) {
+
     }
 
 }

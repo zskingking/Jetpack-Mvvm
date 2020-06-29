@@ -32,6 +32,15 @@ object CustomBindAdapter {
         view.loadUrl(view.context.applicationContext,url)
     }
 
+    /**
+     * 加载图片
+     */
+    @BindingAdapter(value = ["imgUriCircle"])
+    @JvmStatic
+    fun imgUriCircle(view: ImageView, albumId: Long) {
+        view.loadCircle(view.context.applicationContext, albumById(albumId))
+    }
+
 
     @BindingAdapter(value = ["visible"])
     @JvmStatic

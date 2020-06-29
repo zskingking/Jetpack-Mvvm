@@ -56,7 +56,6 @@ fun ImageView.loadCircle(context: Context,uri:Uri){
     Glide.with(context)
         .load(uri)
         .apply(RequestOptions.bitmapTransform(CircleCrop()))
-        .transition(withCrossFade(150))
         .into(this)
 }
 
