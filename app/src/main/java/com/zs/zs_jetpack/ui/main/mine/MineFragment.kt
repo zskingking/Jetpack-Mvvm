@@ -40,10 +40,10 @@ class MineFragment : LazyVmFragment() {
                 R.id.tvId -> {
 
                 }
-                R.id.llHistory -> nav(R.id.action_main_fragment_to_history_fragment)
+                R.id.llHistory -> nav().navigate(R.id.action_main_fragment_to_history_fragment)
 
                 R.id.llRanking -> {
-                    nav(R.id.action_main_fragment_to_play_fragment)
+                    nav().navigate(R.id.action_main_fragment_to_play_fragment)
                 }
                 R.id.clIntegral -> {
 

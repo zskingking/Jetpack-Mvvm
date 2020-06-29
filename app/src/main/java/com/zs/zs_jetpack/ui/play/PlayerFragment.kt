@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_player.*
  * @author zs
  * @date 2020-06-25
  */
-open class PlayerFragment : BaseVmFragment(){
+class PlayerFragment : BaseVmFragment(){
 
     private var playVM: PlayViewModel? = null
     private val playListFragment = PlayListFragment()
@@ -76,7 +76,7 @@ open class PlayerFragment : BaseVmFragment(){
         setNoRepeatClick(ivBack,ivMode, ivPrevious, ivPlay, ivNext, ivList) {
             when (it.id) {
                 R.id.ivBack -> {
-                    findNavController().popBackStack()
+                    nav().navigateUp()
                 }
                 R.id.ivMode -> {
                     PlayerManager.instance.switchPlayMode()

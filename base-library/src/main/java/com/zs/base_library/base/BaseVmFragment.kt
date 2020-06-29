@@ -11,7 +11,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.NavController
+import com.zs.base_library.navigation.NavHostFragment
 import com.zs.base_library.utils.ColorUtils
 import com.zs.base_library.utils.StatusUtils
 
@@ -53,7 +54,7 @@ abstract class BaseVmFragment : Fragment() {
             val binding: ViewDataBinding =
                 DataBindingUtil.inflate(inflater, it, container, false)
             //将ViewDataBinding生命周期与Fragment绑定
-            binding.lifecycleOwner = this
+            binding.lifecycleOwner = viewLifecycleOwner
             dataBindingConfig = getDataBindingConfig()
             dataBindingConfig?.apply {
                 val bindingParams = bindingParams
@@ -116,8 +117,8 @@ abstract class BaseVmFragment : Fragment() {
     /**
      * fragment跳转
      */
-    protected fun nav(actionId: Int) {
-        NavHostFragment.findNavController(this).navigate(actionId)
+    protected fun nav(): NavController {
+        return NavHostFragment.findNavController(this)
     }
 
     /**
@@ -127,8 +128,7 @@ abstract class BaseVmFragment : Fragment() {
 
     }
 
-
-       /**
+    /**
      * 设置状态栏背景颜色
      */
     open fun setStatusColor() {

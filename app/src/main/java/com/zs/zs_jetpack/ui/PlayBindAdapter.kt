@@ -1,11 +1,11 @@
-package com.zs.zs_jetpack.ui.play
+package com.zs.zs_jetpack.ui
 
-import android.net.Uri
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.zs.base_library.common.albumById
 import com.zs.base_library.common.loadBlurTrans
 import com.zs.zs_jetpack.R
+import com.zs.zs_jetpack.view.FloatPlayLayout
 
 /**
  * des 播放dataBinding适配器
@@ -37,5 +37,31 @@ object PlayBindAdapter {
        }
     }
 
+    /**
+     * 悬浮-处理暂停/播放
+     */
+    @BindingAdapter(value = ["floatImgPlay"])
+    @JvmStatic
+    fun floatImgPlay(view: FloatPlayLayout, playing: Boolean?) {
+        view.setImgPlaying(playing)
+    }
+
+    /**
+     * 悬浮-歌名
+     */
+    @BindingAdapter(value = ["floatSongName"])
+    @JvmStatic
+    fun floatSongName(view: FloatPlayLayout, songName: String?) {
+        view.setSongName(songName)
+    }
+
+    /**
+     * 悬浮-图片
+     */
+    @BindingAdapter(value = ["floatImgAlbum"])
+    @JvmStatic
+    fun floatImgAlbum(view: FloatPlayLayout, albumId: Long?) {
+        view.setAlbumPic(albumId)
+    }
 
 }

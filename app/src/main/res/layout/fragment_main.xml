@@ -33,13 +33,15 @@
             app:itemTextColor="@drawable/bottom_navigation_item_selector"
             app:menu="@menu/main_bottom_navigation" />
         <com.zs.zs_jetpack.view.FloatPlayLayout
+            android:id="@+id/floatLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            floatImgPlay="@{vm.playStatus}"
+            floatSongName="@{vm.songName}"
+            floatImgAlbum="@{vm.albumPic}"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/btnNav"
             android:layout_marginBottom="50dp"
             android:layout_marginRight="@dimen/padding"/>
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

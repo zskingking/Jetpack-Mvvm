@@ -9,6 +9,7 @@ import com.zs.base_library.common.initFragment
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.PlayViewModel
 import com.zs.zs_jetpack.R
+import com.zs.zs_jetpack.play.PlayerManager
 import com.zs.zs_jetpack.ui.main.home.HomeFragment
 import com.zs.zs_jetpack.ui.main.mine.MineFragment
 import com.zs.zs_jetpack.ui.main.project.ProjectFragment
@@ -22,14 +23,12 @@ import kotlinx.android.synthetic.main.fragment_main.*
  * @date 2020-05-14
  */
 class MainFragment : BaseVmFragment() {
-
     private val fragmentList = arrayListOf<Fragment>()
     private val homeFragment by lazy { HomeFragment() }
     private val projectFragment by lazy { ProjectFragment() }
     private val squareFragment by lazy { SquareFragment() }
     private val publicNumberFragment by lazy { PublicNumberFragment() }
     private val mineFragment by lazy { MineFragment() }
-
     private var playViewModel: PlayViewModel? = null
 
     init {
@@ -76,6 +75,14 @@ class MainFragment : BaseVmFragment() {
         }
     }
 
+    override fun onClick() {
+        floatLayout.playClick {
+            PlayerManager.instance.controlPlay()
+        }
+        floatLayout.rootClick {
+            nav().navigate(R.id.action_main_fragment_to_play_fragment)
+        }
+    }
 
     override fun getLayoutId(): Int? {
         return R.layout.fragment_main
@@ -85,5 +92,4 @@ class MainFragment : BaseVmFragment() {
         return DataBindingConfig(R.layout.fragment_main, playViewModel)
             .addBindingParam(BR.vm, playViewModel)
     }
-
 }

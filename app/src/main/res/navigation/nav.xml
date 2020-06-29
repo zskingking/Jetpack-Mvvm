@@ -34,6 +34,10 @@
         android:label="PlayerFragment"
         android:name="com.zs.zs_jetpack.ui.play.PlayerFragment"
         tools:layout="@layout/fragment_player">
+        <!--历史-->
+        <action
+            android:id="@+id/action_main_fragment_to_history_fragment"
+            app:destination="@+id/history_fragment"/>
 
     </fragment>
 </navigation>

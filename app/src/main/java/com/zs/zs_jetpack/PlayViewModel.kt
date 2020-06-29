@@ -12,12 +12,12 @@ class PlayViewModel :BaseViewModel(){
     /**
      * 歌名
      */
-    val songName = ObservableField<String>()
+    val songName = ObservableField<String>().apply { set("暂无播放") }
 
     /**
      * 歌手
      */
-    val singer = ObservableField<String>()
+    val singer = ObservableField<String>().apply { set("") }
 
     /**
      * 专辑图片
