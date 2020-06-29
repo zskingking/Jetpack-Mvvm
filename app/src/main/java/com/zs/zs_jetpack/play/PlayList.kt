@@ -48,7 +48,8 @@ class PlayList constructor(context: Context) {
     /**
      * 设置当前index
      */
-    fun setIndex(audioBean: AudioBean){
+    fun setCurrentAudio(audioBean: AudioBean){
+        currentAudio = audioBean
         currentIndex = getIndexByAudio(audioBean)
     }
 
