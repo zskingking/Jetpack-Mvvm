@@ -21,8 +21,13 @@
     <attr name="bnv_bg" format="color" />
     <!-- 分割线颜色-->
     <attr name="division_line" format="color" />
+    <!-- 正在播放的颜色-->
+    <attr name="playing_song_color" format="color" />
+    <attr name="playing_singer_color" format="color" />
     <!-- 返回键-->
     <attr name="back" format="reference" />
+    <!-- 音符-->
+    <attr name="note" format="reference" />
 
     <attr name="text_size_1" format="dimension" />
     <attr name="text_size_2" format="dimension" />

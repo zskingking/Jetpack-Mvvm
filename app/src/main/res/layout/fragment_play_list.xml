@@ -11,7 +11,7 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="450dp"
-        android:background="@drawable/radius_15_white"
+        android:background="@drawable/radius_15_theme"
         android:clickable="true"
         android:paddingLeft="@dimen/padding"
         android:paddingTop="@dimen/padding"
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="播放列表"
-            android:textColor="@color/text_1"
+            android:textColor="?attr/text_color_1"
             android:textSize="17dp"
             android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="2dp"
-            android:textColor="@color/text_3"
+            android:textColor="?attr/text_color_3"
             android:textSize="@dimen/text_2"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/tvList"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
                 android:text="循环播放"
-                android:textColor="@color/text_1"
+                android:textColor="?attr/text_color_1"
                 android:textSize="@dimen/text_2" />
         </LinearLayout>
 

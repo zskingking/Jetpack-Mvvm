@@ -1,5 +1,6 @@
 package com.zs.zs_jetpack.ui.play
 
+import android.view.View
 import androidx.core.content.ContextCompat
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
@@ -41,13 +42,13 @@ class AudioAdapter : BaseQuickAdapter<AudioBean, BaseViewHolder>(R.layout.item_a
         //当前正在播放
 
         if (item.id == PlayerManager.instance.getCurrentAudioBean()?.id) {
-            helper.setTextColor(R.id.tvSongName, ContextCompat.getColor(context,R.color.theme))
-            helper.setTextColor(R.id.tvSinger, ContextCompat.getColor(context,R.color.theme))
+            helper.getView<View>(R.id.tvSongName).isSelected = true
+            helper.getView<View>(R.id.tvSinger).isSelected = true
             helper.setGone(R.id.ivPlaying, false)
         } else {
+            helper.getView<View>(R.id.tvSongName).isSelected = false
+            helper.getView<View>(R.id.tvSinger).isSelected = false
             helper.setGone(R.id.ivPlaying, true)
-            helper.setTextColor(R.id.tvSongName, ContextCompat.getColor(context,R.color.text_1))
-            helper.setTextColor(R.id.tvSinger, ContextCompat.getColor(context,R.color.text_3))
         }
         helper.setText(R.id.tvSongName, item.name)
         helper.setText(R.id.tvSinger, "-${item.singer}")

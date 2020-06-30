@@ -96,12 +96,4 @@ class PlayerFragment : BaseVmFragment(){
             }
         }
     }
-
-    /**
-     * 设置状态栏背景颜色
-     */
-    override fun setSystemInvadeBlack() {
-        StatusUtils.setSystemStatus(mActivity, true, true)
-    }
-
 }
