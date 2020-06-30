@@ -23,7 +23,7 @@ object PlayBindAdapter {
     @BindingAdapter(value = ["imgPlayBlur"])
     @JvmStatic
     fun imgPlayBlur(view: ImageView, albumId: Long) {
-        view.loadBlurTrans(view.context.applicationContext,albumById(albumId), 90)
+        view.loadBlurTrans(view.context.applicationContext, albumById(albumId), 90)
     }
 
     /**
@@ -32,11 +32,7 @@ object PlayBindAdapter {
     @BindingAdapter(value = ["imgPlay"])
     @JvmStatic
     fun imgPlay(view: ImageView, playing: Boolean) {
-       if (playing){
-           view.setImageResource(R.mipmap.play_resume)
-       }else{
-           view.setImageResource(R.mipmap.play_pause)
-       }
+        view.isSelected = playing
     }
 
     /**
@@ -71,7 +67,7 @@ object PlayBindAdapter {
      */
     @BindingAdapter(value = ["rotate"])
     @JvmStatic
-    fun rotate(view : View, isPlying:Boolean) {
+    fun rotate(view: View, isPlying: Boolean) {
 
     }
 

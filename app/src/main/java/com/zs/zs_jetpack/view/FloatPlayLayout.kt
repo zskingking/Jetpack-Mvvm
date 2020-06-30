@@ -127,11 +127,7 @@ class FloatPlayLayout : LinearLayout {
      */
     fun setImgPlaying(isPlying:Boolean?){
         isPlying?.apply {
-            if (this){
-                ivPlaying.setImageResource(R.mipmap.play_resume_gray)
-            }else{
-                ivPlaying.setImageResource(R.mipmap.play_pause_gray)
-            }
+            ivPlaying.isSelected = this
         }
     }
 
