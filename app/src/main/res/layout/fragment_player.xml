@@ -25,7 +25,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#776B6B6B" />
+            android:background="#BF151515" />
 
         <ImageView
             android:id="@+id/ivBack"

@@ -91,17 +91,8 @@ object Constants {
     const val MY_INTEGRAL = "myIntegral"
 
     /**
-     * Sp主题key
+     * Sp主题key false 白天模式, true 夜间模式
      */
-    const val SP_THEME_KEY = "theme_key"
+    const val SP_THEME_KEY = "sp_theme_key"
 
-    /**
-     * 白天主题
-     */
-    const val THEME_TYPE = 100
-
-    /**
-     * 夜晚主题
-     */
-    const val THEME_NIGHT_TYPE =900
 }

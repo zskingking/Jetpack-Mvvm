@@ -39,6 +39,28 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tvNight"
+            style="@style/text_1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="58dp"
+            android:background="@drawable/ripple_bg"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/padding"
+            android:paddingRight="@dimen/padding"
+            android:text="夜间模式"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/scDayNight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tvNight"
+            app:layout_constraintBottom_toBottomOf="@+id/tvNight"
+            android:layout_marginRight="@dimen/padding"/>
+        <TextView
             android:id="@+id/tvClear"
             style="@style/text_1"
             android:layout_width="match_parent"
@@ -51,7 +73,7 @@
             android:paddingRight="@dimen/padding"
             android:text="清除缓存"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/tvNight" />
 
         <TextView
             android:id="@+id/tvClearValue"

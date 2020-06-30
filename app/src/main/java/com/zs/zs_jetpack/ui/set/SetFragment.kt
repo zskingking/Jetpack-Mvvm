@@ -3,6 +3,7 @@ package com.zs.zs_jetpack.ui.set
 import android.os.Bundle
 import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
+import com.zs.base_library.common.clickNoRepeat
 import com.zs.base_library.common.setNoRepeatClick
 import com.zs.base_library.utils.PrefUtils
 import com.zs.zs_jetpack.R
@@ -17,25 +18,41 @@ import kotlinx.android.synthetic.main.fragment_set.*
 class SetFragment : BaseVmFragment() {
 
     override fun init(savedInstanceState: Bundle?) {
+        setNightMode()
+    }
 
+    /**
+     * 却换夜间/白天模式
+     */
+    private fun setNightMode() {
+        val theme = PrefUtils.getBoolean(Constants.SP_THEME_KEY,false)
+        scDayNight.isChecked = theme
+        //不能用切换监听,否则会递归
+        scDayNight.clickNoRepeat {
+            it.isSelected = !theme
+            PrefUtils.setBoolean(Constants.SP_THEME_KEY, it.isSelected)
+            mActivity.recreate()
+        }
     }
 
     override fun onClick() {
-        setNoRepeatClick(ivBack,tvClear,tvVersion,tvAuthor,tvProject,tvCopyright,tvLogout){
-            when(it.id){
-                R.id.ivBack-> nav().navigateUp()
-                R.id.tvClear->{
-                    PrefUtils.setInt(Constants.SP_THEME_KEY, Constants.THEME_TYPE)
-                    mActivity.recreate()
+        setNoRepeatClick(ivBack, tvClear, tvVersion, tvAuthor, tvProject, tvCopyright, tvLogout) {
+            when (it.id) {
+                R.id.ivBack -> nav().navigateUp()
+                R.id.tvClear -> {
+
                 }
-                R.id.tvVersion->{
-                    PrefUtils.setInt(Constants.SP_THEME_KEY,Constants.THEME_NIGHT_TYPE)
-                    mActivity.recreate()
+                R.id.tvVersion -> {
+
                 }
-                R.id.tvAuthor->{}
-                R.id.tvProject->{}
-                R.id.tvCopyright->{}
-                R.id.tvLogout->{}
+                R.id.tvAuthor -> {
+                }
+                R.id.tvProject -> {
+                }
+                R.id.tvCopyright -> {
+                }
+                R.id.tvLogout -> {
+                }
             }
         }
     }

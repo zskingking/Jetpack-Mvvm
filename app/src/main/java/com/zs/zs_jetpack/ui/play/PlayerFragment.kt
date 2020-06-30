@@ -3,7 +3,6 @@ package com.zs.zs_jetpack.ui.play
 import android.os.Bundle
 import android.widget.SeekBar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.navigation.fragment.findNavController
 import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.setNoRepeatClick

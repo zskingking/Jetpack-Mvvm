@@ -87,8 +87,8 @@ class MainActivity : BaseVmActivity(), AudioObserver {
      * 动态切换主题
      */
     private fun changeTheme() {
-        val themeType = PrefUtils.getInt(Constants.SP_THEME_KEY,1)
-        if (themeType == Constants.THEME_NIGHT_TYPE) {
+        val theme = PrefUtils.getBoolean(Constants.SP_THEME_KEY,false)
+        if (theme) {
             setTheme(R.style.AppTheme_Night)
         } else {
             setTheme(R.style.AppTheme)
@@ -99,8 +99,8 @@ class MainActivity : BaseVmActivity(), AudioObserver {
      * 沉浸式状态,随主题改变
      */
     override fun setSystemInvadeBlack() {
-        val themeType = PrefUtils.getInt(Constants.SP_THEME_KEY,1)
-        if (themeType == Constants.THEME_NIGHT_TYPE) {
+        val theme = PrefUtils.getBoolean(Constants.SP_THEME_KEY,false)
+        if (theme) {
             StatusUtils.setSystemStatus(this, true, false)
         } else {
             StatusUtils.setSystemStatus(this, true, true)

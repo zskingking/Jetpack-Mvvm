@@ -4,7 +4,7 @@
     <style name="AppTheme" parent="Theme.Design.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">#666666</item>
 
         <item name="main_bg_1">#ffffff</item>
         <item name="main_bg_2">#DCDCDC</item>
@@ -30,7 +30,7 @@
     <style name="AppTheme_Night" parent="Theme.Design.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">#999999</item>
 
         <item name="main_bg_1">#424242</item>
         <item name="main_bg_2">#575656</item>
