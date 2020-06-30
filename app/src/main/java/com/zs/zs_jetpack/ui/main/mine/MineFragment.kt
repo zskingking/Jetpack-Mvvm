@@ -61,11 +61,9 @@ class MineFragment : LazyVmFragment() {
 
                 }
                 R.id.clSet -> {
-
+                    nav().navigate(R.id.action_main_fragment_to_set_fragment)
                 }
-
             }
         }
     }
-
 }

@@ -3,6 +3,9 @@ package com.zs.zs_jetpack
 import android.os.Bundle
 import com.zs.base_library.base.BaseVmActivity
 import com.zs.base_library.common.stringForTime
+import com.zs.base_library.utils.PrefUtils
+import com.zs.base_library.utils.StatusUtils
+import com.zs.zs_jetpack.constants.Constants
 import com.zs.zs_jetpack.play.AudioObserver
 import com.zs.zs_jetpack.play.PlayList
 import com.zs.zs_jetpack.play.PlayerManager
@@ -17,9 +20,14 @@ import com.zs.zs_jetpack.play.bean.AudioBean
  * @author zs
  * @date 2020-05-12
  */
-class MainActivity : BaseVmActivity() ,AudioObserver{
+class MainActivity : BaseVmActivity(), AudioObserver {
 
     private var playVM: PlayViewModel? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        changeTheme()
+        super.onCreate(savedInstanceState)
+    }
 
     override fun initViewModel() {
         playVM = getActivityViewModel(PlayViewModel::class.java)
@@ -68,10 +76,35 @@ class MainActivity : BaseVmActivity() ,AudioObserver{
      * 播放模式
      */
     override fun onPlayMode(playMode: Int) {
-        when(playMode){
-            PlayList.PlayMode.ORDER_PLAY_MODE ->  playVM?.playModePic?.set(R.mipmap.play_order)
-            PlayList.PlayMode.SINGLE_PLAY_MODE ->  playVM?.playModePic?.set(R.mipmap.play_single)
-            PlayList.PlayMode.RANDOM_PLAY_MODE ->  playVM?.playModePic?.set(R.mipmap.play_random)
+        when (playMode) {
+            PlayList.PlayMode.ORDER_PLAY_MODE -> playVM?.playModePic?.set(R.mipmap.play_order)
+            PlayList.PlayMode.SINGLE_PLAY_MODE -> playVM?.playModePic?.set(R.mipmap.play_single)
+            PlayList.PlayMode.RANDOM_PLAY_MODE -> playVM?.playModePic?.set(R.mipmap.play_random)
         }
     }
+
+    /**
+     * 动态切换主题
+     */
+    private fun changeTheme() {
+        val themeType = PrefUtils.getInt(Constants.SP_THEME_KEY,1)
+        if (themeType == Constants.THEME_NIGHT_TYPE) {
+            setTheme(R.style.AppTheme_Night)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
+    }
+
+    /**
+     * 沉浸式状态,随主题改变
+     */
+    override fun setSystemInvadeBlack() {
+        val themeType = PrefUtils.getInt(Constants.SP_THEME_KEY,1)
+        if (themeType == Constants.THEME_NIGHT_TYPE) {
+            StatusUtils.setSystemStatus(this, true, false)
+        } else {
+            StatusUtils.setSystemStatus(this, true, true)
+        }
+    }
+
 }

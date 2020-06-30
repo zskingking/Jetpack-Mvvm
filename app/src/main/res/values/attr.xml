@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <attr name="toolbarTitleColor" format="color" />
-    <attr name="toolbarTitleSize" format="dimension" />
-    <attr name="attr_defStyle" format="reference"/>
+    <!-- 一级标题-->
+    <attr name="text_color_1" format="color" />
+    <!-- 二级标题-->
+    <attr name="text_color_2" format="color" />
+    <!-- 三级标题-->
+    <attr name="text_color_3" format="color" />
+    <!-- 点击背景波纹-->
+    <attr name="ripple_gray" format="color" />
+    <!-- 背景主色调1-->
+    <attr name="main_bg_1" format="color" />
+    <!-- 背景主色调2-->
+    <attr name="main_bg_2" format="color" />
+    <!-- 背景主色调3-->
+    <attr name="main_bg_3" format="color" />
+    <!-- 底部导航选中颜色-->
+    <attr name="bnv_select_bg" format="color" />
+    <!-- 底部导航默认颜色-->
+    <attr name="bnv_bg" format="color" />
+    <!-- 分割线颜色-->
+    <attr name="division_line" format="color" />
+    <!-- 返回键-->
+    <attr name="back" format="reference" />
+
+    <attr name="text_size_1" format="dimension" />
+    <attr name="text_size_2" format="dimension" />
+    <attr name="text_size_3" format="dimension" />
+
 
 </resources>

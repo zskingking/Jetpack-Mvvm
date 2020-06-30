@@ -14,15 +14,7 @@
         android:layout_height="match_parent"
         tools:context=".ui.main.home.HomeFragment">
 
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:layout_marginTop="100dp"
-            android:background="#FF6262"
-            android:text="@={vm.title}"
-            app:layout_constraintTop_toTopOf="parent"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -19,6 +19,11 @@
         <action
             android:id="@+id/action_main_fragment_to_play_fragment"
             app:destination="@+id/play_fragment"/>
+
+        <!--设置-->
+        <action
+            android:id="@+id/action_main_fragment_to_set_fragment"
+            app:destination="@+id/set_fragment"/>
     </fragment>
 
     <fragment
@@ -38,6 +43,14 @@
         <action
             android:id="@+id/action_main_fragment_to_history_fragment"
             app:destination="@+id/history_fragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/set_fragment"
+        android:label="SetFragment"
+        android:name="com.zs.zs_jetpack.ui.set.SetFragment"
+        tools:layout="@layout/fragment_set">
 
     </fragment>
 </navigation>

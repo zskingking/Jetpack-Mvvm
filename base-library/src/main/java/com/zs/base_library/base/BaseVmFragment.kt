@@ -132,7 +132,7 @@ abstract class BaseVmFragment : Fragment() {
      * 设置状态栏背景颜色
      */
     open fun setStatusColor() {
-        StatusUtils.setUseStatusBarColor(mActivity, ColorUtils.parseColor("#00ffffff"))
+        //StatusUtils.setUseStatusBarColor(mActivity, ColorUtils.parseColor("#00ffffff"))
     }
 
     /**
@@ -140,7 +140,7 @@ abstract class BaseVmFragment : Fragment() {
      */
     open fun setSystemInvadeBlack() {
         //第二个参数是是否沉浸,第三个参数是状态栏字体是否为黑色。
-        StatusUtils.setSystemStatus(mActivity, true, true)
+        //StatusUtils.setSystemStatus(mActivity, true, true)
     }
 
     /**

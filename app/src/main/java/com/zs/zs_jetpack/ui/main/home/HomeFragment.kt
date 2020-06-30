@@ -21,10 +21,7 @@ class HomeFragment : LazyVmFragment() {
     }
 
     override fun lazyInit() {
-        tvTitle.clickNoRepeat {
-            homeVm?.setTitle()
-
-        }
+        
     }
 
     override fun getLayoutId(): Int? {

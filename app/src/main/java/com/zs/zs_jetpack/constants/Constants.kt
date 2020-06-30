@@ -89,4 +89,19 @@ object Constants {
      * 我的积分
      */
     const val MY_INTEGRAL = "myIntegral"
+
+    /**
+     * Sp主题key
+     */
+    const val SP_THEME_KEY = "theme_key"
+
+    /**
+     * 白天主题
+     */
+    const val THEME_TYPE = 100
+
+    /**
+     * 夜晚主题
+     */
+    const val THEME_NIGHT_TYPE =900
 }

@@ -31,7 +31,7 @@
             android:ellipsize="end"
             android:text="公路之歌"
             android:paddingLeft="10dp"
-            android:textColor="@color/text_2"
+            android:textColor="?attr/text_color_2"
             android:textSize="@dimen/text_2" />
 
         <ImageView

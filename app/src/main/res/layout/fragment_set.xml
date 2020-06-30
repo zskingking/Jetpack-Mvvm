@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/main_bg_1"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ripple_circle_bg"
+                android:padding="10dp"
+                android:src="?attr/back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="设置"
+                android:textColor="?attr/text_color_1"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvClear"
+            style="@style/text_1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="58dp"
+            android:background="@drawable/ripple_bg"
+            android:drawableRight="@mipmap/arrow_right"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/padding"
+            android:paddingRight="@dimen/padding"
+            android:text="清除缓存"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvClearValue"
+            style="@style/text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginRight="50dp"
+            android:gravity="center_vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/tvClear"
+            app:layout_constraintRight_toRightOf="@+id/tvClear"
+            app:layout_constraintTop_toTopOf="@+id/tvClear"
+            tools:text="1.23M" />
+
+        <TextView
+            android:id="@+id/tvVersion"
+            style="@style/text_1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/ripple_bg"
+            android:drawableRight="@mipmap/arrow_right"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/padding"
+            android:paddingRight="@dimen/padding"
+            android:text="版本"
+            app:layout_constraintTop_toBottomOf="@id/tvClear" />
+
+        <TextView
+            android:id="@+id/tvVersionValue"
+            style="@style/text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginRight="50dp"
+            android:gravity="center_vertical"
+            android:text="v 0.0.1"
+            app:layout_constraintBottom_toBottomOf="@+id/tvVersion"
+            app:layout_constraintRight_toRightOf="@+id/tvVersion"
+            app:layout_constraintTop_toTopOf="@+id/tvVersion" />
+
+        <TextView
+            android:id="@+id/tvAuthor"
+            style="@style/text_1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ripple_bg"
+            android:drawableRight="@mipmap/arrow_right"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/padding"
+            android:paddingRight="@dimen/padding"
+            android:text="作者"
+            app:layout_constraintTop_toBottomOf="@+id/tvVersion" />
+
+        <TextView
+            android:id="@+id/tvAuthorValue"
+            style="@style/text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginRight="50dp"
+            android:gravity="center_vertical"
+            android:text="zs_king"
+            app:layout_constraintBottom_toBottomOf="@+id/tvAuthor"
+            app:layout_constraintRight_toRightOf="@+id/tvAuthor"
+            app:layout_constraintTop_toTopOf="@+id/tvAuthor" />
+
+        <TextView
+            android:id="@+id/tvProject"
+            style="@style/text_1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/ripple_bg"
+            android:drawableRight="@mipmap/arrow_right"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/padding"
+            android:paddingRight="@dimen/padding"
+            android:text="项目"
+            app:layout_constraintTop_toBottomOf="@+id/tvAuthor" />
+
+        <TextView
+            android:id="@+id/tvCopyright"
+            style="@style/text_1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/ripple_bg"
+            android:drawableRight="@mipmap/arrow_right"
+            android:gravity="center_vertical"
+            android:paddingLeft="@dimen/padding"
+            android:paddingRight="@dimen/padding"
+            android:text="版权声明"
+            app:layout_constraintTop_toBottomOf="@+id/tvProject" />
+
+        <TextView
+            android:id="@+id/tvLogout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/ripple_bg"
+            android:gravity="center"
+            android:text="退出登录"
+            android:textColor="@color/red"
+            android:textSize="@dimen/text_1"
+            app:layout_constraintTop_toBottomOf="@+id/tvCopyright" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

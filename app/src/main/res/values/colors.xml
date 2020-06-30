@@ -23,8 +23,10 @@
     <color name="black">#000000</color>
     <!--    点击波纹效果颜色-->
     <color name="ripple_gray">#D1D1D1</color>
+
     <!--    搜索背景-->
     <color name="search_bg_gray">#F7F7F7</color>
+    <color name="red">#EF3939</color>
 
 
     <!--    分割线颜色-->
