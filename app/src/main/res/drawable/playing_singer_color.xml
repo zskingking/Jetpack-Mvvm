@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:color="?attr/text_color_2" android:state_selected="false" />
+    <item android:color="?attr/playing_song_color" android:state_selected="true" />
+
+</selector>
