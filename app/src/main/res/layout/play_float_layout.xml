@@ -39,14 +39,14 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
-            android:padding="10dp"
+            android:padding="8dp"
             android:src="@drawable/play_float_pic" />
 
         <ImageView
             android:id="@+id/ivShrink"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:padding="12dp"
+            android:padding="10dp"
             android:src="@mipmap/delete_gray" />
     </LinearLayout>
 

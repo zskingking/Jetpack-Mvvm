@@ -1,9 +1,161 @@
 package com.zs.zs_jetpack.http
 
+import com.zs.wanandroid.entity.*
+import com.zs.zs_jetpack.bean.ArticleEntity
+import com.zs.zs_jetpack.bean.NavigationEntity
+import com.zs.zs_jetpack.bean.RankEntity
+import com.zs.zs_jetpack.bean.SystemListEntity
+import retrofit2.http.*
+
 /**
  * @date 2020/5/9
  * @author zs
  */
 interface ApiService {
+    /**
+     * 获取首页文章数据
+     */
+    @GET("/article/list/{page}/json")
+    fun getHomeList(@Path("page") pageNo: Int): ApiResponse<ArticleEntity>
 
+    /**
+     * 获取首页置顶文章数据
+     */
+    @GET("/article/top/json")
+    fun getTopList(): ApiResponse<MutableList<ArticleEntity.DatasBean>>
+
+    /**
+     * banner
+     */
+    @GET("/banner/json")
+    fun getBanner(): ApiResponse<MutableList<BannerEntity>>
+
+    /**
+     * 登录
+     */
+    @FormUrlEncoded
+    @POST("/user/login")
+    fun login(@Field("username") username: String,
+              @Field("password") password: String): ApiResponse<UserEntity>
+
+    @GET("/user/logout/json")
+    fun logout():ApiResponse<Any>
+
+    /**
+     * 获取收藏文章数据
+     */
+    @GET("/lg/collect/list/{page}/json")
+    fun getCollectData(@Path("page") pageNo: Int):
+            ApiResponse<CollectEntity>
+
+    /**
+     * 获取个人积分
+     */
+    @GET("/lg/coin/userinfo/json")
+    fun getIntegral():ApiResponse<IntegralEntity>
+
+    /**
+     * 收藏
+     */
+    @POST("/lg/collect/{id}/json")
+    fun collect(@Path("id")id:Int):ApiResponse<Any>
+
+    /**
+     * 取消收藏
+     */
+    @POST("/lg/uncollect_originId/{id}/json")
+    fun unCollect(@Path("id") id: Int): ApiResponse<Any>
+
+    /**
+     * 获取项目tab
+     */
+    @GET("/project/tree/json")
+    fun getProjectTabList(): ApiResponse<MutableList<TabEntity>>
+
+    /**
+     * 获取项目tab
+     */
+    @GET("/wxarticle/chapters/json  ")
+    fun getAccountTabList(): ApiResponse<MutableList<TabEntity>>
+
+    /**
+     * 获取项目列表
+     */
+    @GET("/project/list/{pageNum}/json")
+    fun getProjectList(@Path("pageNum")pageNum:Int,@Query("cid")cid:Int)
+            :ApiResponse<ArticleEntity>
+
+    /**
+     * 获取公众号列表
+     */
+    @GET("/wxarticle/list/{id}/{pageNum}/json")
+    fun getAccountList(@Path("id")cid:Int,@Path("pageNum")pageNum:Int)
+            : ApiResponse<ArticleEntity>
+
+
+    /**
+     * 获取项目tab
+     */
+    @POST("/article/query/{pageNum}/json")
+    fun search(@Path("pageNum")pageNum:Int,@Query("k")k:String)
+            : ApiResponse<ArticleEntity>
+
+    /**
+     * 体系
+     */
+    @GET("/tree/json")
+    fun getSystemList() : ApiResponse<MutableList<SystemListEntity>>
+
+
+    /**
+     * 获取项目tab
+     */
+    @GET("/article/list/{pageNum}/json")
+    fun getSystemArticle(@Path("pageNum")pageNum:Int,@Query("cid")cid:Int)
+            : ApiResponse<ArticleEntity>
+
+    /**
+     * 导航
+     */
+    @GET("/navi/json")
+    fun getNavigation() : ApiResponse<MutableList<NavigationEntity>>
+
+    /**
+     * 排名
+     */
+    @GET("/coin/rank/{pageNum}/json")
+    fun getRank(@Path("pageNum")pageNum: Int) : ApiResponse<RankEntity>
+
+    /**
+     * 积分记录
+     */
+    @GET("/lg/coin/list/{pageNum}/json")
+    fun getIntegralRecord(@Path("pageNum")pageNum: Int) : ApiResponse<IntegralRecordEntity>
+
+    /**
+     * 我分享的文章
+     */
+    @GET("/user/lg/private_articles/{pageNum}/json")
+    fun getMyArticle(@Path("pageNum")pageNum: Int) : ApiResponse<MyArticleEntity>
+
+    /**
+     * 我分享的文章
+     */
+    @POST("/lg/user_article/delete/{id}/json")
+    fun deleteMyArticle(@Path("id")id: Int) : ApiResponse<Any>
+
+    /**
+     * 分享文章
+     */
+    @POST("/lg/user_article/add/json")
+    fun shareArticle(@Query("title")title: String,@Query("link")link: String)
+            : ApiResponse<Any>
+
+    /**
+     * 注册
+     */
+    @POST("/user/register")
+    fun register(@Query("username")username: String,
+                 @Query("password")password: String,
+                 @Query("repassword")repassword: String) : ApiResponse<Any>
 }

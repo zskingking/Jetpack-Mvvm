@@ -2,6 +2,7 @@ package com.zs.base_library.common
 
 import android.content.ClipboardManager
 import android.content.Context
+import android.os.Build
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -63,6 +64,16 @@ fun copy(context: Context, msg: String) {
     val clip = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
     clip.text = msg
     toast("已复制")
+}
+
+/**
+ * 给View设置阴影
+ */
+fun setElevation(view:View,value:Float){
+    //设置阴影
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        view.elevation = value
+    }
 }
 
 

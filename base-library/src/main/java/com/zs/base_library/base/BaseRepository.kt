@@ -81,6 +81,13 @@ open class BaseRepository(
             is ApiException -> {
                 e
             }
+            /**
+             * 如果协程还在运行，个别机型退出当前界面时，viewModel会通过抛出CancellationException，
+             * 强行结束协程，与java中InterruptException类似，所以不必理会,只需将toast隐藏即可
+             */
+            is CancellationException -> {
+                ApiException("", -10)
+            }
             else -> {
                 ApiException("未知错误", -1)
             }

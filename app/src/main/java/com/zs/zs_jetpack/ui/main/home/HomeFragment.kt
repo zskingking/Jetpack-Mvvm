@@ -3,7 +3,7 @@ package com.zs.zs_jetpack.ui.main.home
 
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
-import com.zs.base_library.common.clickNoRepeat
+import com.zs.base_library.common.setElevation
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -21,7 +21,8 @@ class HomeFragment : LazyVmFragment() {
     }
 
     override fun lazyInit() {
-        
+        //设置阴影
+        setElevation(rlTitle,10f)
     }
 
     override fun getLayoutId(): Int? {

@@ -11,11 +11,10 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/rlSearch"
+            android:id="@+id/rlTitle"
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:background="?attr/main_bg_1">

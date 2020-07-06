@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/main_bg_1"
+        android:fitsSystemWindows="true"
         tools:context=".ui.MainFragment">
 
         <androidx.viewpager2.widget.ViewPager2

@@ -38,6 +38,7 @@ class LoadingTip : RelativeLayout {
         llEmpty = view.findViewById(R.id.llEmpty)
         indicatorView = view.findViewById(R.id.indicatorView)
         llInternetError = view.findViewById(R.id.llInternetError)
+        visibility = View.GONE
     }
 
     fun setReloadListener(reload:(View)->Unit){
