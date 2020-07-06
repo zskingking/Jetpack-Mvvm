@@ -6,32 +6,17 @@
 
     <!--    #F60B0B-->
     <color name="theme">#F60B0B</color>
-    <color name="theme_2">#00CAAE</color>
-    <color name="normal_color">#bfbfbf</color>
-
 
 
     <color name="transparent">#00FFFFFF</color>
 
-
-    <!--    #F60B0B-->
-    <color name="text_1">#333333</color>
-    <color name="text_2">#666666</color>
-    <color name="text_3">#999999</color>
-
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <!--    点击波纹效果颜色-->
-    <color name="ripple_gray">#D1D1D1</color>
+
 
     <!--    搜索背景-->
     <color name="search_bg_gray">#F7F7F7</color>
     <color name="red">#EF3939</color>
-
-
-    <!--    分割线颜色-->
-    <color name="division_line">#EDEDED</color>
-    <color name="division_line_thickening">#F8F8F8</color>
 
     <color name="orange">#ea9518</color>
     <color name="seek_end">#D5D4D4</color>

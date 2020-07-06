@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root"
     android:layout_width="wrap_content"
-    android:layout_height="50dp"
+    android:layout_height="45dp"
     android:layout_margin="5dp"
     android:background="@drawable/radius_25_radius"
     android:gravity="center_vertical"
@@ -10,10 +10,10 @@
 
     <ImageView
         android:id="@+id/ivMusicPic"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:padding="10dp"
-        android:src="?attr/note" />
+        android:src="@drawable/ic_music_not" />
 
     <LinearLayout
         android:id="@+id/llContent"
@@ -31,7 +31,7 @@
             android:ellipsize="end"
             android:text="公路之歌"
             android:paddingLeft="10dp"
-            android:textColor="?attr/text_color_2"
+            android:textColor="?attr/theme_color_2"
             android:textSize="@dimen/text_2" />
 
         <ImageView
@@ -39,14 +39,14 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
-            android:padding="8dp"
+            android:padding="10dp"
             android:src="@drawable/play_float_pic" />
 
         <ImageView
             android:id="@+id/ivShrink"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:padding="10dp"
+            android:padding="12dp"
             android:src="@mipmap/delete_gray" />
     </LinearLayout>
 

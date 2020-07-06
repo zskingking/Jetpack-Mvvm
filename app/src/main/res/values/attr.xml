@@ -1,37 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- 一级标题-->
-    <attr name="text_color_1" format="color" />
-    <!-- 二级标题-->
-    <attr name="text_color_2" format="color" />
-    <!-- 三级标题-->
-    <attr name="text_color_3" format="color" />
+    <!-- 一级主色调-->
+    <attr name="theme_color_1" format="color" />
+    <!-- 二级主色调-->
+    <attr name="theme_color_2" format="color" />
+    <!-- 三级主色调-->
+    <attr name="theme_color_3" format="color" />
+
     <!-- 点击背景波纹-->
     <attr name="ripple_gray" format="color" />
+
     <!-- 背景主色调1-->
     <attr name="main_bg_1" format="color" />
     <!-- 背景主色调2-->
     <attr name="main_bg_2" format="color" />
     <!-- 背景主色调3-->
     <attr name="main_bg_3" format="color" />
+
     <!-- 底部导航选中颜色-->
     <attr name="bnv_select_bg" format="color" />
     <!-- 底部导航默认颜色-->
     <attr name="bnv_bg" format="color" />
+
     <!-- 分割线颜色-->
     <attr name="division_line" format="color" />
-    <!-- 正在播放的颜色-->
-    <attr name="playing_song_color" format="color" />
-    <attr name="playing_singer_color" format="color" />
-    <!-- 返回键-->
-    <attr name="back" format="reference" />
-    <!-- 音符-->
-    <attr name="note" format="reference" />
-
-    <attr name="text_size_1" format="dimension" />
-    <attr name="text_size_2" format="dimension" />
-    <attr name="text_size_3" format="dimension" />
-
 
 </resources>

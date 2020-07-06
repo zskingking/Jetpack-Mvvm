@@ -25,15 +25,15 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="@drawable/ripple_circle_bg"
-                android:padding="10dp"
-                android:src="?attr/back" />
+                android:padding="15dp"
+                android:src="@drawable/ic_back" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="设置"
-                android:textColor="?attr/text_color_1"
+                android:textColor="?attr/theme_color_1"
                 android:textSize="17dp"
                 android:textStyle="bold" />
         </LinearLayout>

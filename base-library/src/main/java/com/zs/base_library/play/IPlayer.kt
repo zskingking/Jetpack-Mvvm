@@ -8,7 +8,7 @@ package com.zs.base_library.play
  *     1.PlayManager包含业务信息,Player不应该与业务信息进行耦合,否则每次改动都会对业务造成影响
  *
  *     2.符合开闭原则,如果需要对Player进行替换势必会牵连到PlayManager中的业务,因而造成不必要的麻烦
- *       如果基于IPlayer接口编程,扩展出一个Player即可,正所谓对修改关闭、扩展开放
+ *       如果基于IPlayer接口编程,扩展出一个Player即可,正所谓对扩展开放、修改关闭
  *
  * @author zs
  * @data 2020-06-23

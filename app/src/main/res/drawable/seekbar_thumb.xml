@@ -23,7 +23,7 @@
         <shape
             android:shape="oval"
             android:useLevel="false">
-            <solid android:color="@color/theme"/>
+            <solid android:color="?attr/colorAccent"/>
             <size
                 android:width="12dp"
                 android:height="12dp"/>

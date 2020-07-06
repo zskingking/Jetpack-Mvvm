@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="请先登录"
-                android:textColor="?attr/text_color_1"
+                android:textColor="?attr/theme_color_1"
                 android:textSize="17dp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/tvId"
@@ -49,7 +49,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="5dp"
                 android:text="id:---"
-                android:textColor="?attr/text_color_1"
+                android:textColor="?attr/theme_color_1"
                 android:textSize="@dimen/text_2"
                 app:layout_constraintBottom_toBottomOf="@+id/ivHead"
                 app:layout_constraintLeft_toLeftOf="@+id/tvName"
@@ -72,7 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textColor="?attr/text_color_1"
+                    android:textColor="?attr/theme_color_1"
                     android:textSize="@dimen/text_1"
                     android:textStyle="bold" />
 
@@ -100,7 +100,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textColor="?attr/text_color_1"
+                    android:textColor="?attr/theme_color_1"
                     android:textSize="@dimen/text_1"
                     android:textStyle="bold" />
 
@@ -171,7 +171,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="6dp"
                     android:text="当前积分:"
-                    android:textColor="@color/text_2"
+                    android:textColor="?attr/theme_color_2"
                     android:textSize="@dimen/text_2"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
