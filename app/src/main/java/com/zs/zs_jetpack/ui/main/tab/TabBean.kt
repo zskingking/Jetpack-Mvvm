@@ -1,6 +1,6 @@
-package com.zs.wanandroid.entity
+package com.zs.zs_jetpack.ui.main.tab
 
-class TabEntity {
+class TabBean {
     /**
      * children : []
      * courseId : 13

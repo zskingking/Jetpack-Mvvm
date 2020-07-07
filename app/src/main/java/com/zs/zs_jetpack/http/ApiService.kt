@@ -5,6 +5,7 @@ import com.zs.zs_jetpack.bean.ArticleEntity
 import com.zs.zs_jetpack.bean.NavigationEntity
 import com.zs.zs_jetpack.bean.RankEntity
 import com.zs.zs_jetpack.bean.SystemListEntity
+import com.zs.zs_jetpack.ui.main.tab.TabBean
 import retrofit2.http.*
 
 /**
@@ -70,13 +71,13 @@ interface ApiService {
      * 获取项目tab
      */
     @GET("/project/tree/json")
-    fun getProjectTabList(): ApiResponse<MutableList<TabEntity>>
+    suspend fun getProjectTabList(): ApiResponse<MutableList<TabBean>>
 
     /**
      * 获取项目tab
      */
-    @GET("/wxarticle/chapters/json  ")
-    fun getAccountTabList(): ApiResponse<MutableList<TabEntity>>
+    @GET("/wxarticle/chapters/json")
+    suspend fun getAccountTabList(): ApiResponse<MutableList<TabBean>>
 
     /**
      * 获取项目列表

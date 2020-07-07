@@ -9,11 +9,11 @@ import com.zs.base_library.common.initFragment
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.PlayViewModel
 import com.zs.zs_jetpack.R
+import com.zs.zs_jetpack.constants.Constants
 import com.zs.zs_jetpack.play.PlayerManager
 import com.zs.zs_jetpack.ui.main.home.HomeFragment
 import com.zs.zs_jetpack.ui.main.mine.MineFragment
-import com.zs.zs_jetpack.ui.main.project.ProjectFragment
-import com.zs.zs_jetpack.ui.main.public.PublicNumberFragment
+import com.zs.zs_jetpack.ui.main.tab.TabFragment
 import com.zs.zs_jetpack.ui.main.square.SquareFragment
 import kotlinx.android.synthetic.main.fragment_main.*
 
@@ -25,9 +25,21 @@ import kotlinx.android.synthetic.main.fragment_main.*
 class MainFragment : BaseVmFragment() {
     private val fragmentList = arrayListOf<Fragment>()
     private val homeFragment by lazy { HomeFragment() }
-    private val projectFragment by lazy { ProjectFragment() }
+    private val projectFragment by lazy {
+        TabFragment().apply {
+            arguments = Bundle().apply {
+                putInt("type",Constants.PROJECT_TYPE)
+            }
+        }
+    }
     private val squareFragment by lazy { SquareFragment() }
-    private val publicNumberFragment by lazy { PublicNumberFragment() }
+    private val publicNumberFragment by lazy {
+        TabFragment().apply {
+            arguments = Bundle().apply {
+                putInt("type",Constants.ACCOUNT_TYPE)
+            }
+        }
+    }
     private val mineFragment by lazy { MineFragment() }
     private var playViewModel: PlayViewModel? = null
 

@@ -23,7 +23,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
  */
 fun ViewPager2.initFragment(
     fragment: Fragment,
-    fragments: ArrayList<Fragment>
+    fragments: MutableList<Fragment>
 ): ViewPager2 {
     //设置适配器
     adapter = object : FragmentStateAdapter(fragment) {

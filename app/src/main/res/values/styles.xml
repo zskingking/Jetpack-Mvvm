@@ -82,4 +82,8 @@
         <item name="android:windowBackground">@color/transparent</item>
         <item name="android:windowIsFloating">false</item>
     </style>
+
+    <style name="tabStyle" >
+        <item name="android:textSize">@dimen/text_1</item>
+    </style>
 </resources>
