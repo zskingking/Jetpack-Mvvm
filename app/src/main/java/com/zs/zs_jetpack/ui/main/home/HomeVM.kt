@@ -1,18 +1,35 @@
 package com.zs.zs_jetpack.ui.main.home
 
-import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
+import com.zs.wanandroid.entity.BannerEntity
+import com.zs.zs_jetpack.bean.ArticleEntity
 
 /**
  * des 首页
  * @date 2020/6/22
  * @author zs
  */
-class HomeVM :BaseViewModel(){
+class HomeVM : BaseViewModel() {
 
-    val title = ObservableField<String>()
+    private val repo by lazy { HomeRepo(viewModelScope,errorLiveData) }
+    /**
+     * 文章列表
+     */
+    val articleList = MutableLiveData<MutableList<ArticleEntity.DatasBean>>()
 
-    fun setTitle(){
-        title.set("我变成了music wanandroid")
+    /**
+     * banner
+     */
+    val banner = MutableLiveData<MutableList<BannerEntity>>()
+
+    /**
+     * 获取首页文章列表， 包括banner
+     */
+    fun getArticleList(isRefresh:Boolean) {
+        repo.getArticleList(isRefresh,articleList,banner)
     }
+
+
 }

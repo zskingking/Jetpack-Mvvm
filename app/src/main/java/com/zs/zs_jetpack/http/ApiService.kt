@@ -16,19 +16,19 @@ interface ApiService {
      * 获取首页文章数据
      */
     @GET("/article/list/{page}/json")
-    fun getHomeList(@Path("page") pageNo: Int): ApiResponse<ArticleEntity>
+    suspend fun getHomeList(@Path("page") pageNo: Int): ApiResponse<ArticleEntity>
 
     /**
      * 获取首页置顶文章数据
      */
     @GET("/article/top/json")
-    fun getTopList(): ApiResponse<MutableList<ArticleEntity.DatasBean>>
+    suspend fun getTopList(): ApiResponse<MutableList<ArticleEntity.DatasBean>>
 
     /**
      * banner
      */
     @GET("/banner/json")
-    fun getBanner(): ApiResponse<MutableList<BannerEntity>>
+    suspend fun getBanner(): ApiResponse<MutableList<BannerEntity>>
 
     /**
      * 登录

@@ -1,9 +1,8 @@
 package com.zs.zs_jetpack.ui.play
 
 import android.view.View
-import androidx.core.content.ContextCompat
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.chad.library.adapter.base.BaseViewHolder
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.play.PlayerManager
 import com.zs.zs_jetpack.play.bean.AudioBean
@@ -44,11 +43,11 @@ class AudioAdapter : BaseQuickAdapter<AudioBean, BaseViewHolder>(R.layout.item_a
         if (item.id == PlayerManager.instance.getCurrentAudioBean()?.id) {
             helper.getView<View>(R.id.tvSongName).isSelected = true
             helper.getView<View>(R.id.tvSinger).isSelected = true
-            helper.setGone(R.id.ivPlaying, false)
+            helper.setGone(R.id.ivPlaying, true)
         } else {
             helper.getView<View>(R.id.tvSongName).isSelected = false
             helper.getView<View>(R.id.tvSinger).isSelected = false
-            helper.setGone(R.id.ivPlaying, true)
+            helper.setGone(R.id.ivPlaying, false)
         }
         helper.setText(R.id.tvSongName, item.name)
         helper.setText(R.id.tvSinger, "-${item.singer}")

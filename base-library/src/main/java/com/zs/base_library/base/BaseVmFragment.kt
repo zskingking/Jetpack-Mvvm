@@ -144,6 +144,21 @@ abstract class BaseVmFragment : Fragment() {
     }
 
     /**
+     * 初始化View以及事件
+     */
+    open fun initView() {
+
+    }
+
+    /**
+     * 加载数据
+     */
+    open fun loadData() {
+
+    }
+
+
+    /**
      * 初始化入口
      */
     abstract fun init(savedInstanceState: Bundle?)

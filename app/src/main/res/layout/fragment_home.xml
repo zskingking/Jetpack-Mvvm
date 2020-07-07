@@ -41,54 +41,23 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/smartRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="54dp"
-            app:srlEnableAutoLoadMore="false"
-            app:srlEnableLoadMore="true"
-            app:srlEnableOverScrollBounce="true"
-            app:srlEnableRefresh="true">
-
-            <androidx.core.widget.NestedScrollView
-                android:id="@+id/nestedView"
+            android:layout_marginTop="54dp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHomeList"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:overScrollMode="never">
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <cn.bingoogolapple.bgabanner.BGABanner
-                        android:id="@+id/banner"
-                        android:layout_width="match_parent"
-                        android:layout_height="250dp"
-                        app:banner_indicatorGravity="left"
-                        app:banner_pageChangeDuration="1000"
-                        app:banner_pointAutoPlayAble="true"
-                        app:banner_pointAutoPlayInterval="3000"
-                        app:banner_pointContainerBackground="@color/transparent"
-                        app:banner_pointContainerLeftRightPadding="@dimen/padding"
-                        app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
-                        app:banner_pointTopBottomMargin="40dp" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvHomeList"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-
-            </androidx.core.widget.NestedScrollView>
-
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <com.zs.zs_jetpack.view.LoadingTip
+            android:id="@+id/loadingTip"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/loadingTip"
-            android:layout_marginTop="54dp"/>
+            android:layout_marginTop="54dp" />
     </FrameLayout>
 </layout>

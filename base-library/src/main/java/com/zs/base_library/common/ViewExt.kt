@@ -5,8 +5,10 @@ import android.content.Context
 import android.os.Build
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
 /**
  * des 视图扩展方法
@@ -28,6 +30,23 @@ fun ViewPager2.initFragment(
     }
     return this
 }
+
+/**
+ * viewPager适配fragment
+ */
+fun ViewPager2.initFragment(
+    activity: FragmentActivity,
+    fragments: ArrayList<Fragment>
+): ViewPager2 {
+    //设置适配器
+    adapter = object : FragmentStateAdapter(activity) {
+        override fun createFragment(position: Int) = fragments[position]
+        override fun getItemCount() = fragments.size
+    }
+    return this
+}
+
+
 
 /**
  * 防止重复点击,可同时注册多个view
@@ -75,5 +94,15 @@ fun setElevation(view:View,value:Float){
         view.elevation = value
     }
 }
+
+
+/**
+ * 隐藏刷新加载ui
+ */
+fun smartDismiss(smartView: SmartRefreshLayout) {
+    smartView.finishRefresh(0)
+    smartView.finishLoadMore(0)
+}
+
 
 
