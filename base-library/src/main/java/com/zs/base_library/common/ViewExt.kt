@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.module.LoadMoreModule
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
 /**
@@ -103,6 +105,8 @@ fun smartDismiss(smartView: SmartRefreshLayout) {
     smartView.finishRefresh(0)
     smartView.finishLoadMore(0)
 }
+
+
 
 
 

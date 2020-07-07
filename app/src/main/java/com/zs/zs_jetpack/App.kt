@@ -2,14 +2,15 @@ package com.zs.zs_jetpack
 
 import android.content.Context
 import androidx.multidex.MultiDex
+import com.chad.library.adapter.base.module.LoadMoreModuleConfig
+import com.chad.library.adapter.base.module.LoadMoreModuleConfig.defLoadMoreView
 import com.scwang.smartrefresh.header.MaterialHeader
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
-import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
-import com.scwang.smartrefresh.layout.header.ClassicsHeader
 import com.zs.base_library.BaseApp
 import com.zs.zs_jetpack.play.PlayerManager
+
 
 /**
  * @author zs

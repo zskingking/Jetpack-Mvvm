@@ -49,7 +49,7 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
                     .data()
             },
             success = {
-                getHomeList(articleLiveData, it)
+                getHomeList(articleLiveData, it, true)
             }
         )
     }
@@ -58,8 +58,10 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
      * 获取首页文章
      */
     private fun getHomeList(
-        articleLiveData: MutableLiveData<MutableList<ArticleEntity.DatasBean>>
-        , list: MutableList<ArticleEntity.DatasBean>? = null
+
+        articleLiveData: MutableLiveData<MutableList<ArticleEntity.DatasBean>>,
+        list: MutableList<ArticleEntity.DatasBean>? = null,
+        isRefresh: Boolean = false
     ) {
         launch(
             block = {
@@ -73,8 +75,13 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
                 }
                 //做数据累加
                 articleLiveData.value.apply {
-                    //第一次加载articleLiveData数据为null，此时赋予一个空集合
-                    val currentList = this ?: mutableListOf()
+
+                    //第一次加载 或 刷新 给 articleLiveData 赋予一个空集合
+                    val currentList = if (isRefresh || this == null){
+                        mutableListOf()
+                    }else{
+                        this
+                    }
                     it.datas?.let { it1 -> currentList.addAll(it1) }
                     articleLiveData.postValue(currentList)
                 }

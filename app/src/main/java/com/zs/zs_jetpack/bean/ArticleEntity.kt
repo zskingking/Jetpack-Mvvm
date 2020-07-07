@@ -21,14 +21,14 @@ class ArticleEntity {
     var total = 0
     var datas: MutableList<DatasBean>? = null
 
-    class DatasBean: MultiItemEntity {
-        override fun getItemType(): Int {
-            return if (envelopePic.isNullOrEmpty()){
+    class DatasBean() : MultiItemEntity {
+
+        override val itemType: Int
+            get() = if (envelopePic.isNullOrEmpty()) {
                 Constants.ITEM_ARTICLE
-            }else{
+            } else {
                 Constants.ITEM_ARTICLE_PIC
             }
-        }
 
         /**
          * apkLink :
@@ -94,6 +94,7 @@ class ArticleEntity {
         var visible = 0
         var zan = 0
         var tags: List<*>? = null
+
 
     }
 }
