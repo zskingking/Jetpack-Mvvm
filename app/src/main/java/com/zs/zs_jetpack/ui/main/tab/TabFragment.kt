@@ -1,18 +1,16 @@
 package com.zs.zs_jetpack.ui.main.tab
 
 import android.content.Context
-import android.util.Log
+import android.content.res.TypedArray
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
+import com.zs.base_library.common.getThemeColor
 import com.zs.base_library.common.initFragment
 import com.zs.base_library.common.setElevation
-import com.zs.base_library.utils.ColorUtils
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.view.MagicIndicatorUtils
@@ -24,6 +22,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView
+
 
 /**
  * des 项目/公众号公用
@@ -70,15 +69,10 @@ class TabFragment : LazyVmFragment() {
                 add(ArticleListFragment())
             }
         })
-        TabLayoutMediator(tabLayout, vpArticleFragment, false,
-            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
-                Log.i("TabLayoutMediator","${tabList[position].name}")
-                tab.text = tabList[position].name
-            }).attach()
-//        val commonNavigator = CommonNavigator(mActivity)
-//        commonNavigator.adapter = getCommonNavigatorAdapter(tabList)
-//        tabLayout.navigator = commonNavigator
-//        MagicIndicatorUtils.bindForViewPager2(vpArticleFragment,tabLayout)
+        val commonNavigator = CommonNavigator(mActivity)
+        commonNavigator.adapter = getCommonNavigatorAdapter(tabList)
+        tabLayout.navigator = commonNavigator
+        MagicIndicatorUtils.bindForViewPager2(vpArticleFragment,tabLayout)
     }
 
     /**
@@ -95,8 +89,8 @@ class TabFragment : LazyVmFragment() {
                 simplePager.textSize = 15f
                 simplePager.text = tabList[index].name
                 simplePager.setPadding(30, 0, 30, 0)
-                simplePager.normalColor = ColorUtils.parseColor(R.color.neutral)
-                simplePager.selectedColor = ColorUtils.parseColor(R.color.theme)
+                simplePager.normalColor = getThemeColor(mActivity,R.attr.theme_color_3)
+                simplePager.selectedColor = getThemeColor(mActivity,R.attr.theme_color_1)
                 simplePager.setOnClickListener {
                     vpArticleFragment.currentItem = index
                 }
@@ -111,7 +105,7 @@ class TabFragment : LazyVmFragment() {
                 indicator.roundRadius = UIUtil.dip2px(context, 1.5).toFloat()
                 indicator.startInterpolator = AccelerateInterpolator()
                 indicator.endInterpolator = DecelerateInterpolator(2.0f)
-                indicator.setColors(ColorUtils.parseColor(R.color.theme))
+                indicator.setColors(getThemeColor(mActivity,R.attr.theme_color_1))
                 return indicator
             }
         }
@@ -125,6 +119,8 @@ class TabFragment : LazyVmFragment() {
         return DataBindingConfig(R.layout.fragment_tab, tabVM)
             .addBindingParam(BR.vm, tabVM)
     }
+
+
 
 
 }

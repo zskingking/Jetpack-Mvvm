@@ -2,6 +2,7 @@ package com.zs.base_library.common
 
 import android.content.ClipboardManager
 import android.content.Context
+import android.content.res.TypedArray
 import android.os.Build
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -104,6 +105,20 @@ fun setElevation(view:View,value:Float){
 fun smartDismiss(smartView: SmartRefreshLayout) {
     smartView.finishRefresh(0)
     smartView.finishLoadMore(0)
+}
+
+/**
+ * 获取当前主图颜色属性
+ */
+fun getThemeColor(context: Context,attr:Int):Int{
+    val array: TypedArray = context.theme.obtainStyledAttributes(
+        intArrayOf(
+            attr
+        )
+    )
+    val color = array.getColor(0, -0x50506)
+    array.recycle()
+    return color
 }
 
 
