@@ -2,6 +2,7 @@ package com.zs.zs_jetpack.ui.main.tab
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.os.Bundle
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import androidx.fragment.app.Fragment
@@ -65,14 +66,22 @@ class TabFragment : LazyVmFragment() {
 
     private fun initViewPager(tabList: MutableList<TabBean>) {
         vpArticleFragment.initFragment(this, arrayListOf<Fragment>().apply {
-            tabList.forEach { _ ->
-                add(ArticleListFragment())
+            tabList.forEach {
+                add(ArticleListFragment().apply {
+                    //想各个fragment传递信息
+                    val bundle = Bundle()
+                    bundle.putInt("type", type)
+                    bundle.putInt("tabId", it.id)
+                    bundle.putString("name", it.name)
+                    arguments = bundle
+                })
             }
         })
+        //下划线绑定
         val commonNavigator = CommonNavigator(mActivity)
         commonNavigator.adapter = getCommonNavigatorAdapter(tabList)
         tabLayout.navigator = commonNavigator
-        MagicIndicatorUtils.bindForViewPager2(vpArticleFragment,tabLayout)
+        MagicIndicatorUtils.bindForViewPager2(vpArticleFragment, tabLayout)
     }
 
     /**
@@ -89,8 +98,8 @@ class TabFragment : LazyVmFragment() {
                 simplePager.textSize = 15f
                 simplePager.text = tabList[index].name
                 simplePager.setPadding(30, 0, 30, 0)
-                simplePager.normalColor = getThemeColor(mActivity,R.attr.theme_color_3)
-                simplePager.selectedColor = getThemeColor(mActivity,R.attr.theme_color_1)
+                simplePager.normalColor = getThemeColor(mActivity, R.attr.theme_color_3)
+                simplePager.selectedColor = getThemeColor(mActivity, R.attr.theme_color_1)
                 simplePager.setOnClickListener {
                     vpArticleFragment.currentItem = index
                 }
@@ -105,7 +114,7 @@ class TabFragment : LazyVmFragment() {
                 indicator.roundRadius = UIUtil.dip2px(context, 1.5).toFloat()
                 indicator.startInterpolator = AccelerateInterpolator()
                 indicator.endInterpolator = DecelerateInterpolator(2.0f)
-                indicator.setColors(getThemeColor(mActivity,R.attr.theme_color_1))
+                indicator.setColors(getThemeColor(mActivity, R.attr.theme_color_1))
                 return indicator
             }
         }
@@ -119,8 +128,6 @@ class TabFragment : LazyVmFragment() {
         return DataBindingConfig(R.layout.fragment_tab, tabVM)
             .addBindingParam(BR.vm, tabVM)
     }
-
-
 
 
 }

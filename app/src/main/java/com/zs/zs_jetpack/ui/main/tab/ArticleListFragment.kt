@@ -1,9 +1,15 @@
 package com.zs.zs_jetpack.ui.main.tab
 
+import android.util.Log
+import androidx.lifecycle.Observer
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
+import com.zs.base_library.common.smartConfig
+import com.zs.base_library.common.smartDismiss
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
+import com.zs.zs_jetpack.common.ArticleAdapter
+import kotlinx.android.synthetic.main.fragment_article.*
 
 /**
  * des 文章列表fragment
@@ -12,13 +18,63 @@ import com.zs.zs_jetpack.R
  */
 class ArticleListFragment : LazyVmFragment() {
 
-    private var tabVM: TabVM? = null
+    private var articleVM: ArticleVM? = null
+
+    /**
+     * fragment类型，项目或工号
+     */
+    private var type = 0
+
+    /**
+     * tab的id
+     */
+    private var tabId = 0
+
+    /**
+     * 文章适配器
+     */
+    private val adapter by lazy { ArticleAdapter(mutableListOf()) }
+
     override fun initViewModel() {
-        tabVM = getFragmentViewModel(TabVM::class.java)
+        articleVM = getFragmentViewModel(ArticleVM::class.java)
+    }
+
+    override fun observe() {
+        articleVM?.articleLiveData?.observe(this, Observer {
+            smartDismiss(smartRefresh)
+            Log.i("articleLiveData","size---${it.size}")
+            adapter.setNewData(it)
+        })
+        articleVM?.errorLiveData?.observe(this, Observer {
+
+        })
     }
 
     override fun lazyInit() {
+        type = arguments?.getInt("type") ?: 0
+        tabId = arguments?.getInt("tabId") ?: 0
+        initView()
+        loadData()
+    }
 
+    override fun initView() {
+        //下拉刷新
+        smartRefresh.setOnRefreshListener {
+            articleVM?.getArticle(type, tabId, true)
+        }
+        //上拉加载
+        smartRefresh.setOnLoadMoreListener {
+            articleVM?.getArticle(type,tabId,false)
+        }
+        smartConfig(smartRefresh)
+        adapter.apply {
+            rvArticleList.adapter = this
+            //setDiffCallback(ArticleDiff())
+        }
+    }
+
+    override fun loadData() {
+        articleVM?.getArticle(type, tabId, true)
     }
 
     override fun getLayoutId(): Int? {
@@ -26,7 +82,7 @@ class ArticleListFragment : LazyVmFragment() {
     }
 
     override fun getDataBindingConfig(): DataBindingConfig? {
-        return DataBindingConfig(R.layout.fragment_article, tabVM)
-            .addBindingParam(BR.vm, tabVM)
+        return DataBindingConfig(R.layout.fragment_article, articleVM)
+            .addBindingParam(BR.vm, articleVM)
     }
 }

@@ -5,8 +5,7 @@ import android.text.TextUtils
 import android.util.Log
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
-import com.chad.library.adapter.base.module.LoadMoreModule
-import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.chad.library.adapter.base.BaseViewHolder
 import com.zs.base_library.common.loadRadius
 import com.zs.base_library.utils.ColorUtils
 import com.zs.zs_jetpack.R
@@ -20,7 +19,7 @@ import com.zs.zs_jetpack.constants.Constants
  */
 class ArticleAdapter(list:MutableList<ArticleEntity.DatasBean>)
     : BaseMultiItemQuickAdapter<ArticleEntity.DatasBean,
-        BaseViewHolder>(list) ,LoadMoreModule{
+        BaseViewHolder>(list) {
 
     init {
         addItemType(Constants.ITEM_ARTICLE, R.layout.item_home_article)
@@ -61,9 +60,9 @@ class ArticleAdapter(list:MutableList<ArticleEntity.DatasBean>)
 
             //带图片
             Constants.ITEM_ARTICLE_PIC->{
-                item?.apply {
+                item.apply {
                     envelopePic?.let {
-                        helper.getView<ImageView>(R.id.ivTitle).loadRadius(context, it,5)
+                        helper.getView<ImageView>(R.id.ivTitle).loadRadius(mContext, it,5)
                     }
                     helper.setText(R.id.tvTitle,title)
                     helper.setText(R.id.tvDes,desc)

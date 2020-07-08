@@ -47,7 +47,7 @@
                 android:drawableLeft="@mipmap/search"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/smartRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -59,7 +59,7 @@
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
         <com.zs.zs_jetpack.view.LoadingTip
             android:id="@+id/loadingTip"

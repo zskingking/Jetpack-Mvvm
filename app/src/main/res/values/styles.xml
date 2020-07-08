@@ -35,8 +35,8 @@
         <item name="main_bg_2">#575656</item>
         <item name="main_bg_3">#7E7E7E</item>
 
-        <item name="theme_color_1">#ffffff</item>
-        <item name="theme_color_2">#DADADA</item>
+        <item name="theme_color_1">#EFEFEF</item>
+        <item name="theme_color_2">#C5C4C4</item>
         <item name="theme_color_3">#999999</item>
 
         <item name="ripple_gray">#808080</item>

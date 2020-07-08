@@ -83,14 +83,14 @@ interface ApiService {
      * 获取项目列表
      */
     @GET("/project/list/{pageNum}/json")
-    fun getProjectList(@Path("pageNum")pageNum:Int,@Query("cid")cid:Int)
+    suspend fun getProjectList(@Path("pageNum")pageNum:Int,@Query("cid")cid:Int)
             :ApiResponse<ArticleEntity>
 
     /**
      * 获取公众号列表
      */
     @GET("/wxarticle/list/{id}/{pageNum}/json")
-    fun getAccountList(@Path("id")cid:Int,@Path("pageNum")pageNum:Int)
+    suspend fun getAccountList(@Path("id")cid:Int,@Path("pageNum")pageNum:Int)
             : ApiResponse<ArticleEntity>
 
 

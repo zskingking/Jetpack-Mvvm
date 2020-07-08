@@ -9,8 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.module.LoadMoreModule
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
 /**
@@ -105,6 +103,22 @@ fun setElevation(view:View,value:Float){
 fun smartDismiss(smartView: SmartRefreshLayout) {
     smartView.finishRefresh(0)
     smartView.finishLoadMore(0)
+}
+
+/**
+ * 配置SmartRefreshLayout
+ */
+fun smartConfig(smartView: SmartRefreshLayout){
+    smartView.apply {
+        //加载
+        setEnableLoadMore(true)
+        //刷新
+        setEnableRefresh(true)
+        //不满一页关闭加载
+        setEnableLoadMoreWhenContentNotFull(false)
+        //滚动回弹
+        setEnableOverScrollDrag(true)
+    }
 }
 
 /**
