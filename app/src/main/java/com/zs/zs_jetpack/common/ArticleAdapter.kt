@@ -56,7 +56,7 @@ class ArticleAdapter(list:MutableList<ArticleEntity.DatasBean>)
             Constants.ITEM_ARTICLE_PIC->{
                 item.apply {
                     envelopePic?.let {
-                        helper.getView<ImageView>(R.id.ivTitle).loadRadius(mContext, it,15)
+                        helper.getView<ImageView>(R.id.ivTitle).loadRadius(mContext, it,20)
                     }
                     helper.setText(R.id.tvTitle,title)
                     helper.setText(R.id.tvDes,desc)

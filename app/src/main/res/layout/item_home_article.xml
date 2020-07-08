@@ -3,8 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/padding"
-    android:paddingLeft="@dimen/padding"
-    android:paddingRight="@dimen/padding"
     android:background="@drawable/ripple_bg"
     xmlns:tools="http://schemas.android.com/tools">
     <TextView
@@ -12,7 +10,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvTag"
         style="@style/text_3"
-        tools:text="置顶 "/>
+        tools:text="置顶 "
+        android:layout_marginLeft="@dimen/padding"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,6 +25,7 @@
         android:id="@+id/tvDate"
         style="@style/text_3"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/padding"
         tools:text="2020-03-08"/>
     <TextView
         android:layout_width="wrap_content"
@@ -33,6 +33,8 @@
         android:id="@+id/tvTitle"
         style="@style/text_1"
         android:maxLines="3"
+        android:layout_marginRight="@dimen/padding"
+        android:layout_marginLeft="@dimen/padding"
         android:layout_below="@+id/tvDate"
         android:layout_marginTop="10dp"
         tools:text="分布式协调工具之zookeeper使用篇-Zookeeper系统核心模型"/>
@@ -44,6 +46,7 @@
         android:layout_below="@+id/tvTitle"
         android:layout_marginTop="10dp"
         style="@style/text_3"
+        android:layout_marginLeft="@dimen/padding"
         tools:text="开发环境"/>
     <ImageView
         android:layout_width="30dp"
@@ -52,10 +55,11 @@
         android:padding="5dp"
         android:layout_alignTop="@+id/tvChapterName"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/padding"
         android:src="@mipmap/article_un_collect"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:background="?attr/division_line"
         android:layout_below="@+id/tvChapterName"
         android:layout_marginTop="@dimen/padding"/>

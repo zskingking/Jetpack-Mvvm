@@ -5,15 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/ripple_bg"
-    android:paddingLeft="@dimen/padding"
-    android:paddingTop="@dimen/padding"
-    android:paddingRight="@dimen/padding">
+    android:paddingTop="@dimen/padding">
 
     <ImageView
         android:id="@+id/ivTitle"
         android:layout_width="95dp"
         android:layout_height="95dp"
         android:scaleType="center"
+        android:layout_marginLeft="@dimen/padding"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,8 +21,8 @@
         style="@style/text_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="105dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginRight="20dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -34,9 +33,9 @@
         style="@style/text_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="105dp"
+        android:layout_marginLeft="120dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="@dimen/padding"
         android:maxLines="2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
@@ -56,6 +55,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:paddingLeft="10dp"
+        android:layout_marginRight="@dimen/padding"
         android:paddingTop="10dp"
         android:scaleType="centerCrop"
         android:src="@mipmap/article_un_collect"
@@ -64,7 +64,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:layout_marginTop="@dimen/padding"
         android:background="?attr/division_line"
         app:layout_constraintTop_toBottomOf="@+id/ivTitle" />

@@ -24,7 +24,15 @@ import kotlinx.android.synthetic.main.fragment_main.*
  */
 class MainFragment : BaseVmFragment() {
     private val fragmentList = arrayListOf<Fragment>()
+
+    /**
+     * 首页
+     */
     private val homeFragment by lazy { HomeFragment() }
+
+    /**
+     * 项目
+     */
     private val projectFragment by lazy {
         TabFragment().apply {
             arguments = Bundle().apply {
@@ -32,7 +40,15 @@ class MainFragment : BaseVmFragment() {
             }
         }
     }
+
+    /**
+     * 广场
+     */
     private val squareFragment by lazy { SquareFragment() }
+
+    /**
+     * 公众号
+     */
     private val publicNumberFragment by lazy {
         TabFragment().apply {
             arguments = Bundle().apply {
@@ -40,6 +56,10 @@ class MainFragment : BaseVmFragment() {
             }
         }
     }
+
+    /**
+     * 我的
+     */
     private val mineFragment by lazy { MineFragment() }
     private var playViewModel: PlayViewModel? = null
 
