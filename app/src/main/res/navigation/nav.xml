@@ -7,50 +7,63 @@
 
     <fragment
         android:id="@+id/main_fragment"
-        android:label="MainFragment"
         android:name="com.zs.zs_jetpack.ui.MainFragment"
+        android:label="MainFragment"
         tools:layout="@layout/fragment_main">
         <!--历史-->
         <action
             android:id="@+id/action_main_fragment_to_history_fragment"
-            app:destination="@+id/history_fragment"/>
+            app:destination="@+id/history_fragment" />
 
         <!--播放-->
         <action
             android:id="@+id/action_main_fragment_to_play_fragment"
-            app:destination="@+id/play_fragment"/>
+            app:destination="@+id/play_fragment" />
 
         <!--设置-->
         <action
             android:id="@+id/action_main_fragment_to_set_fragment"
-            app:destination="@+id/set_fragment"/>
+            app:destination="@+id/set_fragment" />
+
+        <!--设置-->
+        <action
+            android:id="@+id/action_main_fragment_to_search_fragment"
+            app:destination="@+id/search_fragment" />
     </fragment>
 
     <fragment
         android:id="@+id/history_fragment"
-        android:label="HistoryFragment"
         android:name="com.zs.zs_jetpack.ui.history.HistoryFragment"
+        android:label="HistoryFragment"
         tools:layout="@layout/fragment_history">
 
     </fragment>
 
     <fragment
         android:id="@+id/play_fragment"
-        android:label="PlayerFragment"
         android:name="com.zs.zs_jetpack.ui.play.PlayerFragment"
+        android:label="PlayerFragment"
         tools:layout="@layout/fragment_player">
         <!--历史-->
         <action
             android:id="@+id/action_main_fragment_to_history_fragment"
-            app:destination="@+id/history_fragment"/>
+            app:destination="@+id/history_fragment" />
 
     </fragment>
 
     <fragment
         android:id="@+id/set_fragment"
-        android:label="SetFragment"
         android:name="com.zs.zs_jetpack.ui.set.SetFragment"
+        android:label="SetFragment"
         tools:layout="@layout/fragment_set">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/search_fragment"
+        android:name="com.zs.zs_jetpack.ui.search.SearchFragment"
+        android:label="SetFragment"
+        tools:layout="@layout/fragment_search">
 
     </fragment>
 </navigation>

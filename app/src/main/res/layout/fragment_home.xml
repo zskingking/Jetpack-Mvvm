@@ -14,7 +14,7 @@
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/rlTitle"
+            android:id="@+id/clTitle"
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:background="?attr/main_bg_1">
@@ -23,28 +23,42 @@
                 style="@style/text_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/set_padding"
+                android:layout_marginLeft="@dimen/padding"
                 android:text="首页"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/tvSearch"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
+                android:layout_marginLeft="70dp"
+                android:layout_marginRight="70dp"
+                android:background="@drawable/radius_16_theme_2"
+                android:drawableLeft="@mipmap/search"
+                android:drawablePadding="5dp"
                 android:gravity="center_vertical"
-                android:paddingLeft="20dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginLeft="80dp"
-                android:layout_marginRight="50dp"
+                android:paddingLeft="15dp"
+                android:text="    根据关键字搜索"
                 android:textColor="?attr/theme_color_3"
                 android:textSize="@dimen/text_2"
-                android:text="    根据关键字搜索"
-                android:background="@drawable/radius_16_theme_3"
-                android:drawableLeft="@mipmap/search"/>
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/ivAdd"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/ripple_circle_bg"
+                android:padding="8dp"
+                android:src="@drawable/add_svg"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -52,6 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="54dp">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvHomeList"
                 android:layout_width="match_parent"

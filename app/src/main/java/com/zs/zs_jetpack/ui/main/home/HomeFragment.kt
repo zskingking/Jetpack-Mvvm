@@ -7,10 +7,7 @@ import androidx.lifecycle.Observer
 import cn.bingoogolapple.bgabanner.BGABanner
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
-import com.zs.base_library.common.loadUrl
-import com.zs.base_library.common.setElevation
-import com.zs.base_library.common.smartConfig
-import com.zs.base_library.common.smartDismiss
+import com.zs.base_library.common.*
 import com.zs.wanandroid.entity.BannerEntity
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
@@ -66,7 +63,7 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
 
     override fun initView() {
         //设置阴影
-        setElevation(rlTitle, 10f)
+        setElevation(clTitle, 10f)
         smartRefresh.setOnRefreshListener {
             page = 0
             homeVm?.getArticleList(true)
@@ -83,10 +80,23 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
             rvHomeList.adapter = this
             //setDiffCallback(ArticleDiff())
         }
+        setNoRepeatClick(ivAdd){
+            when(it.id){
+                R.id.ivAdd ->{}
+            }
+        }
     }
 
     override fun loadData() {
         homeVm?.getArticleList(true)
+    }
+
+    override fun onClick() {
+        setNoRepeatClick(tvSearch) {
+            when (it.id) {
+                R.id.tvSearch -> nav().navigate(R.id.action_main_fragment_to_search_fragment)
+            }
+        }
     }
 
     override fun getLayoutId(): Int? {
@@ -141,6 +151,5 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
             setDelegate(this@HomeFragment)
             setData(views)
         }
-
     }
 }
