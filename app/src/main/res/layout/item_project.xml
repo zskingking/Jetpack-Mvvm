@@ -1,65 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/ripple_bg"
-    android:paddingTop="@dimen/padding"
     android:paddingLeft="@dimen/padding"
+    android:paddingTop="@dimen/padding"
     android:paddingRight="@dimen/padding">
+
     <ImageView
+        android:id="@+id/ivTitle"
         android:layout_width="95dp"
         android:layout_height="95dp"
-        android:id="@+id/ivTitle"
         android:scaleType="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="105dp"
-        android:layout_marginRight="5dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle"
         style="@style/text_1"
-        tools:text="标题"
-        android:textStyle="bold"
-        android:id="@+id/tvTitle"/>
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginLeft="105dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp"
-        style="@style/text_2"
-        android:maxLines="2"
-        android:id="@+id/tvDes"
-        tools:text="描述"/>
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="标题" />
+
     <TextView
+        android:id="@+id/tvDes"
+        style="@style/text_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="105dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
+        android:maxLines="2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        tools:text="描述" />
+
+    <TextView
+        android:id="@+id/tvNameData"
+        style="@style/text_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/text_3"
-        android:id="@+id/tvNameData"
-        app:layout_constraintLeft_toLeftOf="@+id/tvTitle"
         app:layout_constraintBottom_toBottomOf="@+id/ivTitle"
-        tools:text="2020-03-14 | zskingking"/>
+        app:layout_constraintLeft_toLeftOf="@+id/tvTitle"
+        tools:text="2020-03-14 | zskingking" />
+
     <ImageView
+        android:id="@+id/ivCollect"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:id="@+id/ivCollect"
-        android:paddingTop="10dp"
         android:paddingLeft="10dp"
+        android:paddingTop="10dp"
         android:scaleType="centerCrop"
+        android:src="@mipmap/article_un_collect"
         app:layout_constraintBottom_toBottomOf="@id/ivTitle"
-        app:layout_constraintRight_toRightOf="parent"
-        android:src="@mipmap/article_un_collect"/>
+        app:layout_constraintRight_toRightOf="parent" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        app:layout_constraintTop_toBottomOf="@+id/ivTitle"
         android:layout_marginTop="@dimen/padding"
-        android:background="?attr/division_line"/>
+        android:background="?attr/division_line"
+        app:layout_constraintTop_toBottomOf="@+id/ivTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,7 +17,7 @@ import kotlinx.coroutines.CoroutineScope
 class ArticleRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<ApiException>) :
     BaseRepository(coroutineScope, errorLiveData) {
 
-    private var page = 0
+    private var page = 1
 
     /**
      * 获取文章

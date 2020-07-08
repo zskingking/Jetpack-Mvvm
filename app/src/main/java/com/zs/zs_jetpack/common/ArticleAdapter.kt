@@ -26,12 +26,6 @@ class ArticleAdapter(list:MutableList<ArticleEntity.DatasBean>)
         addItemType(Constants.ITEM_ARTICLE_PIC,R.layout.item_project)
     }
 
-
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        super.onBindViewHolder(holder, position)
-        Log.i("onBindViewHolder","onBindViewHolder")
-    }
-
     override fun convert(helper: BaseViewHolder, item: ArticleEntity.DatasBean) {
         when(helper.itemViewType){
             //不带图片
@@ -62,7 +56,7 @@ class ArticleAdapter(list:MutableList<ArticleEntity.DatasBean>)
             Constants.ITEM_ARTICLE_PIC->{
                 item.apply {
                     envelopePic?.let {
-                        helper.getView<ImageView>(R.id.ivTitle).loadRadius(mContext, it,5)
+                        helper.getView<ImageView>(R.id.ivTitle).loadRadius(mContext, it,15)
                     }
                     helper.setText(R.id.tvTitle,title)
                     helper.setText(R.id.tvDes,desc)

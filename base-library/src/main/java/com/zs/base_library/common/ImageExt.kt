@@ -9,6 +9,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.request.RequestOptions
+import com.zs.base_library.R
 
 /**
  * des 图片加载扩展方法
@@ -23,7 +24,7 @@ import com.bumptech.glide.request.RequestOptions
 fun ImageView.loadUrl(context: Context, url: String) {
     Glide.with(context)
         .load(url)
-        .transition(withCrossFade(200))
+        .transition(withCrossFade())
         .into(this)
 }
 
@@ -33,7 +34,7 @@ fun ImageView.loadUrl(context: Context, url: String) {
 fun ImageView.loadUri(context: Context, uri: Uri) {
     Glide.with(context)
         .load(uri)
-        .transition(withCrossFade(200))
+        .transition(withCrossFade())
         .into(this)
 }
 
@@ -64,9 +65,17 @@ fun ImageView.loadCircle(context: Context, uri: Uri) {
  * 圆形图片
  */
 fun ImageView.loadRadius(context: Context, url: String, radius: Int) {
+//    Glide.with(context)
+//        .load(url)
+//        .apply(RequestOptions.bitmapTransform(RoundedCorners(radius)))
+//        .into(this)
+
     Glide.with(context)
         .load(url)
-        .apply(RequestOptions.bitmapTransform(RoundedCorners(radius)))
+        .centerCrop()
+        .transition(withCrossFade())
+        .transform(RoundedCorners(radius))
+        .error(R.drawable.ic_launcher)
         .into(this)
 }
 

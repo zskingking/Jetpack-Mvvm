@@ -1,6 +1,5 @@
 package com.zs.zs_jetpack.ui.main.tab
 
-import android.util.Log
 import androidx.lifecycle.Observer
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
@@ -21,7 +20,7 @@ class ArticleListFragment : LazyVmFragment() {
     private var articleVM: ArticleVM? = null
 
     /**
-     * fragment类型，项目或工号
+     * fragment类型，项目或公号
      */
     private var type = 0
 
@@ -42,7 +41,6 @@ class ArticleListFragment : LazyVmFragment() {
     override fun observe() {
         articleVM?.articleLiveData?.observe(this, Observer {
             smartDismiss(smartRefresh)
-            Log.i("articleLiveData","size---${it.size}")
             adapter.setNewData(it)
         })
         articleVM?.errorLiveData?.observe(this, Observer {

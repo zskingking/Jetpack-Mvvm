@@ -2,24 +2,33 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zs.zs_jetpack">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".App"
-        android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme_Night">
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".SplashActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|fontScale|screenLayout|smallestScreenSize|locale|uiMode|layoutDirection|density"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden|fontScale|screenLayout|smallestScreenSize|locale|uiMode|layoutDirection|density"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

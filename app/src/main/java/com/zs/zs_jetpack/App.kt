@@ -7,7 +7,6 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.footer.BallPulseFooter
 import com.zs.base_library.BaseApp
-import com.zs.zs_jetpack.play.PlayerManager
 
 
 /**
@@ -20,7 +19,6 @@ class App: BaseApp() {
         super.onCreate()
         initSmartHead()
         MultiDex.install(this);
-        PlayerManager.instance.init(this)
     }
 
     /**
