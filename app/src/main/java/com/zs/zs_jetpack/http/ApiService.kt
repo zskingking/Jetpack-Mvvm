@@ -59,7 +59,7 @@ interface ApiService {
      * 收藏
      */
     @POST("/lg/collect/{id}/json")
-    fun collect(@Path("id")id:Int):ApiResponse<Any>
+    suspend fun collect(@Path("id")id:Int):ApiResponse<Any>
 
     /**
      * 取消收藏

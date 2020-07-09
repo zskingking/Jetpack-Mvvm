@@ -1,6 +1,7 @@
 package com.zs.zs_jetpack.ui.main.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -15,6 +16,7 @@ import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
 import com.zs.zs_jetpack.common.OnChildItemClickListener
+import com.zs.zs_jetpack.utils.CacheUtil
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
@@ -51,6 +53,9 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
         homeVm?.banner?.observe(this, Observer {
             bannerList = it
             initBanner()
+        })
+        homeVm?.collectLiveData?.observe(this, Observer {
+            adapter.collectNotifyById(it)
         })
         homeVm?.errorLiveData?.observe(this, Observer {
 
@@ -162,6 +167,8 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        Log.i("onItemChildClick","position:$position")
+
         when(view.id){
             //item
             R.id.root->{
@@ -170,7 +177,11 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
             }
             //收藏
             R.id.ivCollect->{
-                nav().navigate(R.id.action_main_fragment_to_login_fragment)
+                if (CacheUtil.isLogin()){
+                    homeVm?.collect(this@HomeFragment.adapter.data[position].id)
+                }else{
+                    nav().navigate(R.id.action_main_fragment_to_login_fragment)
+                }
             }
         }
     }

@@ -53,7 +53,21 @@ class RegisterFragment : BaseVmFragment() {
                 //确认密码是否明文
                 R.id.ivRePasswordVisibility -> registerVM.rePassIsVisibility.set(!registerVM.rePassIsVisibility.get()!!)
                 //注册
-                R.id.rlRegister -> registerVM.register()
+                R.id.rlRegister -> {
+                    if (registerVM.username.get()!!.isEmpty()){
+                        toast("请填写用户名")
+                        return@setNoRepeatClick
+                    }
+                    if (registerVM.password.get()!!.isEmpty()){
+                        toast("请填写密码")
+                        return@setNoRepeatClick
+                    }
+                    if (registerVM.rePassword.get()!!.isEmpty()){
+                        toast("请填写确认密码")
+                        return@setNoRepeatClick
+                    }
+                    registerVM.register()
+                }
             }
         }
     }

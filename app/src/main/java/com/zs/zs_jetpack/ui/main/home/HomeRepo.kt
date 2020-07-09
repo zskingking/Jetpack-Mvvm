@@ -104,4 +104,20 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
             }
         )
     }
+
+    /**
+     * 收藏
+     */
+    fun collect(id:Int,collectLiveData : MutableLiveData<Int>){
+        launch(
+            block = {
+                RetrofitManager.getApiService(ApiService::class.java)
+                    .collect(id)
+                    .data(Any::class.java)
+            },
+            success = {
+                collectLiveData.postValue(id)
+            }
+        )
+    }
 }

@@ -25,11 +25,19 @@ class HomeVM : BaseViewModel() {
     val banner = MutableLiveData<MutableList<BannerBean>>()
 
     /**
+     * 收藏
+     */
+    val collectLiveData = MutableLiveData<Int>()
+
+    /**
      * 获取首页文章列表， 包括banner
      */
     fun getArticleList(isRefresh:Boolean) {
         repo.getArticleList(isRefresh,articleList,banner)
     }
 
+    fun collect(id:Int){
+        repo.collect(id,collectLiveData)
+    }
 
 }

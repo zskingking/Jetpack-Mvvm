@@ -46,7 +46,7 @@ class ArticleAdapter(list:MutableList<ArticleEntity.DatasBean>)
                 item.run {
                     helper.getView<View>(R.id.root).clickNoRepeat {
                         onItemClickListener?.onItemChildClick(
-                            this@ArticleAdapter,it,helper.bindingAdapterPosition)
+                            this@ArticleAdapter,it,helper.absoluteAdapterPosition-1)
                     }
                     if (type==1){
                         helper.setText(R.id.tvTag,"置顶 ")
@@ -62,7 +62,7 @@ class ArticleAdapter(list:MutableList<ArticleEntity.DatasBean>)
                         .apply {
                             clickNoRepeat {
                                 onItemClickListener?.onItemChildClick(
-                                    this@ArticleAdapter,this,helper.bindingAdapterPosition)
+                                    this@ArticleAdapter,this,helper.absoluteAdapterPosition-1)
                             }
                             if (item.collect) {
                                 setImageResource(R.mipmap.article_collect)
@@ -78,7 +78,7 @@ class ArticleAdapter(list:MutableList<ArticleEntity.DatasBean>)
                 item.apply {
                     helper.getView<View>(R.id.root).clickNoRepeat {
                         onItemClickListener?.onItemChildClick(
-                            this@ArticleAdapter,it,helper.bindingAdapterPosition)
+                            this@ArticleAdapter,it,helper.absoluteAdapterPosition-1)
                     }
                     envelopePic?.let {
                         helper.getView<ImageView>(R.id.ivTitle).loadRadius(mContext, it,20)
@@ -89,7 +89,7 @@ class ArticleAdapter(list:MutableList<ArticleEntity.DatasBean>)
                     helper.getView<ImageView>(R.id.ivCollect).apply {
                         clickNoRepeat {
                             onItemClickListener?.onItemChildClick(
-                                this@ArticleAdapter,this,helper.bindingAdapterPosition)
+                                this@ArticleAdapter,this,helper.absoluteAdapterPosition-1)
                         }
                         if (item.collect) {
                             setImageResource(R.mipmap.article_collect)
@@ -98,6 +98,20 @@ class ArticleAdapter(list:MutableList<ArticleEntity.DatasBean>)
                         }
                     }
                 }
+            }
+        }
+    }
+
+    /**
+     * 收藏，通过id做局部刷新
+     */
+    fun collectNotifyById(id:Int){
+        for (index in 0 until data.size){
+            if (id == data[index].id){
+                data[index].collect = true
+                notifyItemChanged(index)
+                Log.i("onItemChildClick","collectNotifyById:${index}--${id}")
+                return
             }
         }
     }
