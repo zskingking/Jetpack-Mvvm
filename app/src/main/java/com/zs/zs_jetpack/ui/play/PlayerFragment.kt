@@ -74,21 +74,27 @@ class PlayerFragment : BaseVmFragment(){
     override fun onClick() {
         setNoRepeatClick(ivBack,ivMode, ivPrevious, ivPlay, ivNext, ivList) {
             when (it.id) {
+                //返回
                 R.id.ivBack -> {
                     nav().navigateUp()
                 }
+                //切换模式
                 R.id.ivMode -> {
                     PlayerManager.instance.switchPlayMode()
                 }
+                //上一首
                 R.id.ivPrevious -> {
                     PlayerManager.instance.previous()
                 }
+                //播放/暂停
                 R.id.ivPlay -> {
                     PlayerManager.instance.controlPlay()
                 }
+                //下一首
                 R.id.ivNext -> {
                     PlayerManager.instance.next()
                 }
+                //播放列表
                 R.id.ivList -> {
                     playListFragment.show(mActivity.supportFragmentManager,"")
                 }

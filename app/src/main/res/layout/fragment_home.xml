@@ -55,7 +55,7 @@
                 android:layout_marginRight="10dp"
                 android:background="@drawable/ripple_circle_bg"
                 android:padding="8dp"
-                android:src="@drawable/add_svg"
+                android:src="@drawable/svg_add"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

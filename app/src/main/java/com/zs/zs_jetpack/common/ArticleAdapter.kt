@@ -102,6 +102,9 @@ class ArticleAdapter(list:MutableList<ArticleEntity.DatasBean>)
         }
     }
 
+    /**
+     * 获取跳转至web界面的bundle
+     */
     fun getBundle(position: Int):Bundle{
         return Bundle().apply {
             putString("loadUrl",data[position].link)

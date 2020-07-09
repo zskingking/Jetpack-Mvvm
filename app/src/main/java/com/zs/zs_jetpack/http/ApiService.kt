@@ -29,7 +29,7 @@ interface ApiService {
      * banner
      */
     @GET("/banner/json")
-    suspend fun getBanner(): ApiResponse<MutableList<BannerEntity>>
+    suspend fun getBanner(): ApiResponse<MutableList<BannerBean>>
 
     /**
      * 登录

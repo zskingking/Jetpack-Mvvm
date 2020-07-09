@@ -1,6 +1,6 @@
 package com.zs.wanandroid.entity
 
-class BannerEntity {
+class BannerBean {
     /**
      * desc : 享学~
      * id : 29

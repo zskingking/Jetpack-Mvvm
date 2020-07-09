@@ -20,7 +20,7 @@
         android:maxLength="20"
         android:ellipsize="end"
         android:textSize="@dimen/text_1"
-        android:textColor="@drawable/playing_song_color"
+        android:textColor="@drawable/selector_playing_song_color"
         tools:text="枫叶"/>
 
     <TextView
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tvSinger"
         android:textSize="@dimen/text_3"
-        android:textColor="@drawable/playing_singer_color"
+        android:textColor="@drawable/selector_playing_singer_color"
         android:layout_marginLeft="3dp"
         android:layout_marginTop="2dp"
         tools:text="-伍佰"/>

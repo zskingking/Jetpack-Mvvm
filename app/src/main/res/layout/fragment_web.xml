@@ -33,7 +33,7 @@
                 android:layout_height="50dp"
                 android:background="@drawable/ripple_circle_bg"
                 android:padding="15dp"
-                android:src="@drawable/back_svg" />
+                android:src="@drawable/svg_back" />
 
             <TextView
                 android:id="@+id/tvTitle"

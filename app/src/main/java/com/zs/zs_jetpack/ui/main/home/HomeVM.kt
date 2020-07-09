@@ -3,7 +3,7 @@ package com.zs.zs_jetpack.ui.main.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
-import com.zs.wanandroid.entity.BannerEntity
+import com.zs.wanandroid.entity.BannerBean
 import com.zs.zs_jetpack.bean.ArticleEntity
 
 /**
@@ -22,7 +22,7 @@ class HomeVM : BaseViewModel() {
     /**
      * banner
      */
-    val banner = MutableLiveData<MutableList<BannerEntity>>()
+    val banner = MutableLiveData<MutableList<BannerBean>>()
 
     /**
      * 获取首页文章列表， 包括banner

@@ -10,11 +10,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
 import com.zs.base_library.common.*
-import com.zs.wanandroid.entity.BannerEntity
+import com.zs.wanandroid.entity.BannerBean
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
-import com.zs.zs_jetpack.common.ArticleDiff
 import com.zs.zs_jetpack.common.OnChildItemClickListener
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -27,7 +26,7 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
     , BGABanner.Delegate<ImageView?, String?> , OnChildItemClickListener {
 
     private var homeVm: HomeVM? = null
-    private var bannerList: MutableList<BannerEntity>? = null
+    private var bannerList: MutableList<BannerBean>? = null
     private val adapter by lazy { ArticleAdapter(mutableListOf()) }
     private val head by lazy {
         LayoutInflater.from(mActivity).inflate(R.layout.banner_head, null)
@@ -136,7 +135,14 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
         model: String?,
         position: Int
     ) {
-
+        nav().navigate(R.id.action_main_fragment_to_web_fragment
+            ,Bundle().apply {
+                bannerList?.get(position)?.let {
+                    putString("loadUrl",it.url)
+                    putString("title",it.title)
+                    putInt("id",it.id)
+                }
+            })
     }
 
     /**
@@ -166,7 +172,7 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
             }
             //收藏
             R.id.ivCollect->{
-
+                nav().navigate(R.id.action_main_fragment_to_login_fragment)
             }
         }
     }

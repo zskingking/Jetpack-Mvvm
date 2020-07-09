@@ -3,7 +3,7 @@ package com.zs.zs_jetpack.ui.main.home
 import androidx.lifecycle.MutableLiveData
 import com.zs.base_library.base.BaseRepository
 import com.zs.base_library.http.ApiException
-import com.zs.wanandroid.entity.BannerEntity
+import com.zs.wanandroid.entity.BannerBean
 import com.zs.zs_jetpack.bean.ArticleEntity
 import com.zs.zs_jetpack.http.ApiService
 import com.zs.zs_jetpack.http.RetrofitManager
@@ -25,7 +25,7 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
     fun getArticleList(
         isRefresh: Boolean
         , articleLiveData: MutableLiveData<MutableList<ArticleEntity.DatasBean>>
-        , banner: MutableLiveData<MutableList<BannerEntity>>
+        , banner: MutableLiveData<MutableList<BannerBean>>
     ) {
         //仅在第一页或刷新时调用banner和置顶
         if (isRefresh) {
@@ -92,7 +92,7 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
     /**
      * 获取banner
      */
-    private fun getBanner(banner: MutableLiveData<MutableList<BannerEntity>>) {
+    private fun getBanner(banner: MutableLiveData<MutableList<BannerBean>>) {
         launch(
             block = {
                 RetrofitManager.getApiService(ApiService::class.java)

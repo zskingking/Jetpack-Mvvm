@@ -13,7 +13,7 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:padding="10dp"
-        android:src="@drawable/ic_music_not" />
+        android:src="@drawable/svg_music_not" />
 
     <LinearLayout
         android:id="@+id/llContent"
@@ -40,7 +40,7 @@
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:padding="8dp"
-            android:src="@drawable/play_float_pic" />
+            android:src="@drawable/selector_play_float_pic" />
 
         <ImageView
             android:id="@+id/ivShrink"
