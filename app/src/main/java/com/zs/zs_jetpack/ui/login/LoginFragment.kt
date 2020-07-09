@@ -29,6 +29,7 @@ class LoginFragment : BaseVmFragment() {
 
     override fun observe() {
         loginVM.loginLiveData.observe(this, Observer {
+            toast("登陆成功")
             nav().navigateUp()
         })
     }
@@ -37,8 +38,7 @@ class LoginFragment : BaseVmFragment() {
         setNoRepeatClick(tvRegister, ivClear, ivPasswordVisibility, llLogin, tvSkip) {
             when (it.id) {
                 //注册
-                R.id.tvRegister -> {
-                }
+                R.id.tvRegister -> nav().navigate(R.id.action_main_fragment_to_register_fragment)
                 //清除账号
                 R.id.ivClear -> {
                     loginVM.username.set("")

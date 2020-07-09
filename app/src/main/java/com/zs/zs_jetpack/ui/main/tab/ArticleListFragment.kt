@@ -79,9 +79,7 @@ class ArticleListFragment : LazyVmFragment() , OnChildItemClickListener {
         articleVM?.getArticle(type, tabId, true)
     }
 
-    override fun getLayoutId(): Int? {
-        return R.layout.fragment_article
-    }
+    override fun getLayoutId() = R.layout.fragment_article
 
     override fun getDataBindingConfig(): DataBindingConfig? {
         return DataBindingConfig(R.layout.fragment_article, articleVM)

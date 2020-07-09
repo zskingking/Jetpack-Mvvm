@@ -43,9 +43,7 @@ class MainActivity : BaseVmActivity(), AudioObserver {
         PlayerManager.instance.unregister(this)
     }
 
-    override fun getLayoutId(): Int? {
-        return R.layout.activity_main
-    }
+    override fun getLayoutId() = R.layout.activity_main
 
     /**
      * 歌曲信息

@@ -15,9 +15,7 @@ class SquareFragment : LazyVmFragment() {
     override fun lazyInit() {
     }
 
-    override fun getLayoutId(): Int? {
-        return R.layout.fragment_square
-    }
+    override fun getLayoutId() = R.layout.fragment_square
 
     override fun getDataBindingConfig(): DataBindingConfig? {
         return null

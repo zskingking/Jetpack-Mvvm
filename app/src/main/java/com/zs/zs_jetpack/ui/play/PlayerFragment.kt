@@ -62,9 +62,7 @@ class PlayerFragment : BaseVmFragment(){
         playVM = getActivityViewModel(PlayViewModel::class.java)
     }
 
-    override fun getLayoutId(): Int? {
-        return R.layout.fragment_player
-    }
+    override fun getLayoutId() =  R.layout.fragment_player
 
     override fun getDataBindingConfig(): DataBindingConfig? {
         return DataBindingConfig(R.layout.fragment_player, playVM)

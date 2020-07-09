@@ -13,10 +13,7 @@ class HistoryFragment : LazyVmFragment() {
     override fun lazyInit() {
     }
 
-    override fun getLayoutId(): Int? {
-        return R.layout.fragment_history
-    }
-
+    override fun getLayoutId() = R.layout.fragment_history
     override fun getDataBindingConfig(): DataBindingConfig? {
         return null
     }

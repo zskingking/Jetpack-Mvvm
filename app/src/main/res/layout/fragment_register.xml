@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="vm"
-            type="com.zs.zs_jetpack.ui.login.LoginVM"/>
+            type="com.zs.zs_jetpack.ui.register.RegisterVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,50 +15,30 @@
         android:background="?attr/main_bg_1"
         android:fitsSystemWindows="true">
 
-        <View
-            app:layout_constraintLeft_toLeftOf="@+id/tvLogin"
-            app:layout_constraintRight_toRightOf="@+id/tvLogin"
+        <ImageView
+            android:id="@+id/ivBack"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="50dp"
-            android:layout_height="8dp"
-            android:layout_marginTop="98dp"
-            android:background="@color/theme" />
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:padding="15dp"
+            android:src="@drawable/svg_clear" />
 
         <TextView
             android:id="@+id/tvLogin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/padding"
             android:layout_marginTop="70dp"
-            android:text="登录"
+            android:gravity="center"
+            android:text="注册"
             android:textColor="?attr/theme_color_1"
             android:textSize="25dp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvRegisterLeft"
-            style="@style/text_1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/padding"
-            android:layout_marginTop="20dp"
-            android:text="点击此处进行  " />
-
-        <TextView
-            android:id="@+id/tvRegister"
-            app:layout_constraintLeft_toRightOf="@+id/tvRegisterLeft"
-            app:layout_constraintTop_toBottomOf="@+id/tvLogin"
-            app:layout_constraintTop_toTopOf="@+id/tvRegisterLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ripple_bg"
-            android:text="注册"
-            android:textColor="@color/theme"
-            android:textSize="@dimen/text_1" />
 
         <EditText
             android:id="@+id/etUsername"
@@ -67,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="@dimen/padding"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="50dp"
             android:layout_marginRight="@dimen/padding"
             android:background="@null"
             android:hint="请输入账号"
@@ -97,6 +78,7 @@
         <EditText
             android:id="@+id/etPassword"
             android:text="@={vm.password}"
+            passType="@{vm.passIsVisibility}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/etUsername"
             android:layout_width="match_parent"
@@ -106,7 +88,6 @@
             android:layout_marginRight="@dimen/padding"
             android:background="@null"
             android:hint="请输入密码"
-            passType="@{vm.passIsVisibility}"
             android:inputType="textPassword"
             android:textColor="?attr/theme_color_1"
             android:textColorHint="?attr/theme_color_3"
@@ -115,14 +96,14 @@
         <ImageView
             android:id="@+id/ivPasswordVisibility"
             app:layout_constraintBottom_toBottomOf="@+id/etPassword"
-            app:layout_constraintRight_toRightOf="@+id/etUsername"
+            app:layout_constraintRight_toRightOf="@+id/etPassword"
             app:layout_constraintTop_toTopOf="@+id/etPassword"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/ripple_circle_bg"
+            passSrc="@{vm.passIsVisibility}"
             android:padding="8dp"
-            android:src="@drawable/selector_pass"
-            passSrc="@{vm.passIsVisibility}"/>
+            android:src="@drawable/selector_pass" />
 
         <View
             app:layout_constraintTop_toBottomOf="@+id/etPassword"
@@ -132,10 +113,50 @@
             android:layout_marginRight="@dimen/padding"
             android:background="?attr/division_line" />
 
-        <RelativeLayout
-            android:id="@+id/llLogin"
+
+        <EditText
+            android:id="@+id/etRePassword"
+            android:text="@={vm.rePassword}"
+            passType="@{vm.rePassIsVisibility}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etPassword"
+            app:layout_constraintTop_toBottomOf="@id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="@dimen/padding"
+            android:background="@null"
+            android:hint="请再次输入密码"
+            android:inputType="textPassword"
+            android:textColor="?attr/theme_color_1"
+            android:textColorHint="?attr/theme_color_3"
+            android:textSize="@dimen/text_1" />
+
+        <ImageView
+            android:id="@+id/ivRePasswordVisibility"
+            app:layout_constraintBottom_toBottomOf="@+id/etRePassword"
+            app:layout_constraintRight_toRightOf="@+id/etRePassword"
+            app:layout_constraintTop_toTopOf="@+id/etRePassword"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ripple_circle_bg"
+            android:padding="8dp"
+            passSrc="@{vm.rePassIsVisibility}"
+            android:src="@drawable/selector_pass" />
+
+        <View
+            app:layout_constraintTop_toBottomOf="@+id/ivRePasswordVisibility"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
+            android:background="?attr/division_line" />
+
+
+        <RelativeLayout
+            android:id="@+id/rlRegister"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etRePassword"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginLeft="50dp"
@@ -144,12 +165,12 @@
             android:background="?attr/main_bg_2">
 
             <TextView
-                android:id="@+id/tvLoginTxt"
+                android:id="@+id/tvRegisterTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="登陆"
+                android:text="注册"
                 android:textColor="?attr/theme_color_2"
                 android:textSize="@dimen/text_1"
                 android:textStyle="bold" />
@@ -165,18 +186,6 @@
                 android:visibility="gone" />
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tvSkip"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/llLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/ripple_bg"
-            android:gravity="center"
-            android:text="暂不登陆"
-            android:textColor="@color/theme"
-            android:textSize="@dimen/text_1" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

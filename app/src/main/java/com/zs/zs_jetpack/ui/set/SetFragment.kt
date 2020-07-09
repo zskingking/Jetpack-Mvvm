@@ -57,10 +57,7 @@ class SetFragment : BaseVmFragment() {
         }
     }
 
-    override fun getLayoutId(): Int? {
-        return R.layout.fragment_set
-    }
-
+    override fun getLayoutId() = R.layout.fragment_set
     override fun getDataBindingConfig(): DataBindingConfig? {
         return null
     }

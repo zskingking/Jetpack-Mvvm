@@ -102,9 +102,7 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
         }
     }
 
-    override fun getLayoutId(): Int? {
-        return R.layout.fragment_home
-    }
+    override fun getLayoutId() = R.layout.fragment_home
 
     override fun getDataBindingConfig(): DataBindingConfig? {
         return DataBindingConfig(R.layout.fragment_home, homeVm)

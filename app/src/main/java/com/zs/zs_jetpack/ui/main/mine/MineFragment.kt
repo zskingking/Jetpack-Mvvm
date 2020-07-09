@@ -21,9 +21,7 @@ class MineFragment : LazyVmFragment() {
     }
 
 
-    override fun getLayoutId(): Int? {
-        return R.layout.fragment_mine
-    }
+    override fun getLayoutId() = R.layout.fragment_mine
 
     override fun getDataBindingConfig(): DataBindingConfig? {
         return null

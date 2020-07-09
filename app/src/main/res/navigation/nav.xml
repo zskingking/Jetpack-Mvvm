@@ -88,8 +88,17 @@
         android:name="com.zs.zs_jetpack.ui.login.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
-
+        <!--注册-->
+        <action
+            android:id="@+id/action_main_fragment_to_register_fragment"
+            app:destination="@+id/register_fragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/register_fragment"
+        android:name="com.zs.zs_jetpack.ui.register.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register"/>
 
 
 </navigation>

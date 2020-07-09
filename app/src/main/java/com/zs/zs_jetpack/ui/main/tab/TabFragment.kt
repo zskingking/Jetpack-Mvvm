@@ -120,10 +120,7 @@ class TabFragment : LazyVmFragment() {
         }
     }
 
-    override fun getLayoutId(): Int? {
-        return R.layout.fragment_tab
-    }
-
+    override fun getLayoutId() = R.layout.fragment_tab
     override fun getDataBindingConfig(): DataBindingConfig? {
         return DataBindingConfig(R.layout.fragment_tab, tabVM)
             .addBindingParam(BR.vm, tabVM)

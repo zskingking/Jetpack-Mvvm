@@ -156,7 +156,7 @@ interface ApiService {
      * 注册
      */
     @POST("/user/register")
-    fun register(@Query("username")username: String,
+    suspend fun register(@Query("username")username: String,
                  @Query("password")password: String,
                  @Query("repassword")repassword: String) : ApiResponse<Any>
 }

@@ -116,9 +116,8 @@ class MainFragment : BaseVmFragment() {
         }
     }
 
-    override fun getLayoutId(): Int? {
-        return R.layout.fragment_main
-    }
+    override fun getLayoutId() = R.layout.fragment_main
+
 
     override fun getDataBindingConfig(): DataBindingConfig? {
         return DataBindingConfig(R.layout.fragment_main, playViewModel)

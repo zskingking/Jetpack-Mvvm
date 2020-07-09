@@ -59,9 +59,7 @@ class SearchFragment : BaseVmFragment() {
 
     }
 
-    override fun getLayoutId(): Int? {
-        return R.layout.fragment_search
-    }
+    override fun getLayoutId() = R.layout.fragment_search
 
     override fun getDataBindingConfig(): DataBindingConfig? {
         return DataBindingConfig(R.layout.fragment_search, searchVM)

@@ -67,9 +67,7 @@ class SplashActivity : BaseVmActivity(), PermissionCallbacks {
     }
 
 
-    override fun getLayoutId(): Int {
-        return R.layout.activity_splash
-    }
+    override fun getLayoutId() = R.layout.activity_splash
 
     @AfterPermissionGranted(WRITE_EXTERNAL_STORAGE)
     private fun RequestLocationAndCallPermission() {
