@@ -16,9 +16,6 @@
 
         <item name="ripple_gray">#D1D1D1</item>
 
-        <item name="bnv_bg">#bfbfbf</item>
-        <item name="bnv_select_bg">#333333</item>
-
         <item name="division_line">#EDEDED</item>
 
 
@@ -41,8 +38,6 @@
 
         <item name="ripple_gray">#808080</item>
 
-        <item name="bnv_bg">#939393</item>
-        <item name="bnv_select_bg">#F1F0F0</item>
 
         <item name="division_line">#424242</item>
 

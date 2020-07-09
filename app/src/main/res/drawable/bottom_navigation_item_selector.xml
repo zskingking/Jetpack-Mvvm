@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:color="?attr/bnv_select_bg" android:state_checked="true" />
-    <item android:color="?attr/bnv_bg" android:state_checked="false" />
+    <item android:color="?attr/theme_color_1" android:state_checked="true" />
+    <item android:color="?attr/theme_color_3" android:state_checked="false" />
 </selector>

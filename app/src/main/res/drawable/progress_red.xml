@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 设置背景色（白色透明） -->
+
+    <item android:id="@android:id/background">
+
+        <shape>
+
+            <corners android:radius="2dp" />
+            <solid android:color="#00FFFFFF" />
+
+        </shape>
+
+    </item>
+
+    <!-- 设置进度条颜色（红色） -->
+
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <solid android:color="@color/red" />
+            </shape>
+        </clip>
+
+    </item>
+
+</layer-list>

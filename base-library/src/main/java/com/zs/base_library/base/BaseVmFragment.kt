@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import com.zs.base_library.navigation.NavHostFragment
 import com.zs.base_library.utils.ColorUtils
+import com.zs.base_library.utils.ParamUtil
 import com.zs.base_library.utils.StatusUtils
 
 /**
@@ -40,6 +41,7 @@ abstract class BaseVmFragment : Fragment() {
         //TODO 必须要在Activity与Fragment绑定后，因为如果Fragment可能获取的是Activity中ViewModel
         // 必须在onCreateView之前初始化viewModel，因为onCreateView中需要通过ViewModel与DataBinding绑定
         initViewModel()
+        ParamUtil.initParam(this)
     }
 
     override fun onCreateView(

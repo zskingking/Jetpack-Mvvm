@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:paddingTop="@dimen/padding"
     android:background="@drawable/ripple_bg"
+    android:id="@+id/root"
     xmlns:tools="http://schemas.android.com/tools">
     <TextView
         android:layout_width="wrap_content"

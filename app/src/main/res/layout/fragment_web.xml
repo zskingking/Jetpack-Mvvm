@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="vm"
+            type="com.zs.zs_jetpack.ui.web.WebVM" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/main_bg_1"
+        android:fitsSystemWindows="true"
+        tools:context="com.zs.wanandroid.ui.web.WebActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:background="?attr/main_bg_1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:id="@+id/llTitle"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/ripple_circle_bg"
+                android:padding="15dp"
+                android:src="@drawable/back_svg" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="40dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="?attr/theme_color_1"
+                android:textSize="17dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:max="@{vm.maxProgress}"
+            android:progress="@{vm.progress}"
+            android:visibility="@{vm.isVisible ? View.VISIBLE : View.GONE}"
+            android:progressDrawable="@drawable/progress_red"
+            android:layout_marginTop="55dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="57dp">
+
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never" />
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

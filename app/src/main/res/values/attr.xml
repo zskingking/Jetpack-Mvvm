@@ -18,11 +18,6 @@
     <!-- 背景主色调3-->
     <attr name="main_bg_3" format="color" />
 
-    <!-- 底部导航选中颜色-->
-    <attr name="bnv_select_bg" format="color" />
-    <!-- 底部导航默认颜色-->
-    <attr name="bnv_bg" format="color" />
-
     <!-- 分割线颜色-->
     <attr name="division_line" format="color" />
 

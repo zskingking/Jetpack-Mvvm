@@ -1,6 +1,8 @@
 package com.zs.zs_jetpack.ui.main.tab
 
+import android.view.View
 import androidx.lifecycle.Observer
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
 import com.zs.base_library.common.smartConfig
@@ -8,6 +10,7 @@ import com.zs.base_library.common.smartDismiss
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
+import com.zs.zs_jetpack.common.OnChildItemClickListener
 import kotlinx.android.synthetic.main.fragment_article.*
 
 /**
@@ -15,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_article.*
  * @date 2020/7/7
  * @author zs
  */
-class ArticleListFragment : LazyVmFragment() {
+class ArticleListFragment : LazyVmFragment() , OnChildItemClickListener {
 
     private var articleVM: ArticleVM? = null
 
@@ -66,6 +69,7 @@ class ArticleListFragment : LazyVmFragment() {
         }
         smartConfig(smartRefresh)
         adapter.apply {
+            setOnChildItemClickListener(this@ArticleListFragment)
             rvArticleList.adapter = this
             //setDiffCallback(ArticleDiff())
         }
@@ -82,5 +86,19 @@ class ArticleListFragment : LazyVmFragment() {
     override fun getDataBindingConfig(): DataBindingConfig? {
         return DataBindingConfig(R.layout.fragment_article, articleVM)
             .addBindingParam(BR.vm, articleVM)
+    }
+
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        when(view.id){
+            //item
+            R.id.root->{
+                nav().navigate(R.id.action_main_fragment_to_web_fragment
+                    ,this@ArticleListFragment.adapter.getBundle(position))
+            }
+            //收藏
+            R.id.ivCollect->{
+
+            }
+        }
     }
 }

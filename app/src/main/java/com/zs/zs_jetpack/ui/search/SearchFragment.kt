@@ -34,7 +34,7 @@ class SearchFragment : BaseVmFragment() {
                         }, {})
                 }
             }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback);
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
 
     override fun initViewModel() {

@@ -25,10 +25,15 @@
             android:id="@+id/action_main_fragment_to_set_fragment"
             app:destination="@+id/set_fragment" />
 
-        <!--设置-->
+        <!--搜索-->
         <action
             android:id="@+id/action_main_fragment_to_search_fragment"
             app:destination="@+id/search_fragment" />
+
+        <!--web-->
+        <action
+            android:id="@+id/action_main_fragment_to_web_fragment"
+            app:destination="@+id/web_fragment" />
     </fragment>
 
     <fragment
@@ -66,4 +71,11 @@
         tools:layout="@layout/fragment_search">
 
     </fragment>
+
+    <fragment
+        android:id="@+id/web_fragment"
+        android:name="com.zs.zs_jetpack.ui.web.WebFragment"
+        android:label="WebFragment"
+        tools:layout="@layout/fragment_web"/>
+
 </navigation>

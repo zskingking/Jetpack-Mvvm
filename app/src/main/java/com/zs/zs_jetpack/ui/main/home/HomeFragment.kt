@@ -1,10 +1,12 @@
 package com.zs.zs_jetpack.ui.main.home
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import androidx.lifecycle.Observer
 import cn.bingoogolapple.bgabanner.BGABanner
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
 import com.zs.base_library.common.*
@@ -13,6 +15,7 @@ import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
 import com.zs.zs_jetpack.common.ArticleDiff
+import com.zs.zs_jetpack.common.OnChildItemClickListener
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
@@ -21,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
  * @date 2020-05-14
  */
 class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
-    , BGABanner.Delegate<ImageView?, String?> {
+    , BGABanner.Delegate<ImageView?, String?> , OnChildItemClickListener {
 
     private var homeVm: HomeVM? = null
     private var bannerList: MutableList<BannerEntity>? = null
@@ -75,6 +78,7 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
         }
         smartConfig(smartRefresh)
         adapter.apply {
+            setOnChildItemClickListener(this@HomeFragment)
             //将banner添加至recyclerView
             addHeaderView(head)
             rvHomeList.adapter = this
@@ -150,6 +154,20 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
             setAdapter(this@HomeFragment)
             setDelegate(this@HomeFragment)
             setData(views)
+        }
+    }
+
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        when(view.id){
+            //item
+            R.id.root->{
+                nav().navigate(R.id.action_main_fragment_to_web_fragment
+                    ,this@HomeFragment.adapter.getBundle(position))
+            }
+            //收藏
+            R.id.ivCollect->{
+
+            }
         }
     }
 }
