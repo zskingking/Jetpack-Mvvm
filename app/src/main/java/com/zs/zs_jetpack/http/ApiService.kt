@@ -36,8 +36,8 @@ interface ApiService {
      */
     @FormUrlEncoded
     @POST("/user/login")
-    fun login(@Field("username") username: String,
-              @Field("password") password: String): ApiResponse<UserEntity>
+    suspend fun login(@Field("username") username: String,
+              @Field("password") password: String): ApiResponse<UserBean>
 
     @GET("/user/logout/json")
     fun logout():ApiResponse<Any>

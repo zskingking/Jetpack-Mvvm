@@ -1,6 +1,6 @@
 package com.zs.wanandroid.entity
 
-class UserEntity {
+class UserBean {
 
 
     /**

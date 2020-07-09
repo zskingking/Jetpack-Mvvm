@@ -4,7 +4,7 @@ import android.content.Context
 import android.text.TextUtils
 import android.util.Base64
 import com.zs.base_library.BaseApp
-
+import com.zs.base_library.BaseApp.Companion.getContext
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.ObjectInputStream
@@ -155,7 +155,7 @@ object PrefUtils {
         return sp.getLong(key, defaultValue)
     }
 
-    fun setHashSet(key: String,value:HashSet<String>){
+    fun setHashSet(key: String, value: HashSet<String>) {
         val sp = BaseApp.getContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
         sp.edit().putStringSet(key, value).apply()
     }
@@ -174,6 +174,59 @@ object PrefUtils {
     }
 
 
+    fun setObject(key: String, value: Any?) {
+        if (value == null) {
+            return
+        }
+        if (value !is Serializable) {
+            return
+        }
+        var baos: ByteArrayOutputStream? = null
+        var oos: ObjectOutputStream? = null
+        try {
+            val sp = getContext().getSharedPreferences(
+                PREF_NAME,
+                Context.MODE_PRIVATE
+            )
+            baos = ByteArrayOutputStream()
+            oos = ObjectOutputStream(baos)
+            oos.writeObject(value)
+            val temp = String(Base64.encode(baos.toByteArray(), Base64.DEFAULT))
+            sp.edit().putString(key, temp).apply()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        } finally {
+            if (oos != null && baos != null) {
+                CloseUtils.closeIO(oos, baos)
+            }
+        }
 
+    }
+
+    fun getObject(key: String): Any? {
+        var `object`: Any? = null
+        var bais: ByteArrayInputStream? = null
+        var ois: ObjectInputStream? = null
+
+        val sp = getContext().getSharedPreferences(
+            PREF_NAME,
+            Context.MODE_PRIVATE
+        )
+        val temp = sp.getString(key, "")
+        if (!TextUtils.isEmpty(temp)) {
+            try {
+                bais = ByteArrayInputStream(Base64.decode(temp!!.toByteArray(), Base64.DEFAULT))
+                ois = ObjectInputStream(bais)
+                `object` = ois.readObject()
+            } catch (ignored: Exception) {
+
+            } finally {
+                if (ois != null && bais != null) {
+                    CloseUtils.closeIO(ois, bais)
+                }
+            }
+        }
+        return `object`
+    }
 
 }

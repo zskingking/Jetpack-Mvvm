@@ -29,7 +29,7 @@ class LoginFragment : BaseVmFragment() {
 
     override fun observe() {
         loginVM.loginLiveData.observe(this, Observer {
-
+            nav().navigateUp()
         })
     }
 

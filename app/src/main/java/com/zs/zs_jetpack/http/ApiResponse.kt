@@ -9,18 +9,18 @@ import java.lang.reflect.ParameterizedType
  * @date 2020/7/5
  * @author zs
  */
-class ApiResponse<T : Any>:Serializable {
-    var data: T? = null
+class ApiResponse<T : Any> : Serializable {
+    private var data: T? = null
 
     /**
      * 业务信息
      */
-    var errorMsg = ""
+    private var errorMsg = ""
 
     /**
      * 业务code
      */
-    var errorCode = 0
+    private var errorCode = 0
 
     fun data(): T {
         when (errorCode) {
@@ -35,7 +35,8 @@ class ApiResponse<T : Any>:Serializable {
                 return data!!
             }
             //登录失败
-            -1001 -> {
+            -1 -> {
+                throw ApiException( "登陆失败",-1)
             }
         }
         //其他错误
