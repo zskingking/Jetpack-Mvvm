@@ -40,7 +40,7 @@ interface ApiService {
               @Field("password") password: String): ApiResponse<UserBean>
 
     @GET("/user/logout/json")
-    fun logout():ApiResponse<Any>
+    suspend fun logout():ApiResponse<Any>
 
     /**
      * 获取收藏文章数据

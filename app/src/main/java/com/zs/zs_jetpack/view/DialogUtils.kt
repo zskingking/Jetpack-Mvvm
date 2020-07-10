@@ -6,11 +6,12 @@ import android.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.TextView
+import com.zs.base_library.common.clickNoRepeat
 import com.zs.zs_jetpack.R
 
 
 /**
- * des 对话框代理类，对外暴露使用接口，将框架与业务进行隔离
+ * des 对话框,仅用于显示简单提示信息,每次弹窗都相互独立
  * @author zs
  * @date 2020-03-12
  */
@@ -20,21 +21,63 @@ class DialogUtils {
         private var dialog: Dialog? = null
 
         /**
+         * 二次确认对话框
+         */
+        fun confirm(context: Context,tips:String, onClick: (View) -> Unit){
+            val view = LayoutInflater.from(context).inflate(R.layout.dialog_confirm, null)
+            //提示信息
+            view.findViewById<TextView>(R.id.tvContent).apply {
+                text = tips
+            }
+            //确认
+            view.findViewById<TextView>(R.id.tvConfirm).clickNoRepeat {
+                onClick.invoke(view)
+                dismiss()
+            }
+            //取消
+            view.findViewById<TextView>(R.id.tvCancel).clickNoRepeat {
+                dismiss()
+            }
+            AlertDialog.Builder(context).apply {
+                setView(view)
+                dialog = create()
+            }
+            dialog?.show()
+        }
+
+
+        /**
          * 提示对话框
          */
         fun tips(context: Context, tips: String, onClick: (View) -> Unit) {
-            var dialog: Dialog? = null
-            val builder = AlertDialog.Builder(context)
-            var view = LayoutInflater.from(context).inflate(R.layout.dialog_confirm, null)
-            var tvContent = view.findViewById<TextView>(R.id.tvContent)
-            tvContent.text = tips
-            builder.setView(view)
-                .setPositiveButton("确定") { _, _ ->
-                    onClick.invoke(view)
-                    dialog?.dismiss()
-                }
-            dialog = builder.create()
-            dialog.show()
+            val view = LayoutInflater.from(context).inflate(R.layout.dialog_confirm, null)
+            //提示信息
+            view.findViewById<TextView>(R.id.tvContent).apply {
+                text = tips
+            }
+            //确认
+            view.findViewById<TextView>(R.id.tvConfirm).clickNoRepeat {
+                onClick.invoke(view)
+                dismiss()
+            }
+            //取消
+            view.findViewById<TextView>(R.id.tvCancel).apply {
+                visibility = View.GONE
+            }
+            AlertDialog.Builder(context).apply {
+                setView(view)
+                dialog = create()
+            }
+            dialog?.show()
+        }
+
+        /**
+         * 隐藏对话框
+         */
+        fun dismiss(){
+            dialog?.dismiss()
+            //必须滞空，否则会造成内存泄漏
+            dialog = null
         }
 
     }

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="?attr/main_bg_1"
     android:padding="@dimen/padding">
@@ -19,5 +20,29 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="10dp"
         android:id="@+id/tvContent"/>
-
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:id="@+id/tvConfirm"
+            android:layout_width="75dp"
+            android:layout_height="55dp"
+            android:gravity="center"
+            android:text="确认"
+            android:textSize="@dimen/text_1"
+            android:textColor="?attr/theme_color_1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+        <TextView
+            android:id="@+id/tvCancel"
+            android:layout_width="75dp"
+            android:layout_height="55dp"
+            android:gravity="center"
+            android:text="取消"
+            android:textSize="@dimen/text_1"
+            android:textColor="?attr/theme_color_1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/tvConfirm"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

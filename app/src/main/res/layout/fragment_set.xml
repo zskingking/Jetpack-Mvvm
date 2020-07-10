@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="vm"
+            type="com.zs.zs_jetpack.ui.set.SetVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

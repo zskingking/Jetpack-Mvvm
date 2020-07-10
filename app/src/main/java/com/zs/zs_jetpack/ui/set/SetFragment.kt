@@ -1,13 +1,18 @@
 package com.zs.zs_jetpack.ui.set
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.clickNoRepeat
 import com.zs.base_library.common.setNoRepeatClick
+import com.zs.base_library.common.toast
 import com.zs.base_library.utils.PrefUtils
+import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.constants.Constants
+import com.zs.zs_jetpack.utils.CacheUtil
+import com.zs.zs_jetpack.view.DialogUtils
 import kotlinx.android.synthetic.main.fragment_set.*
 
 /**
@@ -16,6 +21,19 @@ import kotlinx.android.synthetic.main.fragment_set.*
  * @date 2020-06-30
  */
 class SetFragment : BaseVmFragment() {
+
+    private lateinit var setVM: SetVM
+
+    override fun initViewModel() {
+        setVM = getFragmentViewModel(SetVM::class.java)
+    }
+
+    override fun observe() {
+        setVM.logoutLiveData.observe(this, Observer {
+            toast("已退出登陆")
+            nav().navigateUp()
+        })
+    }
 
     override fun init(savedInstanceState: Bundle?) {
         setNightMode()
@@ -52,6 +70,13 @@ class SetFragment : BaseVmFragment() {
                 R.id.tvCopyright -> {
                 }
                 R.id.tvLogout -> {
+                    if (!CacheUtil.isLogin()){
+                        toast("请先登陆～")
+                        return@setNoRepeatClick
+                    }
+                    DialogUtils.confirm(mActivity,"确定退出登录？"){
+                        setVM.logout()
+                    }
                 }
             }
         }
@@ -59,7 +84,8 @@ class SetFragment : BaseVmFragment() {
 
     override fun getLayoutId() = R.layout.fragment_set
     override fun getDataBindingConfig(): DataBindingConfig? {
-        return null
+        return DataBindingConfig(R.layout.fragment_set, setVM)
+            .addBindingParam(BR.vm, setVM)
     }
 
 }
