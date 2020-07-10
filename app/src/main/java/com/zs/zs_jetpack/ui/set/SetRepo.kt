@@ -8,6 +8,7 @@ import com.zs.zs_jetpack.constants.Constants
 import com.zs.zs_jetpack.event.LogoutEvent
 import com.zs.zs_jetpack.http.ApiService
 import com.zs.zs_jetpack.http.RetrofitManager
+import com.zs.zs_jetpack.utils.CacheUtil
 import kotlinx.coroutines.CoroutineScope
 import org.greenrobot.eventbus.EventBus
 
@@ -30,12 +31,7 @@ class SetRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Api
                     .data(Any::class.java)
             },
             success = {
-                //重置登陆状态
-                PrefUtils.setBoolean(Constants.LOGIN, false)
-                //移除用户信息
-                PrefUtils.removeKey(Constants.USER_INFO)
-                //发送退出登录消息
-                EventBus.getDefault().post(LogoutEvent())
+                CacheUtil.resetUser()
                 logoutLiveData.postValue(it)
             }
         )

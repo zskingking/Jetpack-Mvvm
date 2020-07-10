@@ -3,7 +3,9 @@ package com.zs.zs_jetpack.ui.main.mine
 import androidx.lifecycle.MutableLiveData
 import com.zs.base_library.base.BaseRepository
 import com.zs.base_library.http.ApiException
-import com.zs.wanandroid.entity.IntegralEntity
+import com.zs.base_library.utils.PrefUtils
+import com.zs.wanandroid.entity.IntegralBean
+import com.zs.zs_jetpack.constants.Constants
 import com.zs.zs_jetpack.http.ApiService
 import com.zs.zs_jetpack.http.RetrofitManager
 import kotlinx.coroutines.CoroutineScope
@@ -16,7 +18,7 @@ import kotlinx.coroutines.CoroutineScope
 class MineRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<ApiException>) :
     BaseRepository(coroutineScope, errorLiveData) {
 
-    fun getInternal(internalLiveData : MutableLiveData<IntegralEntity>){
+    fun getInternal(internalLiveData : MutableLiveData<IntegralBean>){
         launch(
             block = {
                 RetrofitManager.getApiService(ApiService::class.java)
@@ -24,6 +26,7 @@ class MineRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
                     .data()
             },
             success = {
+                PrefUtils.setObject(Constants.INTEGRAL_INFO,it)
                 internalLiveData.postValue(it)
             }
         )

@@ -7,7 +7,7 @@ import java.io.Serializable
  * @author zs
  * @date 2020-03-17
  */
-class IntegralEntity: Serializable {
+class IntegralBean: Serializable {
 
     /**
      * coinCount : 451

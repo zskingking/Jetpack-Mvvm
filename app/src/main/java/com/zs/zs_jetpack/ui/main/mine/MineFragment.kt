@@ -10,6 +10,8 @@ import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
 import com.zs.base_library.common.setNoRepeatClick
 import com.zs.base_library.common.toast
+import com.zs.base_library.utils.PrefUtils
+import com.zs.wanandroid.entity.IntegralBean
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.constants.Constants
@@ -39,6 +41,11 @@ class MineFragment : LazyVmFragment() {
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
+    /**
+     * 用户积分信息
+     */
+    private var integralBean:IntegralBean? = null
+
     private var mineVM: MineVM? = null
 
     override fun initViewModel() {
@@ -47,17 +54,31 @@ class MineFragment : LazyVmFragment() {
 
     override fun observe() {
         mineVM?.internalLiveData?.observe(this, Observer {
-            //通过dataBinDing与View绑定
-            mineVM?.username?.set(it.username)
-            mineVM?.id?.set("${it.userId}")
-            mineVM?.rank?.set("${it.rank}")
-            mineVM?.internal?.set("${it.coinCount}")
+            integralBean = it
+            setIntegral()
         })
     }
 
+    private fun setIntegral(){
+        //通过dataBinDing与View绑定
+        mineVM?.username?.set(integralBean?.username)
+        mineVM?.id?.set("${integralBean?.userId}")
+        mineVM?.rank?.set("${integralBean?.rank}")
+        mineVM?.internal?.set("${integralBean?.coinCount}")
+    }
+
     override fun lazyInit() {
-        if (CacheUtil.isLogin()) {
-            mineVM?.getInternal()
+        //先判断数据是否为空，然后再强转，否则会出异常
+        PrefUtils.getObject(Constants.INTEGRAL_INFO)?.let {
+            //先从本地获取积分，获取不到再通过网络获取
+            integralBean = it as IntegralBean?
+        }
+        if (integralBean==null){
+            if (CacheUtil.isLogin()) {
+                mineVM?.getInternal()
+            }
+        }else{
+            setIntegral()
         }
     }
 

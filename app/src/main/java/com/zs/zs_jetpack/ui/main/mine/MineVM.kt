@@ -4,7 +4,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
-import com.zs.wanandroid.entity.IntegralEntity
+import com.zs.wanandroid.entity.IntegralBean
 
 /**
  * des 我的
@@ -44,7 +44,7 @@ class MineVM :BaseViewModel(){
 
 
     private val repo by lazy { MineRepo(viewModelScope,errorLiveData) }
-    val internalLiveData = MutableLiveData<IntegralEntity>()
+    val internalLiveData = MutableLiveData<IntegralBean>()
 
     fun getInternal(){
         repo.getInternal(internalLiveData)
