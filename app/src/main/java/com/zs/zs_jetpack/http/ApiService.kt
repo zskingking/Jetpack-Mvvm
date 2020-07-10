@@ -65,7 +65,7 @@ interface ApiService {
      * 取消收藏
      */
     @POST("/lg/uncollect_originId/{id}/json")
-    fun unCollect(@Path("id") id: Int): ApiResponse<Any>
+    suspend fun unCollect(@Path("id") id: Int): ApiResponse<Any>
 
     /**
      * 获取项目tab

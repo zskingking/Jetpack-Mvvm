@@ -3,7 +3,6 @@ package com.zs.zs_jetpack.common
 import android.os.Bundle
 import android.text.Html
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
@@ -14,10 +13,12 @@ import com.zs.base_library.utils.ColorUtils
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.bean.ArticleEntity
 import com.zs.zs_jetpack.constants.Constants
-import java.text.FieldPosition
 
 /**
  * 文章适配器
+ * 关于适配器没有使用DataBinding,我觉得通过BaseQuickAdapter更加简便
+ * 上述言论属一家之见，也可能是山猪吃不惯细糠～-～
+ *
  * @author zs
  * @date 2020-07-07修改
  */
@@ -46,7 +47,7 @@ class ArticleAdapter(list:MutableList<ArticleEntity.DatasBean>)
                 item.run {
                     helper.getView<View>(R.id.root).clickNoRepeat {
                         onItemClickListener?.onItemChildClick(
-                            this@ArticleAdapter,it,helper.absoluteAdapterPosition-1)
+                            this@ArticleAdapter,it,helper.adapterPosition-headerLayoutCount)
                     }
                     if (type==1){
                         helper.setText(R.id.tvTag,"置顶 ")
@@ -62,7 +63,7 @@ class ArticleAdapter(list:MutableList<ArticleEntity.DatasBean>)
                         .apply {
                             clickNoRepeat {
                                 onItemClickListener?.onItemChildClick(
-                                    this@ArticleAdapter,this,helper.absoluteAdapterPosition-1)
+                                    this@ArticleAdapter,this,helper.adapterPosition-headerLayoutCount)
                             }
                             if (item.collect) {
                                 setImageResource(R.mipmap.article_collect)
@@ -76,20 +77,27 @@ class ArticleAdapter(list:MutableList<ArticleEntity.DatasBean>)
             //带图片
             Constants.ITEM_ARTICLE_PIC->{
                 item.apply {
+                    //根布局
                     helper.getView<View>(R.id.root).clickNoRepeat {
                         onItemClickListener?.onItemChildClick(
-                            this@ArticleAdapter,it,helper.absoluteAdapterPosition-1)
+                            this@ArticleAdapter,it,helper.adapterPosition-headerLayoutCount)
                     }
+                    //图片
                     envelopePic?.let {
                         helper.getView<ImageView>(R.id.ivTitle).loadRadius(mContext, it,20)
                     }
+                    //标题
                     helper.setText(R.id.tvTitle,title)
+                    //描述信息
                     helper.setText(R.id.tvDes,desc)
+                    //日期
                     helper.setText(R.id.tvNameData,"$niceDate | $author")
+                    //收藏
                     helper.getView<ImageView>(R.id.ivCollect).apply {
                         clickNoRepeat {
                             onItemClickListener?.onItemChildClick(
-                                this@ArticleAdapter,this,helper.absoluteAdapterPosition-1)
+                                //必须减headCount，否则角标会错乱
+                                this@ArticleAdapter,this,helper.adapterPosition-headerLayoutCount)
                         }
                         if (item.collect) {
                             setImageResource(R.mipmap.article_collect)
@@ -109,8 +117,22 @@ class ArticleAdapter(list:MutableList<ArticleEntity.DatasBean>)
         for (index in 0 until data.size){
             if (id == data[index].id){
                 data[index].collect = true
-                notifyItemChanged(index)
-                Log.i("onItemChildClick","collectNotifyById:${index}--${id}")
+                //必须加headCount，否则角标错乱
+                notifyItemChanged(index+headerLayoutCount)
+                return
+            }
+        }
+    }
+
+    /**
+     * 取消收藏，通过id做局部刷新
+     */
+    fun unCollectNotifyById(id:Int){
+        for (index in 0 until data.size){
+            if (id == data[index].id){
+                data[index].collect = false
+                //必须加headCount，否则角标错乱
+                notifyItemChanged(index+headerLayoutCount)
                 return
             }
         }

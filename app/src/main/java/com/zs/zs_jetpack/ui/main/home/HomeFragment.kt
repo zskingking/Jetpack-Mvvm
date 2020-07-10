@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.SimpleItemAnimator
 import cn.bingoogolapple.bgabanner.BGABanner
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zs.base_library.base.DataBindingConfig
@@ -18,6 +19,7 @@ import com.zs.zs_jetpack.common.ArticleAdapter
 import com.zs.zs_jetpack.common.OnChildItemClickListener
 import com.zs.zs_jetpack.utils.CacheUtil
 import kotlinx.android.synthetic.main.fragment_home.*
+
 
 /**
  * des 首页
@@ -46,19 +48,27 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
     }
 
     override fun observe() {
+        //文章列表
         homeVm?.articleList?.observe(this, Observer {
             smartDismiss(smartRefresh)
             adapter.setNewData(it)
         })
+        //banner
         homeVm?.banner?.observe(this, Observer {
             bannerList = it
             initBanner()
         })
+        //收藏
         homeVm?.collectLiveData?.observe(this, Observer {
             adapter.collectNotifyById(it)
         })
+        //取消收藏
+        homeVm?.unCollectLiveData?.observe(this, Observer {
+            adapter.unCollectNotifyById(it)
+        })
+        //请求错误
         homeVm?.errorLiveData?.observe(this, Observer {
-
+            smartDismiss(smartRefresh)
         })
     }
 
@@ -71,6 +81,8 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
     override fun initView() {
         //设置阴影
         setElevation(clTitle, 10f)
+        //关闭更新动画
+        (rvHomeList.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         smartRefresh.setOnRefreshListener {
             page = 0
             homeVm?.getArticleList(true)
@@ -167,8 +179,6 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
     }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        Log.i("onItemChildClick","position:$position")
-
         when(view.id){
             //item
             R.id.root->{
@@ -178,7 +188,14 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
             //收藏
             R.id.ivCollect->{
                 if (CacheUtil.isLogin()){
-                    homeVm?.collect(this@HomeFragment.adapter.data[position].id)
+                    this@HomeFragment.adapter.data[position].apply {
+                        //已收藏取消收藏
+                        if (collect){
+                            homeVm?.unCollect(id)
+                        }else{
+                            homeVm?.collect(id)
+                        }
+                    }
                 }else{
                     nav().navigate(R.id.action_main_fragment_to_login_fragment)
                 }

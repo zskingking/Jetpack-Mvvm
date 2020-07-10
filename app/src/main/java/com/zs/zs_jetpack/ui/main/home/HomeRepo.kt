@@ -120,4 +120,21 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
             }
         )
     }
+
+    /**
+     * 收藏
+     */
+    fun unCollect(id:Int,unCollectLiveData : MutableLiveData<Int>){
+        launch(
+            block = {
+                RetrofitManager.getApiService(ApiService::class.java)
+                    .unCollect(id)
+                        //如果data可能为空,可通过此方式通过反射生成对象,避免空判断
+                    .data(Any::class.java)
+            },
+            success = {
+                unCollectLiveData.postValue(id)
+            }
+        )
+    }
 }

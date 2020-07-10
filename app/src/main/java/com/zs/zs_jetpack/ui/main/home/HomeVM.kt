@@ -30,6 +30,11 @@ class HomeVM : BaseViewModel() {
     val collectLiveData = MutableLiveData<Int>()
 
     /**
+     * 取消收藏
+     */
+    val unCollectLiveData = MutableLiveData<Int>()
+
+    /**
      * 获取首页文章列表， 包括banner
      */
     fun getArticleList(isRefresh:Boolean) {
@@ -38,6 +43,13 @@ class HomeVM : BaseViewModel() {
 
     fun collect(id:Int){
         repo.collect(id,collectLiveData)
+    }
+
+    /**
+     * 取消收藏
+     */
+    fun unCollect(id:Int){
+        repo.unCollect(id,unCollectLiveData)
     }
 
 }
