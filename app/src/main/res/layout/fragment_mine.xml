@@ -101,7 +101,7 @@
                     android:id="@+id/tvRanking"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:text="@{vm.rank}"
                     android:textColor="?attr/theme_color_1"
                     android:textSize="@dimen/text_1"
                     android:textStyle="bold" />
@@ -110,7 +110,7 @@
                     style="@style/text_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{vm.rank}" />
+                    android:text="排名" />
             </LinearLayout>
 
             <View
