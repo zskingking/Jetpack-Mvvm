@@ -30,13 +30,12 @@ class SetRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Api
                     .data(Any::class.java)
             },
             success = {
-                //发送退出登录消息
-                EventBus.getDefault().post(LogoutEvent())
                 //重置登陆状态
                 PrefUtils.setBoolean(Constants.LOGIN, false)
                 //移除用户信息
                 PrefUtils.removeKey(Constants.USER_INFO)
-
+                //发送退出登录消息
+                EventBus.getDefault().post(LogoutEvent())
                 logoutLiveData.postValue(it)
             }
         )

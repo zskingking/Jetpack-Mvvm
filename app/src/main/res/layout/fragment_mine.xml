@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="vm"
+            type="com.zs.zs_jetpack.ui.main.mine.MineVM" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -34,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="请先登录"
+                android:text="@{vm.username}"
                 android:textColor="?attr/theme_color_1"
                 android:textSize="17dp"
                 android:textStyle="bold"
@@ -48,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="5dp"
-                android:text="id:---"
+                android:text="@{vm.id}"
                 android:textColor="?attr/theme_color_1"
                 android:textSize="@dimen/text_2"
                 app:layout_constraintBottom_toBottomOf="@+id/ivHead"
@@ -108,7 +110,7 @@
                     style="@style/text_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="排名" />
+                    android:text="@{vm.rank}" />
             </LinearLayout>
 
             <View
@@ -157,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="40dp"
-                    android:text="0"
+                    android:text="@{vm.internal}"
                     android:textColor="@color/orange"
                     android:textSize="@dimen/text_2"
                     android:textStyle="bold"

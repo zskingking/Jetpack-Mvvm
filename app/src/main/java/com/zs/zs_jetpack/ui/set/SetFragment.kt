@@ -82,6 +82,7 @@ class SetFragment : BaseVmFragment() {
         }
     }
 
+
     override fun getLayoutId() = R.layout.fragment_set
     override fun getDataBindingConfig(): DataBindingConfig? {
         return DataBindingConfig(R.layout.fragment_set, setVM)

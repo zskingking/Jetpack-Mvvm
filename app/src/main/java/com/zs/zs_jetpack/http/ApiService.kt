@@ -53,7 +53,7 @@ interface ApiService {
      * 获取个人积分
      */
     @GET("/lg/coin/userinfo/json")
-    fun getIntegral():ApiResponse<IntegralEntity>
+    suspend fun getIntegral():ApiResponse<IntegralEntity>
 
     /**
      * 收藏
