@@ -18,6 +18,9 @@
     <!-- 背景主色调3-->
     <attr name="main_bg_3" format="color" />
 
+    <!-- 播放悬浮按钮背景色-->
+    <attr name="float_bg" format="color" />
+
     <!-- 分割线颜色-->
     <attr name="division_line" format="color" />
 

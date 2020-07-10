@@ -78,8 +78,6 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
     }
 
     override fun initView() {
-        //设置阴影
-        setElevation(clTitle, 10f)
         //关闭更新动画
         (rvHomeList.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         smartRefresh.setOnRefreshListener {

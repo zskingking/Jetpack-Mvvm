@@ -87,17 +87,6 @@ fun copy(context: Context, msg: String) {
 }
 
 /**
- * 给View设置阴影
- */
-fun setElevation(view:View,value:Float){
-    //设置阴影
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-        view.elevation = value
-    }
-}
-
-
-/**
  * 隐藏刷新加载ui
  */
 fun smartDismiss(smartView: SmartRefreshLayout) {

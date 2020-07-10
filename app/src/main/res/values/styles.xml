@@ -16,6 +16,8 @@
 
         <item name="ripple_gray">#D1D1D1</item>
 
+        <item name="float_bg">#FFFFFF</item>
+
         <item name="division_line">#EDEDED</item>
 
 
@@ -38,6 +40,7 @@
 
         <item name="ripple_gray">#808080</item>
 
+        <item name="float_bg">#4C4C4C</item>
 
         <item name="division_line">#424242</item>
 

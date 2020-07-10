@@ -17,6 +17,7 @@
             android:id="@+id/clTitle"
             android:layout_width="match_parent"
             android:layout_height="54dp"
+            android:elevation="6dp"
             android:background="?attr/main_bg_1">
 
             <TextView

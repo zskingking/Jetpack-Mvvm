@@ -7,7 +7,6 @@ import androidx.activity.OnBackPressedCallback
 import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.dip2px
-import com.zs.base_library.common.setElevation
 import com.zs.base_library.utils.ScreenUtils
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
@@ -51,7 +50,6 @@ class SearchFragment : BaseVmFragment() {
     }
 
     override fun initView() {
-        setElevation(clTitle,6f)
         startSearchAnim(true)
     }
 

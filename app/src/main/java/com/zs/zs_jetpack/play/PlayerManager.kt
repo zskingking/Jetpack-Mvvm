@@ -58,7 +58,7 @@ class PlayerManager private constructor() : IPlayerStatus {
 
     /**
      * 开启定时器,用于更新进度
-     * 每500毫秒更新一次
+     * 每1000毫秒更新一次
      */
     private fun startTimer(){
         disposable = Observable.interval(1000,TimeUnit.MILLISECONDS)

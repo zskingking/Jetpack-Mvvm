@@ -50,7 +50,6 @@ class FloatPlayLayout : LinearLayout {
         //居中显示
         gravity = Gravity.CENTER
         //设置阴影
-        setElevation(root,5f)
         click()
     }
 

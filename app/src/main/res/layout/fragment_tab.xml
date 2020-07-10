@@ -14,9 +14,9 @@
         tools:context=".ui.main.tab.TabFragment">
 
         <LinearLayout
-            android:id="@+id/flTop"
             android:layout_width="match_parent"
             android:layout_height="54dp"
+            android:elevation="6dp"
             android:background="?attr/main_bg_1">
 
             <net.lucode.hackware.magicindicator.MagicIndicator

@@ -12,7 +12,6 @@ import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
-import com.zs.base_library.common.setElevation
 import com.zs.base_library.common.setNoRepeatClick
 import com.zs.base_library.utils.Param
 import com.zs.zs_jetpack.BR
@@ -62,7 +61,6 @@ class WebFragment : BaseVmFragment() {
     }
 
     override fun initView() {
-        setElevation(llTitle,6f)
         tvTitle.text = Html.fromHtml(title)
         setNoRepeatClick(ivBack) {
             when (it.id) {

@@ -23,7 +23,7 @@
             android:background="?attr/main_bg_1"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:id="@+id/llTitle"
+            android:elevation="6dp"
             app:layout_constraintTop_toTopOf="parent">
 
 

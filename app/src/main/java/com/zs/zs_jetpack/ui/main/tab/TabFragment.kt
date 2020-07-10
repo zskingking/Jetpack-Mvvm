@@ -6,7 +6,6 @@ import androidx.lifecycle.Observer
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
 import com.zs.base_library.common.initFragment
-import com.zs.base_library.common.setElevation
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.TabNavigatorAdapter
@@ -33,7 +32,6 @@ class TabFragment : LazyVmFragment() {
         arguments?.apply {
             type = getInt("type")
         }
-        initView()
         loadData()
     }
 
@@ -45,10 +43,6 @@ class TabFragment : LazyVmFragment() {
         tabVM?.tabLiveData?.observe(this, Observer {
             initViewPager(it)
         })
-    }
-
-    override fun initView() {
-        setElevation(flTop, 6f)
     }
 
     override fun loadData() {
