@@ -17,7 +17,7 @@ public class NavigationEntity {
 
     private int cid;
     private String name;
-    private List<ArticleEntity.DatasBean> articles;
+    private List<ArticleBean.DatasBean> articles;
 
     public int getCid() {
         return cid;
@@ -35,11 +35,11 @@ public class NavigationEntity {
         this.name = name;
     }
 
-    public List<ArticleEntity.DatasBean> getArticles() {
+    public List<ArticleBean.DatasBean> getArticles() {
         return articles;
     }
 
-    public void setArticles(List<ArticleEntity.DatasBean> articles) {
+    public void setArticles(List<ArticleBean.DatasBean> articles) {
         this.articles = articles;
     }
 

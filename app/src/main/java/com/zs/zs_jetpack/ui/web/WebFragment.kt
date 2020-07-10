@@ -145,7 +145,7 @@ class WebFragment : BaseVmFragment() {
     override fun getLayoutId() = R.layout.fragment_web
 
     override fun getDataBindingConfig(): DataBindingConfig? {
-        return DataBindingConfig(R.layout.fragment_search, webVM)
+        return DataBindingConfig(R.layout.fragment_web, webVM)
             .addBindingParam(BR.vm, webVM)
     }
 

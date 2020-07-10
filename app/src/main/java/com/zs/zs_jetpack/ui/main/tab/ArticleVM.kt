@@ -3,7 +3,7 @@ package com.zs.zs_jetpack.ui.main.tab
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
-import com.zs.zs_jetpack.bean.ArticleEntity
+import com.zs.zs_jetpack.bean.ArticleBean
 
 /**
  * des 文章vm
@@ -13,7 +13,7 @@ import com.zs.zs_jetpack.bean.ArticleEntity
 class ArticleVM : BaseViewModel() {
 
     private val repo by lazy { ArticleRepo(viewModelScope,errorLiveData) }
-    val articleLiveData = MutableLiveData<MutableList<ArticleEntity.DatasBean>>()
+    val articleLiveData = MutableLiveData<MutableList<ArticleBean.DatasBean>>()
     /**
      * 获取文章
      */

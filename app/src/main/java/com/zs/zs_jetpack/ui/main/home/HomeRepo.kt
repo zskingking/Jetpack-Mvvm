@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.zs.base_library.base.BaseRepository
 import com.zs.base_library.http.ApiException
 import com.zs.wanandroid.entity.BannerBean
-import com.zs.zs_jetpack.bean.ArticleEntity
+import com.zs.zs_jetpack.bean.ArticleBean
 import com.zs.zs_jetpack.http.ApiService
 import com.zs.zs_jetpack.http.RetrofitManager
 import kotlinx.coroutines.CoroutineScope
@@ -24,7 +24,7 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
      */
     fun getArticleList(
         isRefresh: Boolean
-        , articleLiveData: MutableLiveData<MutableList<ArticleEntity.DatasBean>>
+        , articleLiveData: MutableLiveData<MutableList<ArticleBean.DatasBean>>
         , banner: MutableLiveData<MutableList<BannerBean>>
     ) {
         //仅在第一页或刷新时调用banner和置顶
@@ -41,7 +41,7 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
     /**
      * 获取置顶文章
      */
-    private fun getTopList(articleLiveData: MutableLiveData<MutableList<ArticleEntity.DatasBean>>) {
+    private fun getTopList(articleLiveData: MutableLiveData<MutableList<ArticleBean.DatasBean>>) {
         launch(
             block = {
                 RetrofitManager.getApiService(ApiService::class.java)
@@ -59,8 +59,8 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
      */
     private fun getHomeList(
 
-        articleLiveData: MutableLiveData<MutableList<ArticleEntity.DatasBean>>,
-        list: MutableList<ArticleEntity.DatasBean>? = null,
+        articleLiveData: MutableLiveData<MutableList<ArticleBean.DatasBean>>,
+        list: MutableList<ArticleBean.DatasBean>? = null,
         isRefresh: Boolean = false
     ) {
         launch(

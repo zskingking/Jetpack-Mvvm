@@ -3,7 +3,7 @@ package com.zs.zs_jetpack.ui.main.tab
 import androidx.lifecycle.MutableLiveData
 import com.zs.base_library.base.BaseRepository
 import com.zs.base_library.http.ApiException
-import com.zs.zs_jetpack.bean.ArticleEntity
+import com.zs.zs_jetpack.bean.ArticleBean
 import com.zs.zs_jetpack.constants.Constants
 import com.zs.zs_jetpack.http.ApiService
 import com.zs.zs_jetpack.http.RetrofitManager
@@ -30,7 +30,7 @@ class ArticleRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData
         type: Int,
         tabId: Int,
         isRefresh: Boolean,
-        articleLiveData: MutableLiveData<MutableList<ArticleEntity.DatasBean>>
+        articleLiveData: MutableLiveData<MutableList<ArticleBean.DatasBean>>
     ) {
         launch(
             block = {

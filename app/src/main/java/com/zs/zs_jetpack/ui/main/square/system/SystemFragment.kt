@@ -34,17 +34,19 @@ class SystemFragment : LazyVmFragment() {
     }
 
     override fun initView() {
-        adapter = SystemAdapter(R.layout.item_system) { i, j ->
-            Bundle().apply {
-                putInt(Constants.SYSTEM_ID, adapter!!.data[i].children[j].id)
-                putString(Constants.SYSTEM_TITLE, adapter!!.data[i].children[j].name)
-            }
+        adapter = SystemAdapter { i, j ->
+            nav().navigate(R.id.action_main_fragment_to_system_list_fragment,
+                Bundle().apply {
+                    putInt(Constants.SYSTEM_ID, adapter!!.data[i].children[j].id)
+                    putString(Constants.SYSTEM_TITLE, adapter!!.data[i].children[j].name)
+                })
+
         }
         rvSystem.adapter = adapter
     }
 
     override fun loadData() {
-        systemVM.getList()
+        systemVM.getSystemList()
     }
 
     override fun getLayoutId() = R.layout.fragment_system

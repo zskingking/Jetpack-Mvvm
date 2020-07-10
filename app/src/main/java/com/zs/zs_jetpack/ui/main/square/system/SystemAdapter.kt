@@ -12,10 +12,8 @@ import com.zs.zs_jetpack.R
  *
  * @param tagClick tag的点击事件 两个参数分别是外层和内层角标
  */
-class SystemAdapter(
-    layoutId: Int
-    , private val tagClick: (Int, Int) -> Unit
-) : BaseQuickAdapter<SystemBean, BaseViewHolder>(layoutId) {
+class SystemAdapter(private val tagClick: (Int, Int) -> Unit
+) : BaseQuickAdapter<SystemBean, BaseViewHolder>(R.layout.item_system) {
 
 
     override fun convert(helper: BaseViewHolder, item: SystemBean) {

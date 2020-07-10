@@ -1,7 +1,7 @@
 package com.zs.zs_jetpack.http
 
 import com.zs.wanandroid.entity.*
-import com.zs.zs_jetpack.bean.ArticleEntity
+import com.zs.zs_jetpack.bean.ArticleBean
 import com.zs.zs_jetpack.bean.NavigationEntity
 import com.zs.zs_jetpack.bean.RankEntity
 import com.zs.zs_jetpack.ui.main.square.system.SystemBean
@@ -17,13 +17,13 @@ interface ApiService {
      * 获取首页文章数据
      */
     @GET("/article/list/{page}/json")
-    suspend fun getHomeList(@Path("page") pageNo: Int): ApiResponse<ArticleEntity>
+    suspend fun getHomeList(@Path("page") pageNo: Int): ApiResponse<ArticleBean>
 
     /**
      * 获取首页置顶文章数据
      */
     @GET("/article/top/json")
-    suspend fun getTopList(): ApiResponse<MutableList<ArticleEntity.DatasBean>>
+    suspend fun getTopList(): ApiResponse<MutableList<ArticleBean.DatasBean>>
 
     /**
      * banner
@@ -84,14 +84,14 @@ interface ApiService {
      */
     @GET("/project/list/{pageNum}/json")
     suspend fun getProjectList(@Path("pageNum")pageNum:Int,@Query("cid")cid:Int)
-            :ApiResponse<ArticleEntity>
+            :ApiResponse<ArticleBean>
 
     /**
      * 获取公众号列表
      */
     @GET("/wxarticle/list/{id}/{pageNum}/json")
     suspend fun getAccountList(@Path("id")cid:Int,@Path("pageNum")pageNum:Int)
-            : ApiResponse<ArticleEntity>
+            : ApiResponse<ArticleBean>
 
 
     /**
@@ -99,7 +99,7 @@ interface ApiService {
      */
     @POST("/article/query/{pageNum}/json")
     fun search(@Path("pageNum")pageNum:Int,@Query("k")k:String)
-            : ApiResponse<ArticleEntity>
+            : ApiResponse<ArticleBean>
 
     /**
      * 体系
@@ -109,11 +109,11 @@ interface ApiService {
 
 
     /**
-     * 获取项目tab
+     * 获取体系文章列表
      */
     @GET("/article/list/{pageNum}/json")
-    fun getSystemArticle(@Path("pageNum")pageNum:Int,@Query("cid")cid:Int)
-            : ApiResponse<ArticleEntity>
+    suspend fun getSystemArticle(@Path("pageNum")pageNum:Int,@Query("cid")cid:Int)
+            : ApiResponse<ArticleBean>
 
     /**
      * 导航

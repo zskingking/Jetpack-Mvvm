@@ -1,6 +1,6 @@
 package com.zs.wanandroid.entity
 
-import com.zs.zs_jetpack.bean.ArticleEntity
+import com.zs.zs_jetpack.bean.ArticleBean
 
 /**
  * des 我的文章
@@ -47,7 +47,7 @@ class MyArticleEntity {
         var pageCount = 0
         var size = 0
         var total = 0
-        var datas: List<ArticleEntity.DatasBean>? =
+        var datas: List<ArticleBean.DatasBean>? =
             null
     }
 }

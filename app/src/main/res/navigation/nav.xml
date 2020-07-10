@@ -39,6 +39,11 @@
         <action
             android:id="@+id/action_main_fragment_to_login_fragment"
             app:destination="@+id/login_fragment" />
+
+        <!--体系列表-->
+        <action
+            android:id="@+id/action_main_fragment_to_system_list_fragment"
+            app:destination="@+id/system_list_fragment" />
     </fragment>
 
     <fragment
@@ -100,5 +105,18 @@
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register"/>
 
-
+    <fragment
+        android:id="@+id/system_list_fragment"
+        android:name="com.zs.zs_jetpack.ui.main.square.system.SystemListFragment"
+        android:label="SystemListFragment"
+        tools:layout="@layout/fragment_system_list">
+        <!--登陆-->
+        <action
+            android:id="@+id/action_system_list_fragment_to_login_fragment"
+            app:destination="@+id/login_fragment" />
+        <!--web-->
+        <action
+            android:id="@+id/action_system_list_fragment_to_web_fragment"
+            app:destination="@+id/web_fragment" />
+    </fragment>
 </navigation>
