@@ -1,7 +1,9 @@
 package com.zs.zs_jetpack
 
+import android.animation.ValueAnimator
 import androidx.databinding.ObservableField
 import com.zs.base_library.base.BaseViewModel
+import com.zs.zs_jetpack.play.PlayerManager
 
 /**
  * des 关于播放viewModel,播放、播放列表、首页悬浮共用
@@ -27,7 +29,7 @@ class PlayViewModel :BaseViewModel(){
     /**
      * 播放状态
      */
-    val playStatus = ObservableField<Boolean>()
+    val playStatus = ObservableField<Int>()
 
     /**
      * 图片播放模式
@@ -64,4 +66,5 @@ class PlayViewModel :BaseViewModel(){
      * 播放进度
      */
     val playProgress = ObservableField<Int>()
+
 }

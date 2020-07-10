@@ -29,6 +29,7 @@
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden|fontScale|screenLayout|smallestScreenSize|locale|uiMode|layoutDirection|density"
             android:screenOrientation="portrait" />
+        <service android:name=".PlayService"/>
     </application>
 
 </manifest>

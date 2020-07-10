@@ -1,5 +1,6 @@
 package com.zs.zs_jetpack.ui.play
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.widget.SeekBar
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -11,7 +12,9 @@ import com.zs.base_library.utils.StatusUtils
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.PlayViewModel
 import com.zs.zs_jetpack.R
+import com.zs.zs_jetpack.common.AnimUtil
 import com.zs.zs_jetpack.play.PlayerManager
+import com.zs.zs_jetpack.ui.PlayBindAdapter
 import kotlinx.android.synthetic.main.fragment_player.*
 
 /**
@@ -23,7 +26,18 @@ class PlayerFragment : BaseVmFragment(){
 
     private var playVM: PlayViewModel? = null
     private val playListFragment = PlayListFragment()
+
     override fun init(savedInstanceState: Bundle?) {
+        initView()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        //一定要将动画置空，生命周期跟随fragment，否则会引发一致性问题
+        PlayBindAdapter.anim = null
+    }
+
+    override fun initView() {
         setMarginTop()
         initSeek()
     }
@@ -62,7 +76,7 @@ class PlayerFragment : BaseVmFragment(){
         playVM = getActivityViewModel(PlayViewModel::class.java)
     }
 
-    override fun getLayoutId() =  R.layout.fragment_player
+    override fun getLayoutId() = R.layout.fragment_player
 
     override fun getDataBindingConfig(): DataBindingConfig? {
         return DataBindingConfig(R.layout.fragment_player, playVM)
@@ -70,7 +84,7 @@ class PlayerFragment : BaseVmFragment(){
     }
 
     override fun onClick() {
-        setNoRepeatClick(ivBack,ivMode, ivPrevious, ivPlay, ivNext, ivList) {
+        setNoRepeatClick(ivBack, ivMode, ivPrevious, ivPlay, ivNext, ivList) {
             when (it.id) {
                 //返回
                 R.id.ivBack -> {
@@ -94,9 +108,10 @@ class PlayerFragment : BaseVmFragment(){
                 }
                 //播放列表
                 R.id.ivList -> {
-                    playListFragment.show(mActivity.supportFragmentManager,"")
+                    playListFragment.show(mActivity.supportFragmentManager, "")
                 }
             }
         }
     }
+
 }

@@ -1,12 +1,16 @@
 package com.zs.zs_jetpack.ui
 
+import android.animation.ValueAnimator
+import android.os.Build
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import com.zs.base_library.common.albumById
 import com.zs.base_library.common.loadBlurTrans
-import com.zs.zs_jetpack.R
+import com.zs.zs_jetpack.common.AnimUtil
+import com.zs.zs_jetpack.play.PlayerManager
 import com.zs.zs_jetpack.view.FloatPlayLayout
 
 /**
@@ -31,8 +35,18 @@ object PlayBindAdapter {
      */
     @BindingAdapter(value = ["imgPlay"])
     @JvmStatic
-    fun imgPlay(view: ImageView, playing: Boolean) {
-        view.isSelected = playing
+    fun imgPlay(view: ImageView, playStatus: Int) {
+        when(playStatus){
+            //停止
+            PlayerManager.RELEASE,PlayerManager.PAUSE->{
+                view.isSelected = false
+
+            }
+            //播放
+            PlayerManager.START, PlayerManager.RESUME->{
+                view.isSelected = true
+            }
+        }
     }
 
     /**
@@ -40,8 +54,18 @@ object PlayBindAdapter {
      */
     @BindingAdapter(value = ["floatImgPlay"])
     @JvmStatic
-    fun floatImgPlay(view: FloatPlayLayout, playing: Boolean?) {
-        view.setImgPlaying(playing)
+    fun floatImgPlay(view: FloatPlayLayout, playStatus: Int?) {
+        when(playStatus){
+            //停止
+            PlayerManager.RELEASE,PlayerManager.PAUSE->{
+                view.isSelected = false
+
+            }
+            //播放
+            PlayerManager.START, PlayerManager.RESUME->{
+                view.isSelected = true
+            }
+        }
     }
 
     /**
@@ -63,12 +87,39 @@ object PlayBindAdapter {
     }
 
     /**
-     * 悬浮-图片
+     * 旋转动画
      */
+    @RequiresApi(Build.VERSION_CODES.KITKAT)
     @BindingAdapter(value = ["rotate"])
     @JvmStatic
-    fun rotate(view: View, isPlying: Boolean) {
+    fun rotate(view: View, playStatus: Int) {
+        if (anim==null){
+            anim = AnimUtil.getRepeatRotate(view,20000)
+        }
+        when(playStatus){
+            PlayerManager.RELEASE->{
+                //目前啥也不做
+            }
+            PlayerManager.START,PlayerManager.RESUME->{
+                //动画已经启动
+                if (anim?.isPaused!!){
+                    anim?.resume()
+                }
+                //动画未启动，直接启动
+                else{
+                    anim?.start()
+                }
+            }
 
+            PlayerManager.PAUSE->{
+                anim?.pause()
+            }
+        }
     }
+
+    /**
+     * 图片动画
+     */
+    var anim: ValueAnimator? = null
 
 }

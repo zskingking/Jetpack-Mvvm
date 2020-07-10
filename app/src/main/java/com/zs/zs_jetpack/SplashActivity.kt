@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.zs.base_library.base.BaseVmActivity
 import com.zs.base_library.utils.PrefUtils
+import com.zs.base_library.utils.StatusUtils
 import com.zs.zs_jetpack.constants.Constants
 import com.zs.zs_jetpack.play.PlayerManager
 import com.zs.zs_jetpack.view.DialogUtils
@@ -28,6 +29,11 @@ class SplashActivity : BaseVmActivity(), PermissionCallbacks {
     private var disposable:Disposable? = null
     private val tips = "玩安卓现在要向您申请存储权限，用于存储历史记录以及保存小姐姐图片，您也可以在设置中手动开启或者取消。"
     private val perms = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        changeTheme()
+        super.onCreate(savedInstanceState)
+    }
 
     override fun init(savedInstanceState: Bundle?) {
         requestPermission()
@@ -52,8 +58,8 @@ class SplashActivity : BaseVmActivity(), PermissionCallbacks {
      * 开始倒计时跳转
      */
     private fun startIntent(){
-        //初始化播放器
-        PlayerManager.instance.init(this)
+        //开启服务
+        startService(Intent(this,PlayService::class.java))
         disposable = Observable.timer(2000,TimeUnit.MILLISECONDS)
             .subscribe {
                 startActivity(Intent(this,MainActivity::class.java))
@@ -101,5 +107,29 @@ class SplashActivity : BaseVmActivity(), PermissionCallbacks {
 
     companion object {
         private const val WRITE_EXTERNAL_STORAGE = 100
+    }
+
+    /**
+     * 动态切换主题
+     */
+    private fun changeTheme() {
+        val theme = PrefUtils.getBoolean(Constants.SP_THEME_KEY,false)
+        if (theme) {
+            setTheme(R.style.AppTheme_Night)
+        } else {
+            setTheme(R.style.AppTheme)
+        }
+    }
+
+    /**
+     * 沉浸式状态,随主题改变
+     */
+    override fun setSystemInvadeBlack() {
+        val theme = PrefUtils.getBoolean(Constants.SP_THEME_KEY,false)
+        if (theme) {
+            StatusUtils.setSystemStatus(this, true, false)
+        } else {
+            StatusUtils.setSystemStatus(this, true, true)
+        }
     }
 }

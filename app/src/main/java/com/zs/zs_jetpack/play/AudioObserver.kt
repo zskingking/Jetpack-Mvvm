@@ -16,10 +16,15 @@ interface AudioObserver {
     fun onAudioBean(audioBean: AudioBean){}
 
     /**
-     * 播放状态-暂停/播放
+     * 播放状态,目前有四种。可根据类型进行扩展
+     * release
+     * start
+     * resume
+     * pause
+     *
      * 空实现,部分界面可不用实现
      */
-    fun onPlaying(playing:Boolean){}
+    fun onPlayStatus(playStatus:Int){}
 
     /**
      * 当前播放进度

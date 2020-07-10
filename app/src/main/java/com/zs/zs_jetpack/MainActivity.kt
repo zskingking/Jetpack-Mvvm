@@ -1,6 +1,7 @@
 package com.zs.zs_jetpack
 
 import android.os.Bundle
+import android.util.Log
 import com.zs.base_library.base.BaseVmActivity
 import com.zs.base_library.common.stringForTime
 import com.zs.base_library.common.toast
@@ -59,8 +60,8 @@ class MainActivity : BaseVmActivity(), AudioObserver {
     /**
      * 播放状态-暂停/播放
      */
-    override fun onPlaying(playing: Boolean) {
-        playVM?.playStatus?.set(playing)
+    override fun onPlayStatus(playStatus: Int) {
+        playVM?.playStatus?.set(playStatus)
     }
 
     /**
@@ -105,19 +106,5 @@ class MainActivity : BaseVmActivity(), AudioObserver {
             StatusUtils.setSystemStatus(this, true, true)
         }
     }
-
-//    /**
-//     * 双击退出
-//     */
-//    var lastTime: Long = 0
-//    override fun onBackPressed() {
-//        if (System.currentTimeMillis() - this.lastTime > 2000L) {
-//            toast("再按一次退出程序")
-//            this.lastTime = System.currentTimeMillis()
-//            return
-//        } else {
-//            super.onBackPressed()
-//        }
-//    }
 
 }

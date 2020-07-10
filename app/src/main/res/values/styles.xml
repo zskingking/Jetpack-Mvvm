@@ -89,7 +89,10 @@
     <style name="SplashTheme" parent="AppTheme">
         <item name="android:windowBackground">@null</item>
         <item name="android:windowDisablePreview">true</item>
-        <!--        <item name="android:windowIsTranslucent">true</item>-->
-        <!--        <item name="android:windowBackground">@color/transparent</item>-->
+    </style>
+
+    <style name="SplashTheme_Night" parent="AppTheme_Night">
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 </resources>

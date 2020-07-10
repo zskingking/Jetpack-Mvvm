@@ -27,6 +27,28 @@ class PlayerManager private constructor() : IPlayerStatus {
         val instance: PlayerManager by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
             PlayerManager()
         }
+
+        //TODO 播放器状态,当前共4种,可在此处随时扩展
+
+        /**
+         * 重置
+         */
+        const val RELEASE = 100
+
+        /**
+         * 从头开始播放
+         */
+        const val START = 200
+
+        /**
+         * 播放
+         */
+        const val RESUME = 300
+
+        /**
+         * 暂停
+         */
+        const val PAUSE = 400
     }
 
     /**
@@ -46,6 +68,10 @@ class PlayerManager private constructor() : IPlayerStatus {
 
 
     /**
+     * 播放状态，默认为重置
+     */
+    private var playStatus = RELEASE
+    /**
      * 播放列表
      */
     private lateinit var playList: PlayList
@@ -60,12 +86,12 @@ class PlayerManager private constructor() : IPlayerStatus {
      * 开启定时器,用于更新进度
      * 每1000毫秒更新一次
      */
-    private fun startTimer(){
-        disposable = Observable.interval(1000,TimeUnit.MILLISECONDS)
+    private fun startTimer() {
+        disposable = Observable.interval(1000, TimeUnit.MILLISECONDS)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 //仅在播放状态下通知观察者
-                if (playerHelper.isPlaying()){
+                if (playerHelper.isPlaying()) {
                     sendProgressToObserver(playerHelper.getProgress())
                 }
             }
@@ -126,26 +152,29 @@ class PlayerManager private constructor() : IPlayerStatus {
      * 播放一个新的音频
      */
     fun play(audioBean: AudioBean) {
+        playStatus = START
         playList.setCurrentAudio(audioBean)
         audioBean.path?.let { playerHelper.play(it) }
         sendAudioToObserver(audioBean)
-        sendPlayingToObserver(true)
+        sendPlayStatusToObserver()
     }
 
     /**
      * 从暂停切换为播放
      */
     private fun resume() {
+        playStatus = RESUME
         playerHelper.resume()
-        sendPlayingToObserver(true)
+        sendPlayStatusToObserver()
     }
 
     /**
      * 从播放切换为暂停
      */
     private fun pause() {
+        playStatus = PAUSE
         playerHelper.pause()
-        sendPlayingToObserver(false)
+        sendPlayStatusToObserver()
     }
 
     /**
@@ -216,8 +245,13 @@ class PlayerManager private constructor() : IPlayerStatus {
     private fun notifyObserver(audioObserver: AudioObserver) {
         playList.currentAudio()?.let { audioObserver.onAudioBean(it) }
         audioObserver.onPlayMode(playList.getCurrentMode())
-        audioObserver.onPlaying(playerHelper.isPlaying())
-        playList.currentAudio()?.duration?.let { audioObserver.onProgress(playerHelper.getProgress(), it) }
+        audioObserver.onPlayStatus(playStatus)
+        playList.currentAudio()?.duration?.let {
+            audioObserver.onProgress(
+                playerHelper.getProgress(),
+                it
+            )
+        }
     }
 
     /**
@@ -232,9 +266,9 @@ class PlayerManager private constructor() : IPlayerStatus {
     /**
      * 给观察者发送播放状态
      */
-    private fun sendPlayingToObserver(isPlaying: Boolean) {
+    private fun sendPlayStatusToObserver() {
         observers.forEach {
-            it.onPlaying(isPlaying)
+            it.onPlayStatus(playStatus)
         }
     }
 

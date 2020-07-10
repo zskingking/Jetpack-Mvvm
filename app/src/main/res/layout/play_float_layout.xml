@@ -2,17 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root"
     android:layout_width="wrap_content"
-    android:layout_height="45dp"
+    android:layout_height="55dp"
     android:layout_margin="5dp"
     android:elevation="4dp"
-    android:background="@drawable/radius_25_radius"
+    android:background="@drawable/radius_28_radius"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/ivMusicPic"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:padding="10dp"
         android:src="@drawable/svg_music_not" />
 

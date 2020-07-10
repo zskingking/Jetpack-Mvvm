@@ -3,6 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     tools:ignore="MissingDefaultResource">
 
-    <corners android:radius="25dp"/>
+    <corners android:radius="28dp"/>
     <solid android:color="?attr/float_bg"/>
 </shape>

@@ -18,7 +18,7 @@
         <!--播放-->
         <action
             android:id="@+id/action_main_fragment_to_play_fragment"
-            app:destination="@+id/play_fragment" />
+            app:destination="@+id/play_fragment"/>
 
         <!--设置-->
         <action
@@ -86,7 +86,7 @@
         android:id="@+id/web_fragment"
         android:name="com.zs.zs_jetpack.ui.web.WebFragment"
         android:label="WebFragment"
-        tools:layout="@layout/fragment_web"/>
+        tools:layout="@layout/fragment_web" />
 
     <fragment
         android:id="@+id/login_fragment"
@@ -103,7 +103,7 @@
         android:id="@+id/register_fragment"
         android:name="com.zs.zs_jetpack.ui.register.RegisterFragment"
         android:label="RegisterFragment"
-        tools:layout="@layout/fragment_register"/>
+        tools:layout="@layout/fragment_register" />
 
     <fragment
         android:id="@+id/system_list_fragment"

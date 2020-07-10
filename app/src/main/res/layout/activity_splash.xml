@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/main_bg_1"
     android:orientation="vertical"
     android:gravity="center_horizontal">
     <ImageView
@@ -12,7 +12,7 @@
         android:layout_height="100dp"
         android:id="@+id/ivLogo"
         android:layout_marginTop="170dp"
-        android:src="@drawable/ic_launcher" />
+        android:src="@mipmap/logo_green" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
