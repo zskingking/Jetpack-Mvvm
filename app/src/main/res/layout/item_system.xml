@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/padding">
+
+    <TextView
+        android:id="@+id/tvTitle"
+        style="@style/text_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold" />
+
+    <com.donkingliang.labels.LabelsView
+        android:id="@+id/labelsView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:labelTextColor="?attr/theme_color_2"
+        app:labelTextSize="@dimen/text_2"
+        app:labelTextPaddingBottom="4dp"
+        app:labelTextPaddingLeft="10dp"
+        app:labelTextPaddingRight="10dp"
+        app:labelTextPaddingTop="4dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvClear"
+        app:lineMargin="16dp"
+        app:selectType="NONE"
+        app:wordMargin="10dp" />
+</LinearLayout>

@@ -1,21 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.square.SquareFragment">
+        android:orientation="vertical">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <LinearLayout
+            android:id="@+id/flTop"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="square" />
+            android:layout_height="54dp"
+            android:background="?attr/main_bg_1"
+            android:elevation="6dp"
+            android:gravity="center">
 
-    </FrameLayout>
+            <net.lucode.hackware.magicindicator.MagicIndicator
+                android:id="@+id/tabLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp" />
+
+        </LinearLayout>
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vpSquareFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
 </layout>

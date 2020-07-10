@@ -108,7 +108,6 @@ class WebFragment : BaseVmFragment() {
         webView.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView, newProgress: Int) {
                 super.onProgressChanged(view, newProgress)
-                Log.i("webView","newProgress--$newProgress")
                 //进度小于100，显示进度条
                 if (newProgress<100){
                     webVM?.isVisible?.set(true)

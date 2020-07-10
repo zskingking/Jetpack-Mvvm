@@ -1,9 +1,7 @@
 package com.zs.zs_jetpack.http
 
-import android.util.Log
 import com.zs.base_library.http.ApiException
 import java.io.Serializable
-import java.lang.reflect.ParameterizedType
 
 /**
  * des Api描述类，用于承载业务信息以及基础业务逻辑判断
@@ -24,18 +22,15 @@ class ApiResponse<T> : Serializable {
      */
     private var errorCode = 0
 
+    /**
+     * 如果服务端data肯定不为null，直接将data返回。
+     * 假如data为null证明服务端出错,这种错误已经产生并且不可逆，
+     * 客户端只需保证不闪退并给予提示即可
+     */
     fun data(): T {
-        Log.i("ApiResponse", "1---data-$data")
         when (errorCode) {
             //请求成功
             0, 200 -> {
-                //避免业务层做null判断,通过反射将null替换为T类型空对象
-                if (data == null) {
-                    Log.i("ApiResponse", "2---data-$data")
-                    val tClass =
-                        (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<ApiResponse<T>>
-                    data = tClass.newInstance().data
-                }
                 return data!!
             }
             //登录失败
@@ -48,8 +43,11 @@ class ApiResponse<T> : Serializable {
     }
 
 
+    /**
+     * 如果某些接口存在data为null的情况,需传入class对象
+     * 生成空对象。避免后面做一系列空判断
+     */
     fun data(clazz:Class<T>): T {
-        Log.i("ApiResponse", "1---data-$data")
         when (errorCode) {
             //请求成功
             0, 200 -> {

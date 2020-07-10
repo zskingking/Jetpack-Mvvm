@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- 单击时的背景颜色 -->
-    <item
-        android:drawable="?attr/ripple_gray"
-        android:state_pressed="true">
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="?attr/ripple_gray"> <!--波纹颜色-->
+    <item>
+        <shape android:shape="rectangle">
+            <!-- 填充背景色-->
+            <solid android:color="?attr/main_bg_1"/>
+        </shape>
     </item>
-    <!-- 未单击时的背景颜色 -->
-    <item
-        android:drawable="?attr/main_bg_1"
-        android:state_pressed="false">
-    </item>
-</selector>
+</ripple>

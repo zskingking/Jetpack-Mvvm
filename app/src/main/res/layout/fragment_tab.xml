@@ -19,18 +19,6 @@
             android:layout_height="54dp"
             android:background="?attr/main_bg_1">
 
-            <!--            <com.google.android.material.tabs.TabLayout-->
-            <!--                android:id="@+id/tabLayout"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="40dp"-->
-            <!--                android:layout_marginTop="14dp"-->
-            <!--                app:tabMaxWidth="20dp"-->
-            <!--                app:tabMinWidth="20dp"-->
-            <!--                app:tabTextAppearance="@style/tabStyle"-->
-            <!--                app:tabIndicatorColor="?attr/theme_color_1"-->
-            <!--                app:tabIndicatorHeight="3dp"-->
-            <!--                app:tabTextColor="?attr/theme_color_3"-->
-            <!--                app:tabSelectedTextColor="?attr/theme_color_1"/>-->
             <net.lucode.hackware.magicindicator.MagicIndicator
                 android:id="@+id/tabLayout"
                 android:layout_width="match_parent"

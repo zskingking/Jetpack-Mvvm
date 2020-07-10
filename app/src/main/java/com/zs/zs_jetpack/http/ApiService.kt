@@ -4,7 +4,7 @@ import com.zs.wanandroid.entity.*
 import com.zs.zs_jetpack.bean.ArticleEntity
 import com.zs.zs_jetpack.bean.NavigationEntity
 import com.zs.zs_jetpack.bean.RankEntity
-import com.zs.zs_jetpack.bean.SystemListEntity
+import com.zs.zs_jetpack.ui.main.square.system.SystemBean
 import com.zs.zs_jetpack.ui.main.tab.TabBean
 import retrofit2.http.*
 
@@ -105,7 +105,7 @@ interface ApiService {
      * 体系
      */
     @GET("/tree/json")
-    fun getSystemList() : ApiResponse<MutableList<SystemListEntity>>
+    suspend fun getSystemList() : ApiResponse<MutableList<SystemBean>>
 
 
     /**

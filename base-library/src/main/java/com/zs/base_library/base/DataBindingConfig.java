@@ -48,6 +48,10 @@ public class DataBindingConfig {
         this.stateViewModel = stateViewModel;
     }
 
+    public DataBindingConfig(int layout) {
+        this.layout = layout;
+    }
+
     public int getLayout() {
         return layout;
     }

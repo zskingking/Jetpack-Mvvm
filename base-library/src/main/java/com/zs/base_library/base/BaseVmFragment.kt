@@ -13,9 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import com.zs.base_library.navigation.NavHostFragment
-import com.zs.base_library.utils.ColorUtils
 import com.zs.base_library.utils.ParamUtil
-import com.zs.base_library.utils.StatusUtils
 
 /**
  * des mvvm 基础 fragment
