@@ -33,6 +33,10 @@ class ApiResponse<T> : Serializable {
             0, 200 -> {
                 return data!!
             }
+            //未登陆请求需要用户信息的接口
+            -1001 -> {
+                throw ApiException("请先登陆", -1)
+            }
             //登录失败
             -1 -> {
                 throw ApiException("登陆失败", -1)
