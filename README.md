@@ -1,4 +1,9 @@
 ### 1. 背景
+
+
+`图片如若不能浏览请到我的博客主页查看:`[https://juejin.im/post/5f09ac336fb9a07e93303162](https://juejin.im/post/5f09ac336fb9a07e93303162)
+
+
 之前公司项目用的一直是`MVP`框架，我个人也在几个月前基于`鸿神 WanAndroid API`开发了一款`MVP`版的`App`，使用`MVP`的过程最深的感受是开发效率极低，往往写一大堆接口，可复用的屈指可数。年初了解了`Jetpack`模式下的`MVVM`，在`LiveData、ViewModel、DataBinDing`的加持下实现了`单向依赖`和`数据绑定`，代码量大幅度减少，根据`Jetpack`的特性项目稳定性也提升了不少。
 
 为了更深入的理解`Jetpack`中各个组件，在前段时间基于`Jetpack MVVM`又实现了一版` WanAndroid`。相比上一版的`MVP`增加了`夜间模式`和`音乐播放器`，播放器界面仿照`网易云音乐`。`App`中也大量的使用属性动画让界面简约而不简陋。先上图look一波
