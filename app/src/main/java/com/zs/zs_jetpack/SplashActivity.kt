@@ -27,7 +27,7 @@ import pub.devrel.easypermissions.EasyPermissions.PermissionCallbacks
 class SplashActivity : BaseVmActivity(), PermissionCallbacks {
 
     private var disposable:Disposable? = null
-    private val tips = "玩安卓现在要向您申请存储权限，用于存储历史记录以及保存小姐姐图片，您也可以在设置中手动开启或者取消。"
+    private val tips = "玩安卓现在要向您申请存储权限，用于访问您的本地音乐，您也可以在设置中手动开启或者取消。"
     private val perms = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
