@@ -6,6 +6,7 @@ import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.setNoRepeatClick
 import com.zs.base_library.common.toast
+import com.zs.base_library.utils.KeyBoardUtil
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -50,6 +51,9 @@ class LoginFragment : BaseVmFragment() {
                 }
                 //登陆
                 R.id.llLogin -> {
+                    //关闭软键盘
+                    KeyBoardUtil.closeKeyboard(etUsername,mActivity)
+                    KeyBoardUtil.closeKeyboard(etPassword,mActivity)
                     if (loginVM.username.get()!!.isEmpty()){
                         toast("请填写用户名")
                         return@setNoRepeatClick

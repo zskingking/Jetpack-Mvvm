@@ -4,7 +4,10 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.res.TypedArray
 import android.os.Build
+import android.text.TextUtils
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -104,7 +107,7 @@ fun smartConfig(smartView: SmartRefreshLayout){
         //刷新
         setEnableRefresh(true)
         //不满一页关闭加载
-        setEnableLoadMoreWhenContentNotFull(false)
+        //setEnableLoadMoreWhenContentNotFull(false)
         //滚动回弹
         setEnableOverScrollDrag(true)
     }
@@ -122,6 +125,24 @@ fun getThemeColor(context: Context,attr:Int):Int{
     val color = array.getColor(0, -0x50506)
     array.recycle()
     return color
+}
+
+
+/**
+ * editText搜索按钮
+ * @param onClick 搜索点击事件
+ */
+fun EditText.keyBoardSearch(onClick:()->Unit) {
+    //添加搜索按钮
+    setOnEditorActionListener { _, actionId, _ ->
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            onClick()
+        }else {
+            toast("请输入关键字")
+            return@setOnEditorActionListener false
+        }
+        return@setOnEditorActionListener true
+    }
 }
 
 

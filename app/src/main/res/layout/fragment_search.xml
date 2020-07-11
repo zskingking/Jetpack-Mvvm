@@ -5,43 +5,147 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="com.zs.zs_jetpack.ui.search.SearchVM" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:elevation="6dp"
         android:background="?attr/main_bg_1"
+        android:elevation="6dp"
+        android:fitsSystemWindows="true"
         tools:context=".ui.search.SearchFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/rlTitle"
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:background="?attr/main_bg_1"
+            android:elevation="6dp"
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/etSearch"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clSearch"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-                android:gravity="center_vertical"
-                android:drawablePadding="5dp"
-                android:paddingLeft="15dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginLeft="70dp"
                 android:layout_marginRight="70dp"
-                android:textColor="?attr/theme_color_1"
-                android:textSize="@dimen/text_2"
-                android:hint="    根据关键字搜索"
-                android:textColorHint="?attr/theme_color_3"
                 android:background="@drawable/radius_16_theme_2"
-                android:drawableLeft="@mipmap/search" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="center"
+                    android:src="@mipmap/search"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/etSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="42dp"
+                    android:layout_marginRight="42dp"
+                    android:background="@null"
+                    android:drawablePadding="5dp"
+                    android:gravity="center_vertical"
+                    android:hint="根据关键字搜索"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:text="@={vm.keyWord}"
+                    android:textColor="?attr/theme_color_1"
+                    android:textColorHint="?attr/theme_color_3"
+                    android:textSize="@dimen/text_2"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivClear"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginRight="10dp"
+                    android:padding="3dp"
+                    android:src="@drawable/svg_clear"
+                    android:visibility="gone"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clRecord"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="65dp"
+            android:paddingLeft="@dimen/padding"
+            android:paddingRight="@dimen/padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:text="历史搜索"
+                android:textColor="?attr/theme_color_1"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvClear"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ripple_bg"
+                android:gravity="center"
+                android:text="清空"
+                android:textColor="?attr/theme_color_2"
+                android:textSize="@dimen/text_2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.donkingliang.labels.LabelsView
+                android:id="@+id/labelsView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvClear"
+                android:layout_marginTop="5dp"
+                app:labelTextColor="?attr/theme_color_2"
+                app:labelTextPaddingBottom="3dp"
+                app:labelTextPaddingLeft="10dp"
+                app:labelTextPaddingRight="10dp"
+                app:labelTextPaddingTop="3dp"
+                app:labelTextSize="@dimen/text_2"
+                app:layout_constraintTop_toBottomOf="@+id/tvClear"
+                app:lineMargin="16dp"
+                app:selectType="NONE"
+                app:wordMargin="10dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/smartRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="65dp"
+            android:visibility="gone"
+            app:srlEnableAutoLoadMore="false"
+            app:srlEnableLoadMore="true"
+            app:srlEnableOverScrollBounce="true"
+            app:srlEnableRefresh="false">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

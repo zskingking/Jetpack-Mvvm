@@ -6,6 +6,7 @@ import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.setNoRepeatClick
 import com.zs.base_library.common.toast
+import com.zs.base_library.utils.KeyBoardUtil
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import kotlinx.android.synthetic.main.fragment_register.*
@@ -54,6 +55,10 @@ class RegisterFragment : BaseVmFragment() {
                 R.id.ivRePasswordVisibility -> registerVM.rePassIsVisibility.set(!registerVM.rePassIsVisibility.get()!!)
                 //注册
                 R.id.rlRegister -> {
+                    //关闭软键盘
+                    KeyBoardUtil.closeKeyboard(etUsername,mActivity)
+                    KeyBoardUtil.closeKeyboard(etPassword,mActivity)
+                    KeyBoardUtil.closeKeyboard(etRePassword,mActivity)
                     if (registerVM.username.get()!!.isEmpty()){
                         toast("请填写用户名")
                         return@setNoRepeatClick

@@ -1,13 +1,11 @@
 package com.zs.zs_jetpack.ui
 
 import android.os.Bundle
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.initFragment
-import com.zs.base_library.common.toast
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.PlayViewModel
 import com.zs.zs_jetpack.R
@@ -17,10 +15,7 @@ import com.zs.zs_jetpack.ui.main.home.HomeFragment
 import com.zs.zs_jetpack.ui.main.mine.MineFragment
 import com.zs.zs_jetpack.ui.main.tab.TabFragment
 import com.zs.zs_jetpack.ui.main.square.SquareFragment
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_main.*
-import java.util.concurrent.TimeUnit
 
 /**
  * des 主页面

@@ -98,7 +98,7 @@ interface ApiService {
      * 获取项目tab
      */
     @POST("/article/query/{pageNum}/json")
-    fun search(@Path("pageNum")pageNum:Int,@Query("k")k:String)
+    suspend fun search(@Path("pageNum")pageNum:Int,@Query("k")k:String)
             : ApiResponse<ArticleBean>
 
     /**

@@ -109,9 +109,9 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
     }
 
     override fun onClick() {
-        setNoRepeatClick(tvSearch) {
+        setNoRepeatClick(clSearch) {
             when (it.id) {
-                R.id.tvSearch -> nav().navigate(R.id.action_main_fragment_to_search_fragment)
+                R.id.clSearch -> nav().navigate(R.id.action_main_fragment_to_search_fragment)
             }
         }
     }

@@ -79,7 +79,14 @@
         android:name="com.zs.zs_jetpack.ui.search.SearchFragment"
         android:label="SetFragment"
         tools:layout="@layout/fragment_search">
-
+        <!--登陆-->
+        <action
+            android:id="@+id/action_search_fragment_to_login_fragment"
+            app:destination="@+id/login_fragment" />
+        <!--web-->
+        <action
+            android:id="@+id/action_search_fragment_to_web_fragment"
+            app:destination="@+id/web_fragment" />
     </fragment>
 
     <fragment

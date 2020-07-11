@@ -64,19 +64,19 @@ open class BaseRepository(
     private fun getApiException(e: Throwable): ApiException {
         return when (e) {
             is UnknownHostException -> {
-                ApiException("网络异常", -1)
+                ApiException("网络异常", -100)
             }
             is JSONException -> {//|| e is JsonParseException
-                ApiException("数据异常", -1)
+                ApiException("数据异常", -100)
             }
             is SocketTimeoutException -> {
-                ApiException("连接超时", -1)
+                ApiException("连接超时", -100)
             }
             is ConnectException -> {
-                ApiException("连接错误", -1)
+                ApiException("连接错误", -100)
             }
             is HttpException -> {
-                ApiException("http code ${e.code()}", -1)
+                ApiException("http code ${e.code()}", -100)
             }
             is ApiException -> {
                 e
@@ -89,7 +89,7 @@ open class BaseRepository(
                 ApiException("", -10)
             }
             else -> {
-                ApiException("未知错误", -1)
+                ApiException("未知错误", -100)
             }
         }
     }

@@ -59,7 +59,8 @@ class SplashActivity : BaseVmActivity(), PermissionCallbacks {
      */
     private fun startIntent(){
         //开启服务
-        startService(Intent(this,PlayService::class.java))
+        //startService(Intent(this,PlayService::class.java))
+        PlayerManager.instance.init(this)
         disposable = Observable.timer(2000,TimeUnit.MILLISECONDS)
             .subscribe {
                 startActivity(Intent(this,MainActivity::class.java))

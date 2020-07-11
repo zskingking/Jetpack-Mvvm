@@ -1,5 +1,6 @@
-package com.zs.zs_jetpack.ui.main.square.system
+package com.zs.zs_jetpack.ui.search
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.zs.base_library.base.BaseRepository
 import com.zs.base_library.common.isListEmpty
@@ -11,65 +12,49 @@ import com.zs.zs_jetpack.http.RetrofitManager
 import kotlinx.coroutines.CoroutineScope
 
 /**
- * @date 2020/7/10
  * @author zs
+ * @data 2020/7/11
  */
-class SystemRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<ApiException>) :
+class SearchRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<ApiException>) :
     BaseRepository(coroutineScope, errorLiveData) {
 
-    /**
-     * 获取体系列表
-     */
-    fun getSystemList(systemLiveData : MutableLiveData<MutableList<SystemBean>>){
-       launch(
-           block = {
-               RetrofitManager.getApiService(ApiService::class.java)
-                   .getSystemList()
-                   .data()
-           },
-           success = {
-                systemLiveData.postValue(it)
-           }
-       )
-    }
+    private var page = 0
 
     /**
-     * 页码
+     * 搜索
      */
-    private var page = 0
-    /**
-     * 获取体系对应的
-     */
-    fun getArticleList(isRefresh:Boolean,id:Int,articleLiveData
-    : MutableLiveData<MutableList<ArticleBean.DatasBean>>){
+    fun search(
+        isRefresh: Boolean, keyWord: String
+        , articleLiveData: MutableLiveData<MutableList<ArticleBean.DatasBean>>
+        , emptyLiveData: MutableLiveData<Any>
+    ) {
         launch(
             block = {
-                if (isRefresh){
+                if (isRefresh) {
                     page = 0
-                }else{
+                } else {
                     page++
                 }
                 RetrofitManager.getApiService(ApiService::class.java)
-                    .getSystemArticle(page,id)
+                    .search(page, keyWord)
                     .data()
             },
             success = {
                 //处理刷新/分页数据
                 articleLiveData.value.apply {
                     //第一次加载 或 刷新 给 articleLiveData 赋予一个空集合
-                    val currentList = if (isRefresh || this == null){
+                    val currentList = if (isRefresh || this == null) {
                         mutableListOf()
-                    }else{
+                    } else {
                         this
                     }
                     it.datas?.let { it1 -> currentList.addAll(it1) }
                     articleLiveData.postValue(currentList)
                 }
-
                 if (isListEmpty(it.datas)) {
                     //第一页并且数据为空
                     if (page == 0) {
-                        //预留
+                        emptyLiveData.postValue(Any())
                     } else {
                         toast("没有数据啦～")
                     }

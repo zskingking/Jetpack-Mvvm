@@ -34,13 +34,16 @@ class LoadingTip : RelativeLayout {
     }
 
     private fun initView(context: Context) {
-        var view = View.inflate(context, R.layout.loading_tip, this)
+        val view = View.inflate(context, R.layout.loading_tip, this)
         llEmpty = view.findViewById(R.id.llEmpty)
         indicatorView = view.findViewById(R.id.indicatorView)
         llInternetError = view.findViewById(R.id.llInternetError)
         visibility = View.GONE
     }
 
+    /**
+     * 设置网络重连点击事件
+     */
     fun setReloadListener(reload:(View)->Unit){
         llInternetError?.setOnClickListener {
             reload.invoke(it)
