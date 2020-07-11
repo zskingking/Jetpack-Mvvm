@@ -12,7 +12,7 @@ import java.net.UnknownHostException
 
 
 /**
- * typealias用于省略如泛型之类用不到的信息
+ * 错误方法
  */
 typealias Error = suspend (e: ApiException) -> Unit
 
