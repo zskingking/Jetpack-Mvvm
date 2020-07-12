@@ -149,7 +149,7 @@ interface ApiService {
      * 分享文章
      */
     @POST("/lg/user_article/add/json")
-    fun shareArticle(@Query("title")title: String,@Query("link")link: String)
+    suspend fun publishArticle(@Query("title")title: String, @Query("link")link: String)
             : ApiResponse<Any>
 
     /**

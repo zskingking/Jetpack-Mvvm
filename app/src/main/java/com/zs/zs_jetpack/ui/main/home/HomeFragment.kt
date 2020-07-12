@@ -99,7 +99,7 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
         }
         setNoRepeatClick(ivAdd){
             when(it.id){
-                R.id.ivAdd ->{}
+                R.id.ivAdd ->nav().navigate(R.id.action_main_fragment_to_publish_fragment)
             }
         }
     }

@@ -35,11 +35,11 @@ class ApiResponse<T> : Serializable {
             }
             //未登陆请求需要用户信息的接口
             -1001 -> {
-                throw ApiException("请先登陆", -1)
+                throw ApiException(errorMsg, errorCode)
             }
             //登录失败
             -1 -> {
-                throw ApiException("登陆失败", -1)
+                throw ApiException(errorMsg, errorCode)
             }
         }
         //其他错误
@@ -51,7 +51,7 @@ class ApiResponse<T> : Serializable {
      * 如果某些接口存在data为null的情况,需传入class对象
      * 生成空对象。避免后面做一系列空判断
      */
-    fun data(clazz:Class<T>): T {
+    fun data(clazz: Class<T>): T {
         when (errorCode) {
             //请求成功
             0, 200 -> {
@@ -63,11 +63,11 @@ class ApiResponse<T> : Serializable {
             }
             //未登陆请求需要用户信息的接口
             -1001 -> {
-                throw ApiException("请先登陆", -1)
+                throw ApiException(errorMsg, errorCode)
             }
             //登录失败
             -1 -> {
-                throw ApiException("登陆失败", -1)
+                throw ApiException(errorMsg, errorCode)
             }
         }
         //其他错误

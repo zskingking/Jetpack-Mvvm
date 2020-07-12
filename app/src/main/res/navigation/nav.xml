@@ -44,6 +44,11 @@
         <action
             android:id="@+id/action_main_fragment_to_system_list_fragment"
             app:destination="@+id/system_list_fragment" />
+
+        <!--发布文章-->
+        <action
+            android:id="@+id/action_main_fragment_to_publish_fragment"
+            app:destination="@+id/publish_fragment" />
     </fragment>
 
     <fragment
@@ -126,4 +131,10 @@
             android:id="@+id/action_system_list_fragment_to_web_fragment"
             app:destination="@+id/web_fragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/publish_fragment"
+        android:name="com.zs.zs_jetpack.ui.publish.PublishFragment"
+        android:label="PublishFragment"
+        tools:layout="@layout/fragment_publish" />
 </navigation>

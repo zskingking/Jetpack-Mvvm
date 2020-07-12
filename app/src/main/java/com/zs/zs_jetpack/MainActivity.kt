@@ -53,7 +53,6 @@ class MainActivity : BaseVmActivity(), AudioObserver {
      * 歌曲信息
      */
     override fun onAudioBean(audioBean: AudioBean) {
-        Log.i("onAudioBean","onAudioBean--${audioBean}")
         playVM?.songName?.set(audioBean.name)
         playVM?.singer?.set(audioBean.singer)
         playVM?.maxDuration?.set(stringForTime(audioBean.duration))
