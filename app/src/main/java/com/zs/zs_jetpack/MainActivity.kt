@@ -1,10 +1,11 @@
 package com.zs.zs_jetpack
 
+
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import com.zs.base_library.base.BaseVmActivity
 import com.zs.base_library.common.stringForTime
-import com.zs.base_library.common.toast
 import com.zs.base_library.utils.PrefUtils
 import com.zs.base_library.utils.StatusUtils
 import com.zs.zs_jetpack.constants.Constants
@@ -12,6 +13,8 @@ import com.zs.zs_jetpack.play.AudioObserver
 import com.zs.zs_jetpack.play.PlayList
 import com.zs.zs_jetpack.play.PlayerManager
 import com.zs.zs_jetpack.play.bean.AudioBean
+import com.zs.zs_jetpack.ui.MainFragment
+
 
 /**
  * des 主页面，作用有二
@@ -50,6 +53,7 @@ class MainActivity : BaseVmActivity(), AudioObserver {
      * 歌曲信息
      */
     override fun onAudioBean(audioBean: AudioBean) {
+        Log.i("onAudioBean","onAudioBean--${audioBean}")
         playVM?.songName?.set(audioBean.name)
         playVM?.singer?.set(audioBean.singer)
         playVM?.maxDuration?.set(stringForTime(audioBean.duration))
@@ -104,6 +108,22 @@ class MainActivity : BaseVmActivity(), AudioObserver {
             StatusUtils.setSystemStatus(this, true, false)
         } else {
             StatusUtils.setSystemStatus(this, true, true)
+        }
+    }
+
+    override fun onBackPressed() {
+        //获取hostFragment
+        val mMainNavFragment: Fragment? =
+            supportFragmentManager.findFragmentById(R.id.host_fragment)
+        //获取当前所在的fragment
+        val fragment =
+            mMainNavFragment?.childFragmentManager?.primaryNavigationFragment
+        //如果当前处于根fragment即HostFragment
+        if (fragment is MainFragment) {
+            //Activity退出但不销毁
+            moveTaskToBack(false)
+        }else{
+            super.onBackPressed()
         }
     }
 
