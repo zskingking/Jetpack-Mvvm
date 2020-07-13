@@ -42,11 +42,11 @@ object Constants {
     /**
      * webView url
      */
-    const val WEB_URL = "webUrl"
+    const val WEB_URL = "loadUrl"
     /**
      * webView 标题
      */
-    const val WEB_TITLE = "webTitle"
+    const val WEB_TITLE = "title"
     /**
      * 体系 id
      */

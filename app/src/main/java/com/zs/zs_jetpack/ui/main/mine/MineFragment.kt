@@ -104,6 +104,13 @@ class MineFragment : LazyVmFragment() {
                 R.id.llHistory -> nav().navigate(R.id.action_main_fragment_to_history_fragment)
                 //排名
                 R.id.llRanking -> {
+                    nav().navigate(R.id.action_main_fragment_to_rank_fragment,Bundle().apply {
+                        integralBean?.apply {
+                            putInt(Constants.MY_INTEGRAL, coinCount)
+                            putInt(Constants.MY_RANK, rank)
+                            putString(Constants.MY_NAME, username)
+                        }
+                    })
                 }
                 //积分
                 R.id.clIntegral -> {

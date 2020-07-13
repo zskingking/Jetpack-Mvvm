@@ -1,8 +1,8 @@
-package com.zs.zs_jetpack.bean;
+package com.zs.zs_jetpack.ui.rank;
 
 import java.util.List;
 
-public class RankEntity {
+public class RankBean {
 
 
     /**

@@ -49,6 +49,11 @@
         <action
             android:id="@+id/action_main_fragment_to_publish_fragment"
             app:destination="@+id/publish_fragment" />
+
+        <!--排名-->
+        <action
+            android:id="@+id/action_main_fragment_to_rank_fragment"
+            app:destination="@+id/rank_fragment" />
     </fragment>
 
     <fragment
@@ -137,4 +142,15 @@
         android:name="com.zs.zs_jetpack.ui.publish.PublishFragment"
         android:label="PublishFragment"
         tools:layout="@layout/fragment_publish" />
+
+    <fragment
+        android:id="@+id/rank_fragment"
+        android:name="com.zs.zs_jetpack.ui.rank.RankFragment"
+        android:label="RankFragment"
+        tools:layout="@layout/fragment_rank">
+        <!--web-->
+        <action
+            android:id="@+id/action_rank_fragment_to_web_fragment"
+            app:destination="@+id/web_fragment" />
+    </fragment>
 </navigation>

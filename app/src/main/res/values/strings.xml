@@ -9,6 +9,7 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="play_default_time">00:00</string>
+    <string name="integral_rule">积分规则</string>
 
     <string name="share_information_1">只要是任何好文都可以分享哈，并不一定要是原创！投递的文章会进入广场 tab;</string>
     <string name="share_information_2">CSDN，掘金，简书等官方博客站点会直接通过，不需要审核;</string>

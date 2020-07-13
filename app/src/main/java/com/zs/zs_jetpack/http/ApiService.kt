@@ -3,7 +3,7 @@ package com.zs.zs_jetpack.http
 import com.zs.wanandroid.entity.*
 import com.zs.zs_jetpack.bean.ArticleBean
 import com.zs.zs_jetpack.bean.NavigationEntity
-import com.zs.zs_jetpack.bean.RankEntity
+import com.zs.zs_jetpack.ui.rank.RankBean
 import com.zs.zs_jetpack.ui.main.square.system.SystemBean
 import com.zs.zs_jetpack.ui.main.tab.TabBean
 import retrofit2.http.*
@@ -125,7 +125,7 @@ interface ApiService {
      * 排名
      */
     @GET("/coin/rank/{pageNum}/json")
-    fun getRank(@Path("pageNum")pageNum: Int) : ApiResponse<RankEntity>
+    suspend fun getRank(@Path("pageNum")pageNum: Int) : ApiResponse<RankBean>
 
     /**
      * 积分记录

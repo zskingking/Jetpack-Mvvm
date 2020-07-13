@@ -16,7 +16,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="54dp"
             android:elevation="6dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -38,11 +38,6 @@
                 android:textSize="17dp"
                 android:textStyle="bold" />
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="?attr/division_line" />
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"

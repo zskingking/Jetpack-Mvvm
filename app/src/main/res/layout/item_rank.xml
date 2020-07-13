@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding">
+
+    <ImageView
+        android:id="@+id/ivRank"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/gold_crown" />
+
+    <TextView
+        android:id="@+id/tvRank"
+        style="@style/text_2"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center"
+        android:textSize="@dimen/text_1"
+        android:textStyle="bold"
+        tools:text="1" />
+
+    <TextView
+        android:id="@+id/tvName"
+        style="@style/text_1"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="40dp"
+        android:layout_toRightOf="@+id/tvRank"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/tvIntegral"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:textColor="@color/theme"
+        android:textSize="@dimen/text_1"
+        android:textStyle="bold"
+        tools:text="130" />
+</RelativeLayout>

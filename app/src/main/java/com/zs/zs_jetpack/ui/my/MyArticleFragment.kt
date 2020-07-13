@@ -10,14 +10,14 @@ import com.zs.zs_jetpack.R
  * @author zs
  * @data 2020/7/12
  */
-class MyFragment :BaseVmFragment(){
+class MyArticleFragment :BaseVmFragment(){
 
 
     override fun init(savedInstanceState: Bundle?) {
 
     }
 
-    override fun getLayoutId() = R.layout.fragment_my
+    override fun getLayoutId() = R.layout.fragment_my_article
 
     override fun getDataBindingConfig(): DataBindingConfig? {
         return null
