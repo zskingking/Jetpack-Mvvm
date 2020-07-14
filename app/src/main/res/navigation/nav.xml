@@ -54,6 +54,11 @@
         <action
             android:id="@+id/action_main_fragment_to_rank_fragment"
             app:destination="@+id/rank_fragment" />
+
+        <!--我的文章-->
+        <action
+            android:id="@+id/action_main_fragment_to_my_article_fragment"
+            app:destination="@+id/my_article_fragment" />
     </fragment>
 
     <fragment
@@ -81,7 +86,10 @@
         android:name="com.zs.zs_jetpack.ui.set.SetFragment"
         android:label="SetFragment"
         tools:layout="@layout/fragment_set">
-
+        <!--历史-->
+        <action
+            android:id="@+id/action_set_fragment_to_web_fragment"
+            app:destination="@+id/web_fragment" />
     </fragment>
 
     <fragment
@@ -152,5 +160,16 @@
         <action
             android:id="@+id/action_rank_fragment_to_web_fragment"
             app:destination="@+id/web_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/my_article_fragment"
+        android:name="com.zs.zs_jetpack.ui.my.MyArticleFragment"
+        android:label="MyArticleFragment"
+        tools:layout="@layout/fragment_my_article">
+        <!--添加文章-->
+        <action
+            android:id="@+id/action_my_article_fragment_to_publish_fragment"
+            app:destination="@+id/publish_fragment" />
     </fragment>
 </navigation>

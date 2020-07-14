@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zs.zs_jetpack.view.SwipeMenuView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_bg"
+        android:id="@+id/rlContent">
+
+        <TextView
+            android:id="@+id/tvAuthor"
+            style="@style/text_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginTop="@dimen/padding"
+            tools:text="鸿洋" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            style="@style/text_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
+            tools:text="2020-03-08" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/text_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvDate"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="@dimen/padding"
+            android:maxLines="3"
+            tools:text="分布式协调工具之zookeeper使用篇-Zookeeper系统核心模型" />
+
+        <TextView
+            android:id="@+id/tvChapterName"
+            style="@style/text_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTitle"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_marginTop="10dp"
+            tools:text="开发环境" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tvChapterName"
+            android:layout_marginTop="@dimen/padding"
+            android:background="?attr/division_line" />
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/flDelete"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tvDelete"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
+            android:background="@drawable/radius_8_theme"
+            android:gravity="center"
+            android:text="删除"
+            android:textColor="@color/white"
+            android:textSize="17sp" />
+    </FrameLayout>
+</com.zs.zs_jetpack.view.SwipeMenuView>

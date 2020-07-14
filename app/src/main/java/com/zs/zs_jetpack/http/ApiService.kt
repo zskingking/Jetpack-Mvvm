@@ -137,7 +137,7 @@ interface ApiService {
      * 我分享的文章
      */
     @GET("/user/lg/private_articles/{pageNum}/json")
-    fun getMyArticle(@Path("pageNum")pageNum: Int) : ApiResponse<MyArticleEntity>
+    suspend fun getMyArticle(@Path("pageNum")pageNum: Int) : ApiResponse<MyArticleEntity>
 
     /**
      * 我分享的文章

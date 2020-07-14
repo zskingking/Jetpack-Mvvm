@@ -11,6 +11,7 @@ import com.zs.base_library.utils.PrefUtils
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.constants.Constants
+import com.zs.zs_jetpack.constants.UrlConstants
 import com.zs.zs_jetpack.utils.CacheUtil
 import com.zs.zs_jetpack.view.DialogUtils
 import kotlinx.android.synthetic.main.fragment_set.*
@@ -66,6 +67,10 @@ class SetFragment : BaseVmFragment() {
                 R.id.tvAuthor -> {
                 }
                 R.id.tvProject -> {
+                    nav().navigate(R.id.action_set_fragment_to_web_fragment, Bundle().apply {
+                        putString(Constants.WEB_URL, UrlConstants.APP_GITHUB)
+                        putString(Constants.WEB_TITLE, Constants.APP_NAME)
+                    })
                 }
                 R.id.tvCopyright -> {
                 }

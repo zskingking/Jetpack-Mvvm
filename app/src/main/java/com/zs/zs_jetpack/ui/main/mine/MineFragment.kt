@@ -126,7 +126,7 @@ class MineFragment : LazyVmFragment() {
                 }
                 //我的文章
                 R.id.clArticle -> {
-
+                    nav().navigate(R.id.action_main_fragment_to_my_article_fragment)
                 }
                 //官网
                 R.id.clWebsite -> {
