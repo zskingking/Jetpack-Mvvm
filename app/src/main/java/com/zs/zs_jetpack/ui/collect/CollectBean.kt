@@ -1,6 +1,6 @@
-package com.zs.wanandroid.entity
+package com.zs.zs_jetpack.ui.collect
 
-class CollectEntity {
+class CollectBean {
 
 
     /**

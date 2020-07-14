@@ -3,6 +3,7 @@ package com.zs.zs_jetpack.http
 import com.zs.wanandroid.entity.*
 import com.zs.zs_jetpack.bean.ArticleBean
 import com.zs.zs_jetpack.bean.NavigationEntity
+import com.zs.zs_jetpack.ui.collect.CollectBean
 import com.zs.zs_jetpack.ui.rank.RankBean
 import com.zs.zs_jetpack.ui.main.square.system.SystemBean
 import com.zs.zs_jetpack.ui.main.tab.TabBean
@@ -46,8 +47,8 @@ interface ApiService {
      * 获取收藏文章数据
      */
     @GET("/lg/collect/list/{page}/json")
-    fun getCollectData(@Path("page") pageNo: Int):
-            ApiResponse<CollectEntity>
+    suspend fun getCollectData(@Path("page") pageNo: Int):
+            ApiResponse<CollectBean>
 
     /**
      * 获取个人积分

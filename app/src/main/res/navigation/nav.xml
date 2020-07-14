@@ -59,6 +59,10 @@
         <action
             android:id="@+id/action_main_fragment_to_my_article_fragment"
             app:destination="@+id/my_article_fragment" />
+        <!--收藏-->
+        <action
+            android:id="@+id/action_main_fragment_to_collect_fragment"
+            app:destination="@+id/collect_fragment" />
     </fragment>
 
     <fragment
@@ -175,6 +179,19 @@
         <!--web-->
         <action
             android:id="@+id/action_my_article_fragment_to_web_fragment"
+            app:destination="@+id/web_fragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/collect_fragment"
+        android:name="com.zs.zs_jetpack.ui.collect.CollectFragment"
+        android:label="CollectFragment"
+        tools:layout="@layout/fragment_collect">
+
+        <!--web-->
+        <action
+            android:id="@+id/action_collect_fragment_to_web_fragment"
             app:destination="@+id/web_fragment" />
     </fragment>
 </navigation>

@@ -102,8 +102,5 @@ class ArticleBean {
         var visible = 0
         var zan = 0
         var tags: List<*>? = null
-
-
-
     }
 }

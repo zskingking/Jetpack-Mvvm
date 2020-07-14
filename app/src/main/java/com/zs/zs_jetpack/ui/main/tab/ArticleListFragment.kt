@@ -11,6 +11,7 @@ import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
 import com.zs.zs_jetpack.common.OnChildItemClickListener
+import com.zs.zs_jetpack.utils.CacheUtil
 import kotlinx.android.synthetic.main.fragment_article.*
 
 /**
@@ -45,6 +46,14 @@ class ArticleListFragment : LazyVmFragment() , OnChildItemClickListener {
         articleVM?.articleLiveData?.observe(this, Observer {
             smartDismiss(smartRefresh)
             adapter.setNewData(it)
+        })
+        //收藏
+        articleVM?.collectLiveData?.observe(this, Observer {
+            adapter.collectNotifyById(it)
+        })
+        //取消收藏
+        articleVM?.unCollectLiveData?.observe(this, Observer {
+            adapter.unCollectNotifyById(it)
         })
         articleVM?.errorLiveData?.observe(this, Observer {
 
@@ -95,7 +104,20 @@ class ArticleListFragment : LazyVmFragment() , OnChildItemClickListener {
             }
             //收藏
             R.id.ivCollect->{
-
+                //已登陆
+                if (CacheUtil.isLogin()){
+                    this@ArticleListFragment.adapter.data[position].apply {
+                        //已收藏取消收藏
+                        if (collect){
+                            articleVM?.unCollect(id)
+                        }else{
+                            articleVM?.collect(id)
+                        }
+                    }
+                }else{
+                    //未登陆跳登陆页
+                    nav().navigate(R.id.action_search_fragment_to_login_fragment)
+                }
             }
         }
     }

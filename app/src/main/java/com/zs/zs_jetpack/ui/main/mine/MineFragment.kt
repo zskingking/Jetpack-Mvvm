@@ -122,11 +122,19 @@ class MineFragment : LazyVmFragment() {
                 }
                 //我的收藏
                 R.id.clCollect -> {
-
+                    if (CacheUtil.isLogin()) {
+                        nav().navigate(R.id.action_main_fragment_to_collect_fragment)
+                    } else {
+                        toast("请先登录")
+                    }
                 }
                 //我的文章
                 R.id.clArticle -> {
-                    nav().navigate(R.id.action_main_fragment_to_my_article_fragment)
+                    if (CacheUtil.isLogin()) {
+                        nav().navigate(R.id.action_main_fragment_to_my_article_fragment)
+                    } else {
+                        toast("请先登录")
+                    }
                 }
                 //官网
                 R.id.clWebsite -> {
