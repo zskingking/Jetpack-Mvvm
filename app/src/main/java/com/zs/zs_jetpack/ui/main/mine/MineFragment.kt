@@ -99,7 +99,11 @@ class MineFragment : LazyVmFragment() {
                 //头像
                 R.id.ivHead -> toast("我只是一只睡着的小老鼠...")
                 //用户名
-                R.id.tvName -> toast("请先登录～")
+                R.id.tvName -> {
+                    if (!CacheUtil.isLogin()) {
+                        nav().navigate(R.id.action_main_fragment_to_login_fragment)
+                    }
+                }
                 //历史
                 R.id.llHistory -> nav().navigate(R.id.action_main_fragment_to_history_fragment)
                 //排名
@@ -117,7 +121,13 @@ class MineFragment : LazyVmFragment() {
                     }
                 }
                 //积分
-                R.id.clIntegral -> nav().navigate(R.id.action_main_fragment_to_integral_fragment)
+                R.id.clIntegral -> {
+                    if (CacheUtil.isLogin()) {
+                        nav().navigate(R.id.action_main_fragment_to_integral_fragment)
+                    } else {
+                        toast("请先登录")
+                    }
+                }
                 //我的收藏
                 R.id.clCollect -> {
                     if (CacheUtil.isLogin()) {
