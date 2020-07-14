@@ -171,5 +171,10 @@
         <action
             android:id="@+id/action_my_article_fragment_to_publish_fragment"
             app:destination="@+id/publish_fragment" />
+
+        <!--web-->
+        <action
+            android:id="@+id/action_my_article_fragment_to_web_fragment"
+            app:destination="@+id/web_fragment" />
     </fragment>
 </navigation>

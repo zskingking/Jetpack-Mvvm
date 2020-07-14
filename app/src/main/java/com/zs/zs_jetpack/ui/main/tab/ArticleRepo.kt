@@ -36,7 +36,7 @@ class ArticleRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData
             block = {
                 //是否为刷新
                 if (isRefresh){
-                    page = 0
+                    page = 1
                 }else{
                     page++
                 }

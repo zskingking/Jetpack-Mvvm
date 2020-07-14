@@ -36,7 +36,7 @@ class SystemRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<
     /**
      * 页码
      */
-    private var page = 1
+    private var page = 0
     /**
      * 获取体系对应的
      */
@@ -45,7 +45,7 @@ class SystemRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<
         launch(
             block = {
                 if (isRefresh){
-                    page = 1
+                    page = 0
                 }else{
                     page++
                 }
@@ -68,7 +68,7 @@ class SystemRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<
 
                 if (isListEmpty(it.datas)) {
                     //第一页并且数据为空
-                    if (page == 1) {
+                    if (page == 0) {
                         //预留
                     } else {
                         toast("没有数据啦～")

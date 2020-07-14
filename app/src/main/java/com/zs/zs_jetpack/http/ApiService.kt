@@ -143,7 +143,7 @@ interface ApiService {
      * 我分享的文章
      */
     @POST("/lg/user_article/delete/{id}/json")
-    fun deleteMyArticle(@Path("id")id: Int) : ApiResponse<Any>
+    suspend fun deleteMyArticle(@Path("id")id: Int) : ApiResponse<Any>
 
     /**
      * 分享文章

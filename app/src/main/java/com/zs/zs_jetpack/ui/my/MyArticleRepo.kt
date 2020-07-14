@@ -61,4 +61,18 @@ class MyArticleRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveDa
             }
         )
     }
+    fun delete(id:Int,deleteLiveData : MutableLiveData<Int>){
+        launch(
+            block = {
+                RetrofitManager.getApiService(ApiService::class.java)
+                    .deleteMyArticle(id)
+                    .data(Any::class.java)
+            },
+            success = {
+               deleteLiveData.postValue(id)
+            }
+        )
+
+    }
+
 }

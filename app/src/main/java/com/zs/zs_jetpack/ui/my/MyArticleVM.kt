@@ -15,7 +15,13 @@ class MyArticleVM :BaseViewModel(){
 
     val myLiveDate = MutableLiveData<MutableList<ArticleBean.DatasBean>>()
 
+    val deleteLiveData = MutableLiveData<Int>()
+
     fun getMyArticle(isRefresh:Boolean){
         repo.getMyArticle(isRefresh,myLiveDate,emptyLiveDate)
+    }
+
+    fun delete(id:Int){
+        repo.delete(id,deleteLiveData)
     }
 }

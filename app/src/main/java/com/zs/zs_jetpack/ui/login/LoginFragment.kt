@@ -1,6 +1,7 @@
 package com.zs.zs_jetpack.ui.login
 
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.Observer
 import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
@@ -32,6 +33,10 @@ class LoginFragment : BaseVmFragment() {
         loginVM.loginLiveData.observe(this, Observer {
             toast("登陆成功")
             nav().navigateUp()
+        })
+
+        loginVM.errorLiveData.observe(this, Observer {
+            setViewStatus(true)
         })
     }
 
@@ -73,7 +78,29 @@ class LoginFragment : BaseVmFragment() {
     }
 
     private fun login() {
+        setViewStatus(false)
         loginVM.login()
+    }
+
+    /**
+     * 登录时给具备点击事件的View上锁，登陆失败时解锁
+     * 并且施加动画
+     */
+    private fun setViewStatus(lockStatus:Boolean){
+        llLogin.isEnabled = lockStatus
+        tvRegister.isEnabled = lockStatus
+        tvSkip.isEnabled = lockStatus
+        etUsername.isEnabled = lockStatus
+        etPassword.isEnabled = lockStatus
+        if (lockStatus) {
+            tvLoginTxt.visibility = View.VISIBLE
+            indicatorView.visibility = View.GONE
+            indicatorView.hide()
+        }else {
+            tvLoginTxt.visibility = View.GONE
+            indicatorView.visibility = View.VISIBLE
+            indicatorView.show()
+        }
     }
 
     override fun getLayoutId(): Int? {

@@ -63,7 +63,7 @@
         android:id="@+id/flDelete"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@color/white">
+        android:background="?attr/main_bg_1">
 
         <TextView
             android:id="@+id/tvDelete"
