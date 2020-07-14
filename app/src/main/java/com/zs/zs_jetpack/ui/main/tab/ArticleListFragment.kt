@@ -76,7 +76,7 @@ class ArticleListFragment : LazyVmFragment() , OnChildItemClickListener {
     }
 
     override fun loadData() {
-        articleVM?.getArticle(type, tabId, true)
+        smartRefresh.autoRefresh()
     }
 
     override fun getLayoutId() = R.layout.fragment_article

@@ -105,7 +105,8 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>
     }
 
     override fun loadData() {
-        homeVm?.getArticleList(true)
+        //自动刷新
+        smartRefresh.autoRefresh()
     }
 
     override fun onClick() {

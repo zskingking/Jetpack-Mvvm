@@ -44,7 +44,7 @@ class MineFragment : LazyVmFragment() {
     /**
      * 用户积分信息
      */
-    private var integralBean:IntegralBean? = null
+    private var integralBean: IntegralBean? = null
 
     private var mineVM: MineVM? = null
 
@@ -59,7 +59,7 @@ class MineFragment : LazyVmFragment() {
         })
     }
 
-    private fun setIntegral(){
+    private fun setIntegral() {
         //通过dataBinDing与View绑定
         mineVM?.username?.set(integralBean?.username)
         mineVM?.id?.set("${integralBean?.userId}")
@@ -73,11 +73,11 @@ class MineFragment : LazyVmFragment() {
             //先从本地获取积分，获取不到再通过网络获取
             integralBean = it as IntegralBean?
         }
-        if (integralBean==null){
+        if (integralBean == null) {
             if (CacheUtil.isLogin()) {
                 mineVM?.getInternal()
             }
-        }else{
+        } else {
             setIntegral()
         }
     }
@@ -104,13 +104,17 @@ class MineFragment : LazyVmFragment() {
                 R.id.llHistory -> nav().navigate(R.id.action_main_fragment_to_history_fragment)
                 //排名
                 R.id.llRanking -> {
-                    nav().navigate(R.id.action_main_fragment_to_rank_fragment,Bundle().apply {
-                        integralBean?.apply {
-                            putInt(Constants.MY_INTEGRAL, coinCount)
-                            putInt(Constants.MY_RANK, rank)
-                            putString(Constants.MY_NAME, username)
-                        }
-                    })
+                    if (CacheUtil.isLogin()) {
+                        nav().navigate(R.id.action_main_fragment_to_rank_fragment, Bundle().apply {
+                            integralBean?.apply {
+                                putInt(Constants.MY_INTEGRAL, coinCount)
+                                putInt(Constants.MY_RANK, rank)
+                                putString(Constants.MY_NAME, username)
+                            }
+                        })
+                    } else {
+                        toast("请先登录")
+                    }
                 }
                 //积分
                 R.id.clIntegral -> {
@@ -126,9 +130,9 @@ class MineFragment : LazyVmFragment() {
                 }
                 //官网
                 R.id.clWebsite -> {
-                    nav().navigate(R.id.action_main_fragment_to_web_fragment,Bundle().apply {
+                    nav().navigate(R.id.action_main_fragment_to_web_fragment, Bundle().apply {
                         putString(Constants.WEB_URL, UrlConstants.WEBSITE)
-                        putString(Constants.WEB_TITLE,Constants.APP_NAME)
+                        putString(Constants.WEB_TITLE, Constants.APP_NAME)
                     })
                 }
                 R.id.clGirl -> {

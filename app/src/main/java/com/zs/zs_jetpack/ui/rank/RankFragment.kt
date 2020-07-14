@@ -6,11 +6,13 @@ import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.setNoRepeatClick
 import com.zs.base_library.common.smartDismiss
+import com.zs.base_library.common.toast
 import com.zs.base_library.utils.Param
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.constants.Constants
 import com.zs.zs_jetpack.constants.UrlConstants
+import com.zs.zs_jetpack.utils.CacheUtil
 import kotlinx.android.synthetic.main.fragment_mine.*
 import kotlinx.android.synthetic.main.fragment_rank.*
 import kotlinx.android.synthetic.main.fragment_rank.tvIntegral
@@ -79,7 +81,8 @@ class RankFragment : BaseVmFragment() {
     }
 
     override fun loadData() {
-        rankVM.getRank(true)
+        //自动刷新
+        smartRefresh.autoRefresh()
     }
 
     override fun onClick() {
@@ -87,10 +90,12 @@ class RankFragment : BaseVmFragment() {
             when (it.id) {
                 R.id.ivBack -> nav().navigateUp()
                 //查看积分详情
-                R.id.ivDetail -> nav().navigate(R.id.action_rank_fragment_to_web_fragment,Bundle().apply {
-                    putString(Constants.WEB_URL, UrlConstants.INTEGRAL_RULE)
-                    putString(Constants.WEB_TITLE,getString(R.string.integral_rule))
-                })
+                R.id.ivDetail -> {
+                    nav().navigate(R.id.action_rank_fragment_to_web_fragment, Bundle().apply {
+                        putString(Constants.WEB_URL, UrlConstants.INTEGRAL_RULE)
+                        putString(Constants.WEB_TITLE, getString(R.string.integral_rule))
+                    })
+                }
             }
         }
     }

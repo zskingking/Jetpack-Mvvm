@@ -72,8 +72,6 @@ class SearchFragment : BaseVmFragment(), OnChildItemClickListener {
 
     override fun observe() {
         searchVM.articleLiveData.observe(this, Observer {
-            clRecord.visibility = View.GONE
-            smartRefresh.visibility = View.VISIBLE
             smartDismiss(smartRefresh)
             adapter.setNewData(it)
         })
@@ -120,7 +118,7 @@ class SearchFragment : BaseVmFragment(), OnChildItemClickListener {
             rvSearch.adapter = this
         }
         startSearchAnim(true)
-        //记载更多
+        //加载更多
         smartRefresh.setOnLoadMoreListener {
             search(false)
         }
@@ -261,7 +259,8 @@ class SearchFragment : BaseVmFragment(), OnChildItemClickListener {
      * @param isRefresh 是否为初次加载
      */
     private fun search(isRefresh: Boolean) {
-
+        clRecord.visibility = View.GONE
+        smartRefresh.visibility = View.VISIBLE
         searchVM.search(isRefresh)
         KeyBoardUtil.closeKeyboard(etSearch, mActivity)
     }
