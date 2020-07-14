@@ -2,6 +2,7 @@ package com.zs.zs_jetpack.ui.main.tab
 
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
@@ -68,6 +69,8 @@ class ArticleListFragment : LazyVmFragment() , OnChildItemClickListener {
     }
 
     override fun initView() {
+        //关闭更新动画
+        (rvArticleList.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         //下拉刷新
         smartRefresh.setOnRefreshListener {
             articleVM?.getArticle(type, tabId, true)

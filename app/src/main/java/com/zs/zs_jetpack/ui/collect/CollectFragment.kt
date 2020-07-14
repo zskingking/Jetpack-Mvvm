@@ -44,8 +44,6 @@ class CollectFragment : BaseVmFragment(), OnChildItemClickListener {
         })
         //取消收藏
         collectVM.unCollectLiveData.observe(this, Observer {
-            Log.i("CollectFragment","result :$it")
-
             adapter.deleteById(it)
         })
         collectVM.emptyLiveDate.observe(this, Observer {
@@ -113,7 +111,6 @@ class CollectFragment : BaseVmFragment(), OnChildItemClickListener {
             //收藏
             R.id.ivCollect -> {
                 this@CollectFragment.adapter.data[position].apply {
-                    Log.i("CollectFragment","position:$originId")
                     collectVM.unCollect(originId)
                 }
             }
