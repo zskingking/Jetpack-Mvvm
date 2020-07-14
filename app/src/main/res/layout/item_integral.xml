@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="@dimen/padding"
+    android:paddingBottom="@dimen/padding">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:id="@+id/tvAddIntegralMode"
+        style="@style/text_1"
+        tools:text="签到积分10+10"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAddIntegralMode"
+        android:id="@+id/tvDate"
+        style="@style/text_3"
+        android:layout_marginTop="5dp"
+        tools:text="2020-03-17 15:16:33"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvAddIntegralMode"
+        app:layout_constraintBottom_toBottomOf="@+id/tvDate"
+        android:id="@+id/tvAddIntegral"
+        android:textSize="@dimen/text_1"
+        android:textColor="@color/theme"
+        android:textStyle="bold"
+        android:gravity="center"
+        tools:text="+20"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -93,7 +93,7 @@ class MineFragment : LazyVmFragment() {
     override fun onClick() {
         setNoRepeatClick(
             ivHead, tvName, tvId, llHistory, llRanking
-            , clIntegral, clCollect, clArticle, clWebsite, clGirl, clSet
+            , clIntegral, clCollect, clArticle, clWebsite, clSet
         ) {
             when (it.id) {
                 //头像
@@ -117,9 +117,7 @@ class MineFragment : LazyVmFragment() {
                     }
                 }
                 //积分
-                R.id.clIntegral -> {
-
-                }
+                R.id.clIntegral -> nav().navigate(R.id.action_main_fragment_to_integral_fragment)
                 //我的收藏
                 R.id.clCollect -> {
                     if (CacheUtil.isLogin()) {
@@ -142,9 +140,6 @@ class MineFragment : LazyVmFragment() {
                         putString(Constants.WEB_URL, UrlConstants.WEBSITE)
                         putString(Constants.WEB_TITLE, Constants.APP_NAME)
                     })
-                }
-                R.id.clGirl -> {
-
                 }
                 R.id.clSet -> {
                     nav().navigate(R.id.action_main_fragment_to_set_fragment)

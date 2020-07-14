@@ -5,7 +5,7 @@ package com.zs.wanandroid.entity
  * @author zs
  * @date 2020-03-17
  */
-class IntegralRecordEntity {
+class IntegralRecordBean {
 
 
     /**

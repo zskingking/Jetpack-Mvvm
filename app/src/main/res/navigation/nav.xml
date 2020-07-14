@@ -18,7 +18,7 @@
         <!--播放-->
         <action
             android:id="@+id/action_main_fragment_to_play_fragment"
-            app:destination="@+id/play_fragment"/>
+            app:destination="@+id/play_fragment" />
 
         <!--设置-->
         <action
@@ -63,6 +63,10 @@
         <action
             android:id="@+id/action_main_fragment_to_collect_fragment"
             app:destination="@+id/collect_fragment" />
+        <!--积分-->
+        <action
+            android:id="@+id/action_main_fragment_to_integral_fragment"
+            app:destination="@+id/integral_fragment" />
     </fragment>
 
     <fragment
@@ -194,4 +198,10 @@
             android:id="@+id/action_collect_fragment_to_web_fragment"
             app:destination="@+id/web_fragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/integral_fragment"
+        android:name="com.zs.zs_jetpack.ui.integral.IntegralFragment"
+        android:label="IntegralFragment"
+        tools:layout="@layout/fragment_integral" />
 </navigation>

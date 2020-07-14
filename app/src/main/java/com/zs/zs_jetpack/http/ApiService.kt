@@ -132,7 +132,7 @@ interface ApiService {
      * 积分记录
      */
     @GET("/lg/coin/list/{pageNum}/json")
-    fun getIntegralRecord(@Path("pageNum")pageNum: Int) : ApiResponse<IntegralRecordEntity>
+    suspend fun getIntegralRecord(@Path("pageNum")pageNum: Int) : ApiResponse<IntegralRecordBean>
 
     /**
      * 我分享的文章

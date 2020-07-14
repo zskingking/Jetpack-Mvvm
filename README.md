@@ -145,7 +145,7 @@ class PlayerManager private constructor() : IPlayerStatus {
 
 
 ### 写在最后
-此项目中你很难看到不明不白的代码。`Jetpack`和`Kotlin`是大势所趋，既然拒绝不了那何不开心的拥抱。功能目前已完成`75%`，代码也在持续优化，欢迎大家关注、下载源代码，让我们共同学习、共同进步。
+此项目中你很难看到不明不白的代码。`Jetpack`和`Kotlin`是大势所趋，既然拒绝不了那何不开心的拥抱。功能目前已完成`90%`，代码也在持续优化，欢迎大家关注、下载源代码，让我们共同学习、共同进步。
 
 再次附上`github:`[https://github.com/zskingking/Jetpack-WanAndroid](https://github.com/zskingking/Jetpack-WanAndroid)，如果觉得对你有帮助麻烦给个`star`
 
