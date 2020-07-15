@@ -289,38 +289,6 @@
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clGirl"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:background="@drawable/ripple_bg"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/set_padding"
-                android:paddingRight="@dimen/set_padding"
-                app:layout_constraintTop_toBottomOf="@+id/clWebsite">
-
-                <ImageView
-                    android:layout_width="27dp"
-                    android:layout_height="27dp"
-                    android:layout_centerVertical="true"
-                    android:padding="2dp"
-                    android:src="@mipmap/girl"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    style="@style/text_1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="40dp"
-                    android:drawableRight="@mipmap/arrow_right"
-                    android:text="轻松一下"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/clSet"
@@ -330,7 +298,7 @@
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/set_padding"
                 android:paddingRight="@dimen/set_padding"
-                app:layout_constraintTop_toBottomOf="@+id/clGirl">
+                app:layout_constraintTop_toBottomOf="@+id/clWebsite">
 
                 <ImageView
                     android:layout_width="27dp"

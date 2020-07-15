@@ -119,7 +119,7 @@ class ArticleListFragment : LazyVmFragment() , OnChildItemClickListener {
                     }
                 }else{
                     //未登陆跳登陆页
-                    nav().navigate(R.id.action_search_fragment_to_login_fragment)
+                    nav().navigate(R.id.action_main_fragment_to_login_fragment)
                 }
             }
         }

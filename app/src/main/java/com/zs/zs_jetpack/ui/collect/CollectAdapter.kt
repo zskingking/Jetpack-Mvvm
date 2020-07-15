@@ -36,6 +36,11 @@ class CollectAdapter:BaseQuickAdapter<CollectBean.DatasBean,BaseViewHolder>(R.la
                     collectClickListener?.onItemChildClick(this@CollectAdapter,it,helper.adapterPosition)
                 }
             }
+            helper.getView<View>(R.id.root).apply {
+                clickNoRepeat {
+                    collectClickListener?.onItemChildClick(this@CollectAdapter,it,helper.adapterPosition)
+                }
+            }
         }
     }
 
