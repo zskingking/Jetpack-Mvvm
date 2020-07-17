@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.ScaleAnimation
 import androidx.activity.OnBackPressedCallback
+import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -243,8 +244,8 @@ class SearchFragment : BaseVmFragment(), OnChildItemClickListener {
             data
         }
         //不知为何，在xml中设置主题背景无效
-        for (index in 0 until labelsView.childCount) {
-            labelsView.getChildAt(index).setBackgroundResource(R.drawable.ripple_tag_bg)
+        for (child in labelsView.children){
+            child.setBackgroundResource(R.drawable.ripple_tag_bg)
         }
         //标签的点击监听
         labelsView.setOnLabelClickListener { _, data, _ ->

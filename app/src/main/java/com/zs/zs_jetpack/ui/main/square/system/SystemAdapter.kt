@@ -1,5 +1,6 @@
 package com.zs.zs_jetpack.ui.main.square.system
 
+import androidx.core.view.children
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.donkingliang.labels.LabelsView
@@ -24,8 +25,8 @@ class SystemAdapter(private val tagClick: (Int, Int) -> Unit
                     data.name
                 }
                 //不知为何，在xml中设置主题背景无效
-                for (index in 0 until childCount){
-                    getChildAt(index).setBackgroundResource(R.drawable.ripple_tag_bg)
+                for (child in children){
+                    child.setBackgroundResource(R.drawable.ripple_tag_bg)
                 }
                 //标签的点击监听
                 setOnLabelClickListener { _, _, position ->
