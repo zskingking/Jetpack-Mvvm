@@ -12,7 +12,7 @@
 
 ![](https://user-gold-cdn.xitu.io/2020/7/11/1733e02a11e9437c?w=3072&h=3072&f=jpeg&s=1292783)
 
-`先附上github:`[https://github.com/zskingking/Jetpack-WanAndroid](https://github.com/zskingking/Jetpack-WanAndroid)
+`先附上github:`[https://github.com/zskingking/Jetpack-Mvvm](https://github.com/zskingking/Jetpack-Mvvm)
 
 ### 2. 应用技术
 基础框架选用`MVVM`，选用的`Jetpack`组件包括`Lifecycle、ViewModel、LiveData、DataBinDing、Navigation、Room`。
@@ -147,5 +147,5 @@ class PlayerManager private constructor() : IPlayerStatus {
 ### 写在最后
 此项目中你很难看到不明不白的代码。`Jetpack`和`Kotlin`是大势所趋，既然拒绝不了那何不开心的拥抱。功能目前已完成`90%`，代码也在持续优化，欢迎大家关注、下载源代码，让我们共同学习、共同进步。
 
-再次附上`github:`[https://github.com/zskingking/Jetpack-WanAndroid](https://github.com/zskingking/Jetpack-WanAndroid)，如果觉得对你有帮助麻烦给个`star`
+再次附上`github:`[https://github.com/zskingking/Jetpack-Mvvm](https://github.com/zskingking/Jetpack-Mvvm)，如果觉得对你有帮助麻烦给个`star`
 
