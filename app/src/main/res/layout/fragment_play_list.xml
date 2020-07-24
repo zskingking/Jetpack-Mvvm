@@ -10,7 +10,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp"
         android:background="@drawable/radius_15_theme"
         android:clickable="true"
         android:paddingLeft="@dimen/padding"

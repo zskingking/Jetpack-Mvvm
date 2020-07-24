@@ -3,6 +3,7 @@ package com.zs.zs_jetpack.ui.play
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.zs.base_library.common.setNoRepeatClick
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.play.AudioObserver
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_play_list.*
  * @author zs
  * @data 2020/6/27
  */
-class PlayListFragment : DialogFragment(), AudioObserver {
+class PlayListFragment : BottomSheetDialogFragment(), AudioObserver {
 
     private val adapter by lazy { AudioAdapter() }
 
