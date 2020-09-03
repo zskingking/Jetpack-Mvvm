@@ -75,7 +75,7 @@ class MineFragment : LazyVmFragment() {
         }
         if (integralBean == null) {
             if (CacheUtil.isLogin()) {
-                mineVM?.getInternal()
+                mineVM?.getFlowInternal()
             }
         } else {
             setIntegral()
@@ -168,7 +168,7 @@ class MineFragment : LazyVmFragment() {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun loginEvent(loginEvent: LoginEvent) {
-        mineVM?.getInternal()
+        mineVM?.getFlowInternal()
     }
 
     /**

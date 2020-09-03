@@ -5,13 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
 import com.zs.wanandroid.entity.IntegralBean
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 /**
  * des 我的
  * @date 2020/7/10
  * @author zs
  */
-class MineVM :BaseViewModel(){
+class MineVM : BaseViewModel() {
 
     /**
      * 用户名
@@ -34,7 +36,6 @@ class MineVM :BaseViewModel(){
         set("0")
     }
 
-
     /**
      * 当前积分
      */
@@ -42,12 +43,24 @@ class MineVM :BaseViewModel(){
         set("0")
     }
 
-
-    private val repo by lazy { MineRepo(viewModelScope,errorLiveData) }
+    private val repo by lazy { MineRepo(viewModelScope, errorLiveData) }
     val internalLiveData = MutableLiveData<IntegralBean>()
 
-    fun getInternal(){
+    fun getInternal() {
         repo.getInternal(internalLiveData)
+    }
+
+    fun getFlowInternal() {
+        viewModelScope.launch {
+            repo.getInternal()
+                .catch {
+                    //处理错误
+                    handleError(it)
+                }
+                .collect {
+                    internalLiveData.postValue(it)
+                }
+        }
     }
 
 }
