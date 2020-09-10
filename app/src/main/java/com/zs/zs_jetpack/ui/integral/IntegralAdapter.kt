@@ -2,7 +2,6 @@ package com.zs.zs_jetpack.ui.integral
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.zs.wanandroid.entity.IntegralRecordBean
 import com.zs.zs_jetpack.R
 
 /**

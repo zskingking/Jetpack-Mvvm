@@ -67,9 +67,7 @@ class ArticleRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData
                 }
             }
         )
-
     }
-
 
     /**
      * 收藏

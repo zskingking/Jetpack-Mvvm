@@ -5,7 +5,6 @@ import com.zs.base_library.base.BaseRepository
 import com.zs.base_library.common.isListEmpty
 import com.zs.base_library.common.toast
 import com.zs.base_library.http.ApiException
-import com.zs.wanandroid.entity.IntegralRecordBean
 import com.zs.zs_jetpack.http.ApiService
 import com.zs.zs_jetpack.http.RetrofitManager
 import kotlinx.coroutines.CoroutineScope

@@ -1,4 +1,4 @@
-package com.zs.wanandroid.entity
+package com.zs.zs_jetpack.ui.integral
 
 /**
  * des 获取积分记录

@@ -36,7 +36,7 @@ abstract class BaseVmFragment : Fragment() {
         super.onAttach(context)
         mContext = context
         mActivity = context as AppCompatActivity
-        //TODO 必须要在Activity与Fragment绑定后，因为如果Fragment可能获取的是Activity中ViewModel
+        // 必须要在Activity与Fragment绑定后，因为如果Fragment可能获取的是Activity中ViewModel
         // 必须在onCreateView之前初始化viewModel，因为onCreateView中需要通过ViewModel与DataBinding绑定
         initViewModel()
         ParamUtil.initParam(this)
@@ -58,7 +58,7 @@ abstract class BaseVmFragment : Fragment() {
             dataBindingConfig = getDataBindingConfig()
             dataBindingConfig?.apply {
                 val bindingParams = bindingParams
-                //TODO 将bindingParams逐个加入到ViewDataBinding中的Variable
+                // 将bindingParams逐个加入到ViewDataBinding中的Variable
                 // 这一步很重要,否则xml中拿不到variable中内容
                 for (i in 0 until bindingParams.size()) {
                     binding.setVariable(bindingParams.keyAt(i), bindingParams.valueAt(i))
