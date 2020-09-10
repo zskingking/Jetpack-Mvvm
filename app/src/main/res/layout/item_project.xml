@@ -20,25 +20,27 @@
     <TextView
         android:id="@+id/tvTitle"
         style="@style/text_1"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="120dp"
-        android:layout_marginRight="20dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/ivTitle"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="10dp"
+        app:layout_goneMarginLeft="@dimen/padding"
+        android:layout_marginRight="@dimen/padding"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="标题" />
 
     <TextView
         android:id="@+id/tvDes"
         style="@style/text_2"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="120dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="@dimen/padding"
         android:maxLines="2"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="@+id/tvTitle"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
         tools:text="描述" />
 

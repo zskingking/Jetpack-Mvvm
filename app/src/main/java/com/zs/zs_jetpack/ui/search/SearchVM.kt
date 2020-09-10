@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
 import com.zs.base_library.common.toast
 import com.zs.zs_jetpack.bean.ArticleBean
+import com.zs.zs_jetpack.bean.ArticleListBean
 import org.w3c.dom.Text
 
 /**
@@ -27,7 +28,7 @@ class SearchVM : BaseViewModel() {
     /**
      * 搜索到的文章
      */
-    val articleLiveData = MutableLiveData<MutableList<ArticleBean.DatasBean>>()
+    val articleLiveData = MutableLiveData<MutableList<ArticleListBean>>()
 
     /**
      * 收藏

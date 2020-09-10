@@ -7,6 +7,7 @@ import com.zs.base_library.common.isListEmpty
 import com.zs.base_library.common.toast
 import com.zs.base_library.http.ApiException
 import com.zs.zs_jetpack.bean.ArticleBean
+import com.zs.zs_jetpack.bean.ArticleListBean
 import com.zs.zs_jetpack.http.ApiService
 import com.zs.zs_jetpack.http.RetrofitManager
 import kotlinx.coroutines.CoroutineScope
@@ -25,7 +26,7 @@ class SearchRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<
      */
     fun search(
         isRefresh: Boolean, keyWord: String
-        , articleLiveData: MutableLiveData<MutableList<ArticleBean.DatasBean>>
+        , articleLiveData: MutableLiveData<MutableList<ArticleListBean>>
         , emptyLiveData: MutableLiveData<Any>
     ) {
         launch(
@@ -48,7 +49,7 @@ class SearchRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<
                     } else {
                         this
                     }
-                    it.datas?.let { it1 -> currentList.addAll(it1) }
+                    it.datas?.let { it1 -> currentList.addAll(ArticleListBean.trans(it1)) }
                     articleLiveData.postValue(currentList)
                 }
                 if (isListEmpty(it.datas)) {

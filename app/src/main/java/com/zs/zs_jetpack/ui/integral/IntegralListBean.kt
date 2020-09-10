@@ -30,26 +30,24 @@ class IntegralListBean {
          *   UI层拿到数据无需处理直接渲染。但是这种情况下，数据层要组装字段必须得创建新的字段，避免混淆所以直接独立出一个类
          * 3.做diff运算时更容易操作
          */
-        fun trans(list:MutableList<IntegralRecordBean.DatasBean>):MutableList<IntegralListBean> {
-
-            return mutableListOf<IntegralListBean>().apply {
-                list.forEach { bean->
+        fun trans(list: MutableList<IntegralRecordBean.DatasBean>): MutableList<IntegralListBean> {
+            return list.map { bean ->
+                IntegralListBean().apply {
                     val desc = bean.desc
                     val firstSpace = desc?.indexOf(" ")
                     val secondSpace = firstSpace?.plus(1)?.let { desc.indexOf(" ", it) }
 
-                    val transBean = IntegralListBean()
-                    transBean.integralCount = "+${bean.coinCount}"
-                    transBean.time = secondSpace?.let { desc.substring(0, it) }?:""
-                    transBean.des = secondSpace?.plus(1)?.let {
+                    integralCount = "+${bean.coinCount}"
+                    time = secondSpace?.let { desc.substring(0, it) } ?: ""
+                    des = secondSpace?.plus(1)?.let {
                         desc.substring(it)
                             .replace(",", "")
                             .replace("：", "")
                             .replace(" ", "")
-                    }?:""
-                    add(transBean)
+                    } ?: ""
                 }
-            }
+            }.toMutableList()
+
         }
     }
 }

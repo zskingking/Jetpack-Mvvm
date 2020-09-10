@@ -6,6 +6,7 @@ import com.zs.base_library.common.isListEmpty
 import com.zs.base_library.common.toast
 import com.zs.base_library.http.ApiException
 import com.zs.zs_jetpack.bean.ArticleBean
+import com.zs.zs_jetpack.bean.ArticleListBean
 import com.zs.zs_jetpack.http.ApiService
 import com.zs.zs_jetpack.http.RetrofitManager
 import kotlinx.coroutines.CoroutineScope
@@ -41,7 +42,7 @@ class SystemRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<
      * 获取体系对应的
      */
     fun getArticleList(isRefresh:Boolean,id:Int,articleLiveData
-    : MutableLiveData<MutableList<ArticleBean.DatasBean>>){
+    : MutableLiveData<MutableList<ArticleListBean>>){
         launch(
             block = {
                 if (isRefresh){
@@ -62,7 +63,7 @@ class SystemRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<
                     }else{
                         this
                     }
-                    it.datas?.let { it1 -> currentList.addAll(it1) }
+                    it.datas?.let { it1 -> currentList.addAll(ArticleListBean.trans(it1)) }
                     articleLiveData.postValue(currentList)
                 }
 

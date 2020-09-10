@@ -5,6 +5,7 @@ import com.zs.base_library.base.BaseRepository
 import com.zs.base_library.http.ApiException
 import com.zs.wanandroid.entity.BannerBean
 import com.zs.zs_jetpack.bean.ArticleBean
+import com.zs.zs_jetpack.bean.ArticleListBean
 import com.zs.zs_jetpack.http.ApiService
 import com.zs.zs_jetpack.http.RetrofitManager
 import kotlinx.coroutines.CoroutineScope
@@ -24,7 +25,7 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
      */
     fun getArticleList(
         isRefresh: Boolean
-        , articleLiveData: MutableLiveData<MutableList<ArticleBean.DatasBean>>
+        , articleLiveData: MutableLiveData<MutableList<ArticleListBean>>
         , banner: MutableLiveData<MutableList<BannerBean>>
     ) {
         //仅在第一页或刷新时调用banner和置顶
@@ -41,7 +42,7 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
     /**
      * 获取置顶文章
      */
-    private fun getTopList(articleLiveData: MutableLiveData<MutableList<ArticleBean.DatasBean>>) {
+    private fun getTopList(articleLiveData: MutableLiveData<MutableList<ArticleListBean>>) {
         launch(
             block = {
                 RetrofitManager.getApiService(ApiService::class.java)
@@ -59,7 +60,7 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
      */
     private fun getHomeList(
 
-        articleLiveData: MutableLiveData<MutableList<ArticleBean.DatasBean>>,
+        articleLiveData: MutableLiveData<MutableList<ArticleListBean>>,
         list: MutableList<ArticleBean.DatasBean>? = null,
         isRefresh: Boolean = false
     ) {
@@ -82,7 +83,7 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
                     }else{
                         this
                     }
-                    it.datas?.let { it1 -> currentList.addAll(it1) }
+                    it.datas?.let { it1 -> currentList.addAll(ArticleListBean.trans(it1)) }
                     articleLiveData.postValue(currentList)
                 }
             }

@@ -1,33 +1,23 @@
 package com.zs.zs_jetpack.ui.integral
 
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import android.content.Context
+import androidx.recyclerview.widget.DiffUtil
+import com.zs.base_library.common.BaseListAdapter
 import com.zs.zs_jetpack.R
+import com.zs.zs_jetpack.common.getDefaultDiff
+import com.zs.zs_jetpack.databinding.ItemIntegralBinding
 
 /**
- * 积分增加记录
+ * des
  * @author zs
- * @date 2020-03-17
+ * @date 2020/9/10
  */
-class IntegralAdapter() : BaseQuickAdapter<IntegralRecordBean.DatasBean, BaseViewHolder>(R.layout.item_integral) {
+class IntegralAdapter(context: Context)
+    :BaseListAdapter<IntegralListBean,ItemIntegralBinding>(context, getDefaultDiff()){
 
-    override fun convert(helper: BaseViewHolder, item: IntegralRecordBean.DatasBean?) {
-
-        item?.apply {
-            val desc = desc
-            val firstSpace = desc?.indexOf(" ")
-            val secondSpace = firstSpace?.plus(1)?.let { desc.indexOf(" ", it) }
-            val time = secondSpace?.let { desc.substring(0, it) }
-            val title = secondSpace?.plus(1)?.let {
-                desc.substring(it)
-                    .replace(",", "")
-                    .replace("：", "")
-                    .replace(" ", "")
-            }
-            helper.setText(R.id.tvAddIntegralMode,title)
-            helper.setText(R.id.tvDate,time)
-            helper.setText(R.id.tvAddIntegral,"+$coinCount")
-        }
+    override fun onBindItem(item: IntegralListBean, binding: ItemIntegralBinding) {
+        binding.dataBean = item
     }
 
+    override fun getLayoutId() = R.layout.item_integral
 }

@@ -15,7 +15,6 @@ import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
 import com.zs.zs_jetpack.common.OnChildItemClickListener
 import com.zs.zs_jetpack.utils.CacheUtil
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_system_list.*
 import kotlinx.android.synthetic.main.fragment_system_list.smartRefresh
 

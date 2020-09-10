@@ -2,22 +2,20 @@ package com.zs.zs_jetpack.common
 
 import android.os.Bundle
 import android.text.Html
-import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zs.base_library.common.clickNoRepeat
 import com.zs.base_library.common.loadRadius
-import com.zs.base_library.http.ApiException
 import com.zs.base_library.utils.ColorUtils
 import com.zs.zs_jetpack.R
-import com.zs.zs_jetpack.bean.ArticleBean
+import com.zs.zs_jetpack.bean.ArticleListBean
 import com.zs.zs_jetpack.constants.Constants
 
 /**
  * 文章适配器
- * 关于适配器没有使用DataBinding,我觉得通过BaseQuickAdapter更加简便
+ * 关于该适配器用到了多布局,所以没有使用DataBinding,我觉得通过BaseQuickAdapter更加简便
  * 上述言论属一家之见，也可能是山猪吃不惯细糠～-～
  *
  * @author zs
@@ -26,8 +24,8 @@ import com.zs.zs_jetpack.constants.Constants
 
 
 class ArticleAdapter(
-    list: MutableList<ArticleBean.DatasBean>
-) : BaseMultiItemQuickAdapter<ArticleBean.DatasBean,
+    list: MutableList<ArticleListBean>
+) : BaseMultiItemQuickAdapter<ArticleListBean,
         BaseViewHolder>(list) {
 
     /**
@@ -44,7 +42,7 @@ class ArticleAdapter(
         this.onItemClickListener = onItemClickListener
     }
 
-    override fun convert(helper: BaseViewHolder, item: ArticleBean.DatasBean) {
+    override fun convert(helper: BaseViewHolder, item: ArticleListBean) {
         when (helper.itemViewType) {
             //不带图片
             Constants.ITEM_ARTICLE -> {
@@ -62,11 +60,11 @@ class ArticleAdapter(
                     }
                     helper.setText(
                         R.id.tvAuthor,
-                        if (!TextUtils.isEmpty(author)) author else shareUser
+                        author
                     )
-                    helper.setText(R.id.tvDate, niceDate)
+                    helper.setText(R.id.tvDate, date)
                     helper.setText(R.id.tvTitle, Html.fromHtml(title))
-                    helper.setText(R.id.tvChapterName, superChapterName)
+                    helper.setText(R.id.tvChapterName, articleTag)
                     helper.getView<ImageView>(R.id.ivCollect)
                         .apply {
                             clickNoRepeat {
@@ -95,7 +93,7 @@ class ArticleAdapter(
                         )
                     }
                     //图片
-                    envelopePic?.let {
+                    picUrl?.let {
                         helper.getView<ImageView>(R.id.ivTitle).loadRadius(mContext, it, 20)
                     }
                     //标题
@@ -103,7 +101,7 @@ class ArticleAdapter(
                     //描述信息
                     helper.setText(R.id.tvDes, desc)
                     //日期
-                    helper.setText(R.id.tvNameData, "$niceDate | $author")
+                    helper.setText(R.id.tvNameData, "$date | $author")
                     //收藏
                     helper.getView<ImageView>(R.id.ivCollect).apply {
                         clickNoRepeat {

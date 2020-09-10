@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
 import com.zs.wanandroid.entity.BannerBean
 import com.zs.zs_jetpack.bean.ArticleBean
+import com.zs.zs_jetpack.bean.ArticleListBean
 
 /**
  * des 首页
@@ -17,7 +18,7 @@ class HomeVM : BaseViewModel() {
     /**
      * 文章列表
      */
-    val articleList = MutableLiveData<MutableList<ArticleBean.DatasBean>>()
+    val articleList = MutableLiveData<MutableList<ArticleListBean>>()
 
     /**
      * banner

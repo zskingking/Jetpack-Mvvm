@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
 import com.zs.zs_jetpack.bean.ArticleBean
+import com.zs.zs_jetpack.bean.ArticleListBean
 
 /**
  * des 体系/体系列表
@@ -20,7 +21,7 @@ class SystemVM :BaseViewModel(){
     /**
      * 体系列表数据
      */
-    val articleLiveData = MutableLiveData<MutableList<ArticleBean.DatasBean>>()
+    val articleLiveData = MutableLiveData<MutableList<ArticleListBean>>()
 
     /**
      * 收藏

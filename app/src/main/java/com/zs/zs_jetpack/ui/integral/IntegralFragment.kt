@@ -2,7 +2,6 @@ package com.zs.zs_jetpack.ui.integral
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
@@ -21,7 +20,7 @@ class IntegralFragment : BaseVmFragment(){
     /**
      * 文章适配器
      */
-    private lateinit var adapter: BindIntegralAdapter
+    private lateinit var adapter: IntegralAdapter
 
     /**
      * 空白页，网络出错等默认显示
@@ -63,7 +62,7 @@ class IntegralFragment : BaseVmFragment(){
     override fun initView() {
         //关闭更新动画
         (rvIntegral.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        adapter = BindIntegralAdapter(mActivity).apply {
+        adapter = IntegralAdapter(mActivity).apply {
             rvIntegral.adapter = this
         }
 

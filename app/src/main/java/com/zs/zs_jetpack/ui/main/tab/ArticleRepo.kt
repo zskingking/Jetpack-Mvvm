@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.zs.base_library.base.BaseRepository
 import com.zs.base_library.http.ApiException
 import com.zs.zs_jetpack.bean.ArticleBean
+import com.zs.zs_jetpack.bean.ArticleListBean
 import com.zs.zs_jetpack.constants.Constants
 import com.zs.zs_jetpack.http.ApiService
 import com.zs.zs_jetpack.http.RetrofitManager
@@ -30,7 +31,7 @@ class ArticleRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData
         type: Int,
         tabId: Int,
         isRefresh: Boolean,
-        articleLiveData: MutableLiveData<MutableList<ArticleBean.DatasBean>>
+        articleLiveData: MutableLiveData<MutableList<ArticleListBean>>
     ) {
         launch(
             block = {
@@ -62,7 +63,7 @@ class ArticleRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData
                     }else{
                         this
                     }
-                    it.datas?.let { it1 -> currentList.addAll(it1) }
+                    it.datas?.let { it1 -> currentList.addAll(ArticleListBean.trans(it1)) }
                     articleLiveData.postValue(currentList)
                 }
             }
