@@ -47,7 +47,7 @@ class IntegralRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveDat
                     } else {
                         this
                     }
-                    it.datas?.let { it1 -> currentList.addAll(it1) }
+                    it.datas?.let { it1 -> currentList.addAll(IntegralListBean.trans(it1)) }
                     integralLiveData.postValue(currentList)
                 }
                 if (isListEmpty(it.datas)) {

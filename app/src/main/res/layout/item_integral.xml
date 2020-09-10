@@ -22,7 +22,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:id="@+id/tvAddIntegralMode"
             style="@style/text_1"
-            android:text="@{dataBean.desc}"
+            android:text="@{dataBean.des}"
             tools:text="签到积分10+10" />
 
         <TextView
@@ -32,7 +32,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvAddIntegralMode"
             android:id="@+id/tvDate"
             style="@style/text_3"
-            android:text="@{String.valueOf(dataBean.date)}"
+            android:text="@{dataBean.time}"
             android:layout_marginTop="5dp"
             tools:text="2020-03-17 15:16:33" />
 
@@ -47,7 +47,7 @@
             android:textColor="@color/theme"
             android:textStyle="bold"
             android:gravity="center"
-            android:text="@{String.valueOf(dataBean.coinCount)}"
+            android:text="@{dataBean.integralCount}"
             tools:text="+20" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
