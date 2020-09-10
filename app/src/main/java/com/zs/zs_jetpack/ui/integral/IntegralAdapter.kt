@@ -9,9 +9,9 @@ import com.zs.zs_jetpack.R
  * @author zs
  * @date 2020-03-17
  */
-class IntegralAdapter() : BaseQuickAdapter<IntegralRecordBean.DatasBean, BaseViewHolder>(R.layout.item_integral) {
+class IntegralAdapter() : BaseQuickAdapter<IntegralListBean, BaseViewHolder>(R.layout.item_integral) {
 
-    override fun convert(helper: BaseViewHolder, item: IntegralRecordBean.DatasBean?) {
+    override fun convert(helper: BaseViewHolder, item: IntegralListBean?) {
 
         item?.apply {
             val desc = desc

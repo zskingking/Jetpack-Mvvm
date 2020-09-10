@@ -16,7 +16,7 @@ class IntegralVM : BaseViewModel() {
     /**
      * 收藏的的文章
      */
-    val integralLiveData = MutableLiveData<MutableList<IntegralRecordBean.DatasBean>>()
+    val integralLiveData = MutableLiveData<MutableList<IntegralListBean>>()
 
 
     /**

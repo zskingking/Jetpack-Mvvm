@@ -6,7 +6,7 @@
     <data>
         <variable
             name="dataBean"
-            type="com.zs.zs_jetpack.ui.integral.IntegralRecordBean.DatasBean" />
+            type="com.zs.zs_jetpack.ui.integral.IntegralListBean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

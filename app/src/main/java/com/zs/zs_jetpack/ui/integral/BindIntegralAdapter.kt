@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.recyclerview.widget.DiffUtil
 import com.zs.base_library.common.BaseListAdapter
 import com.zs.zs_jetpack.R
+import com.zs.zs_jetpack.common.getDefaultDiff
 import com.zs.zs_jetpack.databinding.ItemIntegralBinding
 
 /**
@@ -11,10 +12,10 @@ import com.zs.zs_jetpack.databinding.ItemIntegralBinding
  * @author zs
  * @date 2020/9/10
  */
-class BindIntegralAdapter(context: Context,diffCallback: DiffUtil.ItemCallback<IntegralRecordBean.DatasBean>)
-    :BaseListAdapter<IntegralRecordBean.DatasBean,ItemIntegralBinding>(context,diffCallback){
+class BindIntegralAdapter(context: Context)
+    :BaseListAdapter<IntegralListBean,ItemIntegralBinding>(context, getDefaultDiff()){
 
-    override fun onBindItem(item: IntegralRecordBean.DatasBean, binding: ItemIntegralBinding) {
+    override fun onBindItem(item: IntegralListBean, binding: ItemIntegralBinding) {
         binding.dataBean = item
     }
 

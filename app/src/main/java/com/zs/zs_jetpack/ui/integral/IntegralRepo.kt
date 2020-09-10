@@ -24,7 +24,7 @@ class IntegralRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveDat
      */
     fun getIntegral(
         isRefresh: Boolean
-        , integralLiveData: MutableLiveData<MutableList<IntegralRecordBean.DatasBean>>
+        , integralLiveData: MutableLiveData<MutableList<IntegralListBean>>
         , emptyLiveData: MutableLiveData<Any>
     ) {
         launch(

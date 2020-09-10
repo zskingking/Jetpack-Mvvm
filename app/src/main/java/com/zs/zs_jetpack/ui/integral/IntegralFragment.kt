@@ -63,22 +63,7 @@ class IntegralFragment : BaseVmFragment(){
     override fun initView() {
         //关闭更新动画
         (rvIntegral.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        adapter = BindIntegralAdapter(mActivity,object :DiffUtil.ItemCallback<IntegralRecordBean.DatasBean>(){
-            override fun areItemsTheSame(
-                oldItem: IntegralRecordBean.DatasBean,
-                newItem: IntegralRecordBean.DatasBean
-            ): Boolean {
-                return true
-            }
-
-            override fun areContentsTheSame(
-                oldItem: IntegralRecordBean.DatasBean,
-                newItem: IntegralRecordBean.DatasBean
-            ): Boolean {
-                return true
-            }
-
-        }).apply {
+        adapter = BindIntegralAdapter(mActivity).apply {
             rvIntegral.adapter = this
         }
 
