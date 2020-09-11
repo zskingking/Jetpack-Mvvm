@@ -4,7 +4,6 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
-import com.zs.wanandroid.entity.IntegralBean
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 

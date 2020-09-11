@@ -1,4 +1,4 @@
-package com.zs.wanandroid.entity
+package com.zs.zs_jetpack.ui.main.mine
 
 import java.io.Serializable
 

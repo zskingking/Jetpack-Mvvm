@@ -11,7 +11,6 @@ import com.zs.base_library.base.LazyVmFragment
 import com.zs.base_library.common.setNoRepeatClick
 import com.zs.base_library.common.toast
 import com.zs.base_library.utils.PrefUtils
-import com.zs.wanandroid.entity.IntegralBean
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.constants.Constants

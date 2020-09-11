@@ -5,8 +5,7 @@ import com.zs.base_library.base.BaseRepository
 import com.zs.base_library.common.isListEmpty
 import com.zs.base_library.common.toast
 import com.zs.base_library.http.ApiException
-import com.zs.wanandroid.entity.BannerBean
-import com.zs.zs_jetpack.bean.ArticleBean
+import com.zs.zs_jetpack.ui.main.home.BannerBean
 import com.zs.zs_jetpack.bean.ArticleListBean
 import com.zs.zs_jetpack.http.ApiService
 import com.zs.zs_jetpack.http.RetrofitManager

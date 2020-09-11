@@ -3,7 +3,6 @@ package com.zs.zs_jetpack.ui.main.home
 import androidx.lifecycle.MutableLiveData
 import com.zs.base_library.base.BaseRepository
 import com.zs.base_library.http.ApiException
-import com.zs.wanandroid.entity.BannerBean
 import com.zs.zs_jetpack.bean.ArticleBean
 import com.zs.zs_jetpack.bean.ArticleListBean
 import com.zs.zs_jetpack.http.ApiService

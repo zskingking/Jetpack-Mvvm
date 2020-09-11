@@ -3,8 +3,6 @@ package com.zs.zs_jetpack.ui.main.home
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
-import com.zs.wanandroid.entity.BannerBean
-import com.zs.zs_jetpack.bean.ArticleBean
 import com.zs.zs_jetpack.bean.ArticleListBean
 
 /**
