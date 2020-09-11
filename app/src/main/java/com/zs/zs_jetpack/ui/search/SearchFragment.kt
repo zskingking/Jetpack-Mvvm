@@ -12,7 +12,6 @@ import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.dip2px
@@ -25,7 +24,6 @@ import com.zs.base_library.utils.ScreenUtils
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
-import com.zs.zs_jetpack.common.OnChildItemClickListener
 import com.zs.zs_jetpack.constants.Constants
 import com.zs.zs_jetpack.utils.CacheUtil
 import com.zs.zs_jetpack.view.LoadingTip
@@ -34,7 +32,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_search.*
 import java.util.concurrent.TimeUnit
 
-class SearchFragment : BaseVmFragment(), OnChildItemClickListener {
+class SearchFragment : BaseVmFragment() {
 
     private lateinit var searchVM: SearchVM
 
@@ -74,16 +72,9 @@ class SearchFragment : BaseVmFragment(), OnChildItemClickListener {
     override fun observe() {
         searchVM.articleLiveData.observe(this, Observer {
             smartDismiss(smartRefresh)
-            adapter.setNewData(it)
+            adapter.submitList(it)
         })
-        //收藏
-        searchVM.collectLiveData.observe(this, Observer {
-            adapter.collectNotifyById(it)
-        })
-        //取消收藏
-        searchVM.unCollectLiveData.observe(this, Observer {
-            adapter.unCollectNotifyById(it)
-        })
+
         searchVM.emptyLiveDate.observe(this, Observer {
             loadingTip.showEmpty()
         })
@@ -113,9 +104,33 @@ class SearchFragment : BaseVmFragment(), OnChildItemClickListener {
     override fun initView() {
         //关闭更新动画
         (rvSearch.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        adapter = ArticleAdapter(mutableListOf()).apply {
-            emptyView = loadingTip
-            setOnChildItemClickListener(this@SearchFragment)
+        adapter = ArticleAdapter(mActivity).apply {
+            setOnItemClickListener { i, _ ->
+                nav().navigate(
+                    R.id.action_main_fragment_to_web_fragment,
+                    this@SearchFragment.adapter.getBundle(i)
+                )
+            }
+            setOnItemChildClickListener { i, view ->
+                when (view.id) {
+                    //收藏
+                    R.id.ivCollect -> {
+                        if (CacheUtil.isLogin()) {
+                            this@SearchFragment.adapter.currentList[i].apply {
+                                //已收藏取消收藏
+                                if (collect) {
+                                    searchVM.unCollect(id)
+                                } else {
+                                    searchVM.collect(id)
+                                }
+                            }
+                        } else {
+                            nav().navigate(R.id.action_main_fragment_to_login_fragment)
+                        }
+                    }
+                }
+
+            }
             rvSearch.adapter = this
         }
         startSearchAnim(true)
@@ -272,31 +287,5 @@ class SearchFragment : BaseVmFragment(), OnChildItemClickListener {
         PrefUtils.setObject(Constants.SEARCH_RECORD, recordList)
     }
 
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        when(view.id){
-            //item
-            R.id.root->{
-                nav().navigate(R.id.action_search_fragment_to_web_fragment
-                    ,this@SearchFragment.adapter.getBundle(position))
-            }
-            //收藏
-            R.id.ivCollect->{
-                //已登陆
-                if (CacheUtil.isLogin()){
-                    this@SearchFragment.adapter.data[position].apply {
-                        //已收藏取消收藏
-                        if (collect){
-                            searchVM.unCollect(id)
-                        }else{
-                            searchVM.collect(id)
-                        }
-                    }
-                }else{
-                    //未登陆跳登陆页
-                    nav().navigate(R.id.action_search_fragment_to_login_fragment)
-                }
-            }
-        }
-    }
 
 }

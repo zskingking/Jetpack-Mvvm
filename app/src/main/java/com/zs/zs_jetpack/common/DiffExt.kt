@@ -2,6 +2,7 @@ package com.zs.zs_jetpack.common
 
 import androidx.recyclerview.widget.DiffUtil
 import com.zs.zs_jetpack.bean.ArticleBean
+import com.zs.zs_jetpack.bean.ArticleListBean
 
 /**
  * des diff扩展函数
@@ -13,22 +14,22 @@ import com.zs.zs_jetpack.bean.ArticleBean
 /**
  * 文章diff
  */
-fun getArticleDiff(): DiffUtil.ItemCallback<ArticleBean.DatasBean> {
-    return object : DiffUtil.ItemCallback<ArticleBean.DatasBean>() {
+fun getArticleDiff(): DiffUtil.ItemCallback<ArticleListBean> {
+    return object : DiffUtil.ItemCallback<ArticleListBean>() {
         override fun areItemsTheSame(
-            oldItem: ArticleBean.DatasBean,
-            newItem: ArticleBean.DatasBean
+            oldItem: ArticleListBean,
+            newItem: ArticleListBean
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: ArticleBean.DatasBean,
-            newItem: ArticleBean.DatasBean
+            oldItem: ArticleListBean,
+            newItem: ArticleListBean
         ): Boolean {
             //只有点赞和时间可能存在改变
             return oldItem.collect == newItem.collect
-                    && oldItem.niceDate == newItem.niceDate
+                    && oldItem.date == newItem.date
         }
     }
 }

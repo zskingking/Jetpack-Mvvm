@@ -1,154 +1,143 @@
 package com.zs.zs_jetpack.common
 
+import android.content.Context
 import android.os.Bundle
-import android.text.Html
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.ImageView
-import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.zs.base_library.common.clickNoRepeat
-import com.zs.base_library.common.loadRadius
-import com.zs.base_library.utils.ColorUtils
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.bean.ArticleListBean
 import com.zs.zs_jetpack.constants.Constants
+import com.zs.zs_jetpack.databinding.ItemHomeArticleBinding
+import com.zs.zs_jetpack.databinding.ItemProjectBinding
 
 /**
- * 文章适配器
- * 关于该适配器用到了多布局,所以没有使用DataBinding,我觉得通过BaseQuickAdapter更加简便
- * 上述言论属一家之见，也可能是山猪吃不惯细糠～-～
- *
+ * des
  * @author zs
- * @date 2020-07-07修改
+ * @date 2020/9/11
  */
+class ArticleAdapter(private val context: Context):ListAdapter<ArticleListBean,RecyclerView.ViewHolder>(getArticleDiff()){
 
-
-class ArticleAdapter(
-    list: MutableList<ArticleListBean>
-) : BaseMultiItemQuickAdapter<ArticleListBean,
-        BaseViewHolder>(list) {
 
     /**
-     * 子view点击回调接口。单独写一个接口目的是可以使用防止快速点击
+     * item点击事件
+     * @param Int 角标
+     * @param View 点击的View
      */
-    private var onItemClickListener: OnChildItemClickListener? = null
+    private var onItemClickListener: ((Int, View) -> Unit)? = null
 
-    init {
-        addItemType(Constants.ITEM_ARTICLE, R.layout.item_home_article)
-        addItemType(Constants.ITEM_ARTICLE_PIC, R.layout.item_project)
-    }
 
-    fun setOnChildItemClickListener(onItemClickListener: OnChildItemClickListener) {
+    /**
+     * item中子View点击事件，需要子类做具体触发
+     * @param Int 角标
+     * @param View 点击的View
+     */
+    private var onItemChildClickListener: ((Int, View) -> Unit)? = null
+
+    /**
+     * 注册item点击事件
+     */
+    fun setOnItemClickListener(onItemClickListener: ((Int, View) -> Unit)? = null) {
         this.onItemClickListener = onItemClickListener
     }
 
-    override fun convert(helper: BaseViewHolder, item: ArticleListBean) {
-        when (helper.itemViewType) {
-            //不带图片
-            Constants.ITEM_ARTICLE -> {
-                item.run {
-                    helper.getView<View>(R.id.root).clickNoRepeat {
-                        onItemClickListener?.onItemChildClick(
-                            this@ArticleAdapter, it, helper.adapterPosition - headerLayoutCount
-                        )
-                    }
-                    if (type == 1) {
-                        helper.setText(R.id.tvTag, "置顶 ")
-                        helper.setTextColor(R.id.tvTag, ColorUtils.parseColor(R.color.red))
-                    } else {
-                        helper.setText(R.id.tvTag, "")
-                    }
-                    helper.setText(
-                        R.id.tvAuthor,
-                        author
-                    )
-                    helper.setText(R.id.tvDate, date)
-                    helper.setText(R.id.tvTitle, Html.fromHtml(title))
-                    helper.setText(R.id.tvChapterName, articleTag)
-                    helper.getView<ImageView>(R.id.ivCollect)
-                        .apply {
-                            clickNoRepeat {
-                                onItemClickListener?.onItemChildClick(
-                                    this@ArticleAdapter,
-                                    this,
-                                    helper.adapterPosition - headerLayoutCount
-                                )
-                            }
-                            if (item.collect) {
-                                setImageResource(R.mipmap.article_collect)
-                            } else {
-                                setImageResource(R.mipmap.article_un_collect)
-                            }
-                        }
-                }
-            }
+    /**
+     * 注册item子View点击事件
+     */
+    fun setOnItemChildClickListener(onItemChildClickListener: ((Int, View) -> Unit)? = null) {
+        this.onItemChildClickListener = onItemChildClickListener
+    }
 
-            //带图片
-            Constants.ITEM_ARTICLE_PIC -> {
-                item.apply {
-                    //根布局
-                    helper.getView<View>(R.id.root).clickNoRepeat {
-                        onItemClickListener?.onItemChildClick(
-                            this@ArticleAdapter, it, helper.adapterPosition - headerLayoutCount
-                        )
-                    }
-                    //图片
-                    picUrl?.let {
-                        helper.getView<ImageView>(R.id.ivTitle).loadRadius(mContext, it, 20)
-                    }
-                    //标题
-                    helper.setText(R.id.tvTitle, title)
-                    //描述信息
-                    helper.setText(R.id.tvDes, desc)
-                    //日期
-                    helper.setText(R.id.tvNameData, "$date | $author")
-                    //收藏
-                    helper.getView<ImageView>(R.id.ivCollect).apply {
-                        clickNoRepeat {
-                            onItemClickListener?.onItemChildClick(
-                                //必须减headCount，否则角标会错乱
-                                this@ArticleAdapter,
-                                this,
-                                helper.adapterPosition - headerLayoutCount
-                            )
-                        }
-                        if (item.collect) {
-                            setImageResource(R.mipmap.article_collect)
-                        } else {
-                            setImageResource(R.mipmap.article_un_collect)
-                        }
-                    }
-                }
-            }
+    /**
+     * 创建viewHolder并且与DataBinding绑定
+     */
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return if (viewType == Constants.ITEM_ARTICLE){
+            val binding:ItemHomeArticleBinding = DataBindingUtil.inflate(
+                LayoutInflater.from(context),
+                R.layout.item_home_article,
+                parent,
+                false
+            )
+            ArticleViewHolder(binding.root)
+        }else {
+            val binding:ItemProjectBinding = DataBindingUtil.inflate(
+                LayoutInflater.from(context),
+                R.layout.item_project,
+                parent,
+                false
+            )
+            ArticlePicViewHolder(binding.root)
         }
     }
 
     /**
-     * 收藏，通过id做局部刷新
+     * 将数据和ui进行绑定
      */
-    fun collectNotifyById(id: Int) {
-        for (index in 0 until data.size) {
-            if (id == data[index].id) {
-                data[index].collect = true
-                //必须加headCount，否则角标错乱
-                notifyItemChanged(index + headerLayoutCount)
-                return
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        Log.i("onBindViewHolder","position:$position")
+        holder.itemView.clickNoRepeat {
+            onItemClickListener?.invoke(position,it)
+        }
+        //收藏
+        holder.itemView.findViewById<View>(R.id.ivCollect)?.clickNoRepeat {
+            onItemChildClickListener?.invoke(position,it)
+        }
+        val binding = if (holder is ArticleViewHolder){
+            //获取ViewDataBinding
+            DataBindingUtil.getBinding<ItemHomeArticleBinding>(holder.itemView)?.apply {
+                dataBean = getItem(position)
             }
+        }else{
+            DataBindingUtil.getBinding<ItemProjectBinding>(holder.itemView)?.apply {
+                dataBean = getItem(position)
+            }
+        }
+        binding?.executePendingBindings()
+    }
+
+
+    override fun getItemViewType(position: Int): Int {
+        return if (currentList[position].itemType == Constants.ITEM_ARTICLE){
+            //普通类型
+            Constants.ITEM_ARTICLE
+        }else{
+            //带图片类型
+            Constants.ITEM_ARTICLE_PIC
         }
     }
 
     /**
-     * 取消收藏，通过id做局部刷新
+     * 默认viewHolder
      */
-    fun unCollectNotifyById(id: Int) {
-        for (index in 0 until data.size) {
-            if (id == data[index].id) {
-                data[index].collect = false
-                //必须加headCount，否则角标错乱
-                notifyItemChanged(index + headerLayoutCount)
-                return
-            }
-        }
+    class ArticleViewHolder constructor(itemView: View) :
+        RecyclerView.ViewHolder(itemView){
+
+    }
+
+    /**
+     * 带图片viewHolder
+     */
+    class ArticlePicViewHolder constructor(itemView: View) :
+        RecyclerView.ViewHolder(itemView){
+
+    }
+
+    /**
+     * 重新加载数据时必须换一个list集合，否则diff不生效
+     */
+    override fun submitList(list: List<ArticleListBean>?) {
+        super.submitList(if (list == null) mutableListOf() else
+            mutableListOf<ArticleListBean>().apply {
+                addAll(
+                    list
+                )
+            })
     }
 
     /**
@@ -156,10 +145,12 @@ class ArticleAdapter(
      */
     fun getBundle(position: Int): Bundle {
         return Bundle().apply {
-            putString("loadUrl", data[position].link)
-            putString("title", data[position].title)
-            putString("author", data[position].author)
-            putInt("id", data[position].id)
+            putString("loadUrl", currentList[position].link)
+            putString("title", currentList[position].title)
+            putString("author", currentList[position].author)
+            putInt("id", currentList[position].id)
         }
     }
+
+
 }

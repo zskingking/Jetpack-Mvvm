@@ -1,5 +1,6 @@
 package com.zs.zs_jetpack.bean
 
+import android.text.Html
 import android.text.TextUtils
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.zs.zs_jetpack.constants.Constants
@@ -9,39 +10,6 @@ import com.zs.zs_jetpack.constants.Constants
  * @date 2020/9/10
  */
 class ArticleListBean : MultiItemEntity {
-    /**
-     * apkLink :
-     * audit : 1
-     * author :
-     * canEdit : false
-     * chapterId : 502
-     * chapterName : 自助
-     * collect : false
-     * courseId : 13
-     * desc :
-     * descMd :
-     * envelopePic :
-     * fresh : false
-     * id : 12154
-     * link : https://juejin.im/post/5e5b50eb6fb9a07cae136773
-     * niceDate : 2020-03-02 09:32
-     * niceShareDate : 2020-03-02 09:32
-     * origin :
-     * prefix :
-     * projectLink :
-     * publishTime : 1583112725000
-     * selfVisible : 0
-     * shareDate : 1583112725000
-     * shareUser : JsonChao
-     * superChapterId : 494
-     * superChapterName : 广场Tab
-     * tags : []
-     * title : 【建议收藏】2020年中高级Android大厂面试秘籍，为你保驾护航金三银四，直通大厂
-     * type : 0
-     * userId : 611
-     * visible : 1
-     * zan : 0
-     */
 
 
     override fun getItemType(): Int {
@@ -97,9 +65,7 @@ class ArticleListBean : MultiItemEntity {
     /**
      * 1.置顶
      */
-    var type = 0
-
-
+    var topTitle: String? = null
 
     /**
      * 将后端数据转换为本地定义的数据结构,原因有三
@@ -124,9 +90,9 @@ class ArticleListBean : MultiItemEntity {
                     picUrl = it.envelopePic
                     link = it.link
                     date = it.niceDate
-                    title = it.title
+                    title = Html.fromHtml(it.title).toString()
                     articleTag = it.superChapterName
-                    type = it.type
+                    topTitle = if (it.type==1) "置顶" else ""
                 }
             }.toMutableList()
         }

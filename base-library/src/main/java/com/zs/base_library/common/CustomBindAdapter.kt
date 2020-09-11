@@ -4,6 +4,10 @@ import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.zs.base_library.R
+import com.zs.base_library.view.GlideRoundTransform
 
 /**
  * des 自定义DataBinding适配器
@@ -33,13 +37,23 @@ object CustomBindAdapter {
     }
 
     /**
-     * 加载图片
+     * 加载本地圆形图片
      */
     @BindingAdapter(value = ["imgUriCircle"])
     @JvmStatic
     fun imgUriCircle(view: ImageView, albumId: Long) {
         view.loadCircle(view.context.applicationContext, albumById(albumId))
     }
+
+    /**
+     * 加载网络圆角图片
+     */
+    @BindingAdapter(value = ["imgUrlRadius"])
+    @JvmStatic
+    fun imgUrlRadiusCircle(view: ImageView, url: String) {
+        view.loadRadius(view.context.applicationContext, url)
+    }
+
 
 
     @BindingAdapter(value = ["visible"])

@@ -1,67 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingTop="@dimen/padding"
-    android:background="@drawable/ripple_bg"
-    android:id="@+id/root"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvTag"
-        style="@style/text_3"
-        tools:text="置顶 "
-        android:layout_marginLeft="@dimen/padding"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvAuthor"
-        style="@style/text_3"
-        android:layout_toRightOf="@+id/tvTag"
-        tools:text="鸿洋"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvDate"
-        style="@style/text_3"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/padding"
-        tools:text="2020-03-08"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvTitle"
-        style="@style/text_1"
-        android:maxLines="3"
-        android:layout_marginRight="@dimen/padding"
-        android:layout_marginLeft="@dimen/padding"
-        android:layout_below="@+id/tvDate"
-        android:layout_marginTop="10dp"
-        tools:text="分布式协调工具之zookeeper使用篇-Zookeeper系统核心模型"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvChapterName"
-        android:layout_below="@+id/tvTitle"
-        android:layout_marginTop="10dp"
-        style="@style/text_3"
-        android:layout_marginLeft="@dimen/padding"
-        tools:text="开发环境"/>
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:id="@+id/ivCollect"
-        android:padding="5dp"
-        android:layout_alignTop="@+id/tvChapterName"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/padding"
-        android:src="@mipmap/article_un_collect"/>
-    <View
+    <data>
+        <variable
+            name="dataBean"
+            type="com.zs.zs_jetpack.bean.ArticleListBean" />
+    </data>
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="?attr/division_line"
-        android:layout_below="@+id/tvChapterName"
-        android:layout_marginTop="@dimen/padding"/>
-</RelativeLayout>
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/padding"
+        android:background="@drawable/ripple_bg"
+        android:id="@+id/root">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvTag"
+            style="@style/text_3"
+            tools:text="置顶 "
+            android:text="@{dataBean.topTitle}"
+            android:textColor="@color/red"
+            android:layout_marginLeft="@dimen/padding" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvAuthor"
+            style="@style/text_3"
+            android:text="@{dataBean.author}"
+            android:layout_toRightOf="@+id/tvTag"
+            tools:text="鸿洋" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDate"
+            style="@style/text_3"
+            android:text="@{dataBean.date}"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/padding"
+            tools:text="2020-03-08" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvTitle"
+            style="@style/text_1"
+            android:text="@{dataBean.title}"
+            android:maxLines="3"
+            android:layout_marginRight="@dimen/padding"
+            android:layout_marginLeft="@dimen/padding"
+            android:layout_below="@+id/tvDate"
+            android:layout_marginTop="10dp"
+            tools:text="分布式协调工具之zookeeper使用篇-Zookeeper系统核心模型" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvChapterName"
+            android:layout_below="@+id/tvTitle"
+            android:layout_marginTop="10dp"
+            style="@style/text_3"
+            android:text="@{dataBean.articleTag}"
+            android:layout_marginLeft="@dimen/padding"
+            tools:text="开发环境" />
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/ivCollect"
+            android:padding="5dp"
+            android:layout_alignTop="@+id/tvChapterName"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/padding"
+            articleCollect="@{dataBean.collect}" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="?attr/division_line"
+            android:layout_below="@+id/tvChapterName"
+            android:layout_marginTop="@dimen/padding" />
+    </RelativeLayout>
+</layout>

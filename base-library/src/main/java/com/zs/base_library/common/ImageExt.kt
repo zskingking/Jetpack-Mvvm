@@ -65,7 +65,7 @@ fun ImageView.loadCircle(context: Context, uri: Uri) {
 /**
  * 圆形图片
  */
-fun ImageView.loadRadius(context: Context, url: String, radius: Int) {
+fun ImageView.loadRadius(context: Context, url: String, radius: Int = 20) {
     Glide.with(context)
         .load(url)
         .centerCrop()

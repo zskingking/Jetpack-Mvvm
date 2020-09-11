@@ -47,7 +47,7 @@ abstract class BaseListAdapter<T, B : ViewDataBinding>(
     /**
      * 注册item子View点击事件
      */
-    fun setOnItemChildClickListener1(onItemChildClickListener: ((Int, View) -> Unit)? = null) {
+    fun setOnItemChildClickListener(onItemChildClickListener: ((Int, View) -> Unit)? = null) {
         this.onItemChildClickListener = onItemChildClickListener
     }
 

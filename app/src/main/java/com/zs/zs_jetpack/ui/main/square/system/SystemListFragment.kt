@@ -1,10 +1,8 @@
 package com.zs.zs_jetpack.ui.main.square.system
 
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.setNoRepeatClick
@@ -13,7 +11,6 @@ import com.zs.base_library.common.smartDismiss
 import com.zs.base_library.utils.Param
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
-import com.zs.zs_jetpack.common.OnChildItemClickListener
 import com.zs.zs_jetpack.utils.CacheUtil
 import kotlinx.android.synthetic.main.fragment_system_list.*
 import kotlinx.android.synthetic.main.fragment_system_list.smartRefresh
@@ -22,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_system_list.smartRefresh
  * @date 2020/7/10
  * @author zs
  */
-class SystemListFragment : BaseVmFragment() ,OnChildItemClickListener{
+class SystemListFragment : BaseVmFragment() {
 
     /**
      * 文章适配器
@@ -43,16 +40,7 @@ class SystemListFragment : BaseVmFragment() ,OnChildItemClickListener{
     override fun observe() {
         systemVM.articleLiveData.observe(this, Observer {
             smartDismiss(smartRefresh)
-            adapter.setNewData(it)
-        })
-
-        //收藏
-        systemVM.collectLiveData.observe(this, Observer {
-            adapter.collectNotifyById(it)
-        })
-        //取消收藏
-        systemVM.unCollectLiveData.observe(this, Observer {
-            adapter.unCollectNotifyById(it)
+            adapter.submitList(it)
         })
         systemVM.errorLiveData.observe(this, Observer {
             smartDismiss(smartRefresh)
@@ -65,9 +53,35 @@ class SystemListFragment : BaseVmFragment() ,OnChildItemClickListener{
     }
 
     override fun initView() {
-        adapter = ArticleAdapter(mutableListOf()).apply {
-            setOnChildItemClickListener(this@SystemListFragment)
+        adapter = ArticleAdapter(mActivity).apply {
             rvSystemList.adapter = this
+
+            setOnItemClickListener { i, _ ->
+                nav().navigate(
+                    R.id.action_main_fragment_to_web_fragment,
+                    this@SystemListFragment.adapter.getBundle(i)
+                )
+            }
+            setOnItemChildClickListener { i, view ->
+                when (view.id) {
+                    //收藏
+                    R.id.ivCollect -> {
+                        if (CacheUtil.isLogin()) {
+                            this@SystemListFragment.adapter.currentList[i].apply {
+                                //已收藏取消收藏
+                                if (collect) {
+                                    systemVM.unCollect(id)
+                                } else {
+                                    systemVM.collect(id)
+                                }
+                            }
+                        } else {
+                            nav().navigate(R.id.action_main_fragment_to_login_fragment)
+                        }
+                    }
+                }
+
+            }
         }
         //关闭更新动画
         (rvSystemList.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
@@ -95,32 +109,5 @@ class SystemListFragment : BaseVmFragment() ,OnChildItemClickListener{
     override fun getLayoutId() = R.layout.fragment_system_list
     override fun getDataBindingConfig(): DataBindingConfig? {
         return null
-    }
-
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        when(view.id){
-            //item
-            R.id.root->{
-                nav().navigate(R.id.action_system_list_fragment_to_web_fragment
-                    ,this@SystemListFragment.adapter.getBundle(position))
-            }
-            //收藏
-            R.id.ivCollect->{
-                //已登陆
-                if (CacheUtil.isLogin()){
-                    this@SystemListFragment.adapter.data[position].apply {
-                        //已收藏取消收藏
-                        if (collect){
-                            systemVM.unCollect(id)
-                        }else{
-                            systemVM.collect(id)
-                        }
-                    }
-                }else{
-                    //未登陆跳登陆页
-                    nav().navigate(R.id.action_system_list_fragment_to_login_fragment)
-                }
-            }
-        }
     }
 }

@@ -1,9 +1,7 @@
 package com.zs.zs_jetpack.ui.main.tab
 
-import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
 import com.zs.base_library.common.smartConfig
@@ -11,7 +9,6 @@ import com.zs.base_library.common.smartDismiss
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
-import com.zs.zs_jetpack.common.OnChildItemClickListener
 import com.zs.zs_jetpack.utils.CacheUtil
 import kotlinx.android.synthetic.main.fragment_article.*
 
@@ -20,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_article.*
  * @date 2020/7/7
  * @author zs
  */
-class ArticleListFragment : LazyVmFragment() , OnChildItemClickListener {
+class ArticleListFragment : LazyVmFragment() {
 
     private var articleVM: ArticleVM? = null
 
@@ -37,7 +34,7 @@ class ArticleListFragment : LazyVmFragment() , OnChildItemClickListener {
     /**
      * 文章适配器
      */
-    private val adapter by lazy { ArticleAdapter(mutableListOf()) }
+    private val adapter by lazy { ArticleAdapter(mActivity) }
 
     override fun initViewModel() {
         articleVM = getFragmentViewModel(ArticleVM::class.java)
@@ -46,16 +43,9 @@ class ArticleListFragment : LazyVmFragment() , OnChildItemClickListener {
     override fun observe() {
         articleVM?.articleLiveData?.observe(this, Observer {
             smartDismiss(smartRefresh)
-            adapter.setNewData(it)
+            adapter.submitList(it)
         })
-        //收藏
-        articleVM?.collectLiveData?.observe(this, Observer {
-            adapter.collectNotifyById(it)
-        })
-        //取消收藏
-        articleVM?.unCollectLiveData?.observe(this, Observer {
-            adapter.unCollectNotifyById(it)
-        })
+
         articleVM?.errorLiveData?.observe(this, Observer {
 
         })
@@ -81,9 +71,33 @@ class ArticleListFragment : LazyVmFragment() , OnChildItemClickListener {
         }
         smartConfig(smartRefresh)
         adapter.apply {
-            setOnChildItemClickListener(this@ArticleListFragment)
             rvArticleList.adapter = this
-            //setDiffCallback(ArticleDiff())
+            setOnItemClickListener { i, _ ->
+                nav().navigate(
+                    R.id.action_main_fragment_to_web_fragment,
+                    this@ArticleListFragment.adapter.getBundle(i)
+                )
+            }
+            setOnItemChildClickListener { i, view ->
+                when (view.id) {
+                    //收藏
+                    R.id.ivCollect -> {
+                        if (CacheUtil.isLogin()) {
+                            this@ArticleListFragment.adapter.currentList[i].apply {
+                                //已收藏取消收藏
+                                if (collect) {
+                                    articleVM?.unCollect(id)
+                                } else {
+                                    articleVM?.collect(id)
+                                }
+                            }
+                        } else {
+                            nav().navigate(R.id.action_main_fragment_to_login_fragment)
+                        }
+                    }
+                }
+
+            }
         }
     }
 
@@ -96,32 +110,5 @@ class ArticleListFragment : LazyVmFragment() , OnChildItemClickListener {
     override fun getDataBindingConfig(): DataBindingConfig? {
         return DataBindingConfig(R.layout.fragment_article, articleVM)
             .addBindingParam(BR.vm, articleVM)
-    }
-
-    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        when(view.id){
-            //item
-            R.id.root->{
-                nav().navigate(R.id.action_main_fragment_to_web_fragment
-                    ,this@ArticleListFragment.adapter.getBundle(position))
-            }
-            //收藏
-            R.id.ivCollect->{
-                //已登陆
-                if (CacheUtil.isLogin()){
-                    this@ArticleListFragment.adapter.data[position].apply {
-                        //已收藏取消收藏
-                        if (collect){
-                            articleVM?.unCollect(id)
-                        }else{
-                            articleVM?.collect(id)
-                        }
-                    }
-                }else{
-                    //未登陆跳登陆页
-                    nav().navigate(R.id.action_main_fragment_to_login_fragment)
-                }
-            }
-        }
     }
 }

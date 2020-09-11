@@ -1,7 +1,9 @@
 package com.zs.zs_jetpack.ui
 
 import android.os.Bundle
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
@@ -105,6 +107,8 @@ class MainFragment : BaseVmFragment() {
                 true
             }
         }
+        val rv = vpHome[0] as RecyclerView
+        rv.isNestedScrollingEnabled = false
     }
 
     override fun onClick() {

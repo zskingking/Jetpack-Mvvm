@@ -31,17 +31,6 @@ class SearchVM : BaseViewModel() {
     val articleLiveData = MutableLiveData<MutableList<ArticleListBean>>()
 
     /**
-     * 收藏
-     */
-    val collectLiveData = MutableLiveData<Int>()
-
-    /**
-     * 取消收藏
-     */
-    val unCollectLiveData = MutableLiveData<Int>()
-
-
-    /**
      * 是否为刷新或者首次加载
      */
     fun search(isRefresh: Boolean) {
@@ -60,13 +49,13 @@ class SearchVM : BaseViewModel() {
      * 收藏
      */
     fun collect(id:Int){
-        repo.collect(id,collectLiveData)
+        repo.collect(id,articleLiveData)
     }
 
     /**
      * 取消收藏
      */
     fun unCollect(id:Int){
-        repo.unCollect(id,unCollectLiveData)
+        repo.unCollect(id,articleLiveData)
     }
 }

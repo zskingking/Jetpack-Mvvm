@@ -1,74 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/ripple_bg"
-    android:id="@+id/root"
-    android:paddingTop="@dimen/padding">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/ivTitle"
-        android:layout_width="95dp"
-        android:layout_height="95dp"
-        android:scaleType="center"
-        android:layout_marginLeft="@dimen/padding"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
+        <variable
+            name="dataBean"
+            type="com.zs.zs_jetpack.bean.ArticleListBean" />
+    </data>
 
-    <TextView
-        android:id="@+id/tvTitle"
-        style="@style/text_1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toRightOf="@+id/ivTitle"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="10dp"
-        app:layout_goneMarginLeft="@dimen/padding"
-        android:layout_marginRight="@dimen/padding"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="标题" />
-
-    <TextView
-        android:id="@+id/tvDes"
-        style="@style/text_2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="@dimen/padding"
-        android:maxLines="2"
-        app:layout_constraintLeft_toLeftOf="@+id/tvTitle"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-        tools:text="描述" />
-
-    <TextView
-        android:id="@+id/tvNameData"
-        style="@style/text_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@+id/ivTitle"
-        app:layout_constraintLeft_toLeftOf="@+id/tvTitle"
-        tools:text="2020-03-14 | zskingking" />
-
-    <ImageView
-        android:id="@+id/ivCollect"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:paddingLeft="10dp"
-        android:layout_marginRight="@dimen/padding"
-        android:paddingTop="10dp"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/article_un_collect"
-        app:layout_constraintBottom_toBottomOf="@id/ivTitle"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <View
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="@dimen/padding"
-        android:background="?attr/division_line"
-        app:layout_constraintTop_toBottomOf="@+id/ivTitle" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_bg"
+        android:id="@+id/root"
+        android:paddingTop="@dimen/padding">
+
+        <ImageView
+            android:id="@+id/ivTitle"
+            android:layout_width="95dp"
+            android:layout_height="95dp"
+            android:scaleType="center"
+            android:layout_marginLeft="@dimen/padding"
+            imgUrlRadius="@{dataBean.picUrl}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            style="@style/text_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/ivTitle"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="10dp"
+            app:layout_goneMarginLeft="@dimen/padding"
+            android:layout_marginRight="@dimen/padding"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@{dataBean.title}"
+            tools:text="标题" />
+
+        <TextView
+            android:id="@+id/tvDes"
+            style="@style/text_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="@dimen/padding"
+            android:maxLines="2"
+            app:layout_constraintLeft_toLeftOf="@+id/tvTitle"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+            android:text="@{dataBean.desc}"
+            tools:text="描述" />
+
+        <TextView
+            android:id="@+id/tvNameData"
+            style="@style/text_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/ivTitle"
+            app:layout_constraintLeft_toLeftOf="@+id/tvTitle"
+            android:text="@{dataBean.date}"
+            tools:text="2020-03-14 | zskingking" />
+
+        <ImageView
+            android:id="@+id/ivCollect"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:paddingLeft="10dp"
+            android:layout_marginRight="@dimen/padding"
+            android:paddingTop="10dp"
+            android:scaleType="centerCrop"
+            articleCollect="@{dataBean.collect}"
+            app:layout_constraintBottom_toBottomOf="@id/ivTitle"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="@dimen/padding"
+            android:background="?attr/division_line"
+            app:layout_constraintTop_toBottomOf="@+id/ivTitle" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -25,15 +25,6 @@ class HomeVM : BaseViewModel() {
      */
     val banner = MutableLiveData<MutableList<BannerBean>>()
 
-    /**
-     * 收藏
-     */
-    val collectLiveData = MutableLiveData<Int>()
-
-    /**
-     * 取消收藏
-     */
-    val unCollectLiveData = MutableLiveData<Int>()
 
     /**
      * 获取首页文章列表， 包括banner
@@ -43,14 +34,14 @@ class HomeVM : BaseViewModel() {
     }
 
     fun collect(id:Int){
-        repo.collect(id,collectLiveData)
+        repo.collect(id,articleList)
     }
 
     /**
      * 取消收藏
      */
     fun unCollect(id:Int){
-        repo.unCollect(id,unCollectLiveData)
+        repo.unCollect(id,articleList)
     }
 
 }

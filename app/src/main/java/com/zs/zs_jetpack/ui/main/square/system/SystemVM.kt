@@ -23,15 +23,6 @@ class SystemVM :BaseViewModel(){
      */
     val articleLiveData = MutableLiveData<MutableList<ArticleListBean>>()
 
-    /**
-     * 收藏
-     */
-    val collectLiveData = MutableLiveData<Int>()
-
-    /**
-     * 取消收藏
-     */
-    val unCollectLiveData = MutableLiveData<Int>()
 
     /**
      * 获取体系列表
@@ -51,14 +42,14 @@ class SystemVM :BaseViewModel(){
      * 收藏
      */
     fun collect(id:Int){
-        repo.collect(id,collectLiveData)
+        repo.collect(id,articleLiveData)
     }
 
     /**
      * 取消收藏
      */
     fun unCollect(id:Int){
-        repo.unCollect(id,unCollectLiveData)
+        repo.unCollect(id,articleLiveData)
     }
 
 

@@ -109,15 +109,34 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
     /**
      * 收藏
      */
-    fun collect(id:Int,collectLiveData : MutableLiveData<Int>){
+    fun collect(articleId:Int,articleList : MutableLiveData<MutableList<ArticleListBean>>){
         launch(
             block = {
                 RetrofitManager.getApiService(ApiService::class.java)
-                    .collect(id)
+                    .collect(articleId)
                     .data(Any::class.java)
             },
             success = {
-                collectLiveData.postValue(id)
+                //此处直接更改list中模型,ui层会做diff运算做比较
+                articleList.value = articleList.value?.map { bean->
+                    if (bean.id == articleId){
+                        //拷贝一个新对象，将点赞状态置换。kotlin没找到复制对象的函数,有知道的麻烦告知一下～～～
+                        ArticleListBean().apply {
+                            id = bean.id
+                            author = bean.author
+                            collect = true
+                            desc = bean.desc
+                            picUrl = bean.picUrl
+                            link = bean.link
+                            date = bean.date
+                            title = bean.title
+                            articleTag = bean.articleTag
+                            topTitle = bean.topTitle
+                        }
+                    }else{
+                        bean
+                    }
+                }?.toMutableList()
             }
         )
     }
@@ -125,16 +144,35 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
     /**
      * 收藏
      */
-    fun unCollect(id:Int,unCollectLiveData : MutableLiveData<Int>){
+    fun unCollect(articleId:Int,articleList : MutableLiveData<MutableList<ArticleListBean>>){
         launch(
             block = {
                 RetrofitManager.getApiService(ApiService::class.java)
-                    .unCollect(id)
+                    .unCollect(articleId)
                         //如果data可能为空,可通过此方式通过反射生成对象,避免空判断
                     .data(Any::class.java)
             },
             success = {
-                unCollectLiveData.postValue(id)
+                //此处直接更改list中模型,ui层会做diff运算做比较
+                articleList.value = articleList.value?.map { bean->
+                    if (bean.id == articleId){
+                        //拷贝一个新对象，将点赞状态置换。kotlin没找到复制对象的函数,有知道的麻烦告知一下～～～
+                        ArticleListBean().apply {
+                            id = bean.id
+                            author = bean.author
+                            collect = false
+                            desc = bean.desc
+                            picUrl = bean.picUrl
+                            link = bean.link
+                            date = bean.date
+                            title = bean.title
+                            articleTag = bean.articleTag
+                            topTitle = bean.topTitle
+                        }
+                    }else{
+                        bean
+                    }
+                }?.toMutableList()
             }
         )
     }

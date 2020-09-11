@@ -5,6 +5,7 @@ import com.zs.base_library.base.BaseRepository
 import com.zs.base_library.common.isListEmpty
 import com.zs.base_library.common.toast
 import com.zs.base_library.http.ApiException
+import com.zs.wanandroid.entity.BannerBean
 import com.zs.zs_jetpack.bean.ArticleBean
 import com.zs.zs_jetpack.bean.ArticleListBean
 import com.zs.zs_jetpack.http.ApiService
@@ -79,35 +80,90 @@ class SystemRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<
         )
     }
 
+
     /**
-     * 收藏
+     * 获取banner
      */
-    fun collect(id:Int,collectLiveData : MutableLiveData<Int>){
+    private fun getBanner(banner: MutableLiveData<MutableList<BannerBean>>) {
         launch(
             block = {
                 RetrofitManager.getApiService(ApiService::class.java)
-                    .collect(id)
-                    .data(Any::class.java)
+                    .getBanner()
+                    .data()
             },
             success = {
-                collectLiveData.postValue(id)
+                banner.postValue(it)
             }
         )
     }
 
     /**
-     * 取消收藏
+     * 收藏
      */
-    fun unCollect(id:Int,unCollectLiveData : MutableLiveData<Int>){
+    fun collect(articleId:Int,articleList : MutableLiveData<MutableList<ArticleListBean>>){
         launch(
             block = {
                 RetrofitManager.getApiService(ApiService::class.java)
-                    .unCollect(id)
+                    .collect(articleId)
+                    .data(Any::class.java)
+            },
+            success = {
+                //此处直接更改list中模型,ui层会做diff运算做比较
+                articleList.value = articleList.value?.map { bean->
+                    if (bean.id == articleId){
+                        //拷贝一个新对象，将点赞状态置换。kotlin没找到复制对象的函数,有知道的麻烦告知一下～～～
+                        ArticleListBean().apply {
+                            id = bean.id
+                            author = bean.author
+                            collect = true
+                            desc = bean.desc
+                            picUrl = bean.picUrl
+                            link = bean.link
+                            date = bean.date
+                            title = bean.title
+                            articleTag = bean.articleTag
+                            topTitle = bean.topTitle
+                        }
+                    }else{
+                        bean
+                    }
+                }?.toMutableList()
+            }
+        )
+    }
+
+    /**
+     * 收藏
+     */
+    fun unCollect(articleId:Int,articleList : MutableLiveData<MutableList<ArticleListBean>>){
+        launch(
+            block = {
+                RetrofitManager.getApiService(ApiService::class.java)
+                    .unCollect(articleId)
                     //如果data可能为空,可通过此方式通过反射生成对象,避免空判断
                     .data(Any::class.java)
             },
             success = {
-                unCollectLiveData.postValue(id)
+                //此处直接更改list中模型,ui层会做diff运算做比较
+                articleList.value = articleList.value?.map { bean->
+                    if (bean.id == articleId){
+                        //拷贝一个新对象，将点赞状态置换。kotlin没找到复制对象的函数,有知道的麻烦告知一下～～～
+                        ArticleListBean().apply {
+                            id = bean.id
+                            author = bean.author
+                            collect = false
+                            desc = bean.desc
+                            picUrl = bean.picUrl
+                            link = bean.link
+                            date = bean.date
+                            title = bean.title
+                            articleTag = bean.articleTag
+                            topTitle = bean.topTitle
+                        }
+                    }else{
+                        bean
+                    }
+                }?.toMutableList()
             }
         )
     }
