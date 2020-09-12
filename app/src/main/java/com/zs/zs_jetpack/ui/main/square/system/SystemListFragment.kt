@@ -58,7 +58,7 @@ class SystemListFragment : BaseVmFragment() {
 
             setOnItemClickListener { i, _ ->
                 nav().navigate(
-                    R.id.action_main_fragment_to_web_fragment,
+                    R.id.action_system_list_fragment_to_web_fragment,
                     this@SystemListFragment.adapter.getBundle(i)
                 )
             }
@@ -76,7 +76,7 @@ class SystemListFragment : BaseVmFragment() {
                                 }
                             }
                         } else {
-                            nav().navigate(R.id.action_main_fragment_to_login_fragment)
+                            nav().navigate(R.id.action_system_list_fragment_to_login_fragment)
                         }
                     }
                 }

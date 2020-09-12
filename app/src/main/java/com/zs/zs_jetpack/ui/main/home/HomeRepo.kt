@@ -52,7 +52,7 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
                 //合并请求结果
                 addAll(b)
             }
-        }
+        }.flowOn(Dispatchers.IO)
     }
 
     /**
@@ -92,25 +92,47 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
     /**
      * 收藏
      */
-    fun collect(id: Int): Flow<Any> {
-        return flow {
-            emit(
+    fun collect(id: Int,list:MutableList<ArticleListBean>)
+        : Flow<MutableList<ArticleListBean>> {
+            return flow {
                 RetrofitManager.getApiService(ApiService::class.java)
                     .collect(id)
                     .data(Any::class.java)
-            )
-        }.flowOn(Dispatchers.IO)
+                emit(
+                    list.map {
+                        //将收藏的对象做替换，并改变收藏状态
+                        if (it.id == id){
+                            ArticleListBean.copy(it).apply {
+                                collect = true
+                            }
+                        }else{
+                            it
+                        }
+                    }.toMutableList()
+                )
+            }.flowOn(Dispatchers.IO)
     }
 
     /**
      * 取消收藏
      */
-    fun unCollect(id: Int): Flow<Any> {
+    fun unCollect(id: Int,list:MutableList<ArticleListBean>)
+            : Flow<MutableList<ArticleListBean>> {
         return flow {
+            RetrofitManager.getApiService(ApiService::class.java)
+                .unCollect(id)
+                .data(Any::class.java)
             emit(
-                RetrofitManager.getApiService(ApiService::class.java)
-                    .unCollect(id)
-                    .data(Any::class.java)
+                list.map {
+                    //将收藏的对象做替换，并改变收藏状态
+                    if (it.id == id){
+                        ArticleListBean.copy(it).apply {
+                            collect = false
+                        }
+                    }else{
+                        it
+                    }
+                }.toMutableList()
             )
         }.flowOn(Dispatchers.IO)
     }

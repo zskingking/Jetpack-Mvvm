@@ -38,6 +38,9 @@ class HomeVM : BasePageVM() {
      */
     val banner: LiveData<MutableList<BannerBean>> = _banner
 
+    /**
+     * 获取banner
+     */
     fun getBanner() {
         viewModelScope.launch {
             repo.getBanner()
@@ -89,25 +92,15 @@ class HomeVM : BasePageVM() {
      */
     fun collect(id: Int) {
         viewModelScope.launch {
-            repo.collect(id)
-                .catch {
-                    errorLiveData.postValue(getApiException(it))
-                }
-                .collect {
-                    _articleList.value?.map {
-                        //将收藏的对象做替换，并改变收藏状态
-                        if (it.id == id) {
-                            ArticleListBean.copy(it).apply {
-                                collect = true
-                            }
-                        } else {
-                            it
-                        }
-                    }?.toMutableList()
-                        .let {
-                            _articleList.postValue(it)
-                        }
-                }
+            _articleList.value?.let {
+                repo.collect(id, it)
+                    .catch {
+                        errorLiveData.postValue(getApiException(it))
+                    }
+                    .collect { result ->
+                        _articleList.postValue(result)
+                    }
+            }
         }
     }
 
@@ -116,25 +109,15 @@ class HomeVM : BasePageVM() {
      */
     fun unCollect(id: Int) {
         viewModelScope.launch {
-            repo.unCollect(id)
-                .catch {
-                    errorLiveData.postValue(getApiException(it))
-                }
-                .collect {
-                    _articleList.value?.map {
-                        //将收藏的对象做替换，并改变收藏状态
-                        if (it.id == id) {
-                            ArticleListBean.copy(it).apply {
-                                collect = false
-                            }
-                        } else {
-                            it
-                        }
-                    }?.toMutableList()
-                        .let {
-                            _articleList.postValue(it)
-                        }
-                }
+            _articleList.value?.let {
+                repo.unCollect(id, it)
+                    .catch {
+                        errorLiveData.postValue(getApiException(it))
+                    }
+                    .collect { result ->
+                        _articleList.postValue(result)
+                    }
+            }
         }
     }
 
