@@ -80,9 +80,9 @@ class ArticleListBean : MultiItemEntity {
             return list.map {
                 ArticleListBean().apply {
                     id = it.id
-                    author = if (TextUtils.isEmpty(it.author)){
+                    author = if (TextUtils.isEmpty(it.author)) {
                         it.shareUser
-                    }else{
+                    } else {
                         it.author
                     }
                     collect = it.collect
@@ -92,9 +92,24 @@ class ArticleListBean : MultiItemEntity {
                     date = it.niceDate
                     title = Html.fromHtml(it.title).toString()
                     articleTag = it.superChapterName
-                    topTitle = if (it.type==1) "置顶" else ""
+                    topTitle = if (it.type == 1) "置顶" else ""
                 }
             }.toMutableList()
+        }
+
+        fun copy(article: ArticleListBean): ArticleListBean {
+            return ArticleListBean().apply {
+                id = article.id
+                author = article.author
+                collect = false
+                desc = article.desc
+                picUrl = article.picUrl
+                link = article.link
+                date = article.date
+                title = article.title
+                articleTag = article.articleTag
+                topTitle = article.topTitle
+            }
         }
     }
 }

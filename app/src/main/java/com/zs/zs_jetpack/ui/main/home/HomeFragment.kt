@@ -28,10 +28,6 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>,
     private var bannerList: MutableList<BannerBean>? = null
     private val adapter by lazy { ArticleAdapter(mActivity) }
 
-    /**
-     * 页码
-     */
-    private var page = 0
     override fun initViewModel() {
         homeVm = getActivityViewModel(HomeVM::class.java)
     }
@@ -63,13 +59,12 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>,
         //关闭更新动画
         (rvHomeList.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         smartRefresh.setOnRefreshListener {
-            page = 0
-            homeVm?.getArticleList(true)
+            homeVm?.getBanner()
+            homeVm?.getArticle()
         }
         //上拉加载
         smartRefresh.setOnLoadMoreListener {
-            page++
-            homeVm?.getArticleList(false)
+            homeVm?.loadMoreArticle()
         }
         smartConfig(smartRefresh)
         adapter.apply {
@@ -98,7 +93,6 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>,
                         }
                     }
                 }
-
             }
         }
         setNoRepeatClick(ivAdd) {

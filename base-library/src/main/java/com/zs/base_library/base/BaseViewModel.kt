@@ -46,7 +46,7 @@ open class BaseViewModel:ViewModel() {
     /**
      * 捕获异常信息
      */
-    private fun getApiException(e: Throwable): ApiException {
+    protected fun getApiException(e: Throwable): ApiException {
         return when (e) {
             is UnknownHostException -> {
                 ApiException("网络异常", -100)

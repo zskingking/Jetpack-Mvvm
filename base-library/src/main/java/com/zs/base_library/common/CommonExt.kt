@@ -14,6 +14,11 @@ import java.util.*
  * 当集合为空或者长度为0
  */
 fun isListEmpty(list: List<Any>?):Boolean = list==null|| list.isEmpty()
+/**
+ * 当泛型集合为空或者长度为0
+ */
+fun<T> isGpListEmpty(list: List<T>?): Boolean = list == null || list.isEmpty()
+
 
 
 /**
