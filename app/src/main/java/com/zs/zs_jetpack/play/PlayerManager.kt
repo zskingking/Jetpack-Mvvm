@@ -28,8 +28,7 @@ class PlayerManager private constructor() : IPlayerStatus {
             PlayerManager()
         }
 
-        //TODO 播放器状态,当前共4种,可在此处随时扩展
-
+        //播放器状态,当前共4种,可在此处随时扩展
         /**
          * 重置
          */

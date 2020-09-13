@@ -49,7 +49,6 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>,
         })
     }
 
-
     override fun lazyInit() {
         initView()
         loadData()

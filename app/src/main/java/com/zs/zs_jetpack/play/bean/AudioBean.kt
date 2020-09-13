@@ -1,5 +1,7 @@
 package com.zs.zs_jetpack.play.bean
 
+import com.zs.zs_jetpack.play.PlayListType
+
 /**
  * des mp3文件封装类,遵循mp3格式,从ContentProvider获取
  * @author zs
@@ -34,6 +36,11 @@ class AudioBean {
      * 歌曲id
      */
     var id: Long = 0
+
+    /**
+     * 所属播放列表
+     */
+    var playListType = PlayListType.LOCAL_PLAY_LIST
 
     override fun toString(): String {
         return "\nAudioBean(name=$name, singer=$singer, size=$size, duration=$duration, path=$path, albumId=$albumId, id=$id)"

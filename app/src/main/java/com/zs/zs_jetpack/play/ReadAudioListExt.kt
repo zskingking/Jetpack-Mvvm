@@ -18,36 +18,40 @@ import kotlinx.coroutines.launch
 /**
  * 通过ContentProvider读取本地音频文件
  */
-fun readPlayList(context:Context,audioList:MutableList<AudioBean>){
-    GlobalScope.launch {
-        val cursor: Cursor? = context.contentResolver.query(
-            MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-            , null, null, null, MediaStore.Audio.Media.DEFAULT_SORT_ORDER
-        )
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                val audioBean = AudioBean()
-                audioBean.name =
-                    cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
-                audioBean.id =
-                    cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media._ID))
-                audioBean.singer =
-                    cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
-                audioBean.path =
-                    cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA))
-                audioBean.duration =
-                    cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION))
-                audioBean.size =
-                    cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE))
-                audioBean.albumId =
-                    cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
-                //筛选大于一分钟的音频
-                if (audioBean.duration>60000){
-                    audioList.add(audioBean)
-                }
+fun readPlayListByLocal(context: Context): MutableList<AudioBean> {
+    val audioList = mutableListOf<AudioBean>()
+
+    val cursor: Cursor? = context.contentResolver.query(
+        MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+        , null, null, null, MediaStore.Audio.Media.DEFAULT_SORT_ORDER
+    )
+    if (cursor != null) {
+        while (cursor.moveToNext()) {
+            val audioBean = AudioBean()
+            audioBean.name =
+                cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
+            audioBean.id =
+                cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media._ID))
+            audioBean.singer =
+                cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
+            audioBean.path =
+                cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.DATA))
+            audioBean.duration =
+                cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION))
+            audioBean.size =
+                cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.SIZE))
+            audioBean.albumId =
+                cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
+            //设置播放列表
+            audioBean.playListType = PlayListType.LOCAL_PLAY_LIST
+            //筛选大于一分钟的音频
+            if (audioBean.duration > 60000) {
+                audioList.add(audioBean)
             }
-            cursor.close()
-            Log.i("PlayList","$audioList")
         }
+        cursor.close()
+        Log.i("PlayList", "$audioList")
+
     }
+    return audioList
 }
