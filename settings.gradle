@@ -1,4 +1,3 @@
-include ':base-business-library'
 rootProject.name='ZS-Jetpack'
 include ':app'
 include ':base-library'

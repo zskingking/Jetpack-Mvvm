@@ -1,0 +1,25 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion Version.compileSdkVersion
+    buildToolsVersion Version.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion Version.minSdkVersion
+        targetSdkVersion Version.targetSdkVersion
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+
+    dataBinding {
+        //noinspection DataBindingWithoutKapt
+        enabled = true
+    }
+
+}
