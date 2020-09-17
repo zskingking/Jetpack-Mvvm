@@ -3,14 +3,29 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
-apply from: "../basic.gradle"
-
 android {
+    compileSdkVersion Version.compileSdkVersion
+    buildToolsVersion Version.buildToolsVersion
+
     defaultConfig {
         applicationId "com.zs.zs_jetpack"
+        minSdkVersion Version.minSdkVersion
+        targetSdkVersion Version.targetSdkVersion
         versionCode Version.versionCode
         versionName Version.versionName
         multiDexEnabled true
+
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+
+    dataBinding {
+        enabled = true
     }
 
     buildTypes {
@@ -18,12 +33,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        debug {
-            minifyEnabled true
-        }
     }
 }
 
 dependencies {
     implementation project(":base-library")
+
 }
