@@ -4,9 +4,9 @@ import android.content.Context
 import android.database.Cursor
 import android.provider.MediaStore
 import android.util.Log
+import com.zs.zs_jetpack.db.AppDataBase
 import com.zs.zs_jetpack.play.bean.AudioBean
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import com.zs.zs_jetpack.ui.play.history.HistoryAudioBean
 
 /**
  * des 读取播放列表-扩展文件
@@ -18,12 +18,15 @@ import kotlinx.coroutines.launch
 /**
  * 通过ContentProvider读取本地音频文件
  */
-fun readPlayListByLocal(context: Context): MutableList<AudioBean> {
+fun readLocalPlayList(context: Context): MutableList<AudioBean> {
     val audioList = mutableListOf<AudioBean>()
 
     val cursor: Cursor? = context.contentResolver.query(
-        MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-        , null, null, null, MediaStore.Audio.Media.DEFAULT_SORT_ORDER
+        MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+        null,
+        null,
+        null,
+        MediaStore.Audio.Media.DEFAULT_SORT_ORDER
     )
     if (cursor != null) {
         while (cursor.moveToNext()) {
@@ -53,5 +56,25 @@ fun readPlayListByLocal(context: Context): MutableList<AudioBean> {
         Log.i("PlayList", "$audioList")
 
     }
+    return audioList
+}
+
+
+/**
+ * 获取历史列表
+ */
+fun readHistoryPlayList(): MutableList<AudioBean> {
+    return HistoryAudioBean.historyList2AudioList(
+        AppDataBase.getInstance().historyDao().getAllAudios()
+    )
+}
+
+/**
+ * 获取收藏列表
+ */
+fun readCollectPlayList(): MutableList<AudioBean> {
+    val audioList = mutableListOf<AudioBean>()
+    AppDataBase.getInstance().collectDao()
+
     return audioList
 }

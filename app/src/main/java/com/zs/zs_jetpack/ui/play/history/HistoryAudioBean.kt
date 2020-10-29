@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.zs.zs_jetpack.play.PlayListType
+import com.zs.zs_jetpack.play.bean.AudioBean
 
 /**
  * des mp3文件封装类,遵循mp3格式。播放历史
@@ -64,5 +65,58 @@ class HistoryAudioBean {
 
     override fun toString(): String {
         return "\nAudioBean(name=$name, singer=$singer, size=$size, duration=$duration, path=$path, albumId=$albumId, id=$id)"
+    }
+
+    companion object{
+        /**
+         * room同一个bean好像不支持多张表(或者说支持是我不会用),只能单独创建个历史bean,收藏相同
+         * 将HistoryAudioBean列表转换为AudioBean列表
+         */
+        fun historyList2AudioList(list:MutableList<HistoryAudioBean>):MutableList<AudioBean>{
+            return list.map {
+                history2Audio(it)
+            }.toMutableList()
+        }
+
+        /**
+         * 将AudioBean列表转换为HistoryAudioBean列表
+         */
+        fun audioList2HistoryList(list:MutableList<AudioBean>):MutableList<HistoryAudioBean>{
+            return list.map {
+                audio2History(it)
+            }.toMutableList()
+        }
+
+        /**
+         * 将AudioBean转换为HistoryAudioBean
+         */
+        fun history2Audio(bean:HistoryAudioBean):AudioBean{
+            return AudioBean().apply{
+                id = bean.id
+                name = bean.name
+                singer = bean.singer
+                size = bean.size
+                duration = bean.duration
+                path = bean.path
+                albumId = bean.albumId
+                playListType = bean.playListType
+            }
+        }
+
+        /**
+         * 将AudioBean转换为HistoryAudioBean
+         */
+        fun audio2History(bean:AudioBean):HistoryAudioBean{
+            return HistoryAudioBean().apply{
+                    id = bean.id
+                    name = bean.name
+                    singer = bean.singer
+                    size = bean.size
+                    duration = bean.duration
+                    path = bean.path
+                    albumId = bean.albumId
+                    playListType = bean.playListType
+                }
+        }
     }
 }

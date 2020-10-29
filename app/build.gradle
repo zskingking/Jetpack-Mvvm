@@ -38,5 +38,6 @@ android {
 
 dependencies {
     implementation project(":base-library")
+    kapt "androidx.room:room-compiler:2.2.3"
 
 }

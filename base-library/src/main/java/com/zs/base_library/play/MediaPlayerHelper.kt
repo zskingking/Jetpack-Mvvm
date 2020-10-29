@@ -2,6 +2,7 @@ package com.zs.base_library.play
 
 import android.media.MediaPlayer
 import android.media.MediaPlayer.*
+import android.util.Log
 import com.zs.base_library.common.toast
 
 /**
@@ -41,6 +42,7 @@ class MediaPlayerHelper : IPlayer,
         }.onSuccess {
             mediaPlayer.prepare()
         }.onFailure {
+            Log.i("error","it:${it.printStackTrace()}")
             toast("无效文件")
         }
     }

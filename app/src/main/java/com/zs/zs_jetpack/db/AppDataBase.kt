@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.zs.base_library.BaseApp
 import com.zs.zs_jetpack.ui.play.collect.CollectAudioBean
 import com.zs.zs_jetpack.ui.play.collect.CollectAudioDao
 import com.zs.zs_jetpack.ui.play.history.HistoryAudioBean
@@ -32,9 +33,9 @@ abstract class AppDataBase: RoomDatabase() {
         @Volatile
         private var instance:AppDataBase? = null
 
-        fun getInstance(context: Context):AppDataBase{
+        fun getInstance():AppDataBase{
             return instance?: synchronized(this){
-                instance?:buildDataBase(context)
+                instance?:buildDataBase(BaseApp.getContext())
                     .also {
                         instance = it
                     }

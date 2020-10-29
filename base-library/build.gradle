@@ -36,7 +36,7 @@ dependencies {
 
     api(Android.room.roomRuntime)
     api(Android.room.roomKtx)
-    kapt(Android.room.roomCompiler)
+    //kapt(Android.room.roomCompiler)
 
     api(ThirdParty.okhttp)
     api(ThirdParty.rxjava)

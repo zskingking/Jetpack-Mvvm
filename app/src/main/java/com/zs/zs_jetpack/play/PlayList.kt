@@ -5,7 +5,9 @@ import com.zs.base_library.BaseApp
 import com.zs.base_library.common.getRandom
 import com.zs.base_library.common.isListEmpty
 import com.zs.base_library.common.toast
+import com.zs.zs_jetpack.db.AppDataBase
 import com.zs.zs_jetpack.play.bean.AudioBean
+import com.zs.zs_jetpack.ui.play.history.HistoryAudioBean
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -63,9 +65,15 @@ class PlayList private constructor() {
         //通过io线程读取播放列表
         GlobalScope.launch(Dispatchers.IO) {
             Log.i("PlayList", "${System.currentTimeMillis()}")
-            //读取本地播放列表
-            localList = readPlayListByLocal(BaseApp.getContext())
-            Log.i("PlayList", "${System.currentTimeMillis()}")
+            //读取三个播放列表
+            localList = readLocalPlayList(BaseApp.getContext())
+            historyList = readHistoryPlayList()
+            collectList = readCollectPlayList()
+            Log.i("PlayList", "localList:${localList.size}")
+            Log.i("PlayList", "historyList:${historyList.size}")
+            Log.i("PlayList", "localList:${historyList.size}")
+            Log.i("PlayList", "historyList$historyList")
+
             switchPlayList(playListType)
         }
     }
@@ -121,6 +129,12 @@ class PlayList private constructor() {
      * 设置当前播放列表和currentIndex
      */
     fun setCurrentAudio(audioBean: AudioBean) {
+        //模拟加入历史
+        GlobalScope.launch(Dispatchers.IO) {
+            AppDataBase.getInstance()
+                .historyDao()
+                .insertAudio(HistoryAudioBean.audio2History(audioBean))
+        }
         //播放新音频时更新历史列表
         addRecord(audioBean)
         //每次切换都做播放列表更新
