@@ -64,16 +64,10 @@ class PlayList private constructor() {
     init {
         //通过io线程读取播放列表
         GlobalScope.launch(Dispatchers.IO) {
-            Log.i("PlayList", "${System.currentTimeMillis()}")
             //读取三个播放列表
             localList = readLocalPlayList(BaseApp.getContext())
             historyList = readHistoryPlayList()
             collectList = readCollectPlayList()
-            Log.i("PlayList", "localList:${localList.size}")
-            Log.i("PlayList", "historyList:${historyList.size}")
-            Log.i("PlayList", "localList:${historyList.size}")
-            Log.i("PlayList", "historyList$historyList")
-
             switchPlayList(playListType)
         }
     }
@@ -129,12 +123,6 @@ class PlayList private constructor() {
      * 设置当前播放列表和currentIndex
      */
     fun setCurrentAudio(audioBean: AudioBean) {
-        //模拟加入历史
-        GlobalScope.launch(Dispatchers.IO) {
-            AppDataBase.getInstance()
-                .historyDao()
-                .insertAudio(HistoryAudioBean.audio2History(audioBean))
-        }
         //播放新音频时更新历史列表
         addRecord(audioBean)
         //每次切换都做播放列表更新
@@ -146,15 +134,32 @@ class PlayList private constructor() {
     /**
      * 增加历史记录
      */
-    private fun addRecord(audioBean: AudioBean){
-        //先将原纪录移除
-        historyList.forEach {
-            if (it.id == audioBean.id){
-                historyList.remove(it)
-                return@forEach
+    private fun addRecord(audioBean: AudioBean) {
+        //加入历史
+        GlobalScope.launch(Dispatchers.IO) {
+            //由于audioBean可能不包含主键(比如从收藏播放),首先通过audio id查询到sortId然后再删除
+            AppDataBase.getInstance()
+                .historyDao()
+                .findAudioById(audioBean.id)
+                ?.apply {
+                    AppDataBase.getInstance()
+                        .historyDao()
+                        .deleteAudio(this)
+                }
+            //插入数据
+            AppDataBase.getInstance()
+                .historyDao()
+                .insertAudio(HistoryAudioBean.audio2History(audioBean))
+        }
+
+        //同步内存中列表，先将原纪录移除
+        for (index in 0 until historyList.size) {
+            if (historyList[index].id == audioBean.id) {
+                historyList.remove(historyList[index])
+                break
             }
         }
-        //将新纪录加入到末尾
+        //将新记录加入到末尾
         historyList.add(audioBean)
     }
 

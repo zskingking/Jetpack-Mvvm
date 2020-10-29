@@ -51,12 +51,12 @@ interface HistoryAudioDao {
      * 查询一个
      */
     @Query("SELECT * FROM history_audio WHERE id=:id")
-    fun findAudioById(id: Long): HistoryAudioBean
+    fun findAudioById(id: Long): HistoryAudioBean?
 
     /**
      * 返回所有的数据,结果为LiveData
      */
     @Query("SELECT * FROM history_audio")
-    fun getAllAudios(): MutableList<HistoryAudioBean>
+    fun getAllAudios(): MutableList<HistoryAudioBean>?
 
 }
