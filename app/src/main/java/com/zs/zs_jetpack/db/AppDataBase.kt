@@ -5,25 +5,27 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.zs.zs_jetpack.play.collect.CollectAudioBean
-import com.zs.zs_jetpack.play.collect.CollectAudioDao
+import com.zs.zs_jetpack.ui.play.collect.CollectAudioBean
+import com.zs.zs_jetpack.ui.play.collect.CollectAudioDao
+import com.zs.zs_jetpack.ui.play.history.HistoryAudioBean
+import com.zs.zs_jetpack.ui.play.history.HistoryAudioDao
 
 /**
  * des
  * @author zs
  * @date 2020/10/29
  */
-@Database(entities = [HistoryAudioBean::class,CollectAudioBean::class],version = 1,exportSchema = false)
+@Database(entities = [HistoryAudioBean::class, CollectAudioBean::class],version = 1,exportSchema = false)
 abstract class AppDataBase: RoomDatabase() {
     /**
      * 获取HistoryAudioDao
      */
-    abstract fun historyDao():HistoryAudioDao
+    abstract fun historyDao(): HistoryAudioDao
 
     /**
      * 获取CollectAudioBean
      */
-    abstract fun collectDao():CollectAudioDao
+    abstract fun collectDao(): CollectAudioDao
 
 
     companion object{

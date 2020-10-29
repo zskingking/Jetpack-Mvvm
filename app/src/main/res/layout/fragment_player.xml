@@ -96,8 +96,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_marginLeft="63dp"
-                android:layout_marginRight="63dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="50dp"
                 app:layout_constraintDimensionRatio="1:1"
                 android:src="@mipmap/play_album_default"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
