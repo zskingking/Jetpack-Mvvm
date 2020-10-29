@@ -26,65 +26,6 @@
 
 #### Model
 对应项目中`Repository`，做数据请求以及业务逻辑。很多人将业务逻辑编写到`VM`层，但我个人认为写在`Model`层更为合适，因为数据和业务逻辑本身就是息息相关，拿到数据及时处理业务逻辑，最后通过`ViewModel`注入的`LiveData`将数据发送给`View`层。在该层我也对协程做了封装，以及统一捕获处理错误信息。
-代码大概张这样：
-```
-
-/**
- * 错误方法
- */
-typealias Error = suspend (e: ApiException) -> Unit
-
-/**
- * des 基础数据层
- * @date 2020/5/18
- * @author zs
- *
- * @param coroutineScope 注入viewModel的coroutineScope用于协程管理
- * @param errorLiveData 业务出错或者爆发异常，由errorLiveData通知视图层去处理
- */
-open class BaseRepository(
-    private val coroutineScope: CoroutineScope,
-    private val errorLiveData: MutableLiveData<ApiException>
-) {
-
-    /**
-     * 对协程进行封装,统一处理错误信息
-     *
-     * @param block   执行中
-     * @param success 执行成功
-     */
-    protected fun <T> launch(
-        block: suspend () -> T
-        , success: suspend (T) -> Unit
-        , error:Error? = null): Job {
-        return coroutineScope.launch {
-            runCatching {
-                withContext(Dispatchers.IO) {
-                    block()
-                }
-            }.onSuccess {
-                success(it)
-            }.onFailure {
-                it.printStackTrace()
-                getApiException(it).apply {
-                    error?.invoke(this)
-                    toast(errorMessage)
-                    //统一响应错误信息
-                    errorLiveData.value = this
-                }
-            }
-        }
-    }
-
-    /**
-     * 捕获异常信息
-     */
-    private fun getApiException(e: Throwable): ApiException {
-        ...
-        ...
-    }
-}
-```
 
 #### ViewModel
 基于`Jetpack`中的`ViewModel`进行封装(友情提示：`Jetpack ViewModel`和`MVVM ViewModel`没有半毛钱关系，切勿将两个概念混淆)。在项目中`VM`层职责很简单，通过内部通过`LiveData`做数据存储，以及结合`DataBinding`做数据绑定。
