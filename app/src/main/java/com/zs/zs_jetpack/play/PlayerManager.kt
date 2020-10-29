@@ -76,7 +76,7 @@ class PlayerManager private constructor() : IPlayerStatus {
     private lateinit var playList: PlayList
 
     fun init(context: Context) {
-        playList = PlayList(context)
+        playList = PlayList.instance
         playerHelper.setPlayStatus(this)
         startTimer()
     }

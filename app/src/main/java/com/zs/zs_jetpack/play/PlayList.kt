@@ -1,7 +1,7 @@
 package com.zs.zs_jetpack.play
 
-import android.content.Context
 import android.util.Log
+import com.zs.base_library.BaseApp
 import com.zs.base_library.common.getRandom
 import com.zs.base_library.common.isListEmpty
 import com.zs.base_library.common.toast
@@ -12,10 +12,21 @@ import kotlinx.coroutines.launch
 
 /**
  * des 播放列表
+ * 关于历史和收藏.. 当历史和收藏列表需要改变时,数据库和内存中列表(手动更新)同时更新,UI与内存列表保持一致
+ * 这样做的意图是避免每次操作历史/收藏列表时频繁读取数据库做数据同步
  * @author zs
  * @data 2020/6/25
  */
-class PlayList constructor(context: Context) {
+class PlayList private constructor() {
+
+    /**
+     * 单例创建PlayerManager
+     */
+    companion object {
+        val instance: PlayList by lazy(mode = LazyThreadSafetyMode.SYNCHRONIZED) {
+            PlayList()
+        }
+    }
 
     /**
      * 当前播放列表
@@ -51,10 +62,10 @@ class PlayList constructor(context: Context) {
     init {
         //通过io线程读取播放列表
         GlobalScope.launch(Dispatchers.IO) {
-            Log.i("PlayList","${System.currentTimeMillis()}")
+            Log.i("PlayList", "${System.currentTimeMillis()}")
             //读取本地播放列表
-            localList = readPlayListByLocal(context)
-            Log.i("PlayList","${System.currentTimeMillis()}")
+            localList = readPlayListByLocal(BaseApp.getContext())
+            Log.i("PlayList", "${System.currentTimeMillis()}")
             switchPlayList(playListType)
         }
     }
@@ -110,11 +121,27 @@ class PlayList constructor(context: Context) {
      * 设置当前播放列表和currentIndex
      */
     fun setCurrentAudio(audioBean: AudioBean) {
-        GlobalScope.launch (Dispatchers.IO){
-            //每次切换都做播放列表更新
-            switchPlayList(audioBean.playListType)
-            currentIndex = getIndexByAudio(audioBean)
+        //播放新音频时更新历史列表
+        addRecord(audioBean)
+        //每次切换都做播放列表更新
+        switchPlayList(audioBean.playListType)
+        //重置当前角标
+        currentIndex = getIndexByAudio(audioBean)
+    }
+
+    /**
+     * 增加历史记录
+     */
+    private fun addRecord(audioBean: AudioBean){
+        //先将原纪录移除
+        historyList.forEach {
+            if (it.id == audioBean.id){
+                historyList.remove(it)
+                return@forEach
+            }
         }
+        //将新纪录加入到末尾
+        historyList.add(audioBean)
     }
 
     /**
@@ -249,6 +276,21 @@ class PlayList constructor(context: Context) {
         return currentAudioList
     }
 
+    /**
+     * 更新历史列表
+     */
+    fun updateHistoryList(list: MutableList<AudioBean>) {
+        historyList.clear()
+        historyList.addAll(list)
+    }
+
+    /**
+     * 更新收藏列表
+     */
+    fun updateCollectList(list: MutableList<AudioBean>) {
+        collectList.clear()
+        collectList.addAll(list)
+    }
 
     class PlayMode {
         companion object {
