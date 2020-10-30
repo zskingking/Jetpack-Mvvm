@@ -37,5 +37,9 @@ interface AudioObserver {
      */
     fun onPlayMode(playMode:Int)
 
+    /**
+     * 重置
+     */
+    fun onReset()
 
 }

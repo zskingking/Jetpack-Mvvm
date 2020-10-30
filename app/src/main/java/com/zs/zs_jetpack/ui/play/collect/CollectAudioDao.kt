@@ -53,13 +53,13 @@ interface CollectAudioDao {
      * 查询一个
      */
     @Query("SELECT * FROM collect_audio WHERE id=:id")
-    fun findAudioById(id: Long): CollectAudioBean
+    fun findAudioById(id: Long): CollectAudioBean?
 
 
     /**
      * 返回所有的数据,结果为LiveData
      */
     @Query("SELECT * FROM collect_audio")
-    fun getAllAudios(): LiveData<List<CollectAudioBean>>
+    fun getAllAudios(): MutableList<CollectAudioBean>?
 
 }

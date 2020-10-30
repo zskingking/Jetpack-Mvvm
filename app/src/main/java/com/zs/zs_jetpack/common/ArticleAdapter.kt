@@ -80,7 +80,6 @@ class ArticleAdapter(private val context: Context):ListAdapter<ArticleListBean,R
      * 将数据和ui进行绑定
      */
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        Log.i("onBindViewHolder","position:$position")
         holder.itemView.clickNoRepeat {
             onItemClickListener?.invoke(position,it)
         }

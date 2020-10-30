@@ -31,6 +31,16 @@ object PlayBindAdapter {
     }
 
     /**
+     * 收藏
+     */
+    @BindingAdapter(value = ["imgCollect"])
+    @JvmStatic
+    fun imgCollect(view: ImageView, isCollect: Boolean) {
+        view.isSelected = isCollect
+    }
+
+
+    /**
      * 处理暂停/播放
      */
     @BindingAdapter(value = ["imgPlay"])

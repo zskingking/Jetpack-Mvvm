@@ -103,7 +103,7 @@ class HistoryAudioBean {
                 duration = bean.duration
                 path = bean.path
                 albumId = bean.albumId
-                playListType = bean.playListType
+                playListType = PlayListType.HISTORY_PLAY_LIST
             }
         }
 
@@ -120,7 +120,7 @@ class HistoryAudioBean {
                 duration = bean.duration
                 path = bean.path
                 albumId = bean.albumId
-                playListType = bean.playListType
+                playListType = PlayListType.HISTORY_PLAY_LIST
             }
         }
     }

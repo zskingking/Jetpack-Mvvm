@@ -1,9 +1,10 @@
 package com.zs.zs_jetpack.ui.play
 
-import android.animation.ValueAnimator
 import android.os.Bundle
+import android.util.Log
 import android.widget.SeekBar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.lifecycleScope
 import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.setNoRepeatClick
@@ -12,17 +13,22 @@ import com.zs.base_library.utils.StatusUtils
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.PlayViewModel
 import com.zs.zs_jetpack.R
-import com.zs.zs_jetpack.common.AnimUtil
+import com.zs.zs_jetpack.db.AppDataBase
+import com.zs.zs_jetpack.play.PlayList
 import com.zs.zs_jetpack.play.PlayerManager
 import com.zs.zs_jetpack.ui.PlayBindAdapter
+import com.zs.zs_jetpack.ui.play.collect.CollectAudioBean
 import kotlinx.android.synthetic.main.fragment_player.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * des 播放,View通过dataBinding绑定
  * @author zs
  * @date 2020-06-25
  */
-class PlayerFragment : BaseVmFragment(){
+class PlayerFragment : BaseVmFragment() {
 
     private var playVM: PlayViewModel? = null
     private val playListFragment = PlayListFragment()
@@ -84,11 +90,15 @@ class PlayerFragment : BaseVmFragment(){
     }
 
     override fun onClick() {
-        setNoRepeatClick(ivBack, ivMode, ivPrevious, ivPlay, ivNext, ivList) {
+        setNoRepeatClick(ivBack, ivCollect,ivMode, ivPrevious, ivPlay, ivNext, ivList) {
             when (it.id) {
                 //返回
                 R.id.ivBack -> {
                     nav().navigateUp()
+                }
+                //收藏
+                R.id.ivCollect -> {
+                    collect()
                 }
                 //切换模式
                 R.id.ivMode -> {
@@ -114,4 +124,40 @@ class PlayerFragment : BaseVmFragment(){
         }
     }
 
+    /**
+     * 收藏/取消收藏
+     */
+    private fun collect() {
+        val audio = PlayerManager.instance.getCurrentAudioBean() ?: return
+        lifecycleScope.launch {
+            var collect: Boolean
+            withContext(Dispatchers.IO) {
+                //在收藏表查询
+                AppDataBase.getInstance()
+                    .collectDao()
+                    .findAudioById(audio.id)
+                    .apply {
+                        //未被收藏
+                        collect = if (this == null) {
+                            //做收藏操作
+                            AppDataBase.getInstance()
+                                .collectDao()
+                                .insertAudio(CollectAudioBean.audio2Collect(audio))
+                            PlayList.instance.collect(audio)
+                            true
+                        }
+                        //已收藏
+                        else {
+                            //做取消收藏操作
+                            AppDataBase.getInstance()
+                                .collectDao()
+                                .deleteAudio(this)
+                            PlayList.instance.unCollect(audio)
+                            false
+                        }
+                    }
+            }
+            playVM?.collect?.set(collect)
+        }
+    }
 }

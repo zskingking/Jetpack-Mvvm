@@ -57,4 +57,17 @@ class AudioBean {
         return "\nAudioBean(sortId=$sortId,name=$name, singer=$singer, size=$size, duration=$duration, path=$path, albumId=$albumId, id=$id)"
     }
 
+    fun copy(bean: AudioBean):AudioBean{
+        return AudioBean().apply {
+            sortId = bean.sortId
+            id = bean.id
+            name = bean.name
+            singer = bean.singer
+            size = bean.size
+            duration = bean.duration
+            path = bean.path
+            albumId = bean.albumId
+        }
+    }
+
 }

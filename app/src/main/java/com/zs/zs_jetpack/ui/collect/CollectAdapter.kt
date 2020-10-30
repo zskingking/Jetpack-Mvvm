@@ -31,7 +31,7 @@ class CollectAdapter:BaseQuickAdapter<CollectBean.DatasBean,BaseViewHolder>(R.la
             helper.setText(R.id.tvTitle,title)
             helper.setText(R.id.tvChapterName,chapterName)
             helper.getView<ImageView>(R.id.ivCollect).apply {
-                setImageResource(R.mipmap.article_collect)
+                setImageResource(R.mipmap._collect)
                 clickNoRepeat {
                     collectClickListener?.onItemChildClick(this@CollectAdapter,it,helper.adapterPosition)
                 }

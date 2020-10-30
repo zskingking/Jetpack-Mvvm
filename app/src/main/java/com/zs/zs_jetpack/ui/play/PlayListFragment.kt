@@ -1,30 +1,33 @@
 package com.zs.zs_jetpack.ui.play
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.zs.base_library.common.setNoRepeatClick
+import androidx.fragment.app.Fragment
+import com.zs.base_library.common.clickNoRepeat
+import com.zs.base_library.common.initFragment
 import com.zs.zs_jetpack.R
-import com.zs.zs_jetpack.play.AudioObserver
-import com.zs.zs_jetpack.play.PlayList
-import com.zs.zs_jetpack.play.PlayerManager
-import com.zs.zs_jetpack.play.bean.AudioBean
+import com.zs.zs_jetpack.ui.play.collect.PlayCollectFragment
+import com.zs.zs_jetpack.ui.play.history.PlayHistoryFragment
+import com.zs.zs_jetpack.ui.play.local.PlayLocalFragment
 import kotlinx.android.synthetic.main.fragment_play_list.*
 
-
 /**
- * des 播放列表
+ * des
  * @author zs
- * @data 2020/6/27
+ * @date 2020/10/30
  */
-class PlayListFragment : BottomSheetDialogFragment(), AudioObserver {
+class PlayListFragment : DialogFragment() {
 
-    private val adapter by lazy { AudioAdapter() }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.Dialog_FullScreen);
+    override fun onStart() {
+        super.onStart()
+        dialog?.setCanceledOnTouchOutside(true)
+        //设置fragment高度 、宽度
+        val dialogHeight = requireContext().resources.displayMetrics.heightPixels
+        val dialogWidth = requireContext().resources.displayMetrics.widthPixels
+        dialog?.window?.setLayout(dialogWidth, dialogHeight)
     }
 
     override fun onCreateView(
@@ -32,53 +35,27 @@ class PlayListFragment : BottomSheetDialogFragment(), AudioObserver {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_play_list, null)
+        return inflater.inflate(R.layout.fragment_play_list, container,false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        PlayerManager.instance.register(this)
-        click()
-        tvListSize.text = String.format("(%s)",PlayerManager.instance.getPlayListSize())
-        setPlayList()
-    }
-
-    private fun setPlayList(){
-        rvPlayList.adapter = adapter
-    }
-
-    private fun click() {
-        setNoRepeatClick(root,llPlayMode){
-            when(it.id){
-                R.id.root -> dismiss()
-                R.id.llPlayMode -> PlayerManager.instance.switchPlayMode()
-            }
+        vpPlayList.initFragment(childFragmentManager, mutableListOf<Fragment>().apply {
+            add(PlayLocalFragment())
+            add(PlayHistoryFragment())
+            add(PlayCollectFragment())
+        })
+        vpPlayList.offscreenPageLimit = 3
+        root.clickNoRepeat {
+            dismissAllowingStateLoss()
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        PlayerManager.instance.unregister(this)
+    /**
+     * 主题
+     */
+    override fun getTheme(): Int {
+        return com.zs.base_library.R.style.sheet_dialog_style
     }
 
-    override fun onAudioBean(audioBean: AudioBean) {
-        adapter.updateCurrentPlaying()
-    }
-
-    override fun onPlayMode(playMode: Int) {
-        when (playMode) {
-            PlayList.PlayMode.ORDER_PLAY_MODE -> {
-                ivPlayMode.setImageResource(R.mipmap.play_order_gray)
-                tvPlayMode.text = "列表循环"
-            }
-            PlayList.PlayMode.SINGLE_PLAY_MODE -> {
-                ivPlayMode.setImageResource(R.mipmap.play_single_gray)
-                tvPlayMode.text = "单曲循环"
-            }
-            PlayList.PlayMode.RANDOM_PLAY_MODE -> {
-                ivPlayMode.setImageResource(R.mipmap.play_random_gray)
-                tvPlayMode.text = "随机播放"
-            }
-        }
-    }
 }

@@ -68,9 +68,9 @@ class aaArticleAdapter(
                                 )
                             }
                             if (item.collect) {
-                                setImageResource(R.mipmap.article_collect)
+                                setImageResource(R.mipmap._collect)
                             } else {
-                                setImageResource(R.mipmap.article_un_collect)
+                                setImageResource(R.mipmap.un_collect)
                             }
                         }
                 }
@@ -106,9 +106,9 @@ class aaArticleAdapter(
                             )
                         }
                         if (item.collect) {
-                            setImageResource(R.mipmap.article_collect)
+                            setImageResource(R.mipmap._collect)
                         } else {
-                            setImageResource(R.mipmap.article_un_collect)
+                            setImageResource(R.mipmap.un_collect)
                         }
                     }
                 }

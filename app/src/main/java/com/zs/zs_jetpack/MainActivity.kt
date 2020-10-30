@@ -1,20 +1,26 @@
 package com.zs.zs_jetpack
 
-
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.zs.base_library.base.BaseVmActivity
 import com.zs.base_library.common.stringForTime
 import com.zs.base_library.utils.PrefUtils
 import com.zs.base_library.utils.StatusUtils
 import com.zs.zs_jetpack.constants.Constants
+import com.zs.zs_jetpack.db.AppDataBase
 import com.zs.zs_jetpack.play.AudioObserver
 import com.zs.zs_jetpack.play.PlayList
 import com.zs.zs_jetpack.play.PlayerManager
 import com.zs.zs_jetpack.play.bean.AudioBean
 import com.zs.zs_jetpack.ui.MainFragment
-
+import com.zs.zs_jetpack.ui.play.collect.CollectAudioBean
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * des 主页面，作用有二
@@ -58,6 +64,14 @@ class MainActivity : BaseVmActivity(), AudioObserver {
         playVM?.maxDuration?.set(stringForTime(audioBean.duration))
         playVM?.maxProgress?.set(audioBean.duration)
         playVM?.albumPic?.set(audioBean.albumId)
+        lifecycleScope.launch {
+            val bean = withContext(Dispatchers.IO) {
+                AppDataBase.getInstance()
+                    .collectDao()
+                    .findAudioById(audioBean.id)
+            }
+            playVM?.collect?.set(bean != null)
+        }
     }
 
     /**
@@ -86,11 +100,14 @@ class MainActivity : BaseVmActivity(), AudioObserver {
         }
     }
 
+    override fun onReset() {
+    }
+
     /**
      * 动态切换主题
      */
     private fun changeTheme() {
-        val theme = PrefUtils.getBoolean(Constants.SP_THEME_KEY,false)
+        val theme = PrefUtils.getBoolean(Constants.SP_THEME_KEY, false)
         if (theme) {
             setTheme(R.style.AppTheme_Night)
         } else {
@@ -102,7 +119,7 @@ class MainActivity : BaseVmActivity(), AudioObserver {
      * 沉浸式状态,随主题改变
      */
     override fun setSystemInvadeBlack() {
-        val theme = PrefUtils.getBoolean(Constants.SP_THEME_KEY,false)
+        val theme = PrefUtils.getBoolean(Constants.SP_THEME_KEY, false)
         if (theme) {
             StatusUtils.setSystemStatus(this, true, false)
         } else {
@@ -121,7 +138,7 @@ class MainActivity : BaseVmActivity(), AudioObserver {
         if (fragment is MainFragment) {
             //Activity退出但不销毁
             moveTaskToBack(false)
-        }else{
+        } else {
             super.onBackPressed()
         }
     }

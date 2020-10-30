@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/radius_15_theme"
+        android:clickable="true"
+        android:paddingLeft="@dimen/padding"
+        android:paddingTop="@dimen/padding"
+        android:paddingRight="@dimen/padding">
+
+        <TextView
+            android:id="@+id/tvList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="播放列表"
+            android:textColor="?attr/theme_color_1"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvListSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="2dp"
+            android:textColor="?attr/theme_color_3"
+            android:textSize="@dimen/text_2"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tvList"
+            app:layout_constraintLeft_toRightOf="@+id/tvList"
+            tools:text="(56)" />
+
+        <LinearLayout
+            android:id="@+id/llPlayMode"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_marginTop="7dp"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvList">
+
+            <ImageView
+                android:id="@+id/ivPlayMode"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@mipmap/play_order_gray" />
+
+            <TextView
+                android:id="@+id/tvPlayMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="循环播放"
+                android:textColor="?attr/theme_color_1"
+                android:textSize="@dimen/text_2" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvLocalPlayList"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llPlayMode" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

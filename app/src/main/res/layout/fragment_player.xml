@@ -41,7 +41,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="50dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/white"
@@ -63,6 +63,8 @@
             app:layout_constraintLeft_toLeftOf="@+id/tvSongName"
             app:layout_constraintTop_toBottomOf="@+id/tvSongName"
             tools:text="痛仰" />
+
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/llAlbumPic"
@@ -115,6 +117,17 @@
             app:layout_constraintBottom_toBottomOf="@+id/seekBar"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/seekBar" />
+
+        <ImageView
+            android:id="@+id/ivCollect"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/selector_collect"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="20dp"
+            imgCollect="@{vm.collect}"
+            app:layout_constraintBottom_toTopOf="@+id/seekBar"/>
 
         <androidx.appcompat.widget.AppCompatSeekBar
             android:id="@+id/seekBar"

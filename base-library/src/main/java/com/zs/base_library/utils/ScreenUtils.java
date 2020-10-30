@@ -52,61 +52,6 @@ public class ScreenUtils {
         return 0;
     }
 
-    /**
-     * 课程banner高度
-     *
-     * @param context
-     * @return
-     */
-    public static long getCourseBannerHeight(Context context) {
-        int width = getScreenWidth(context);
-        return getCourseBannerHeight(width);
-    }
-
-    public static long getCourseBannerHeight(int width) {
-        return getHeight(width, 0.337f);
-    }
-
-    public static long getBookListHeight(int width) {
-        return getHeight(width, 0.406f);
-    }
-
-    /**
-     * 弹窗广告位高度
-     * @param width
-     * @return
-     */
-    public static long getDialogHeight(int width) {
-        return getHeight(width, 1.25f);
-    }
-
-
-    /**
-     * 获取必修课最新发布高度
-     *
-     * @param width
-     * @return
-     */
-    public static long getCourseTopHeight(int width) {
-        float scale = 580f / 1242f;
-        return getHeight(width, scale);
-    }
-
-    public static long getMineBannerHeight(int width) {
-        return getHeight(width, 0.238f);
-    }
-
-
-    /**
-     * 获取限时免费高度
-     *
-     * @param width
-     * @return
-     */
-    public static long getFreeHeight(int width) {
-        float scale = 160f / 335f;
-        return getHeight(width, scale);
-    }
 
     /**
      * @param width

@@ -6,6 +6,7 @@ import android.provider.MediaStore
 import android.util.Log
 import com.zs.zs_jetpack.db.AppDataBase
 import com.zs.zs_jetpack.play.bean.AudioBean
+import com.zs.zs_jetpack.ui.play.collect.CollectAudioBean
 import com.zs.zs_jetpack.ui.play.history.HistoryAudioBean
 
 /**
@@ -53,28 +54,24 @@ fun readLocalPlayList(context: Context): MutableList<AudioBean> {
             }
         }
         cursor.close()
-        Log.i("PlayList", "$audioList")
-
     }
     return audioList
 }
-
 
 /**
  * 获取历史列表
  */
 fun readHistoryPlayList(): MutableList<AudioBean> {
-    return HistoryAudioBean.historyList2AudioList(
-        AppDataBase.getInstance().historyDao().getAllAudios()
-    )
+    AppDataBase.getInstance().historyDao().getAllAudios()?.let {
+        return HistoryAudioBean.historyList2AudioList(it)
+    }?: return mutableListOf()
 }
 
 /**
  * 获取收藏列表
  */
 fun readCollectPlayList(): MutableList<AudioBean> {
-    val audioList = mutableListOf<AudioBean>()
-    AppDataBase.getInstance().collectDao()
-
-    return audioList
+    AppDataBase.getInstance().collectDao().getAllAudios()?.let {
+        return CollectAudioBean.collectList2AudioList(it)
+    }?: return mutableListOf()
 }

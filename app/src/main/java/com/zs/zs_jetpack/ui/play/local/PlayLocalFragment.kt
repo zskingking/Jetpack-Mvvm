@@ -1,4 +1,4 @@
-package com.zs.zs_jetpack.ui.play.history
+package com.zs.zs_jetpack.ui.play.local
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,22 +11,22 @@ import com.zs.zs_jetpack.play.AudioObserver
 import com.zs.zs_jetpack.play.PlayList
 import com.zs.zs_jetpack.play.PlayerManager
 import com.zs.zs_jetpack.play.bean.AudioBean
-import kotlinx.android.synthetic.main.fragment_play_list_history.*
+import kotlinx.android.synthetic.main.fragment_play_list_local.*
 
 /**
  * des
  * @author zs
- * @date 2020/10/29
+ * @date 2020/10/30
  */
-class PlayHistoryFragment : Fragment(), AudioObserver {
+class PlayLocalFragment : Fragment(), AudioObserver {
 
-    private val adapter by lazy { HistoryAudioAdapter() }
+    private val adapter by lazy { LocalAudioAdapter() }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_play_list_history, container,false)
+        return inflater.inflate(R.layout.fragment_play_list_local, container,false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,7 +38,7 @@ class PlayHistoryFragment : Fragment(), AudioObserver {
     }
 
     private fun setPlayList() {
-        rvHistoryPlayList.adapter = adapter
+        rvLocalPlayList.adapter = adapter
     }
 
     private fun click() {
@@ -78,6 +78,6 @@ class PlayHistoryFragment : Fragment(), AudioObserver {
 
     override fun onResume() {
         super.onResume()
-        //rvHistoryPlayList.isNestedScrollingEnabled = false
+        //rvLocalPlayList.isNestedScrollingEnabled = false
     }
 }

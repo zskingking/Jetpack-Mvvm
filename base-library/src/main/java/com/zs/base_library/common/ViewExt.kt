@@ -4,12 +4,16 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.res.TypedArray
 import android.os.Build
+import android.os.Parcelable
 import android.text.TextUtils
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -21,7 +25,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
  */
 
 /**
- * viewPager适配fragment
+ * viewPager2适配fragment
  */
 fun ViewPager2.initFragment(
     fragment: Fragment,
@@ -36,19 +40,30 @@ fun ViewPager2.initFragment(
 }
 
 /**
- * viewPager适配fragment
+ * ViewPager于fragment绑定
+ * 通过BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT支持懒加载
  */
-fun ViewPager2.initFragment(
-    activity: FragmentActivity,
-    fragments: ArrayList<Fragment>
-): ViewPager2 {
+fun ViewPager.initFragment(
+    manager: FragmentManager,
+    fragments: MutableList<Fragment>
+): ViewPager {
     //设置适配器
-    adapter = object : FragmentStateAdapter(activity) {
-        override fun createFragment(position: Int) = fragments[position]
-        override fun getItemCount() = fragments.size
+    adapter = object : FragmentStatePagerAdapter(manager,
+        BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+    ) {
+        override fun getCount() = fragments.size
+
+        override fun getItem(position: Int): Fragment {
+            return fragments[position]
+        }
+
+        override fun saveState(): Parcelable? {
+            return null
+        }
     }
     return this
 }
+
 
 
 

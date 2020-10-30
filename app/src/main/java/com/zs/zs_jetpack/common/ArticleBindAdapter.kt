@@ -2,8 +2,6 @@ package com.zs.zs_jetpack.common
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.zs.base_library.common.albumById
-import com.zs.base_library.common.loadBlurTrans
 import com.zs.zs_jetpack.R
 
 /**
@@ -20,9 +18,9 @@ object ArticleBindAdapter {
     @JvmStatic
     fun imgPlayBlur(view: ImageView, collect: Boolean) {
         if (collect) {
-            view.setImageResource(R.mipmap.article_collect)
+            view.setImageResource(R.mipmap._collect)
         } else {
-            view.setImageResource(R.mipmap.article_un_collect)
+            view.setImageResource(R.mipmap.un_collect)
         }
     }
 

@@ -1,12 +1,12 @@
 package com.zs.zs_jetpack.play
 
-import android.util.Log
 import com.zs.base_library.BaseApp
 import com.zs.base_library.common.getRandom
 import com.zs.base_library.common.isListEmpty
 import com.zs.base_library.common.toast
 import com.zs.zs_jetpack.db.AppDataBase
 import com.zs.zs_jetpack.play.bean.AudioBean
+import com.zs.zs_jetpack.ui.play.collect.CollectAudioBean
 import com.zs.zs_jetpack.ui.play.history.HistoryAudioBean
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -38,17 +38,24 @@ class PlayList private constructor() {
     /**
      * 默认播放列表,本地资源
      */
-    private var localList = mutableListOf<AudioBean>()
+    private var _localList = mutableListOf<AudioBean>()
+
+    /**
+     * 只读，下同
+     */
+    var localList: List<AudioBean> = _localList
 
     /**
      * 默认播放列表,收藏
      */
-    private var collectList = mutableListOf<AudioBean>()
+    private var _collectList = mutableListOf<AudioBean>()
+    var collectList: List<AudioBean> = _collectList
 
     /**
      * 默认播放列表,历史
      */
-    private var historyList = mutableListOf<AudioBean>()
+    private var _historyList = mutableListOf<AudioBean>()
+    var historyList: List<AudioBean> = _historyList
 
     /**
      * 播放模式，默认为顺序播放
@@ -65,9 +72,12 @@ class PlayList private constructor() {
         //通过io线程读取播放列表
         GlobalScope.launch(Dispatchers.IO) {
             //读取三个播放列表
-            localList = readLocalPlayList(BaseApp.getContext())
-            historyList = readHistoryPlayList()
-            collectList = readCollectPlayList()
+            _localList = readLocalPlayList(BaseApp.getContext())
+            localList = _localList
+            _historyList = readHistoryPlayList()
+            historyList = _historyList
+            _collectList = readCollectPlayList()
+            collectList = _collectList
             switchPlayList(playListType)
         }
     }
@@ -79,15 +89,18 @@ class PlayList private constructor() {
         when (playListType) {
             //本地列表
             PlayListType.LOCAL_PLAY_LIST -> {
-                replacePlayList(localList)
+                replacePlayList(_localList)
+                this.playListType = PlayListType.LOCAL_PLAY_LIST
             }
             //收藏列表
             PlayListType.COLLECT_PLAY_LIST -> {
-                replacePlayList(collectList)
+                replacePlayList(_collectList)
+                this.playListType = PlayListType.COLLECT_PLAY_LIST
             }
             //历史列表
             PlayListType.HISTORY_PLAY_LIST -> {
-                replacePlayList(historyList)
+                replacePlayList(_historyList)
+                this.playListType = PlayListType.HISTORY_PLAY_LIST
             }
         }
     }
@@ -153,14 +166,16 @@ class PlayList private constructor() {
         }
 
         //同步内存中列表，先将原纪录移除
-        for (index in 0 until historyList.size) {
-            if (historyList[index].id == audioBean.id) {
-                historyList.remove(historyList[index])
+        for (index in 0 until _historyList.size) {
+            if (_historyList[index].id == audioBean.id) {
+                _historyList.remove(_historyList[index])
                 break
             }
         }
         //将新记录加入到末尾
-        historyList.add(audioBean)
+        _historyList.add(audioBean.copy(audioBean).apply {
+            playListType = PlayListType.HISTORY_PLAY_LIST
+        })
     }
 
     /**
@@ -195,8 +210,11 @@ class PlayList private constructor() {
                     currentIndex = getRandom(0, currentAudioList.size - 1)
                 }
             }
+            currentAudio = currentAudioList[currentIndex]
+        } else {
+            //当前播放列表为空将丹铅播放置为null
+            currentAudio = null
         }
-        currentAudio = currentAudioList[currentIndex]
         return currentAudio
     }
 
@@ -222,8 +240,11 @@ class PlayList private constructor() {
                     currentIndex = getRandom(0, currentAudioList.size - 1)
                 }
             }
+            currentAudio = currentAudioList[currentIndex]
+        } else {
+            //当前播放列表为空将丹铅播放置为null
+            currentAudio = null
         }
-        currentAudio = currentAudioList[currentIndex]
         return currentAudio
     }
 
@@ -296,24 +317,33 @@ class PlayList private constructor() {
     }
 
     /**
-     * 更新历史列表
+     * 收藏
      */
-    fun updateHistoryList(list: MutableList<AudioBean>) {
-        historyList.clear()
-        historyList.addAll(list)
+    fun collect(audioBean: AudioBean) {
+        _collectList.add(audioBean.copy(audioBean).apply {
+            playListType = PlayListType.COLLECT_PLAY_LIST
+        })
+        if (playListType == PlayListType.COLLECT_PLAY_LIST){
+            currentAudioList = _collectList
+        }
     }
 
     /**
-     * 更新收藏列表
+     * 取消收藏
      */
-    fun updateCollectList(list: MutableList<AudioBean>) {
-        collectList.clear()
-        collectList.addAll(list)
+    fun unCollect(audioBean: AudioBean) {
+        for (index in 0 until _collectList.size) {
+            if (_collectList[index].id == audioBean.id) {
+                _collectList.remove(_collectList[index])
+            }
+        }
+        if (playListType == PlayListType.COLLECT_PLAY_LIST){
+            currentAudioList = _collectList
+        }
     }
 
     class PlayMode {
         companion object {
-
             /**
              * 顺序播放-默认
              */

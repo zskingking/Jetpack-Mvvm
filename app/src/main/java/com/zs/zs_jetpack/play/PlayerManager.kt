@@ -124,38 +124,38 @@ class PlayerManager private constructor() : IPlayerStatus {
      * 播放上一首
      */
     fun previous() {
-        playList.previousAudio()?.let {
-            play(it)
-        }
+        play(playList.previousAudio())
     }
 
     /**
      * 播放下一首
      */
     fun next() {
-        playList.nextAudio()?.let {
-            play(it)
-        }
+        play(playList.nextAudio())
     }
 
     /**
      * 第一次进入,播放器未被初始化,默认模仿第一个
      */
     private fun start() {
-        playList.startAudio()?.let {
-            play(it)
-        }
+        play(playList.startAudio())
     }
 
     /**
      * 播放一个新的音频
      */
-    fun play(audioBean: AudioBean) {
-        playStatus = START
-        playList.setCurrentAudio(audioBean)
-        audioBean.path?.let { playerHelper.play(it) }
-        sendAudioToObserver(audioBean)
-        sendPlayStatusToObserver()
+    fun play(audioBean: AudioBean?) {
+        if (audioBean == null){
+            //重置
+            playerHelper.reset()
+        }else{
+            playStatus = START
+            playList.setCurrentAudio(audioBean)
+            audioBean.path?.let { playerHelper.play(it) }
+            sendAudioToObserver(audioBean)
+            sendPlayStatusToObserver()
+        }
+
     }
 
     /**
