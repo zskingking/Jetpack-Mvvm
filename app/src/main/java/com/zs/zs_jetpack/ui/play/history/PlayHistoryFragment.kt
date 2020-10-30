@@ -74,6 +74,7 @@ class PlayHistoryFragment : Fragment(), AudioObserver {
     }
 
     override fun onReset() {
+
     }
 
     override fun onResume() {

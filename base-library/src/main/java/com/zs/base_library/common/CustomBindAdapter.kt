@@ -42,6 +42,10 @@ object CustomBindAdapter {
     @BindingAdapter(value = ["imgUriCircle"])
     @JvmStatic
     fun imgUriCircle(view: ImageView, albumId: Long) {
+        if (albumId == -1L){
+            view.setImageResource(0)
+            return
+        }
         view.loadCircle(view.context.applicationContext, albumById(albumId))
     }
 

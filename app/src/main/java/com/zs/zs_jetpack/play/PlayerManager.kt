@@ -148,6 +148,7 @@ class PlayerManager private constructor() : IPlayerStatus {
         if (audioBean == null){
             //重置
             playerHelper.reset()
+            sendResetToObserver()
         }else{
             playStatus = START
             playList.setCurrentAudio(audioBean)
@@ -286,6 +287,15 @@ class PlayerManager private constructor() : IPlayerStatus {
     private fun sendPlayModeToObserver(playMode: Int) {
         observers.forEach {
             it.onPlayMode(playMode)
+        }
+    }
+
+    /**
+     * 给观察者发送播放状态
+     */
+    private fun sendResetToObserver() {
+        observers.forEach {
+            it.onReset()
         }
     }
 

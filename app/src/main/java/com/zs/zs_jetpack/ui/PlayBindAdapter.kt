@@ -27,6 +27,10 @@ object PlayBindAdapter {
     @BindingAdapter(value = ["imgPlayBlur"])
     @JvmStatic
     fun imgPlayBlur(view: ImageView, albumId: Long) {
+        if (albumId == -1L){
+            view.setImageResource(0)
+            return
+        }
         view.loadBlurTrans(view.context.applicationContext, albumById(albumId), 90)
     }
 
@@ -68,12 +72,11 @@ object PlayBindAdapter {
         when(playStatus){
             //停止
             PlayerManager.RELEASE,PlayerManager.PAUSE->{
-                view.isSelected = false
-
+                view.setImgPlaying(false)
             }
             //播放
             PlayerManager.START, PlayerManager.RESUME->{
-                view.isSelected = true
+                view.setImgPlaying(true)
             }
         }
     }

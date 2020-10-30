@@ -6,7 +6,6 @@ import com.zs.base_library.common.isListEmpty
 import com.zs.base_library.common.toast
 import com.zs.zs_jetpack.db.AppDataBase
 import com.zs.zs_jetpack.play.bean.AudioBean
-import com.zs.zs_jetpack.ui.play.collect.CollectAudioBean
 import com.zs.zs_jetpack.ui.play.history.HistoryAudioBean
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

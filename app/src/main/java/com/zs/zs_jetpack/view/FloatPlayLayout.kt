@@ -3,6 +3,7 @@ package com.zs.zs_jetpack.view
 import android.animation.ValueAnimator
 import android.content.Context
 import android.os.Build
+import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.Log
 import android.view.Gravity
@@ -65,7 +66,6 @@ class FloatPlayLayout : LinearLayout {
                 ivMusicPic.isEnabled = false
                 isOpen = true
             }
-
         }
 
         //x 号
@@ -83,7 +83,6 @@ class FloatPlayLayout : LinearLayout {
      * 开启动画
      */
     private fun startAnim() {
-
         val animator = if (isOpen) {
             ValueAnimator.ofInt(contentWidth, 0)
         } else {
@@ -129,18 +128,27 @@ class FloatPlayLayout : LinearLayout {
     }
 
     /**
-     * 设置播放状态
+     * 设置歌名
      */
     fun setSongName(songName:String?){
+        if (TextUtils.isEmpty(songName)){
+            tvSongName.text = "暂无播放"
+        }else {
+            tvSongName.text = songName
+        }
         songName?.apply {
-            tvSongName.text = this
         }
     }
 
     /**
-     * 设置播放状态
+     * 设置专辑图片
      */
     fun setAlbumPic(albumId:Long?){
+        //收到重置
+        if (albumId == -1L){
+            ivMusicPic.setImageResource(R.drawable.svg_music_not)
+            return
+        }
         albumId?.apply {
             ivMusicPic.loadCircle(context.applicationContext, albumById(this))
         }

@@ -2,19 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root"
     android:layout_width="wrap_content"
-    android:layout_height="55dp"
+    android:layout_height="75dp"
     android:layout_margin="5dp"
-    android:elevation="4dp"
-    android:background="@drawable/radius_28_radius"
+    android:elevation="2dp"
+    android:background="@drawable/radius_15_radius"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
     <ImageView
         android:id="@+id/ivMusicPic"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:padding="10dp"
-        android:src="@drawable/svg_music_not" />
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:padding="13dp"
+        android:src="@mipmap/play_album_default" />
 
     <LinearLayout
         android:id="@+id/llContent"
@@ -31,7 +31,7 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:text="公路之歌"
-            android:paddingLeft="10dp"
+            android:paddingLeft="5dp"
             android:textColor="?attr/theme_color_2"
             android:textSize="@dimen/text_2" />
 

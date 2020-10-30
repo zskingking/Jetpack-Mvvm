@@ -2,6 +2,7 @@ package com.zs.zs_jetpack
 
 import androidx.databinding.ObservableField
 import com.zs.base_library.base.BaseViewModel
+import com.zs.zs_jetpack.play.PlayerManager
 
 /**
  * des 关于播放viewModel,播放、播放列表、首页悬浮共用
@@ -70,6 +71,19 @@ class PlayViewModel :BaseViewModel(){
      */
     val collect = ObservableField<Boolean>()
 
-
+    /**
+     * 重置
+     */
+    fun reset(){
+        songName.set("")
+        singer.set("")
+        albumPic.set(-1)
+        playStatus.set(PlayerManager.PAUSE)
+        maxDuration.set("00:00")
+        currentDuration.set("00:00")
+        maxProgress.set(0)
+        playProgress.set(0)
+        collect.set(false)
+    }
 
 }

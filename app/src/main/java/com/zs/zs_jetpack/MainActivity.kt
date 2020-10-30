@@ -100,7 +100,11 @@ class MainActivity : BaseVmActivity(), AudioObserver {
         }
     }
 
+    /**
+     * 重置
+     */
     override fun onReset() {
+        playVM?.reset()
     }
 
     /**
