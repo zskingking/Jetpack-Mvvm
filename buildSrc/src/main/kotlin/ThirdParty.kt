@@ -18,7 +18,7 @@ object ThirdParty {
     const val magic = "com.github.hackware1993:MagicIndicator:1.6.0"
     const val easypermissions = "pub.devrel:easypermissions:3.0.0"
     const val labelsView = "com.github.donkingliang:LabelsView:1.6.1"
-
+    const val rxPermission = "com.github.tbruyelle:rxpermissions:0.12"
 
     val retrofit = Retrofit
     object Retrofit {
