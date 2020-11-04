@@ -2,16 +2,17 @@ package com.zs.zs_jetpack.view
 
 import android.animation.ValueAnimator
 import android.content.Context
-import android.os.Build
 import android.text.TextUtils
 import android.util.AttributeSet
-import android.util.Log
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
 import com.zs.base_library.common.*
+import com.zs.base_library.utils.ScreenUtils
 import com.zs.zs_jetpack.R
 import kotlinx.android.synthetic.main.play_float_layout.view.*
+
 
 /**
  * des 自定义首页悬浮
@@ -44,6 +45,40 @@ class FloatPlayLayout : LinearLayout {
         defStyleAttr
     ) {
         initView(context)
+    }
+
+
+    override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
+        when (ev.action) {
+            MotionEvent.ACTION_DOWN -> {
+                moveY = ev.y
+            }
+            MotionEvent.ACTION_MOVE -> {
+                return true
+            }
+        }
+        return false
+    }
+
+    private var moveY = 0f
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        when (event.action) {
+            MotionEvent.ACTION_MOVE -> {
+                var offsetY = translationY + (event.y - moveY)
+                //因为translationY不管处于ViewGroup什么位置，初始值都为0，所以要买个top
+                //最小值
+                if (offsetY <  - top + dip2px(context,100f)) {
+                    offsetY =  - top.toFloat() + dip2px(context,100f)
+                }
+                //最大值
+                if (offsetY > ScreenUtils.getScreenHeight(context) - top - dip2px(context,150f)) {
+                    offsetY = ScreenUtils.getScreenHeight(context) - top.toFloat() - dip2px(context,150f)
+                }
+                translationY = offsetY
+                return true
+            }
+        }
+        return super.onInterceptTouchEvent(event)
     }
 
     private fun initView(context: Context) {
@@ -103,7 +138,7 @@ class FloatPlayLayout : LinearLayout {
     /**
      * 播放点击事件
      */
-    fun playClick(onClick:(View)->Unit){
+    fun playClick(onClick: (View) -> Unit) {
         ivPlaying.clickNoRepeat {
             onClick.invoke(it)
         }
@@ -112,7 +147,7 @@ class FloatPlayLayout : LinearLayout {
     /**
      * 悬浮窗点击事件
      */
-    fun rootClick(onClick:(View)->Unit){
+    fun rootClick(onClick: (View) -> Unit) {
         root.clickNoRepeat {
             onClick.invoke(it)
         }
@@ -121,7 +156,7 @@ class FloatPlayLayout : LinearLayout {
     /**
      * 设置播放状态
      */
-    fun setImgPlaying(isPlying:Boolean?){
+    fun setImgPlaying(isPlying: Boolean?) {
         isPlying?.apply {
             ivPlaying.isSelected = this
         }
@@ -130,10 +165,10 @@ class FloatPlayLayout : LinearLayout {
     /**
      * 设置歌名
      */
-    fun setSongName(songName:String?){
-        if (TextUtils.isEmpty(songName)){
+    fun setSongName(songName: String?) {
+        if (TextUtils.isEmpty(songName)) {
             tvSongName.text = "暂无播放"
-        }else {
+        } else {
             tvSongName.text = songName
         }
         songName?.apply {
@@ -143,9 +178,9 @@ class FloatPlayLayout : LinearLayout {
     /**
      * 设置专辑图片
      */
-    fun setAlbumPic(albumId:Long?){
+    fun setAlbumPic(albumId: Long?) {
         //收到重置
-        if (albumId == -1L){
+        if (albumId == -1L) {
             ivMusicPic.setImageResource(R.drawable.svg_music_not)
             return
         }
