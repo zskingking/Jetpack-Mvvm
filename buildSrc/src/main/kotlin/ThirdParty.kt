@@ -19,6 +19,7 @@ object ThirdParty {
     const val easypermissions = "pub.devrel:easypermissions:3.0.0"
     const val labelsView = "com.github.donkingliang:LabelsView:1.6.1"
     const val rxPermission = "com.github.tbruyelle:rxpermissions:0.12"
+    const val shadow = "com.github.lihangleo2:ShadowLayout:3.1.3"
 
     val retrofit = Retrofit
     object Retrofit {

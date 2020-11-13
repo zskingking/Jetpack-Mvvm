@@ -50,6 +50,7 @@ dependencies {
     api(ThirdParty.easypermissions)
     api(ThirdParty.labelsView)
     api(ThirdParty.rxPermission)
+    api(ThirdParty.shadow)
 
     api(ThirdParty.retrofit.retrofit)
     api(ThirdParty.retrofit.scalars)
@@ -60,5 +61,6 @@ dependencies {
 
     api(ThirdParty.smart.smart)
     api(ThirdParty.smart.head)
+
 
 }
