@@ -20,6 +20,8 @@
 
         <item name="division_line">#EDEDED</item>
 
+        <item name="android:navigationBarColor">#ffffff</item>
+
 
     </style>
 
@@ -43,6 +45,8 @@
         <item name="float_bg">#D64C4C4C</item>
 
         <item name="division_line">#424242</item>
+
+        <item name="android:navigationBarColor">#2C2C2C</item>
 
     </style>
 

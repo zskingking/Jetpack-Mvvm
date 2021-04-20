@@ -53,7 +53,6 @@ object PlayBindAdapter {
             //停止
             PlayerManager.RELEASE,PlayerManager.PAUSE->{
                 view.isSelected = false
-
             }
             //播放
             PlayerManager.START, PlayerManager.RESUME->{

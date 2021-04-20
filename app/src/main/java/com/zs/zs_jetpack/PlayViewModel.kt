@@ -21,22 +21,15 @@ import kotlinx.coroutines.withContext
  */
 class PlayViewModel : BaseViewModel() {
 
-
-    init {
-        PlayerManager.instance.playLiveData.audioLiveData.observeForever {
-
-        }
-    }
-
     /**
      * 歌名
      */
-    val songName = ObservableField<String>().apply { set("暂无播放") }
+    val songName = ObservableField<String>("暂无播放")
 
     /**
      * 歌手
      */
-    val singer = ObservableField<String>().apply { set("") }
+    val singer = ObservableField<String>("")
 
     /**
      * 专辑图片
@@ -51,35 +44,27 @@ class PlayViewModel : BaseViewModel() {
     /**
      * 图片播放模式
      */
-    val playModePic = ObservableField<Int>().apply {
-        set(R.mipmap.play_order)
-    }
+    val playModePic = ObservableField<Int>(R.mipmap.play_order)
 
     /**
      * 列表图片播放模式(夜间模式)
      */
-    val listPlayModePic = ObservableField<Int>().apply {
-        set(R.mipmap.play_order_gray)
-    }
+    val listPlayModePic = ObservableField<Int>(R.mipmap.play_order_gray)
 
     /**
      * 文字播放模式
      */
-    val playModeText = ObservableField<String>()
+    val playModeText = ObservableField<String>("列表循环")
 
     /**
      * 总播放时长-文本
      */
-    val maxDuration = ObservableField<String>().apply {
-        set("00:00")
-    }
+    val maxDuration = ObservableField<String>("00:00")
 
     /**
      * 当前播放时长-文本
      */
-    val currentDuration = ObservableField<String>().apply {
-        set("00:00")
-    }
+    val currentDuration = ObservableField<String>("00:00")
 
     /**
      * 总长度

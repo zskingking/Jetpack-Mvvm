@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="vm"
+            type="com.zs.zs_jetpack.PlayViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,14 +62,14 @@
                     android:id="@+id/ivPlayMode"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
-                    android:src="@mipmap/play_order_gray" />
+                    imgSrc="@{vm.listPlayModePic}" />
 
                 <TextView
                     android:id="@+id/tvPlayMode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
-                    android:text="循环播放"
+                    android:text="@{vm.playModeText}"
                     android:textColor="?attr/theme_color_1"
                     android:textSize="@dimen/text_2" />
             </LinearLayout>
