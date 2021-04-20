@@ -5,6 +5,7 @@ import com.zs.base_library.play.IPlayer
 import com.zs.base_library.play.IPlayerStatus
 import com.zs.base_library.play.MediaPlayerHelper
 import com.zs.zs_jetpack.play.bean.AudioBean
+import com.zs.zs_jetpack.play.bean.ProgressBean
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -14,7 +15,7 @@ import java.util.concurrent.TimeUnit
  * des 音频管理
  *     通过单例模式实现,托管音频状态与信息,并且作为唯一的可信源
  *     通过观察者模式统一对状态进行分发
- *     实则是一个代理,将目标对象Player与调用者隔离,并且在内部实现了对观察者的注册与通知
+ *     实则是一个代理,将目标对象Player与调用者隔离,并且在内部管理观察者
  * @author zs
  * @data 2020/6/25
  */
@@ -50,13 +51,15 @@ class PlayerManager private constructor() : IPlayerStatus {
         const val PAUSE = 400
     }
 
+
     /**
-     * 音乐观察者集合,目前有三个
+     * 用于分发、存储音乐状态的LiveData，目前有三处会注册
      * 1.播放界面
      * 2.悬浮窗
      * 3.通知栏
      */
-    private val observers = mutableListOf<AudioObserver>()
+    val playLiveData = PlayLiveData()
+
 
     private val playerHelper: IPlayer = MediaPlayerHelper()
 
@@ -156,7 +159,6 @@ class PlayerManager private constructor() : IPlayerStatus {
             sendAudioToObserver(audioBean)
             sendPlayStatusToObserver()
         }
-
     }
 
     /**
@@ -223,61 +225,27 @@ class PlayerManager private constructor() : IPlayerStatus {
         playList.clear()
     }
 
-    /**
-     * 注册观察者
-     */
-    fun register(audioObserver: AudioObserver) {
-        observers.add(audioObserver)
-        //TODO 注册时手动更新观察者,相当于粘性通知
-        notifyObserver(audioObserver)
-    }
-
-    /**
-     * 解除观察者
-     */
-    fun unregister(audioObserver: AudioObserver) {
-        observers.remove(audioObserver)
-    }
-
-    /**
-     * 手动更新观察者
-     */
-    private fun notifyObserver(audioObserver: AudioObserver) {
-        playList.currentAudio()?.let { audioObserver.onAudioBean(it) }
-        audioObserver.onPlayMode(playList.getCurrentMode())
-        audioObserver.onPlayStatus(playStatus)
-        playList.currentAudio()?.duration?.let {
-            audioObserver.onProgress(
-                playerHelper.getProgress(),
-                it
-            )
-        }
-    }
 
     /**
      * 给观察者发送音乐信息
      */
     private fun sendAudioToObserver(audioBean: AudioBean) {
-        observers.forEach {
-            it.onAudioBean(audioBean)
-        }
+        playLiveData.audioLiveData.value = audioBean
     }
 
     /**
      * 给观察者发送播放状态
      */
     private fun sendPlayStatusToObserver() {
-        observers.forEach {
-            it.onPlayStatus(playStatus)
-        }
+        playLiveData.playStatusLiveData.value = playStatus
     }
 
     /**
      * 给观察者发送进度
      */
     private fun sendProgressToObserver(duration: Int) {
-        observers.forEach {
-            playList.currentAudio()?.duration?.let { it1 -> it.onProgress(duration, it1) }
+        playList.currentAudio()?.duration?.let {
+            playLiveData.progressLiveData.value = ProgressBean(duration,it)
         }
     }
 
@@ -285,18 +253,14 @@ class PlayerManager private constructor() : IPlayerStatus {
      * 给观察者发送播放模式
      */
     private fun sendPlayModeToObserver(playMode: Int) {
-        observers.forEach {
-            it.onPlayMode(playMode)
-        }
+        playLiveData.playModeLiveData.value = playMode
     }
 
     /**
-     * 给观察者发送播放状态
+     * 给观察者发送重置信号
      */
     private fun sendResetToObserver() {
-        observers.forEach {
-            it.onReset()
-        }
+        playLiveData.resetLiveData.value = 0
     }
 
     override fun onBufferingUpdate(percent: Int) {

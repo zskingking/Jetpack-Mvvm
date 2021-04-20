@@ -43,7 +43,6 @@ object PlayBindAdapter {
         view.isSelected = isCollect
     }
 
-
     /**
      * 处理暂停/播放
      */

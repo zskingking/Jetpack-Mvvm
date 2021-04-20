@@ -3,14 +3,9 @@ package com.zs.zs_jetpack.ui.register
 import androidx.lifecycle.MutableLiveData
 import com.zs.base_library.base.BaseRepository
 import com.zs.base_library.http.ApiException
-import com.zs.base_library.utils.PrefUtils
-import com.zs.wanandroid.entity.UserBean
-import com.zs.zs_jetpack.constants.Constants
-import com.zs.zs_jetpack.event.LoginEvent
 import com.zs.zs_jetpack.http.ApiService
 import com.zs.zs_jetpack.http.RetrofitManager
 import kotlinx.coroutines.CoroutineScope
-import org.greenrobot.eventbus.EventBus
 
 /**
  * des 登陆

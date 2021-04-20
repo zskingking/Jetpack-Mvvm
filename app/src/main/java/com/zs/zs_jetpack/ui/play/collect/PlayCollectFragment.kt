@@ -5,7 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import com.zs.base_library.base.BaseVmFragment
+import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.clickNoRepeat
+import com.zs.zs_jetpack.BR
+import com.zs.zs_jetpack.PlayViewModel
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.play.AudioObserver
 import com.zs.zs_jetpack.play.PlayList
@@ -19,24 +24,34 @@ import kotlinx.android.synthetic.main.fragment_play_list_collect.*
  * @author zs
  * @date 2020/10/29
  */
-class PlayCollectFragment : Fragment(), AudioObserver {
+class PlayCollectFragment : BaseVmFragment() {
 
     private val adapter by lazy { CollectAudioAdapter() }
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_play_list_collect, container,false)
+    private var playVM: PlayViewModel? = null
+
+    override fun initViewModel() {
+        playVM = getActivityViewModel(PlayViewModel::class.java)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        PlayerManager.instance.register(this)
+    override fun init(savedInstanceState: Bundle?) {
         click()
         tvListSize.text = String.format("(%s)", PlayerManager.instance.getPlayListSize())
         setPlayList()
     }
+
+    override fun observe() {
+        PlayerManager.instance.playLiveData.audioLiveData.observe(this, Observer {
+            adapter.updateCurrentPlaying()
+        })
+        PlayerManager.instance.playLiveData.playModeLiveData.observe(this, Observer {
+            playVM?.setPlayMode(it)
+        })
+    }
+
+    override fun getLayoutId() = R.layout.fragment_play_list_collect
+    override fun getDataBindingConfig(): DataBindingConfig =
+        DataBindingConfig(R.layout.fragment_player, playVM)
+        .addBindingParam(BR.vm, playVM)
 
     private fun setPlayList() {
         rvCollectPlayList.adapter = adapter
@@ -46,36 +61,6 @@ class PlayCollectFragment : Fragment(), AudioObserver {
         llPlayMode.clickNoRepeat {
             PlayerManager.instance.switchPlayMode()
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        PlayerManager.instance.unregister(this)
-    }
-
-    override fun onAudioBean(audioBean: AudioBean) {
-        adapter.updateCurrentPlaying()
-    }
-
-    override fun onPlayMode(playMode: Int) {
-        when (playMode) {
-            PlayList.PlayMode.ORDER_PLAY_MODE -> {
-                ivPlayMode.setImageResource(R.mipmap.play_order_gray)
-                tvPlayMode.text = "列表循环"
-            }
-            PlayList.PlayMode.SINGLE_PLAY_MODE -> {
-                ivPlayMode.setImageResource(R.mipmap.play_single_gray)
-                tvPlayMode.text = "单曲循环"
-            }
-            PlayList.PlayMode.RANDOM_PLAY_MODE -> {
-                ivPlayMode.setImageResource(R.mipmap.play_random_gray)
-                tvPlayMode.text = "随机播放"
-            }
-        }
-    }
-
-    override fun onReset() {
-
     }
 
 }

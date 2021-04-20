@@ -5,6 +5,7 @@ import com.zs.zs_jetpack.bean.ArticleBean
 import com.zs.zs_jetpack.bean.NavigationEntity
 import com.zs.zs_jetpack.ui.collect.CollectBean
 import com.zs.zs_jetpack.ui.integral.IntegralRecordBean
+import com.zs.zs_jetpack.ui.login.UserBean
 import com.zs.zs_jetpack.ui.main.home.BannerBean
 import com.zs.zs_jetpack.ui.main.mine.IntegralBean
 import com.zs.zs_jetpack.ui.rank.RankBean

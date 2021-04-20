@@ -90,3 +90,55 @@ class PlayerManager private constructor() : IPlayerStatus {
 
 再次附上`github:`[https://github.com/zskingking/Jetpack-Mvvm](https://github.com/zskingking/Jetpack-Mvvm)，如果觉得对你有帮助麻烦给个`star`
 
+
+
+# 分层
+
+所有的分层都是为了满足单一设计原则，一个函数或者一个类再或者一个模块，
+
+# App启动流程
+
+# Activity
+## 启动流程
+
+# Window
+## Window与Activity、View的关系
+
+# Fragment
+## 生命周期
+## 事务
+## 回退栈
+## 常见问题
+
+# View
+## 绘制时机、流程
+## FPS
+
+# Handler
+## 流程
+## 同步屏障
+
+# Binder
+## AIDL
+## 进程间通讯原理
+
+# OkHttp
+## 再深一步研究源码
+## HTTP断点续传
+
+# Java虚拟机
+## 内存泄漏问题
+## LeakCanary原理
+
+# Flutter
+
+
+
+
+
+
+
+
+
+
+
