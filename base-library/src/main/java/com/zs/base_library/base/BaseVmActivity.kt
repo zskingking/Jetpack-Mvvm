@@ -4,10 +4,8 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.zs.base_library.R
 import com.zs.base_library.utils.ColorUtils
 import com.zs.base_library.utils.StatusUtils
-import org.greenrobot.eventbus.EventBus
 
 /**
  * des mvvm 基础 activity

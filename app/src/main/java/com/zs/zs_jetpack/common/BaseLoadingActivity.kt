@@ -18,7 +18,7 @@ abstract class BaseLoadingActivity : BaseVmActivity() {
 
     override fun init(savedInstanceState: Bundle?) {
         decorView = window.decorView as FrameLayout
-        val loadMarginTop = StatusUtils.getStatusBarHeight(this) + dip2px(this, 55f)
+        val loadMarginTop = StatusUtils.getStatusBarHeight(this) + dip2px(this, 50f)
         val params = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
             FrameLayout.LayoutParams.MATCH_PARENT

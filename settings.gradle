@@ -1,3 +1,4 @@
+include ':base-wa-library'
 rootProject.name='ZS-Jetpack'
 include ':app'
 include ':base-library'
