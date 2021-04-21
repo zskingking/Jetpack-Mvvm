@@ -36,7 +36,7 @@ class MineFragment : LazyVmFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        EventBus.getDefault().register(this)
+        //EventBus.getDefault().register(this)
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
@@ -159,7 +159,7 @@ class MineFragment : LazyVmFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        EventBus.getDefault().unregister(this)
+        //.getDefault().unregister(this)
     }
 
     /**
