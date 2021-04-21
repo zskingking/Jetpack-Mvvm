@@ -1,15 +1,25 @@
 package com.zs.base_library.base
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.zs.base_library.BuildConfig
 import com.zs.base_library.common.toast
 import com.zs.base_library.http.ApiException
-import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.*
 import org.json.JSONException
 import retrofit2.HttpException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
+
+
+
+/**
+ * 错误方法
+ */
+typealias VmError =  (e: ApiException) -> Unit
 
 /**
  * des 基础vm
@@ -41,6 +51,42 @@ open class BaseViewModel:ViewModel() {
         val error = getApiException(e)
         toast(error.errorMessage)
         errorLiveData.postValue(error)
+    }
+
+    protected fun <T> launch(
+        block:  () -> T
+        , error:VmError? = null) {
+        viewModelScope.launch {
+            runCatching {
+                block()
+            }.onFailure {
+                it.printStackTrace()
+                getApiException(it).apply {
+                    error?.invoke(this)
+                    toast(errorMessage)
+                    //统一响应错误信息
+                    errorLiveData.value = this
+                }
+            }
+        }
+    }
+
+    protected fun <T> launch(block: suspend () -> T) {
+        viewModelScope.launch {
+            runCatching {
+                block()
+            }.onFailure {
+                if (BuildConfig.DEBUG) {
+                    it.printStackTrace()
+                    return@onFailure
+                }
+                getApiException(it).apply {
+                    toast(errorMessage)
+                    //统一响应错误信息
+                    errorLiveData.value = this
+                }
+            }
+        }
     }
 
     /**
@@ -76,6 +122,16 @@ open class BaseViewModel:ViewModel() {
             else -> {
                 ApiException("未知错误", -100)
             }
+        }
+    }
+
+    /**
+     * 处理列表是否有更多数据
+     */
+    protected fun<T> handleList(listLiveData: LiveData<MutableList<T>>,pageSize:Int = 20){
+        val listSize = listLiveData.value?.size?:0
+        if (listSize % pageSize != 0){
+            footLiveDate.value = 1
         }
     }
 }

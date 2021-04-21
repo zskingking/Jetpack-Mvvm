@@ -12,7 +12,7 @@ import com.zs.zs_jetpack.play.PlayerManager
 import kotlinx.android.synthetic.main.fragment_play_list_collect.*
 
 /**
- * des
+ * des 音频收藏
  * @author zs
  * @date 2020/10/29
  */

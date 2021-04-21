@@ -1,5 +1,6 @@
 package com.zs.zs_jetpack.ui.main.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -12,7 +13,9 @@ import com.zs.base_library.common.*
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
+import com.zs.zs_jetpack.common.BaseLoadingActivity
 import com.zs.zs_jetpack.utils.CacheUtil
+import com.zs.zs_jetpack.view.LoadingTip
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -27,6 +30,14 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>,
     private var homeVm: HomeVM? = null
     private var bannerList: MutableList<BannerBean>? = null
     private val adapter by lazy { ArticleAdapter(mActivity) }
+    var loadingTip: LoadingTip? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is BaseLoadingActivity){
+            loadingTip = context.loadingTip
+        }
+    }
 
     override fun initViewModel() {
         homeVm = getActivityViewModel(HomeVM::class.java)
@@ -37,6 +48,7 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>,
         homeVm?.articleList?.observe(this, Observer {
             smartDismiss(smartRefresh)
             adapter.submitList(it)
+            loadingTip?.dismiss()
         })
         //banner
         homeVm?.banner?.observe(this, Observer {
@@ -104,6 +116,7 @@ class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>,
     override fun loadData() {
         //自动刷新
         smartRefresh.autoRefresh()
+        loadingTip?.loading()
     }
 
     override fun onClick() {

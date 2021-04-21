@@ -25,7 +25,11 @@ class IntegralFragment : BaseVmFragment(){
     /**
      * 空白页，网络出错等默认显示
      */
-    private val loadingTip by lazy { LoadingTip(mActivity) }
+    private val loadingTip by lazy {
+        LoadingTip(
+            mActivity
+        )
+    }
 
     private lateinit var integralVM: IntegralVM
 
@@ -38,9 +42,8 @@ class IntegralFragment : BaseVmFragment(){
             smartDismiss(smartRefresh)
             adapter.submitList(it)
         })
+        integralVM.footLiveDate.observe(this, Observer {
 
-        integralVM.emptyLiveDate.observe(this, Observer {
-            loadingTip.showEmpty()
         })
         integralVM.errorLiveData.observe(this, Observer {
             smartDismiss(smartRefresh)
@@ -48,7 +51,7 @@ class IntegralFragment : BaseVmFragment(){
                 //显示网络错误
                 loadingTip.showInternetError()
                 loadingTip.setReloadListener {
-                    integralVM.getIntegral(true)
+                    integralVM.getIntegral()
                 }
             }
         })
@@ -62,17 +65,17 @@ class IntegralFragment : BaseVmFragment(){
     override fun initView() {
         //关闭更新动画
         (rvIntegral.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        adapter = IntegralAdapter(mActivity).apply {
+        adapter = IntegralAdapter().apply {
             rvIntegral.adapter = this
         }
 
         //刷新
         smartRefresh.setOnRefreshListener {
-            integralVM.getIntegral(true)
+            integralVM.getIntegral()
         }
         //加载更多
         smartRefresh.setOnLoadMoreListener {
-            integralVM.getIntegral(false)
+            integralVM.loadMore()
         }
 
         ivBack.clickNoRepeat {
@@ -81,7 +84,7 @@ class IntegralFragment : BaseVmFragment(){
     }
 
     override fun loadData() {
-        smartRefresh.autoRefresh()
+        integralVM.getIntegral()
     }
 
     override fun getLayoutId() = R.layout.fragment_integral

@@ -1,23 +1,41 @@
 package com.zs.zs_jetpack.ui.integral
 
-import android.content.Context
-import androidx.recyclerview.widget.DiffUtil
-import com.zs.base_library.common.BaseListAdapter
+import com.zs.base_library.common.adapter.BaseDiffAdapter
+import com.zs.base_library.common.adapter.DefaultDiff
 import com.zs.zs_jetpack.R
-import com.zs.zs_jetpack.common.getDefaultDiff
 import com.zs.zs_jetpack.databinding.ItemIntegralBinding
 
 /**
- * des
+ * des 积分适配器
  * @author zs
  * @date 2020/9/10
  */
-class IntegralAdapter(context: Context)
-    :BaseListAdapter<IntegralListBean,ItemIntegralBinding>(context, getDefaultDiff()){
+class IntegralAdapter :BaseDiffAdapter<IntegralListBean,ItemIntegralBinding>(Diff()) {
 
-    override fun onBindItem(item: IntegralListBean, binding: ItemIntegralBinding) {
-        binding.dataBean = item
+
+    override val itemLayoutId: Int = R.layout.item_integral
+    override fun bindData(
+        holder: BaseDiffViewHolder,
+        position: Int,
+        itemData: IntegralListBean,
+        binding: ItemIntegralBinding
+    ) {
+        binding.dataBean = itemData
     }
 
-    override fun getLayoutId() = R.layout.item_integral
+    class Diff : DefaultDiff<IntegralListBean>() {
+        override fun areItemsTheSame(
+            oldItem: IntegralListBean,
+            newItem: IntegralListBean
+        ): Boolean {
+            return oldItem.time == newItem.time
+        }
+
+        override fun areContentsTheSame(
+            oldItem: IntegralListBean,
+            newItem: IntegralListBean
+        ): Boolean {
+            return true
+        }
+    }
 }

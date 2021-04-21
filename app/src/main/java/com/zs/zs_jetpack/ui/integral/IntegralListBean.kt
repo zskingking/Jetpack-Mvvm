@@ -21,6 +21,10 @@ class IntegralListBean {
      */
     var des = ""
 
+    /**
+     * 积分描述
+     */
+
     companion object {
         /**
          * 将后端数据转换为本地定义的数据结构,原因有三

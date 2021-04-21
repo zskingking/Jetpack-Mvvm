@@ -7,6 +7,7 @@ import com.zs.base_library.base.BaseVmActivity
 import com.zs.base_library.common.stringForTime
 import com.zs.base_library.utils.PrefUtils
 import com.zs.base_library.utils.StatusUtils
+import com.zs.zs_jetpack.common.BaseLoadingActivity
 import com.zs.zs_jetpack.constants.Constants
 import com.zs.zs_jetpack.play.PlayList
 import com.zs.zs_jetpack.play.PlayerManager
@@ -21,7 +22,7 @@ import com.zs.zs_jetpack.ui.MainFragment
  * @author zs
  * @date 2020-05-12
  */
-class MainActivity : BaseVmActivity() {
+class MainActivity : BaseLoadingActivity() {
 
     private var playVM: PlayViewModel? = null
 
@@ -34,7 +35,7 @@ class MainActivity : BaseVmActivity() {
         playVM = getActivityViewModel(PlayViewModel::class.java)
     }
 
-    override fun init(savedInstanceState: Bundle?) {
+    override fun init2(savedInstanceState: Bundle?) {
         PlayerManager.instance.playLiveData.audioLiveData.observe(this, Observer {
             playVM?.setAudioBean(it)
         })

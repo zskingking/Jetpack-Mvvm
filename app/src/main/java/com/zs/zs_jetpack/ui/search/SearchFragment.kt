@@ -46,7 +46,11 @@ class SearchFragment : BaseVmFragment() {
     /**
      * 空白页，网络出错等默认显示
      */
-    private val loadingTip by lazy { LoadingTip(mActivity) }
+    private val loadingTip by lazy {
+        LoadingTip(
+            mActivity
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

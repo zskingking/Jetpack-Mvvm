@@ -24,10 +24,19 @@ typealias Error = suspend (e: ApiException) -> Unit
  * @param coroutineScope 注入viewModel的coroutineScope用于协程管理
  * @param errorLiveData 业务出错或者爆发异常，由errorLiveData通知视图层去处理
  */
-open class BaseRepository(
-    private val coroutineScope: CoroutineScope,
-    private val errorLiveData: MutableLiveData<ApiException>
-) {
+open class BaseRepository {
+    private lateinit var coroutineScope: CoroutineScope
+    private lateinit var errorLiveData: MutableLiveData<ApiException>
+
+    @Deprecated("")
+    constructor(
+        coroutineScope: CoroutineScope,
+        errorLiveData: MutableLiveData<ApiException>
+    ) {
+        this.coroutineScope = coroutineScope
+        this.errorLiveData = errorLiveData
+    }
+    constructor()
 
     /**
      * 对协程进行封装,统一处理错误信息
@@ -38,7 +47,8 @@ open class BaseRepository(
     protected fun <T> launch(
         block: suspend () -> T
         , success: suspend (T) -> Unit
-        , error:Error? = null): Job {
+        , error: Error? = null
+    ): Job {
         return coroutineScope.launch {
             runCatching {
                 withContext(Dispatchers.IO) {
@@ -55,6 +65,15 @@ open class BaseRepository(
                     errorLiveData.value = this
                 }
             }
+        }
+    }
+
+    /**
+     * 在协程作用域中切换至IO线程
+     */
+    protected suspend fun <T> withIO(block: suspend () -> T): T {
+        return withContext(Dispatchers.IO) {
+            block.invoke()
         }
     }
 

@@ -26,7 +26,11 @@ class MyArticleFragment : BaseVmFragment(), OnChildItemClickListener {
     private val adapter by lazy { MyArticleAdapter() }
     private lateinit var myVM: MyArticleVM
 
-    private val loadingView by lazy { LoadingTip(mActivity) }
+    private val loadingView by lazy {
+        LoadingTip(
+            mActivity
+        )
+    }
 
     override fun initViewModel() {
         myVM = getFragmentViewModel(MyArticleVM::class.java)

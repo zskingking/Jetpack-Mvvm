@@ -1,12 +1,10 @@
 package com.zs.zs_jetpack.ui
 
 import android.os.Bundle
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
+import com.zs.base_library.common.doSelected
 import com.zs.base_library.common.initFragment
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.PlayViewModel
@@ -81,18 +79,16 @@ class MainFragment : BaseVmFragment() {
 
     override fun init(savedInstanceState: Bundle?) {
         //初始化viewpager2
-        vpHome.initFragment(this, fragmentList).run {
+        vpHome.initFragment(childFragmentManager, fragmentList).run {
             //全部缓存,避免切换回重新加载
             offscreenPageLimit = fragmentList.size
         }
         //取消viewPager2滑动
-        vpHome.isUserInputEnabled = false
-        vpHome.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                btnNav.menu.getItem(position).isChecked = true
-            }
-        })
+        //vpHome.isUserInputEnabled = false
+
+        vpHome.doSelected {
+            btnNav.menu.getItem(it).isChecked = true
+        }
         //初始化底部导航栏
         btnNav.run {
             setOnNavigationItemSelectedListener { item ->
@@ -107,8 +103,6 @@ class MainFragment : BaseVmFragment() {
                 true
             }
         }
-        val rv = vpHome[0] as RecyclerView
-        rv.isNestedScrollingEnabled = false
     }
 
     override fun onClick() {
@@ -121,7 +115,6 @@ class MainFragment : BaseVmFragment() {
     }
 
     override fun getLayoutId() = R.layout.fragment_main
-
 
     override fun getDataBindingConfig(): DataBindingConfig? {
         return DataBindingConfig(R.layout.fragment_main, playViewModel)

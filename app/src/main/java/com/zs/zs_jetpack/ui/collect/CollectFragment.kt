@@ -1,7 +1,6 @@
 package com.zs.zs_jetpack.ui.collect
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.SimpleItemAnimator
@@ -29,7 +28,11 @@ class CollectFragment : BaseVmFragment(), OnChildItemClickListener {
     /**
      * 空白页，网络出错等默认显示
      */
-    private val loadingTip by lazy { LoadingTip(mActivity) }
+    private val loadingTip by lazy {
+        LoadingTip(
+            mActivity
+        )
+    }
 
     private lateinit var collectVM: CollectVM
 
