@@ -1,11 +1,11 @@
-package com.zs.zs_jetpack.common
+package com.zs.base_wa_lib.base
 
 import android.os.Bundle
 import android.widget.FrameLayout
 import com.zs.base_library.base.BaseVmActivity
 import com.zs.base_library.common.dip2px
 import com.zs.base_library.utils.StatusUtils
-import com.zs.zs_jetpack.view.LoadingTip
+import com.zs.base_wa_lib.view.LoadingTip
 
 /**
  * des 带loading的Activity
@@ -19,11 +19,13 @@ abstract class BaseLoadingActivity : BaseVmActivity() {
     override fun init(savedInstanceState: Bundle?) {
         decorView = window.decorView as FrameLayout
         val loadMarginTop = StatusUtils.getStatusBarHeight(this) + dip2px(this, 50f)
+        val loadMarginBottom = dip2px(this, 50f)
         val params = FrameLayout.LayoutParams(
             FrameLayout.LayoutParams.MATCH_PARENT,
             FrameLayout.LayoutParams.MATCH_PARENT
         )
         params.topMargin = loadMarginTop
+        params.bottomMargin = loadMarginBottom
         loadingTip = LoadingTip(this)
         decorView?.addView(loadingTip, params)
         init2(savedInstanceState)

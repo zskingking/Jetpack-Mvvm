@@ -122,7 +122,7 @@
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
         </com.zs.zs_jetpack.common.VSmartRefreshLayout>
 
-        <com.zs.zs_jetpack.view.LoadingTip
+        <com.zs.base_wa_lib.view.LoadingTip
             android:id="@+id/loadingTip"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

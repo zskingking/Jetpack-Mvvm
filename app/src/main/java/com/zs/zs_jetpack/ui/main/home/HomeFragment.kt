@@ -10,12 +10,13 @@ import cn.bingoogolapple.bgabanner.BGABanner
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
 import com.zs.base_library.common.*
+import com.zs.base_wa_lib.base.BaseLazyLoadingFragment
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
-import com.zs.zs_jetpack.common.BaseLoadingActivity
+import com.zs.base_wa_lib.base.BaseLoadingActivity
 import com.zs.zs_jetpack.utils.CacheUtil
-import com.zs.zs_jetpack.view.LoadingTip
+import com.zs.base_wa_lib.view.LoadingTip
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -24,20 +25,13 @@ import kotlinx.android.synthetic.main.fragment_home.*
  * @author zs
  * @date 2020-05-14
  */
-class HomeFragment : LazyVmFragment(), BGABanner.Adapter<ImageView?, String?>,
+class HomeFragment : BaseLazyLoadingFragment(), BGABanner.Adapter<ImageView?, String?>,
     BGABanner.Delegate<ImageView?, String?> {
 
     private var homeVm: HomeVM? = null
     private var bannerList: MutableList<BannerBean>? = null
     private val adapter by lazy { ArticleAdapter(mActivity) }
-    var loadingTip: LoadingTip? = null
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is BaseLoadingActivity){
-            loadingTip = context.loadingTip
-        }
-    }
 
     override fun initViewModel() {
         homeVm = getActivityViewModel(HomeVM::class.java)

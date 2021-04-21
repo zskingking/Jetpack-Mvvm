@@ -3,13 +3,10 @@ package com.zs.zs_jetpack
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.zs.base_library.base.BaseVmActivity
-import com.zs.base_library.common.stringForTime
 import com.zs.base_library.utils.PrefUtils
 import com.zs.base_library.utils.StatusUtils
-import com.zs.zs_jetpack.common.BaseLoadingActivity
+import com.zs.base_wa_lib.base.BaseLoadingActivity
 import com.zs.zs_jetpack.constants.Constants
-import com.zs.zs_jetpack.play.PlayList
 import com.zs.zs_jetpack.play.PlayerManager
 import com.zs.zs_jetpack.ui.MainFragment
 

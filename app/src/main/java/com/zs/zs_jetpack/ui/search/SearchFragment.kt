@@ -26,7 +26,7 @@ import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
 import com.zs.zs_jetpack.constants.Constants
 import com.zs.zs_jetpack.utils.CacheUtil
-import com.zs.zs_jetpack.view.LoadingTip
+import com.zs.base_wa_lib.view.LoadingTip
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_search.*

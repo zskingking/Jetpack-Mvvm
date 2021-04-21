@@ -8,7 +8,7 @@ import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.clickNoRepeat
 import com.zs.base_library.common.smartDismiss
 import com.zs.zs_jetpack.R
-import com.zs.zs_jetpack.view.LoadingTip
+import com.zs.base_wa_lib.view.LoadingTip
 import kotlinx.android.synthetic.main.fragment_integral.*
 
 /**

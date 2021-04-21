@@ -1,0 +1,89 @@
+<resources>
+
+    <!--    白天主题-->
+    <style name="AppTheme" parent="Theme.Design.Light.NoActionBar">
+        <item name="colorPrimary">#666666</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">#EF3939</item>
+
+        <item name="main_bg_1">#ffffff</item>
+        <item name="main_bg_2">#EFEFEF</item>
+        <item name="main_bg_3">#CACACA</item>
+
+        <item name="theme_color_1">#333333</item>
+        <item name="theme_color_2">#666666</item>
+        <item name="theme_color_3">#999999</item>
+
+        <item name="ripple_gray">#D1D1D1</item>
+
+        <item name="float_bg">#F2FFFFFF</item>
+
+        <item name="division_line">#EDEDED</item>
+
+        <item name="android:navigationBarColor">#ffffff</item>
+
+
+    </style>
+
+
+    <!--    夜晚主题-->
+    <style name="AppTheme_Night" parent="Theme.Design.Light.NoActionBar">
+        <item name="colorPrimary">#999999</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">#EF3939</item>
+
+        <item name="main_bg_1">#2C2C2C</item>
+        <item name="main_bg_2">#FA3C3C3C</item>
+        <item name="main_bg_3">#5E5E5E</item>
+
+        <item name="theme_color_1">#BDBDBD</item>
+        <item name="theme_color_2">#939393</item>
+        <item name="theme_color_3">#737272</item>
+
+        <item name="ripple_gray">#808080</item>
+
+        <item name="float_bg">#D64C4C4C</item>
+
+        <item name="division_line">#424242</item>
+
+        <item name="android:navigationBarColor">#2C2C2C</item>
+
+    </style>
+
+    <style name="text_1">
+        <item name="android:textColor">?attr/theme_color_1</item>
+        <item name="android:textSize">@dimen/text_1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="text_2">
+        <item name="android:textColor">?attr/theme_color_2</item>
+        <item name="android:textSize">@dimen/text_2</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="text_3">
+        <item name="android:textColor">?attr/theme_color_3</item>
+        <item name="android:textSize">@dimen/text_3</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="text_title">
+        <item name="android:textColor">?attr/theme_color_1</item>
+        <item name="android:textSize">@dimen/text_title</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="Dialog.FullScreen" parent="Base.Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
+
+
+</resources>

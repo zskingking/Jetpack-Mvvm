@@ -1,12 +1,12 @@
-package com.zs.zs_jetpack.view
+package com.zs.base_wa_lib.view
 
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import com.example.base_wa_library.R
 import com.wang.avi.AVLoadingIndicatorView
-import com.zs.zs_jetpack.R
 
 /**
  * des 辅助站位图
