@@ -1,38 +1,19 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 apply from: "../basic.gradle"
 
 android {
-    compileSdkVersion Version.compileSdkVersion
-    buildToolsVersion Version.buildToolsVersion
-
     defaultConfig {
-        minSdkVersion Version.minSdkVersion
-        targetSdkVersion Version.targetSdkVersion
-        compileOptions {
-            sourceCompatibility JavaVersion.VERSION_1_8
-            targetCompatibility JavaVersion.VERSION_1_8
-        }
         applicationId "com.zs.zs_jetpack"
         versionCode Version.versionCode
         versionName Version.versionName
         multiDexEnabled true
-
-        kotlinOptions {
-            jvmTarget = "1.8"
-        }
     }
     dataBinding {
         enabled = true
     }
-
-
 }
 
 dependencies {
     implementation project(":base-wa-library")
     kapt "androidx.room:room-compiler:2.2.3"
-
 }

@@ -1,6 +1,5 @@
 package com.zs.zs_jetpack.ui.main.home
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -8,15 +7,12 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.SimpleItemAnimator
 import cn.bingoogolapple.bgabanner.BGABanner
 import com.zs.base_library.base.DataBindingConfig
-import com.zs.base_library.base.LazyVmFragment
 import com.zs.base_library.common.*
 import com.zs.base_wa_lib.base.BaseLazyLoadingFragment
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
-import com.zs.base_wa_lib.base.BaseLoadingActivity
 import com.zs.zs_jetpack.utils.CacheUtil
-import com.zs.base_wa_lib.view.LoadingTip
 import kotlinx.android.synthetic.main.fragment_home.*
 
 

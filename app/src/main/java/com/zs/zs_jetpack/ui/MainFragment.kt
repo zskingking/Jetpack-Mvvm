@@ -83,8 +83,6 @@ class MainFragment : BaseVmFragment() {
             //全部缓存,避免切换回重新加载
             offscreenPageLimit = fragmentList.size
         }
-        //取消viewPager2滑动
-        //vpHome.isUserInputEnabled = false
 
         vpHome.doSelected {
             btnNav.menu.getItem(it).isChecked = true

@@ -8,6 +8,7 @@ import com.zs.base_library.common.setNoRepeatClick
 import com.zs.base_library.common.smartDismiss
 import com.zs.base_library.common.toast
 import com.zs.base_library.utils.Param
+import com.zs.base_wa_lib.base.BaseLoadingFragment
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.constants.Constants
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.fragment_rank.tvRanking
  * @date 2020/7/13
  * @author zs
  */
-class RankFragment : BaseVmFragment() {
+class RankFragment : BaseLoadingFragment() {
 
     /**
      * 我的积分
@@ -55,6 +56,7 @@ class RankFragment : BaseVmFragment() {
         rankVM.rankLiveData.observe(this, Observer {
             smartDismiss(smartRefresh)
             adapter.setNewData(it)
+            gloding?.dismiss()
         })
         rankVM.errorLiveData.observe(this, Observer {
             smartDismiss(smartRefresh)
@@ -83,6 +85,7 @@ class RankFragment : BaseVmFragment() {
     override fun loadData() {
         //自动刷新
         smartRefresh.autoRefresh()
+        gloding?.loading()
     }
 
     override fun onClick() {

@@ -7,6 +7,7 @@ import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.clickNoRepeat
 import com.zs.base_library.common.smartDismiss
+import com.zs.base_wa_lib.base.BaseLoadingFragment
 import com.zs.zs_jetpack.R
 import com.zs.base_wa_lib.view.LoadingTip
 import kotlinx.android.synthetic.main.fragment_integral.*
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_integral.*
  * @date 2020/7/14
  * @author zs
  */
-class IntegralFragment : BaseVmFragment(){
+class IntegralFragment : BaseLoadingFragment(){
     /**
      * 文章适配器
      */
@@ -40,6 +41,7 @@ class IntegralFragment : BaseVmFragment(){
     override fun observe() {
         integralVM.integralLiveData.observe(this, Observer {
             smartDismiss(smartRefresh)
+            gloding?.dismiss()
             adapter.submitList(it)
         })
         integralVM.footLiveDate.observe(this, Observer {
@@ -85,6 +87,7 @@ class IntegralFragment : BaseVmFragment(){
 
     override fun loadData() {
         integralVM.getIntegral()
+        gloding?.loading()
     }
 
     override fun getLayoutId() = R.layout.fragment_integral
