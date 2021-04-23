@@ -1,5 +1,6 @@
 package com.zs.zs_jetpack.ui.integral
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
@@ -17,14 +18,15 @@ class IntegralVM : BaseViewModel() {
     /**
      * 收藏的的文章
      */
-    val integralLiveData = MutableLiveData<MutableList<IntegralListBean>>()
+    private val _integralLiveData = MutableLiveData<MutableList<IntegralListBean>>()
+    val integralLiveData:LiveData<MutableList<IntegralListBean>> = _integralLiveData
 
     /**
      * 获取收藏列表
      */
     fun getIntegral() {
         launch {
-            integralLiveData.value = repo.getIntegral()
+            _integralLiveData.value = repo.getIntegral()
             handleList(integralLiveData)
         }
     }
@@ -36,7 +38,7 @@ class IntegralVM : BaseViewModel() {
         launch {
             val list =  integralLiveData.value
             list?.addAll(repo.loadMore())
-            integralLiveData.value = list
+            _integralLiveData.value = list
             handleList(integralLiveData)
         }
     }

@@ -82,7 +82,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.zs.zs_jetpack.common.VSmartRefreshLayout
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/smartRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -120,7 +120,7 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
             </androidx.coordinatorlayout.widget.CoordinatorLayout>
-        </com.zs.zs_jetpack.common.VSmartRefreshLayout>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
         <com.zs.base_wa_lib.view.LoadingTip
             android:id="@+id/loadingTip"

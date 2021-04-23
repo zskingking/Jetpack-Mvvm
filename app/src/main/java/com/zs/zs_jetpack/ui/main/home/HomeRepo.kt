@@ -44,7 +44,7 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
                         .data()
                         .datas?.let {
                             ArticleListBean.trans(it)
-                        }?: mutableListOf<ArticleListBean>()
+                        } ?: mutableListOf<ArticleListBean>()
                 )
             }
         ) { a, b ->
@@ -53,6 +53,46 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
                 addAll(b)
             }
         }.flowOn(Dispatchers.IO)
+    }
+
+    /**
+     * 获取置顶文章
+     */
+    suspend fun getTopArticles() = withIO {
+        //请求置顶
+        RetrofitManager.getApiService(ApiService::class.java)
+            .getTopList()
+            .data()
+            .let {
+                //对模型转换
+                ArticleListBean.trans(it)
+            }
+    }
+
+    /**
+     * 请求第一页
+     */
+    suspend fun getArticles() = withIO {
+        page = 0
+        RetrofitManager.getApiService(ApiService::class.java)
+            .getHomeList(page)
+            .data()
+            .datas?.let {
+                ArticleListBean.trans(it)
+            }?: mutableListOf()
+    }
+
+    /**
+     * 请求第一页
+     */
+    suspend fun loadMoreArticles() = withIO {
+        page++
+        RetrofitManager.getApiService(ApiService::class.java)
+            .getHomeList(page)
+            .data()
+            .datas?.let {
+                ArticleListBean.trans(it)
+            }?: mutableListOf()
     }
 
     /**
@@ -79,44 +119,40 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
     /**
      * 获取banner
      */
-    suspend fun getBanner(): Flow<MutableList<BannerBean>> {
-        return flow {
-            emit(
-                RetrofitManager.getApiService(ApiService::class.java)
-                    .getBanner()
-                    .data()
-            )
-        }.flowOn(Dispatchers.IO)
+    suspend fun getBanner() = withIO {
+        RetrofitManager.getApiService(ApiService::class.java)
+            .getBanner()
+            .data()
     }
 
     /**
      * 收藏
      */
-    fun collect(id: Int,list:MutableList<ArticleListBean>)
-        : Flow<MutableList<ArticleListBean>> {
-            return flow {
-                RetrofitManager.getApiService(ApiService::class.java)
-                    .collect(id)
-                    .data(Any::class.java)
-                emit(
-                    list.map {
-                        //将收藏的对象做替换，并改变收藏状态
-                        if (it.id == id){
-                            ArticleListBean.copy(it).apply {
-                                collect = true
-                            }
-                        }else{
-                            it
+    fun collect(id: Int, list: MutableList<ArticleListBean>)
+            : Flow<MutableList<ArticleListBean>> {
+        return flow {
+            RetrofitManager.getApiService(ApiService::class.java)
+                .collect(id)
+                .data(Any::class.java)
+            emit(
+                list.map {
+                    //将收藏的对象做替换，并改变收藏状态
+                    if (it.id == id) {
+                        ArticleListBean.copy(it).apply {
+                            collect = true
                         }
-                    }.toMutableList()
-                )
-            }.flowOn(Dispatchers.IO)
+                    } else {
+                        it
+                    }
+                }.toMutableList()
+            )
+        }.flowOn(Dispatchers.IO)
     }
 
     /**
      * 取消收藏
      */
-    fun unCollect(id: Int,list:MutableList<ArticleListBean>)
+    fun unCollect(id: Int, list: MutableList<ArticleListBean>)
             : Flow<MutableList<ArticleListBean>> {
         return flow {
             RetrofitManager.getApiService(ApiService::class.java)
@@ -125,11 +161,11 @@ class HomeRepo(coroutineScope: CoroutineScope, errorLiveData: MutableLiveData<Ap
             emit(
                 list.map {
                     //将收藏的对象做替换，并改变收藏状态
-                    if (it.id == id){
+                    if (it.id == id) {
                         ArticleListBean.copy(it).apply {
                             collect = false
                         }
-                    }else{
+                    } else {
                         it
                     }
                 }.toMutableList()

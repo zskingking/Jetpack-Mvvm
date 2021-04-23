@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zs.zs_jetpack.bean.ArticleListBean
 import com.zs.zs_jetpack.common.BasePageVM
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -42,14 +43,8 @@ class HomeVM : BasePageVM() {
      * 获取banner
      */
     fun getBanner() {
-        viewModelScope.launch {
-            repo.getBanner()
-                .catch {
-                    errorLiveData.postValue(getApiException(it))
-                }
-                .collect {
-                    _banner.postValue(it)
-                }
+        launch {
+            _banner.value = repo.getBanner()
         }
     }
 
@@ -57,14 +52,17 @@ class HomeVM : BasePageVM() {
      * 获取首页文章列表， 包括banner
      */
     fun getArticle() {
-        viewModelScope.launch {
-            repo.getArticle()
-                .catch {
-                    errorLiveData.postValue(getApiException(it))
-                }
-                .collect {
-                    _articleList.postValue(it)
-                }
+        launch {
+            val list = mutableListOf<ArticleListBean>()
+            val articles = viewModelScope.async {
+                repo.getArticles()
+            }
+            val topArticle = viewModelScope.async {
+                repo.getTopArticles()
+            }
+            list.addAll(topArticle.await())
+            list.addAll(articles.await())
+            _articleList.value = list
         }
     }
 
@@ -72,18 +70,10 @@ class HomeVM : BasePageVM() {
      * 加载更多
      */
     fun loadMoreArticle() {
-        viewModelScope.launch {
-            repo.loadMoreArticle()
-                .catch {
-                    errorLiveData.postValue(getApiException(it))
-                }
-                .collect {
-                    articleList.value?.apply {
-                        addAll(it)
-                    }.let {
-                        _articleList.postValue(it)
-                    }
-                }
+        launch {
+            val list = _articleList.value
+            list?.addAll(repo.loadMoreArticles())
+            _articleList.value = list
         }
     }
 
