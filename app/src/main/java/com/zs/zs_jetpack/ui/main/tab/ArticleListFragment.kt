@@ -2,10 +2,12 @@ package com.zs.zs_jetpack.ui.main.tab
 
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.SimpleItemAnimator
+import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
 import com.zs.base_library.common.smartConfig
 import com.zs.base_library.common.smartDismiss
+import com.zs.base_wa_lib.base.BaseLazyLoadingFragment
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
@@ -43,11 +45,19 @@ class ArticleListFragment : LazyVmFragment() {
     override fun observe() {
         articleVM?.articleLiveData?.observe(this, Observer {
             smartDismiss(smartRefresh)
+            loadingTip.dismiss()
             adapter.submitList(it)
         })
 
         articleVM?.errorLiveData?.observe(this, Observer {
-
+            smartDismiss(smartRefresh)
+            if (it.errorCode == -100) {
+                //显示网络错误
+                loadingTip.showInternetError()
+                loadingTip.setReloadListener {
+                    articleVM?.getArticleList(type, tabId)
+                }
+            }
         })
     }
 
@@ -63,11 +73,11 @@ class ArticleListFragment : LazyVmFragment() {
         (rvArticleList.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         //下拉刷新
         smartRefresh.setOnRefreshListener {
-            articleVM?.getArticle(type, tabId, true)
+            articleVM?.getArticleList(type, tabId)
         }
         //上拉加载
         smartRefresh.setOnLoadMoreListener {
-            articleVM?.getArticle(type,tabId,false)
+            articleVM?.loadMoreArticleList(type,tabId)
         }
         smartConfig(smartRefresh)
         adapter.apply {
@@ -102,7 +112,8 @@ class ArticleListFragment : LazyVmFragment() {
     }
 
     override fun loadData() {
-        smartRefresh.autoRefresh()
+        articleVM?.getArticleList(type, tabId)
+        loadingTip.loading()
     }
 
     override fun getLayoutId() = R.layout.fragment_article

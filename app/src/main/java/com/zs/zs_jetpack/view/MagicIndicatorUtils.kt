@@ -1,6 +1,7 @@
 package com.zs.zs_jetpack.view
 
 
+import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 import net.lucode.hackware.magicindicator.MagicIndicator
 
@@ -20,6 +21,22 @@ object MagicIndicatorUtils {
 
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
+                miTabs.onPageSelected(position)
+            }
+        })
+    }
+
+    fun bindForViewPager(vp: ViewPager, miTabs: MagicIndicator) {
+        vp.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+                miTabs.onPageScrollStateChanged(state)
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                miTabs.onPageScrolled(position, positionOffset, positionOffsetPixels)
+            }
+
+            override fun onPageSelected(position: Int) {
                 miTabs.onPageSelected(position)
             }
         })

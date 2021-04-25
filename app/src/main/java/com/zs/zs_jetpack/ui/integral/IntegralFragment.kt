@@ -23,14 +23,6 @@ class IntegralFragment : BaseLoadingFragment(){
      */
     private lateinit var adapter: IntegralAdapter
 
-    /**
-     * 空白页，网络出错等默认显示
-     */
-    private val loadingTip by lazy {
-        LoadingTip(
-            mActivity
-        )
-    }
 
     private lateinit var integralVM: IntegralVM
 
@@ -51,8 +43,8 @@ class IntegralFragment : BaseLoadingFragment(){
             smartDismiss(smartRefresh)
             if (it.errorCode == -100) {
                 //显示网络错误
-                loadingTip.showInternetError()
-                loadingTip.setReloadListener {
+                gloding?.showInternetError()
+                gloding?.setReloadListener {
                     integralVM.getIntegral()
                 }
             }

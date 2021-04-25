@@ -50,7 +50,7 @@ class TabFragment : LazyVmFragment() {
     }
 
     private fun initViewPager(tabList: MutableList<TabBean>) {
-        vpArticleFragment.initFragment(this, arrayListOf<Fragment>().apply {
+        vpArticleFragment.initFragment(childFragmentManager, arrayListOf<Fragment>().apply {
             tabList.forEach {
                 add(ArticleListFragment().apply {
                     //想各个fragment传递信息
@@ -66,7 +66,7 @@ class TabFragment : LazyVmFragment() {
         val commonNavigator = CommonNavigator(mActivity)
         commonNavigator.adapter = getCommonNavigatorAdapter(tabList)
         tabLayout.navigator = commonNavigator
-        MagicIndicatorUtils.bindForViewPager2(vpArticleFragment, tabLayout)
+        MagicIndicatorUtils.bindForViewPager(vpArticleFragment, tabLayout)
     }
 
     /**

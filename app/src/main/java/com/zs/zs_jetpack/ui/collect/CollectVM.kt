@@ -1,9 +1,10 @@
 package com.zs.zs_jetpack.ui.collect
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
-import com.zs.zs_jetpack.bean.ArticleBean
+import com.zs.zs_jetpack.bean.ArticleListBean
 
 /**
  * des 文章vm
@@ -11,34 +12,47 @@ import com.zs.zs_jetpack.bean.ArticleBean
  * @author zs
  */
 class CollectVM : BaseViewModel() {
-    private val repo by lazy { CollectRepo(viewModelScope, errorLiveData) }
+    private val repo by lazy { CollectListRepo() }
 
 
     /**
      * 收藏的的文章
      */
-    val articleLiveData = MutableLiveData<MutableList<CollectBean.DatasBean>>()
-
-
-    /**
-     * 取消收藏
-     */
-    val unCollectLiveData = MutableLiveData<Int>()
-
+    private val _articleLiveData = MutableLiveData<MutableList<ArticleListBean>>()
+    val articleLiveData: LiveData<MutableList<ArticleListBean>> = _articleLiveData
 
     /**
      * 获取收藏列表
      */
-    fun getCollect(isRefresh: Boolean) {
-        repo.getCollect(
-            isRefresh, articleLiveData, emptyLiveDate
-        )
+    fun getCollect() {
+        launch {
+            _articleLiveData.value = repo.getCollectArticle()
+        }
+    }
+
+    fun loadMoreCollect() {
+        launch {
+            val list = _articleLiveData.value
+            list?.addAll(repo.loadMoreCollectArticle())
+            _articleLiveData.value = list
+            handleList(_articleLiveData)
+        }
     }
 
     /**
      * 取消收藏
      */
     fun unCollect(id: Int) {
-        repo.unCollect(id, unCollectLiveData)
+        launch {
+            repo.unCollect(id).let {
+                val list = _articleLiveData.value
+                list?.find {
+                    it.id == id
+                }?.let {
+                    list.remove(it)
+                }
+                _articleLiveData.value = list
+            }
+        }
     }
 }

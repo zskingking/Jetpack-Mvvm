@@ -4,12 +4,61 @@ import android.text.Html
 import android.text.TextUtils
 import com.chad.library.adapter.base.entity.MultiItemEntity
 import com.zs.zs_jetpack.constants.Constants
+import com.zs.zs_jetpack.ui.collect.CollectBean
 
 /**
  * @author zs
  * @date 2020/9/10
  */
-class ArticleListBean : MultiItemEntity {
+data class ArticleListBean (
+    var id: Int = 0,
+
+    /**
+     * 作者
+     */
+    var author: String? = null,
+
+    /**
+     * 是否收藏
+     */
+    var collect: Boolean = false,
+
+    /**
+     * 描述信息
+     */
+    var desc: String? = null,
+
+    /**
+     * 图片类型，有和无
+     */
+    var picUrl: String? = null,
+
+    /**
+     * 链接
+     */
+    var link: String? = null,
+
+    /**
+     * 日期
+     */
+    var date: String? = null,
+
+    /**
+     * 标题
+     */
+    var title: String? = null,
+
+    /**
+     * 文章标签
+     */
+    var articleTag: String? = null,
+
+    /**
+     * 1.置顶
+     */
+    var topTitle: String? = null
+)
+    : MultiItemEntity {
 
 
     override fun getItemType(): Int {
@@ -19,53 +68,6 @@ class ArticleListBean : MultiItemEntity {
             Constants.ITEM_ARTICLE_PIC
         }
     }
-
-    var id = 0
-
-    /**
-     * 作者
-     */
-    var author: String? = null
-
-    /**
-     * 是否收藏
-     */
-    var collect = false
-
-    /**
-     * 描述信息
-     */
-    var desc: String? = null
-
-    /**
-     * 图片类型，有和无
-     */
-    var picUrl: String? = null
-
-    /**
-     * 链接
-     */
-    var link: String? = null
-
-    /**
-     * 日期
-     */
-    var date: String? = null
-
-    /**
-     * 标题
-     */
-    var title: String? = null
-
-    /**
-     * 文章标签
-     */
-    var articleTag: String? = null
-
-    /**
-     * 1.置顶
-     */
-    var topTitle: String? = null
 
     /**
      * 将后端数据转换为本地定义的数据结构,原因有三
@@ -97,19 +99,22 @@ class ArticleListBean : MultiItemEntity {
             }.toMutableList()
         }
 
-        fun copy(article: ArticleListBean): ArticleListBean {
-            return ArticleListBean().apply {
-                id = article.id
-                author = article.author
-                collect = false
-                desc = article.desc
-                picUrl = article.picUrl
-                link = article.link
-                date = article.date
-                title = article.title
-                articleTag = article.articleTag
-                topTitle = article.topTitle
-            }
+        fun transByCollect(list: MutableList<CollectBean.DatasBean>): MutableList<ArticleListBean> {
+            return list.map {
+                ArticleListBean().apply {
+                    id = it.originId
+                    author = it.author
+                    collect = true
+                    desc = it.desc
+                    picUrl = it.envelopePic
+                    link = it.link
+                    date = it.niceDate
+                    title = Html.fromHtml(it.title).toString()
+                    articleTag = it.chapterName
+                    topTitle = ""
+                }
+            }.toMutableList()
         }
+
     }
 }

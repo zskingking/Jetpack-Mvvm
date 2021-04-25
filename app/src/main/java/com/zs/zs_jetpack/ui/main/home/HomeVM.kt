@@ -3,22 +3,21 @@ package com.zs.zs_jetpack.ui.main.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.zs.base_library.base.BaseViewModel
 import com.zs.zs_jetpack.bean.ArticleListBean
 import com.zs.zs_jetpack.common.BasePageVM
+import com.zs.zs_jetpack.ui.common.CollectRequest
 import kotlinx.coroutines.async
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 /**
  * des 首页
  * @date 2020/6/22
  * @author zs
  */
-class HomeVM : BasePageVM() {
+class HomeVM : BaseViewModel() {
 
-    private val repo by lazy { HomeRepo(viewModelScope, errorLiveData) }
-
+    private val repo by lazy { HomeRepo() }
+    private val collectRequest by lazy { CollectRequest(_articleList) }
     /**
      * 文章列表
      */
@@ -74,6 +73,7 @@ class HomeVM : BasePageVM() {
             val list = _articleList.value
             list?.addAll(repo.loadMoreArticles())
             _articleList.value = list
+            handleList(_articleList)
         }
     }
 
@@ -81,16 +81,8 @@ class HomeVM : BasePageVM() {
      * 收藏
      */
     fun collect(id: Int) {
-        viewModelScope.launch {
-            _articleList.value?.let {
-                repo.collect(id, it)
-                    .catch {
-                        errorLiveData.postValue(getApiException(it))
-                    }
-                    .collect { result ->
-                        _articleList.postValue(result)
-                    }
-            }
+        launch {
+            collectRequest.collect(id)
         }
     }
 
@@ -98,16 +90,8 @@ class HomeVM : BasePageVM() {
      * 取消收藏
      */
     fun unCollect(id: Int) {
-        viewModelScope.launch {
-            _articleList.value?.let {
-                repo.unCollect(id, it)
-                    .catch {
-                        errorLiveData.postValue(getApiException(it))
-                    }
-                    .collect { result ->
-                        _articleList.postValue(result)
-                    }
-            }
+        launch {
+            collectRequest.unCollect(id)
         }
     }
 

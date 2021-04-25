@@ -6,7 +6,7 @@
 
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
@@ -23,6 +23,9 @@
                 android:id="@+id/rvArticleList"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
-    </LinearLayout>
+        <com.zs.base_wa_lib.view.LoadingTip
+            android:id="@+id/loadingTip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </FrameLayout>
 </layout>

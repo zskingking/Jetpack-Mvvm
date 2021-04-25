@@ -9,17 +9,20 @@ import com.zs.base_library.common.setNoRepeatClick
 import com.zs.base_library.common.smartConfig
 import com.zs.base_library.common.smartDismiss
 import com.zs.base_library.utils.Param
+import com.zs.base_wa_lib.base.BaseLoadingFragment
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
 import com.zs.zs_jetpack.utils.CacheUtil
+import kotlinx.android.synthetic.main.fragment_integral.*
 import kotlinx.android.synthetic.main.fragment_system_list.*
+import kotlinx.android.synthetic.main.fragment_system_list.ivBack
 import kotlinx.android.synthetic.main.fragment_system_list.smartRefresh
 
 /**
  * @date 2020/7/10
  * @author zs
  */
-class SystemListFragment : BaseVmFragment() {
+class SystemListFragment : BaseLoadingFragment() {
 
     /**
      * 文章适配器
@@ -40,10 +43,18 @@ class SystemListFragment : BaseVmFragment() {
     override fun observe() {
         systemVM.articleLiveData.observe(this, Observer {
             smartDismiss(smartRefresh)
+            gloding?.dismiss()
             adapter.submitList(it)
         })
         systemVM.errorLiveData.observe(this, Observer {
             smartDismiss(smartRefresh)
+            if (it.errorCode == -100) {
+                //显示网络错误
+                gloding?.showInternetError()
+                gloding?.setReloadListener {
+                    systemVM.getArticleList(systemId)
+                }
+            }
         })
     }
 
@@ -89,10 +100,10 @@ class SystemListFragment : BaseVmFragment() {
         //配置smartRefresh
         smartConfig(smartRefresh)
         smartRefresh.setOnRefreshListener {
-            systemVM.getArticleList(true,systemId)
+            systemVM.getArticleList(systemId)
         }
         smartRefresh.setOnLoadMoreListener {
-            systemVM.getArticleList(false,systemId)
+            systemVM.loadMoreArticleList(systemId)
         }
         setNoRepeatClick(ivBack){
             when(it.id){
@@ -103,7 +114,8 @@ class SystemListFragment : BaseVmFragment() {
 
     override fun loadData() {
         //自动刷新
-        smartRefresh.autoRefresh()
+        systemVM.getArticleList(systemId)
+        gloding?.loading()
     }
 
     override fun getLayoutId() = R.layout.fragment_system_list
