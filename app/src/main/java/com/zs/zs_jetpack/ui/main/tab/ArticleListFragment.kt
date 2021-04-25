@@ -44,12 +44,12 @@ class ArticleListFragment : LazyVmFragment() {
 
     override fun observe() {
         articleVM?.articleLiveData?.observe(this, Observer {
-            smartDismiss(smartRefresh)
+            smartRefresh.smartDismiss()
             loadingTip.dismiss()
             adapter.submitList(it)
         })
         articleVM?.errorLiveData?.observe(this, Observer {
-            smartDismiss(smartRefresh)
+            smartRefresh.smartDismiss()
             if (it.errorCode == -100) {
                 //显示网络错误
                 loadingTip.showInternetError()
@@ -78,7 +78,7 @@ class ArticleListFragment : LazyVmFragment() {
         smartRefresh.setOnLoadMoreListener {
             articleVM?.loadMoreArticleList(type,tabId)
         }
-        smartConfig(smartRefresh)
+        smartRefresh.smartConfig()
         adapter.apply {
             rvArticleList.adapter = this
             setOnItemClickListener { i, _ ->

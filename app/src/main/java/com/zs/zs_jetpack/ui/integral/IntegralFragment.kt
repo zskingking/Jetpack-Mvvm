@@ -32,7 +32,7 @@ class IntegralFragment : BaseLoadingFragment(){
 
     override fun observe() {
         integralVM.integralLiveData.observe(this, Observer {
-            smartDismiss(smartRefresh)
+            smartRefresh.smartDismiss()
             gloding?.dismiss()
             adapter.submitList(it)
         })
@@ -40,7 +40,7 @@ class IntegralFragment : BaseLoadingFragment(){
 
         })
         integralVM.errorLiveData.observe(this, Observer {
-            smartDismiss(smartRefresh)
+            smartRefresh.smartDismiss()
             if (it.errorCode == -100) {
                 //显示网络错误
                 gloding?.showInternetError()

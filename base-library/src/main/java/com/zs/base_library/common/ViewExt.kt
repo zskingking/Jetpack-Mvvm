@@ -48,7 +48,8 @@ fun ViewPager.initFragment(
     fragments: MutableList<Fragment>
 ): ViewPager {
     //设置适配器
-    adapter = object : FragmentStatePagerAdapter(manager,
+    adapter = object : FragmentStatePagerAdapter(
+        manager,
         BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
     ) {
         override fun getCount() = fragments.size
@@ -67,15 +68,16 @@ fun ViewPager.initFragment(
 /**
  * ViewPager选中
  */
-fun ViewPager.doSelected(selected:(Int) -> Unit){
-    addOnPageChangeListener(object :ViewPager.OnPageChangeListener{
+fun ViewPager.doSelected(selected: (Int) -> Unit) {
+    addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
         override fun onPageScrollStateChanged(state: Int) {}
 
         override fun onPageScrolled(
             position: Int,
             positionOffset: Float,
             positionOffsetPixels: Int
-        ) {}
+        ) {
+        }
 
         override fun onPageSelected(position: Int) {
             selected.invoke(position)
@@ -83,7 +85,6 @@ fun ViewPager.doSelected(selected:(Int) -> Unit){
 
     })
 }
-
 
 
 /**
@@ -126,32 +127,30 @@ fun copy(context: Context, msg: String) {
 /**
  * 隐藏刷新加载ui
  */
-fun smartDismiss(smartView: SmartRefreshLayout) {
-    smartView.finishRefresh(0)
-    smartView.finishLoadMore(0)
+fun SmartRefreshLayout.smartDismiss() {
+    finishRefresh(0)
+    finishLoadMore(0)
 }
 
 /**
  * 配置SmartRefreshLayout
  */
-fun smartConfig(smartView: SmartRefreshLayout){
-    smartView.apply {
-        //加载
-        setEnableLoadMore(true)
-        //刷新
-        setEnableRefresh(true)
-        //不满一页关闭加载
-        //setEnableLoadMoreWhenContentNotFull(false)
-        //滚动回弹
-        setEnableOverScrollDrag(true)
-    }
+fun SmartRefreshLayout.smartConfig() {
+    //加载
+    setEnableLoadMore(true)
+    //刷新
+    setEnableRefresh(true)
+    //不满一页关闭加载
+    //setEnableLoadMoreWhenContentNotFull(false)
+    //滚动回弹
+    setEnableOverScrollDrag(true)
 }
 
 /**
  * 获取当前主图颜色属性
  */
-fun getThemeColor(context: Context,attr:Int):Int{
-    val array: TypedArray = context.theme.obtainStyledAttributes(
+fun Context.getThemeColor(attr: Int): Int {
+    val array: TypedArray = theme.obtainStyledAttributes(
         intArrayOf(
             attr
         )
@@ -166,12 +165,12 @@ fun getThemeColor(context: Context,attr:Int):Int{
  * editText搜索按钮
  * @param onClick 搜索点击事件
  */
-fun EditText.keyBoardSearch(onClick:()->Unit) {
+fun EditText.keyBoardSearch(onClick: () -> Unit) {
     //添加搜索按钮
     setOnEditorActionListener { _, actionId, _ ->
         if (actionId == EditorInfo.IME_ACTION_SEARCH) {
             onClick()
-        }else {
+        } else {
             toast("请输入关键字")
             return@setOnEditorActionListener false
         }

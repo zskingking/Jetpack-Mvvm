@@ -32,13 +32,13 @@ class CollectFragment : BaseLoadingFragment() {
 
     override fun observe() {
         collectVM.articleLiveData.observe(this, Observer {
-            smartDismiss(smartRefresh)
+            smartRefresh.smartDismiss()
             gloding?.dismiss()
             adapter.submitList(it)
         })
 
         collectVM.errorLiveData.observe(this, Observer {
-            smartDismiss(smartRefresh)
+            smartRefresh.smartDismiss()
             if (it.errorCode == -100) {
                 //显示网络错误
                 gloding?.showInternetError()

@@ -36,7 +36,7 @@ class HomeFragment : BaseLazyLoadingFragment(), BGABanner.Adapter<ImageView?, St
     override fun observe() {
         //文章列表
         homeVm?.articleList?.observe(this, Observer {
-            smartDismiss(smartRefresh)
+            smartRefresh.smartDismiss()
             adapter.submitList(it)
             loadingTip?.dismiss()
         })
@@ -47,7 +47,7 @@ class HomeFragment : BaseLazyLoadingFragment(), BGABanner.Adapter<ImageView?, St
         })
         //请求错误
         homeVm?.errorLiveData?.observe(this, Observer {
-            smartDismiss(smartRefresh)
+            smartRefresh.smartDismiss()
         })
     }
 
@@ -67,7 +67,7 @@ class HomeFragment : BaseLazyLoadingFragment(), BGABanner.Adapter<ImageView?, St
         smartRefresh.setOnLoadMoreListener {
             homeVm?.loadMoreArticle()
         }
-        smartConfig(smartRefresh)
+        smartRefresh.smartConfig()
         adapter.apply {
             rvHomeList.adapter = this
             setOnItemClickListener { i, _ ->

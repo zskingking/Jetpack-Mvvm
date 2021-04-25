@@ -54,12 +54,12 @@ class RankFragment : BaseLoadingFragment() {
 
     override fun observe() {
         rankVM.rankLiveData.observe(this, Observer {
-            smartDismiss(smartRefresh)
+            smartRefresh.smartDismiss()
             adapter.setNewData(it)
             gloding?.dismiss()
         })
         rankVM.errorLiveData.observe(this, Observer {
-            smartDismiss(smartRefresh)
+            smartRefresh.smartDismiss()
         })
     }
 

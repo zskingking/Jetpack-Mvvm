@@ -67,13 +67,13 @@ class SearchFragment : BaseLoadingFragment() {
 
     override fun observe() {
         searchVM.articleLiveData.observe(this, Observer {
-            smartDismiss(smartRefresh)
+            smartRefresh.smartDismiss()
             adapter.submitList(it)
             gloding?.dismiss()
         })
 
         searchVM.errorLiveData.observe(this, Observer {
-            smartDismiss(smartRefresh)
+            smartRefresh.smartDismiss()
             if (it.errorCode == -100) {
                 //显示网络错误
                 gloding?.showInternetError()

@@ -40,12 +40,12 @@ class SystemListFragment : BaseLoadingFragment() {
 
     override fun observe() {
         systemVM.articleLiveData.observe(this, Observer {
-            smartDismiss(smartRefresh)
+            smartRefresh.smartDismiss()
             gloding?.dismiss()
             adapter.submitList(it)
         })
         systemVM.errorLiveData.observe(this, Observer {
-            smartDismiss(smartRefresh)
+            smartRefresh.smartDismiss()
             if (it.errorCode == -100) {
                 //显示网络错误
                 gloding?.showInternetError()
@@ -96,7 +96,7 @@ class SystemListFragment : BaseLoadingFragment() {
         (rvSystemList.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         tvTitle.text = systemTitle
         //配置smartRefresh
-        smartConfig(smartRefresh)
+        smartRefresh.smartConfig()
         smartRefresh.setOnRefreshListener {
             systemVM.getArticleList(systemId)
         }

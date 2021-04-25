@@ -31,8 +31,8 @@ class TabNavigatorAdapter(
         simplePager.textSize = 15f
         simplePager.text = tabList[index]
         simplePager.setPadding(30, 0, 30, 0)
-        simplePager.normalColor = getThemeColor(context, R.attr.theme_color_3)
-        simplePager.selectedColor = getThemeColor(context, R.attr.theme_color_1)
+        simplePager.normalColor = context.getThemeColor(R.attr.theme_color_3)
+        simplePager.selectedColor = context.getThemeColor(R.attr.theme_color_1)
         simplePager.setOnClickListener {
             onItemClick.invoke(index)
         }
@@ -47,7 +47,7 @@ class TabNavigatorAdapter(
         indicator.roundRadius = UIUtil.dip2px(context, 1.5).toFloat()
         indicator.startInterpolator = AccelerateInterpolator()
         indicator.endInterpolator = DecelerateInterpolator(2.0f)
-        indicator.setColors(getThemeColor(context, R.attr.theme_color_1))
+        indicator.setColors(context.getThemeColor( R.attr.theme_color_1))
         return indicator
     }
 }

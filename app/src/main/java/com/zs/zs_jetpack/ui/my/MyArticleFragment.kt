@@ -72,7 +72,7 @@ class MyArticleFragment : BaseVmFragment(), OnChildItemClickListener {
 
     override fun observe() {
         myVM.myLiveDate.observe(this, Observer {
-            smartDismiss(smartRefresh)
+            smartRefresh.smartDismiss()
             adapter.setNewData(it)
         })
         myVM.deleteLiveData.observe(this, Observer {
@@ -82,7 +82,7 @@ class MyArticleFragment : BaseVmFragment(), OnChildItemClickListener {
             loadingView.showEmpty()
         })
         myVM.errorLiveData.observe(this, Observer {
-            smartDismiss(smartRefresh)
+            smartRefresh.smartDismiss()
         })
     }
 
