@@ -21,6 +21,7 @@ import com.zs.base_library.common.smartDismiss
 import com.zs.base_library.utils.KeyBoardUtil
 import com.zs.base_library.utils.PrefUtils
 import com.zs.base_library.utils.ScreenUtils
+import com.zs.base_wa_lib.base.BaseLoadingFragment
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
@@ -32,7 +33,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_search.*
 import java.util.concurrent.TimeUnit
 
-class SearchFragment : BaseVmFragment() {
+class SearchFragment : BaseLoadingFragment() {
 
     private lateinit var searchVM: SearchVM
 
@@ -42,15 +43,6 @@ class SearchFragment : BaseVmFragment() {
      * 文章适配器
      */
     private lateinit var adapter: ArticleAdapter
-
-    /**
-     * 空白页，网络出错等默认显示
-     */
-    private val loadingTip by lazy {
-        LoadingTip(
-            mActivity
-        )
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,18 +69,16 @@ class SearchFragment : BaseVmFragment() {
         searchVM.articleLiveData.observe(this, Observer {
             smartDismiss(smartRefresh)
             adapter.submitList(it)
+            gloding?.dismiss()
         })
 
-        searchVM.emptyLiveDate.observe(this, Observer {
-            loadingTip.showEmpty()
-        })
         searchVM.errorLiveData.observe(this, Observer {
             smartDismiss(smartRefresh)
             if (it.errorCode == -100) {
                 //显示网络错误
-                loadingTip.showInternetError()
-                loadingTip.setReloadListener {
-                    searchVM.search(true)
+                gloding?.showInternetError()
+                gloding?.setReloadListener {
+                    searchVM.search()
                 }
             }
         })
@@ -111,7 +101,7 @@ class SearchFragment : BaseVmFragment() {
         adapter = ArticleAdapter(mActivity).apply {
             setOnItemClickListener { i, _ ->
                 nav().navigate(
-                    R.id.action_main_fragment_to_web_fragment,
+                    R.id.action_search_fragment_to_web_fragment,
                     this@SearchFragment.adapter.getBundle(i)
                 )
             }
@@ -129,11 +119,10 @@ class SearchFragment : BaseVmFragment() {
                                 }
                             }
                         } else {
-                            nav().navigate(R.id.action_main_fragment_to_login_fragment)
+                            nav().navigate(R.id.action_search_fragment_to_login_fragment)
                         }
                     }
                 }
-
             }
             rvSearch.adapter = this
         }
@@ -281,7 +270,12 @@ class SearchFragment : BaseVmFragment() {
     private fun search(isRefresh: Boolean) {
         clRecord.visibility = View.GONE
         smartRefresh.visibility = View.VISIBLE
-        searchVM.search(isRefresh)
+        if (isRefresh){
+            searchVM.search()
+            gloding?.loading()
+        } else {
+            searchVM.loadMore()
+        }
         KeyBoardUtil.closeKeyboard(etSearch, mActivity)
     }
 

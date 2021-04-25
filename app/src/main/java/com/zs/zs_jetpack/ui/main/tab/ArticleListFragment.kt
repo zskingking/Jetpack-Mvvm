@@ -48,7 +48,6 @@ class ArticleListFragment : LazyVmFragment() {
             loadingTip.dismiss()
             adapter.submitList(it)
         })
-
         articleVM?.errorLiveData?.observe(this, Observer {
             smartDismiss(smartRefresh)
             if (it.errorCode == -100) {
@@ -106,7 +105,6 @@ class ArticleListFragment : LazyVmFragment() {
                         }
                     }
                 }
-
             }
         }
     }

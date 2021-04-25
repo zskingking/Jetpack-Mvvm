@@ -3,7 +3,6 @@ package com.zs.zs_jetpack.ui.main.square.system
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.zs.base_library.base.BaseVmFragment
 import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.setNoRepeatClick
 import com.zs.base_library.common.smartConfig
@@ -13,7 +12,6 @@ import com.zs.base_wa_lib.base.BaseLoadingFragment
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
 import com.zs.zs_jetpack.utils.CacheUtil
-import kotlinx.android.synthetic.main.fragment_integral.*
 import kotlinx.android.synthetic.main.fragment_system_list.*
 import kotlinx.android.synthetic.main.fragment_system_list.ivBack
 import kotlinx.android.synthetic.main.fragment_system_list.smartRefresh
