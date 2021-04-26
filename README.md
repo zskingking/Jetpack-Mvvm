@@ -1,18 +1,15 @@
 ### 1. 背景
 
 
-`图片如若不能浏览请到我的博客主页查看:`[https://juejin.im/post/5f09ac336fb9a07e93303162](https://juejin.im/post/5f09ac336fb9a07e93303162)
 
 
-之前公司项目用的一直是`MVP`框架，我个人也在几个月前基于`鸿神 WanAndroid API`开发了一款`MVP`版的`App`，使用`MVP`的过程最深的感受是开发效率极低，往往写一大堆接口，可复用的屈指可数。年初了解了`Jetpack`模式下的`MVVM`，在`LiveData、ViewModel、DataBinDing`的加持下实现了`单向依赖`和`数据绑定`，代码量大幅度减少，根据`Jetpack`的特性项目稳定性也提升了不少。
 
-为了更深入的理解`Jetpack`中各个组件，在前段时间基于`Jetpack MVVM`又实现了一版` WanAndroid`。相比上一版的`MVP`增加了`夜间模式`和`音乐播放器`，播放器界面仿照`网易云音乐`。`App`中也大量的使用属性动画让界面简约而不简陋。先上图look一波
+为了更深入的理解`Jetpack`中各个组件，在前段时间基于`Jetpack MVVM`实现了一版` WanAndroid`。相比上一版的`MVP`增加了`夜间模式`和`音乐播放器`，播放器界面仿照`网易云音乐`。`App`中也大量的使用属性动画让界面简约而不简陋。先上图look一波
 
 
 
 ![](https://user-gold-cdn.xitu.io/2020/7/11/1733e02a11e9437c?w=3072&h=3072&f=jpeg&s=1292783)
 
-`先附上github:`[https://github.com/zskingking/Jetpack-Mvvm](https://github.com/zskingking/Jetpack-Mvvm)
 
 ### 2. 应用技术
 基础框架选用`MVVM`，选用的`Jetpack`组件包括`Lifecycle、ViewModel、LiveData、DataBinDing、Navigation、Room`。
@@ -25,7 +22,7 @@
 关于每个模块的职责我是这样定义的：
 
 #### Model
-对应项目中`Repository`，做数据请求以及业务逻辑。很多人将业务逻辑编写到`VM`层，但我个人认为写在`Model`层更为合适，因为数据和业务逻辑本身就是息息相关，拿到数据及时处理业务逻辑，最后通过`ViewModel`注入的`LiveData`将数据发送给`View`层。在该层我也对协程做了封装，以及统一捕获处理错误信息。
+对应项目中`Repository`，做数据请求以及业务逻辑。
 
 #### ViewModel
 基于`Jetpack`中的`ViewModel`进行封装(友情提示：`Jetpack ViewModel`和`MVVM ViewModel`没有半毛钱关系，切勿将两个概念混淆)。在项目中`VM`层职责很简单，通过内部通过`LiveData`做数据存储，以及结合`DataBinding`做数据绑定。
@@ -37,7 +34,7 @@
 
 
 #### 网络层
-关于网络层继续使用`OkHttp Retrofit`，并对Retrofit多`ApiService`以及多域名进行了封装。配合`Repository`中封装的协程使用美得不能再美。
+关于网络层继续使用`OkHttp Retrofit`，并对Retrofit多`ApiService`以及多域名进行了封装。
 
 #### 数据库
 项目中`历史记录`是在本地数据库进行维护的，关于数据库使用了`Jetpack`中的`Room`。
@@ -46,7 +43,7 @@
 `Android`原生提供的夜间切换好像又`API`版本限制，所以就没有用。我个人在本地维护了两套主题，可动态切换。当前包含`白天、夜间`两套主题
 
 ### 3. 关于注释
-去年在我的`Leader`强行督促下养成了写注释的规习惯，我个人对写注释的要求也越来越高。
+我个人是非常喜欢写注释的，基本每一个复杂的功能都有对应的文字描述
 
 项目中运用了大量的设计模式，每用到一种`设计模式`我都会结合当时场景进行解释，比如播放器中某个接口，我会这样写注释：
 ```
@@ -61,7 +58,7 @@
  *       如果基于IPlayer接口编程,扩展出一个Player即可,正所谓对扩展开放、修改关闭
  *
  * @author zs
- * @data 2020-06-23
+ * @date 2020-06-23
  */
 interface IPlayer {
     ....
@@ -74,7 +71,7 @@ interface IPlayer {
  *     通过观察者模式统一对状态进行分发
  *     实则是一个代理,将目标对象Player与调用者隔离,并且在内部实现了对观察者的注册与通知
  * @author zs
- * @data 2020/6/25
+ * @date 2020/6/25
  */
 class PlayerManager private constructor() : IPlayerStatus {
      ....
@@ -82,57 +79,8 @@ class PlayerManager private constructor() : IPlayerStatus {
 }
 ```
 
-* `关于播放器的设计我觉得还是有些地方值得和大家分享，后面我会单独写一篇文章进行分析。`
-
-
 ### 写在最后
 此项目中你很难看到不明不白的代码。`Jetpack`和`Kotlin`是大势所趋，既然拒绝不了那何不开心的拥抱。功能目前已完成`90%`，代码也在持续优化，欢迎大家关注、下载源代码，让我们共同学习、共同进步。
-
-再次附上`github:`[https://github.com/zskingking/Jetpack-Mvvm](https://github.com/zskingking/Jetpack-Mvvm)，如果觉得对你有帮助麻烦给个`star`
-
-
-
-# 分层
-
-所有的分层都是为了满足单一设计原则，一个函数或者一个类再或者一个模块，
-
-# App启动流程
-
-# Activity
-## 启动流程
-
-# Window
-## Window与Activity、View的关系
-
-# Fragment
-## 生命周期
-## 事务
-## 回退栈
-## 常见问题
-
-# View
-## 绘制时机、流程
-## FPS
-
-# Handler
-## 流程
-## 同步屏障
-
-# Binder
-## AIDL
-## 进程间通讯原理
-
-# OkHttp
-## 再深一步研究源码
-## HTTP断点续传
-
-# Java虚拟机
-## 内存泄漏问题
-## LeakCanary原理
-
-# Flutter
-
-
 
 
 
