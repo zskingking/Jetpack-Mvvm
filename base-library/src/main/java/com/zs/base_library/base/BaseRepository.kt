@@ -28,7 +28,7 @@ open class BaseRepository {
     private lateinit var coroutineScope: CoroutineScope
     private lateinit var errorLiveData: MutableLiveData<ApiException>
 
-    @Deprecated("")
+    @Deprecated("后期会被剔除")
     constructor(
         coroutineScope: CoroutineScope,
         errorLiveData: MutableLiveData<ApiException>
@@ -44,6 +44,7 @@ open class BaseRepository {
      * @param block   执行中
      * @param success 执行成功
      */
+    @Deprecated("关于协程的封装有问题，弃用")
     protected fun <T> launch(
         block: suspend () -> T
         , success: suspend (T) -> Unit
@@ -80,6 +81,7 @@ open class BaseRepository {
     /**
      * 捕获异常信息
      */
+    @Deprecated("后期会被剔除")
     private fun getApiException(e: Throwable): ApiException {
         return when (e) {
             is UnknownHostException -> {

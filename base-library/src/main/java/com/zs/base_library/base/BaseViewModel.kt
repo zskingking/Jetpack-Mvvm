@@ -62,10 +62,10 @@ open class BaseViewModel:ViewModel() {
             }.onFailure {
                 it.printStackTrace()
                 getApiException(it).apply {
-                    error?.invoke(this)
-                    toast(errorMessage)
-                    //统一响应错误信息
-                    errorLiveData.value = this
+                    withContext(Dispatchers.Main){
+                        error?.invoke(this@apply)
+                        toast(errorMessage)
+                    }
                 }
             }
         }
@@ -81,9 +81,11 @@ open class BaseViewModel:ViewModel() {
                     return@onFailure
                 }
                 getApiException(it).apply {
-                    toast(errorMessage)
-                    //统一响应错误信息
-                    errorLiveData.value = this
+                    withContext(Dispatchers.Main){
+                        toast(errorMessage)
+                        //统一响应错误信息
+                        errorLiveData.value = this@apply
+                    }
                 }
             }
         }
@@ -92,7 +94,7 @@ open class BaseViewModel:ViewModel() {
     /**
      * 捕获异常信息
      */
-    protected fun getApiException(e: Throwable): ApiException {
+    private fun getApiException(e: Throwable): ApiException {
         return when (e) {
             is UnknownHostException -> {
                 ApiException("网络异常", -100)
