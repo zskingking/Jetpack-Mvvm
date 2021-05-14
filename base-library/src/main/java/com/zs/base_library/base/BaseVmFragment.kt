@@ -32,6 +32,10 @@ abstract class BaseVmFragment : Fragment() {
     private var dataBindingConfig: DataBindingConfig? = null
     private var mBinding: ViewDataBinding? = null
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initFragmentViewModel()
+    }
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -84,6 +88,10 @@ abstract class BaseVmFragment : Fragment() {
      * observe同理
      */
     open fun initViewModel() {
+
+    }
+
+    open fun initFragmentViewModel() {
 
     }
 

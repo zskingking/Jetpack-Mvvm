@@ -38,7 +38,7 @@ class ArticleListFragment : LazyVmFragment() {
      */
     private val adapter by lazy { ArticleAdapter(mActivity) }
 
-    override fun initViewModel() {
+    override fun initFragmentViewModel() {
         articleVM = getFragmentViewModel(ArticleVM::class.java)
     }
 
