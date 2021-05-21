@@ -1,4 +1,8 @@
 
+### 注意注意
+
+as升级到4.2后jdk location默认是11，而本项目jdk 1.8所以有冲突，会报`java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException`错误。具体解决方案 https://stackoverflow.com/questions/67410927/java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception-after-updating-to-a
+
 ### 建议结合本人两篇关于架构的文章去理解项目
 
 [引入Jetpack架构后，你的App会发生哪些变化？](https://juejin.cn/post/6955491901265051661 )
