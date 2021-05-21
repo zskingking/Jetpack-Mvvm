@@ -5,7 +5,7 @@ apply from: "../basic.gradle"
 dependencies {
     api fileTree(dir: 'libs', include: ['*.jar'])
 
-    api(Kotlin.jdk7)
+    api(Kotlin.jdk8)
     api(Kotlin.coroutines.core)
     api(Kotlin.coroutines.android)
 
