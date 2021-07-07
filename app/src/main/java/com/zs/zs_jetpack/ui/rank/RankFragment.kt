@@ -69,10 +69,10 @@ class RankFragment : BaseLoadingFragment<FragmentRankBinding>() {
         binding.rvRank.adapter = adapter
 
         binding.smartRefresh.setOnRefreshListener {
-            rankVM.getRank(true)
+            rankVM.getRank()
         }
         binding.smartRefresh.setOnLoadMoreListener {
-            rankVM.getRank(false)
+            rankVM.loadMore()
         }
     }
 

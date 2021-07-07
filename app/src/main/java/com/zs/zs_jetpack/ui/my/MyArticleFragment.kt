@@ -48,10 +48,10 @@ class MyArticleFragment : BaseVmFragment<FragmentMyArticleBinding>(), OnChildIte
             binding.rvMyArticleList.adapter = this
         }
         binding.smartRefresh.setOnRefreshListener {
-            myVM.getMyArticle(true)
+            myVM.getMyArticle()
         }
         binding.smartRefresh.setOnLoadMoreListener {
-            myVM.getMyArticle(false)
+            myVM.loadMore()
         }
     }
 

@@ -14,7 +14,6 @@ class CollectListRepo : BaseRepository() {
 
     private var page = 0
 
-
     /**
      * 请求第一页
      */

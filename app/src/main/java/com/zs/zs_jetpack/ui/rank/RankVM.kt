@@ -1,7 +1,6 @@
 package com.zs.zs_jetpack.ui.rank
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
 
 /**
@@ -11,14 +10,25 @@ import com.zs.base_library.base.BaseViewModel
  */
 class RankVM :BaseViewModel(){
 
-    private val repo by lazy { RankRepo(viewModelScope,errorLiveData) }
+    private val repo by lazy { RankRepo() }
 
     val rankLiveData = MutableLiveData<MutableList<RankBean.DatasBean>>()
 
     /**
      * 获取排名
      */
-    fun getRank(isRefresh:Boolean){
-        repo.getRank(isRefresh,rankLiveData)
+    fun getRank(){
+        launch {
+            rankLiveData.value = repo.getRank()
+        }
+    }
+
+    fun loadMore(){
+        launch {
+            val list = rankLiveData.value
+            list?.addAll(repo.loadMore())
+            rankLiveData.value = list
+            handleList(rankLiveData)
+        }
     }
 }

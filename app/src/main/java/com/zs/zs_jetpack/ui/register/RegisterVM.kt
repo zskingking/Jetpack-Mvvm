@@ -2,7 +2,6 @@ package com.zs.zs_jetpack.ui.register
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
 
 /**
@@ -33,9 +32,6 @@ class RegisterVM :BaseViewModel(){
         set("")
     }
 
-
-
-
     /**
      * 二次确认密码是否可见
      */
@@ -54,9 +50,11 @@ class RegisterVM :BaseViewModel(){
      * 注册
      */
     val registerLiveData = MutableLiveData<Any>()
-    private val repo by lazy { RegisterRepo(viewModelScope,errorLiveData) }
+    private val repo by lazy { RegisterRepo() }
     fun register(){
-        repo.register(username.get()!!,password.get()!!,rePassword.get()!!,registerLiveData)
+        launch {
+            registerLiveData.value = repo.register(username.get()!!,password.get()!!,rePassword.get()!!)
+        }
     }
 
 }

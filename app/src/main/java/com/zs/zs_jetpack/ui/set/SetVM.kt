@@ -11,11 +11,13 @@ import com.zs.base_library.base.BaseViewModel
  */
 class SetVM :BaseViewModel(){
 
-    private val repo by lazy { SetRepo(viewModelScope,errorLiveData) }
+    private val repo by lazy { SetRepo() }
 
     val logoutLiveData = MutableLiveData<Any>()
 
     fun logout(){
-        repo.logout(logoutLiveData)
+        launch {
+            logoutLiveData.value =  repo.logout()
+        }
     }
 }

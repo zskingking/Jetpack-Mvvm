@@ -5,11 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import com.zs.base_library.base.LazyVmFragment
 import com.zs.base_library.common.clickNoRepeat
 import com.zs.base_library.common.toast
-import com.zs.base_library.utils.PrefUtils
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.constants.Constants
 import com.zs.zs_jetpack.constants.UrlConstants
@@ -38,46 +36,15 @@ class MineFragment : LazyVmFragment<FragmentMineBinding>() {
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
-    /**
-     * 用户积分信息
-     */
-    private var integralBean: IntegralBean? = null
-
     private var mineVM: MineVM? = null
 
     override fun initViewModel() {
         mineVM = getFragmentViewModel(MineVM::class.java)
     }
 
-    override fun observe() {
-        mineVM?.internalLiveData?.observe(this, Observer {
-            integralBean = it
-            setIntegral()
-        })
-    }
-
-    private fun setIntegral() {
-        //通过dataBinDing与View绑定
-        mineVM?.username?.set(integralBean?.username)
-        mineVM?.id?.set("${integralBean?.userId}")
-        mineVM?.rank?.set("${integralBean?.rank}")
-        mineVM?.internal?.set("${integralBean?.coinCount}")
-    }
-
     override fun lazyInit() {
         binding.vm = mineVM
-        //先判断数据是否为空，然后再强转，否则会出异常
-        PrefUtils.getObject(Constants.INTEGRAL_INFO)?.let {
-            //先从本地获取积分，获取不到再通过网络获取
-            integralBean = it as IntegralBean?
-        }
-        if (integralBean == null) {
-            if (CacheUtil.isLogin()) {
-                mineVM?.getFlowInternal()
-            }
-        } else {
-            setIntegral()
-        }
+        mineVM?.getInternal()
     }
 
     override fun getLayoutId() = R.layout.fragment_mine
@@ -96,6 +63,7 @@ class MineFragment : LazyVmFragment<FragmentMineBinding>() {
         }
         binding.llRanking.clickNoRepeat {
             if (CacheUtil.isLogin()) {
+                val integralBean = mineVM?.internalLiveData?.value
                 nav().navigate(R.id.action_main_fragment_to_rank_fragment, Bundle().apply {
                     integralBean?.apply {
                         putInt(Constants.MY_INTEGRAL, coinCount)
@@ -149,7 +117,7 @@ class MineFragment : LazyVmFragment<FragmentMineBinding>() {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun loginEvent(loginEvent: LoginEvent) {
-        mineVM?.getFlowInternal()
+        mineVM?.getInternal()
     }
 
     /**
