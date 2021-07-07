@@ -2,6 +2,7 @@ package com.zs.base_wa_lib.base
 
 import android.content.Context
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import com.zs.base_library.base.LazyVmFragment
 import com.zs.base_library.utils.StatusUtils
 import com.zs.base_wa_lib.view.LoadingTip
@@ -10,7 +11,7 @@ import com.zs.base_wa_lib.view.LoadingTip
  * @author zs
  * @date 2021/4/21
  */
-abstract class BaseLazyLoadingFragment : LazyVmFragment() {
+abstract class BaseLazyLoadingFragment<BD:ViewDataBinding> : LazyVmFragment<BD>() {
 
     protected var gloding: LoadingTip? = null
     override fun onAttach(context: Context) {

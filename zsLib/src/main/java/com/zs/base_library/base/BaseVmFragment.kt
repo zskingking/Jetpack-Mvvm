@@ -20,7 +20,7 @@ import com.zs.base_library.utils.ParamUtil
  * @date 2020/5/9
  * @author zs
  */
-abstract class BaseVmFragment : Fragment() {
+abstract class BaseVmFragment<BD : ViewDataBinding> : Fragment() {
 
     /**
      * 开放给外部使用
@@ -29,9 +29,7 @@ abstract class BaseVmFragment : Fragment() {
     lateinit var mActivity: AppCompatActivity
     private var fragmentProvider: ViewModelProvider? = null
     private var activityProvider: ViewModelProvider? = null
-    private var dataBindingConfig: DataBindingConfig? = null
-    private var mBinding: ViewDataBinding? = null
-
+    protected lateinit var binding: BD
     override fun onAttach(context: Context) {
         super.onAttach(context)
         mContext = context
@@ -51,20 +49,9 @@ abstract class BaseVmFragment : Fragment() {
             setStatusColor()
             setSystemInvadeBlack()
             //获取ViewDataBinding
-            val binding: ViewDataBinding =
-                DataBindingUtil.inflate(inflater, it, container, false)
+            binding = DataBindingUtil.inflate(inflater, it, container, false)
             //将ViewDataBinding生命周期与Fragment绑定
             binding.lifecycleOwner = viewLifecycleOwner
-            dataBindingConfig = getDataBindingConfig()
-            dataBindingConfig?.apply {
-                val bindingParams = bindingParams
-                // 将bindingParams逐个加入到ViewDataBinding中的Variable
-                // 这一步很重要,否则xml中拿不到variable中内容
-                for (i in 0 until bindingParams.size()) {
-                    binding.setVariable(bindingParams.keyAt(i), bindingParams.valueAt(i))
-                }
-            }
-            mBinding = binding
             return binding.root
         }
         return super.onCreateView(inflater, container, savedInstanceState)
@@ -167,9 +154,4 @@ abstract class BaseVmFragment : Fragment() {
      * 获取layout布局
      */
     abstract fun getLayoutId(): Int?
-
-    /**
-     * 获取dataBinding配置项
-     */
-    abstract fun getDataBindingConfig(): DataBindingConfig?
 }

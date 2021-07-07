@@ -1,13 +1,14 @@
 package com.zs.base_library.base
 
 import android.os.Bundle
+import androidx.databinding.ViewDataBinding
 
 /**
  * des 基于androidx 实现懒加载
  * @date 2020/5/9
  * @author zs
  */
-abstract class LazyVmFragment :BaseVmFragment(){
+abstract class LazyVmFragment<BD:ViewDataBinding> :BaseVmFragment<BD>(){
 
     private var isLoaded = false
     override fun onResume() {

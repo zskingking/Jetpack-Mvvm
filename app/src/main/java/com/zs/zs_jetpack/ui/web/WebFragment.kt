@@ -3,7 +3,6 @@ package com.zs.zs_jetpack.ui.web
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
@@ -11,12 +10,10 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import com.zs.base_library.base.BaseVmFragment
-import com.zs.base_library.base.DataBindingConfig
-import com.zs.base_library.common.setNoRepeatClick
+import com.zs.base_library.common.clickNoRepeat
 import com.zs.base_library.utils.Param
-import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
-import kotlinx.android.synthetic.main.fragment_web.*
+import com.zs.zs_jetpack.databinding.FragmentWebBinding
 
 
 /**
@@ -24,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_web.*
  * @author zs
  * @date 2020-07-06修改
  */
-class WebFragment : BaseVmFragment() {
+class WebFragment : BaseVmFragment<FragmentWebBinding>() {
 
     /**
      * 通过注解接收参数
@@ -57,30 +54,28 @@ class WebFragment : BaseVmFragment() {
     }
 
     override fun init(savedInstanceState: Bundle?) {
+        binding.vm = webVM
         initView()
     }
 
     override fun initView() {
-        tvTitle.text = Html.fromHtml(title)
-        setNoRepeatClick(ivBack) {
-            when (it.id) {
-                R.id.ivBack -> nav().navigateUp()
-
-            }
+        binding.tvTitle.text = Html.fromHtml(title)
+        binding.ivBack.clickNoRepeat {
+            nav().navigateUp()
         }
         initWebView()
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun initWebView() {
-        val webSettings: WebSettings = webView.settings
+        val webSettings: WebSettings = binding.webView.settings
         webSettings.javaScriptEnabled = true
         //自适应屏幕
-        webView.settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
-        webView.settings.loadWithOverviewMode = true
+        binding.webView.settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.SINGLE_COLUMN
+        binding.webView.settings.loadWithOverviewMode = true
 
         //如果不设置WebViewClient，请求会跳转系统浏览器
-        webView.webViewClient = object : WebViewClient() {
+        binding.webView.webViewClient = object : WebViewClient() {
 
             override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
                 //返回false，意味着请求过程里，不管有多少次的跳转请求（即新的请求地址）
@@ -98,12 +93,12 @@ class WebFragment : BaseVmFragment() {
             }
         }
 
-        webView?.loadUrl(loadUrl)
+        binding.webView.loadUrl(loadUrl)
 
         //设置最大进度
         webVM?.maxProgress?.set(100)
         //webView加载成功回调
-        webView.webChromeClient = object : WebChromeClient() {
+        binding.webView.webChromeClient = object : WebChromeClient() {
             override fun onProgressChanged(view: WebView, newProgress: Int) {
                 super.onProgressChanged(view, newProgress)
                 //进度小于100，显示进度条
@@ -126,9 +121,9 @@ class WebFragment : BaseVmFragment() {
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    if (webView.canGoBack()) {
+                    if (binding.webView.canGoBack()) {
                         //返回上个页面
-                        webView.goBack()
+                        binding.webView.goBack()
                     } else {
                         //退出H5界面
                         nav().navigateUp()
@@ -141,11 +136,4 @@ class WebFragment : BaseVmFragment() {
 
 
     override fun getLayoutId() = R.layout.fragment_web
-
-    override fun getDataBindingConfig(): DataBindingConfig? {
-        return DataBindingConfig(R.layout.fragment_web, webVM)
-            .addBindingParam(BR.vm, webVM)
-    }
-
-
 }

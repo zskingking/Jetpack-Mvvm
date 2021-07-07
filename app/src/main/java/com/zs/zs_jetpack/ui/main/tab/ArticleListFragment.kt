@@ -12,6 +12,8 @@ import com.zs.base_wa_lib.base.BaseLazyLoadingFragment
 import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
+import com.zs.zs_jetpack.databinding.FragmentArticleBinding
+import com.zs.zs_jetpack.databinding.FragmentArticleBindingImpl
 import com.zs.zs_jetpack.utils.CacheUtil
 import kotlinx.android.synthetic.main.fragment_article.*
 
@@ -20,7 +22,7 @@ import kotlinx.android.synthetic.main.fragment_article.*
  * @date 2020/7/7
  * @author zs
  */
-class ArticleListFragment : LazyVmFragment() {
+class ArticleListFragment : LazyVmFragment<FragmentArticleBinding>() {
 
     private var articleVM: ArticleVM? = null
 
@@ -116,11 +118,6 @@ class ArticleListFragment : LazyVmFragment() {
     }
 
     override fun getLayoutId() = R.layout.fragment_article
-
-    override fun getDataBindingConfig(): DataBindingConfig? {
-        return DataBindingConfig(R.layout.fragment_article, articleVM)
-            .addBindingParam(BR.vm, articleVM)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

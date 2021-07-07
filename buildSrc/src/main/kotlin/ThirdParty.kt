@@ -47,10 +47,4 @@ object ThirdParty {
         private const val blockCanary_version = "1.5.0"
         const val blockCanary = "com.github.markzhai:blockcanary-android:$blockCanary_version"
     }
-
-    val matrix = Matrix
-    object Matrix {
-        private const val matrix_version = "0.8.0"
-    }
-
 }

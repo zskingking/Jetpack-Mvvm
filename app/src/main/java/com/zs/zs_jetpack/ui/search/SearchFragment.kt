@@ -12,28 +12,21 @@ import androidx.core.view.children
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.zs.base_library.base.BaseVmFragment
-import com.zs.base_library.base.DataBindingConfig
-import com.zs.base_library.common.dip2px
-import com.zs.base_library.common.keyBoardSearch
-import com.zs.base_library.common.setNoRepeatClick
-import com.zs.base_library.common.smartDismiss
+import com.zs.base_library.common.*
 import com.zs.base_library.utils.KeyBoardUtil
 import com.zs.base_library.utils.PrefUtils
 import com.zs.base_library.utils.ScreenUtils
 import com.zs.base_wa_lib.base.BaseLoadingFragment
-import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
 import com.zs.zs_jetpack.constants.Constants
 import com.zs.zs_jetpack.utils.CacheUtil
-import com.zs.base_wa_lib.view.LoadingTip
+import com.zs.zs_jetpack.databinding.FragmentSearchBinding
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.fragment_search.*
 import java.util.concurrent.TimeUnit
 
-class SearchFragment : BaseLoadingFragment() {
+class SearchFragment : BaseLoadingFragment<FragmentSearchBinding>() {
 
     private lateinit var searchVM: SearchVM
 
@@ -67,13 +60,13 @@ class SearchFragment : BaseLoadingFragment() {
 
     override fun observe() {
         searchVM.articleLiveData.observe(this, Observer {
-            smartRefresh.smartDismiss()
+            binding.smartRefresh.smartDismiss()
             adapter.submitList(it)
             gloding?.dismiss()
         })
 
         searchVM.errorLiveData.observe(this, Observer {
-            smartRefresh.smartDismiss()
+            binding.smartRefresh.smartDismiss()
             if (it.errorCode == -100) {
                 //显示网络错误
                 gloding?.showInternetError()
@@ -85,6 +78,7 @@ class SearchFragment : BaseLoadingFragment() {
     }
 
     override fun init(savedInstanceState: Bundle?) {
+        binding.vm = searchVM
         //获取收缩记录
         recordList = if (PrefUtils.getObject(Constants.SEARCH_RECORD) == null) {
             mutableListOf()
@@ -97,7 +91,7 @@ class SearchFragment : BaseLoadingFragment() {
 
     override fun initView() {
         //关闭更新动画
-        (rvSearch.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        (binding.rvSearch.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         adapter = ArticleAdapter(mActivity).apply {
             setOnItemClickListener { i, _ ->
                 nav().navigate(
@@ -124,16 +118,16 @@ class SearchFragment : BaseLoadingFragment() {
                     }
                 }
             }
-            rvSearch.adapter = this
+            binding.rvSearch.adapter = this
         }
         startSearchAnim(true)
         //加载更多
-        smartRefresh.setOnLoadMoreListener {
+        binding.smartRefresh.setOnLoadMoreListener {
             search(false)
         }
         //editText获取焦点
-        etSearch.requestFocus()
-        KeyBoardUtil.openKeyboard(etSearch, mActivity)
+        binding.etSearch.requestFocus()
+        KeyBoardUtil.openKeyboard(binding.etSearch, mActivity)
         addListener()
     }
 
@@ -142,23 +136,23 @@ class SearchFragment : BaseLoadingFragment() {
      */
     private fun addListener() {
         //搜索框监听事件
-        etSearch.doAfterTextChanged {
+        binding.etSearch.doAfterTextChanged {
             //搜索框为空的时候显示搜索历史
             if (TextUtils.isEmpty(searchVM.keyWord.get()!!)) {
                 loadRecord()
                 //隐藏清除按钮
-                ivClear.visibility = View.GONE
+                binding.ivClear.visibility = View.GONE
 
-                smartRefresh.visibility = View.GONE
-                clRecord.visibility = View.VISIBLE
+                binding.smartRefresh.visibility = View.GONE
+                binding.clRecord.visibility = View.VISIBLE
             } else {
                 //显示清除按钮
-                ivClear.visibility = View.VISIBLE
-                etSearch.setSelection(searchVM.keyWord.get()!!.length)
+                binding.ivClear.visibility = View.VISIBLE
+                binding.etSearch.setSelection(searchVM.keyWord.get()!!.length)
             }
         }
         //添加搜索按钮
-        etSearch.keyBoardSearch {
+        binding.etSearch.keyBoardSearch {
             //将关键字空格去除
             val keyWord = searchVM.keyWord.get()!!.trim { it <= ' ' }
             //如果关键字部位null或者""
@@ -177,14 +171,12 @@ class SearchFragment : BaseLoadingFragment() {
     }
 
     override fun onClick() {
-        setNoRepeatClick(ivClear,tvClear){
-            when(it.id){
-                R.id.ivClear-> searchVM.keyWord.set("")
-                R.id.tvClear->{
-                    recordList?.clear()
-                    loadRecord()
-                }
-            }
+        binding.ivClear.clickNoRepeat {
+            searchVM.keyWord.set("")
+        }
+        binding.tvClear.clickNoRepeat {
+            recordList?.clear()
+            loadRecord()
         }
     }
 
@@ -195,10 +187,6 @@ class SearchFragment : BaseLoadingFragment() {
 
     override fun getLayoutId() = R.layout.fragment_search
 
-    override fun getDataBindingConfig(): DataBindingConfig? {
-        return DataBindingConfig(R.layout.fragment_search, searchVM)
-            .addBindingParam(BR.vm, searchVM)
-    }
 
     /**
      * 开启搜索动画
@@ -222,9 +210,9 @@ class SearchFragment : BaseLoadingFragment() {
         anim.addUpdateListener {
             val value = it.animatedValue as Int
             //平滑的，动态的设置宽度
-            val params = clSearch.layoutParams as ViewGroup.MarginLayoutParams
+            val params = binding.clSearch.layoutParams as ViewGroup.MarginLayoutParams
             params.width = value
-            clSearch.layoutParams = params
+            binding.clSearch.layoutParams = params
         }
         anim.start()
     }
@@ -234,8 +222,8 @@ class SearchFragment : BaseLoadingFragment() {
      * 逐个展开设置可见，并开启动画
      */
     private fun startLabelAnim() {
-        for (index in 0 until labelsView.childCount) run {
-            val view: View = labelsView.getChildAt(index)
+        for (index in 0 until binding.labelsView.childCount) run {
+            val view: View = binding.labelsView.getChildAt(index)
             view.visibility = View.VISIBLE
             val aa = ScaleAnimation(0f, 1f, 0.5f, 1f)
             aa.interpolator = DecelerateInterpolator()
@@ -248,15 +236,15 @@ class SearchFragment : BaseLoadingFragment() {
      * 加载搜索tag
      */
     private fun loadRecord() {
-        labelsView.setLabels(recordList) { _, _, data ->
+        binding.labelsView.setLabels(recordList) { _, _, data ->
             data
         }
         //不知为何，在xml中设置主题背景无效
-        for (child in labelsView.children){
+        for (child in binding.labelsView.children){
             child.setBackgroundResource(R.drawable.ripple_tag_bg)
         }
         //标签的点击监听
-        labelsView.setOnLabelClickListener { _, data, _ ->
+        binding.labelsView.setOnLabelClickListener { _, data, _ ->
             if (data is String) {
                 searchVM.keyWord.set(data)
                 search(true)
@@ -268,15 +256,15 @@ class SearchFragment : BaseLoadingFragment() {
      * @param isRefresh 是否为初次加载
      */
     private fun search(isRefresh: Boolean) {
-        clRecord.visibility = View.GONE
-        smartRefresh.visibility = View.VISIBLE
+        binding.clRecord.visibility = View.GONE
+        binding.smartRefresh.visibility = View.VISIBLE
         if (isRefresh){
             searchVM.search()
             gloding?.loading()
         } else {
             searchVM.loadMore()
         }
-        KeyBoardUtil.closeKeyboard(etSearch, mActivity)
+        KeyBoardUtil.closeKeyboard(binding.etSearch, mActivity)
     }
 
     override fun onDestroyView() {

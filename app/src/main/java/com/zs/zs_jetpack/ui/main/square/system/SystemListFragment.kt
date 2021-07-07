@@ -3,24 +3,21 @@ package com.zs.zs_jetpack.ui.main.square.system
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.zs.base_library.base.DataBindingConfig
-import com.zs.base_library.common.setNoRepeatClick
+import com.zs.base_library.common.clickNoRepeat
 import com.zs.base_library.common.smartConfig
 import com.zs.base_library.common.smartDismiss
 import com.zs.base_library.utils.Param
 import com.zs.base_wa_lib.base.BaseLoadingFragment
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
+import com.zs.zs_jetpack.databinding.FragmentSystemListBinding
 import com.zs.zs_jetpack.utils.CacheUtil
-import kotlinx.android.synthetic.main.fragment_system_list.*
-import kotlinx.android.synthetic.main.fragment_system_list.ivBack
-import kotlinx.android.synthetic.main.fragment_system_list.smartRefresh
 
 /**
  * @date 2020/7/10
  * @author zs
  */
-class SystemListFragment : BaseLoadingFragment() {
+class SystemListFragment : BaseLoadingFragment<FragmentSystemListBinding>() {
 
     /**
      * 文章适配器
@@ -40,12 +37,12 @@ class SystemListFragment : BaseLoadingFragment() {
 
     override fun observe() {
         systemVM.articleLiveData.observe(this, Observer {
-            smartRefresh.smartDismiss()
+            binding.smartRefresh.smartDismiss()
             gloding?.dismiss()
             adapter.submitList(it)
         })
         systemVM.errorLiveData.observe(this, Observer {
-            smartRefresh.smartDismiss()
+            binding.smartRefresh.smartDismiss()
             if (it.errorCode == -100) {
                 //显示网络错误
                 gloding?.showInternetError()
@@ -63,7 +60,7 @@ class SystemListFragment : BaseLoadingFragment() {
 
     override fun initView() {
         adapter = ArticleAdapter(mActivity).apply {
-            rvSystemList.adapter = this
+            binding.rvSystemList.adapter = this
 
             setOnItemClickListener { i, _ ->
                 nav().navigate(
@@ -93,20 +90,18 @@ class SystemListFragment : BaseLoadingFragment() {
             }
         }
         //关闭更新动画
-        (rvSystemList.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        tvTitle.text = systemTitle
+        (binding.rvSystemList.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        binding.tvTitle.text = systemTitle
         //配置smartRefresh
-        smartRefresh.smartConfig()
-        smartRefresh.setOnRefreshListener {
+        binding.smartRefresh.smartConfig()
+        binding.smartRefresh.setOnRefreshListener {
             systemVM.getArticleList(systemId)
         }
-        smartRefresh.setOnLoadMoreListener {
+        binding.smartRefresh.setOnLoadMoreListener {
             systemVM.loadMoreArticleList(systemId)
         }
-        setNoRepeatClick(ivBack){
-            when(it.id){
-                R.id.ivBack -> nav().navigateUp()
-            }
+        binding.ivBack.clickNoRepeat {
+            nav().navigateUp()
         }
     }
 
@@ -117,7 +112,4 @@ class SystemListFragment : BaseLoadingFragment() {
     }
 
     override fun getLayoutId() = R.layout.fragment_system_list
-    override fun getDataBindingConfig(): DataBindingConfig? {
-        return null
-    }
 }

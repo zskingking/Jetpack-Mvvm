@@ -3,20 +3,18 @@ package com.zs.zs_jetpack.ui.register
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.zs.base_library.base.BaseVmFragment
-import com.zs.base_library.base.DataBindingConfig
-import com.zs.base_library.common.setNoRepeatClick
+import com.zs.base_library.common.clickNoRepeat
 import com.zs.base_library.common.toast
 import com.zs.base_library.utils.KeyBoardUtil
-import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
-import kotlinx.android.synthetic.main.fragment_register.*
+import com.zs.zs_jetpack.databinding.FragmentRegisterBinding
 
 /**
  * des 注册
  * @date 2020/7/9
  * @author zs
  */
-class RegisterFragment : BaseVmFragment() {
+class RegisterFragment : BaseVmFragment<FragmentRegisterBinding>() {
     override fun getLayoutId() = R.layout.fragment_register
 
     private lateinit var registerVM: RegisterVM
@@ -33,52 +31,42 @@ class RegisterFragment : BaseVmFragment() {
     }
 
     override fun init(savedInstanceState: Bundle?) {
+        binding.vm = registerVM
         initView()
     }
 
     override fun initView() {
-        setNoRepeatClick(
-            ivBack,
-            ivClear,
-            ivPasswordVisibility,
-            ivRePasswordVisibility,
-            rlRegister
-        ) {
-            when (it.id) {
-                //回退
-                R.id.ivBack -> nav().navigateUp()
-                //重置用户名
-                R.id.ivClear -> registerVM.username.set("")
-                //密码是否明文
-                R.id.ivPasswordVisibility -> registerVM.passIsVisibility.set(!registerVM.passIsVisibility.get()!!)
-                //确认密码是否明文
-                R.id.ivRePasswordVisibility -> registerVM.rePassIsVisibility.set(!registerVM.rePassIsVisibility.get()!!)
-                //注册
-                R.id.rlRegister -> {
-                    //关闭软键盘
-                    KeyBoardUtil.closeKeyboard(etUsername,mActivity)
-                    KeyBoardUtil.closeKeyboard(etPassword,mActivity)
-                    KeyBoardUtil.closeKeyboard(etRePassword,mActivity)
-                    if (registerVM.username.get()!!.isEmpty()){
-                        toast("请填写用户名")
-                        return@setNoRepeatClick
-                    }
-                    if (registerVM.password.get()!!.isEmpty()){
-                        toast("请填写密码")
-                        return@setNoRepeatClick
-                    }
-                    if (registerVM.rePassword.get()!!.isEmpty()){
-                        toast("请填写确认密码")
-                        return@setNoRepeatClick
-                    }
-                    registerVM.register()
-                }
+        binding.ivBack.clickNoRepeat {
+            nav().navigateUp()
+        }
+        binding.ivClear.clickNoRepeat {
+            registerVM.username.set("")
+        }
+        binding.ivPasswordVisibility.clickNoRepeat {
+            registerVM.passIsVisibility.set(!registerVM.passIsVisibility.get()!!)
+        }
+        binding.ivRePasswordVisibility.clickNoRepeat {
+            registerVM.rePassIsVisibility.set(!registerVM.rePassIsVisibility.get()!!)
+        }
+        binding.rlRegister.clickNoRepeat {
+            //关闭软键盘
+            KeyBoardUtil.closeKeyboard(binding.etUsername,mActivity)
+            KeyBoardUtil.closeKeyboard(binding.etPassword,mActivity)
+            KeyBoardUtil.closeKeyboard(binding.etRePassword,mActivity)
+            if (registerVM.username.get()!!.isEmpty()){
+                toast("请填写用户名")
+                return@clickNoRepeat
             }
+            if (registerVM.password.get()!!.isEmpty()){
+                toast("请填写密码")
+                return@clickNoRepeat
+            }
+            if (registerVM.rePassword.get()!!.isEmpty()){
+                toast("请填写确认密码")
+                return@clickNoRepeat
+            }
+            registerVM.register()
         }
     }
 
-    override fun getDataBindingConfig(): DataBindingConfig? {
-        return DataBindingConfig(R.layout.fragment_register, registerVM)
-            .addBindingParam(BR.vm, registerVM)
-    }
 }

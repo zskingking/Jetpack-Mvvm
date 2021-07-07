@@ -2,20 +2,14 @@ package com.zs.zs_jetpack.ui.rank
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import com.zs.base_library.base.BaseVmFragment
-import com.zs.base_library.base.DataBindingConfig
-import com.zs.base_library.common.setNoRepeatClick
+import com.zs.base_library.common.clickNoRepeat
 import com.zs.base_library.common.smartDismiss
-import com.zs.base_library.common.toast
 import com.zs.base_library.utils.Param
 import com.zs.base_wa_lib.base.BaseLoadingFragment
-import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.constants.Constants
 import com.zs.zs_jetpack.constants.UrlConstants
-import com.zs.zs_jetpack.utils.CacheUtil
-import kotlinx.android.synthetic.main.fragment_mine.*
-import kotlinx.android.synthetic.main.fragment_rank.*
+import com.zs.zs_jetpack.databinding.FragmentRankBinding
 import kotlinx.android.synthetic.main.fragment_rank.tvIntegral
 import kotlinx.android.synthetic.main.fragment_rank.tvRanking
 
@@ -24,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_rank.tvRanking
  * @date 2020/7/13
  * @author zs
  */
-class RankFragment : BaseLoadingFragment() {
+class RankFragment : BaseLoadingFragment<FragmentRankBinding>() {
 
     /**
      * 我的积分
@@ -54,12 +48,12 @@ class RankFragment : BaseLoadingFragment() {
 
     override fun observe() {
         rankVM.rankLiveData.observe(this, Observer {
-            smartRefresh.smartDismiss()
+            binding.smartRefresh.smartDismiss()
             adapter.setNewData(it)
             gloding?.dismiss()
         })
         rankVM.errorLiveData.observe(this, Observer {
-            smartRefresh.smartDismiss()
+            binding.smartRefresh.smartDismiss()
         })
     }
 
@@ -72,41 +66,33 @@ class RankFragment : BaseLoadingFragment() {
         tvIntegral.text = "$myIntegral"
         tvRanking.text = "$myRank"
 
-        rvRank.adapter = adapter
+        binding.rvRank.adapter = adapter
 
-        smartRefresh.setOnRefreshListener {
+        binding.smartRefresh.setOnRefreshListener {
             rankVM.getRank(true)
         }
-        smartRefresh.setOnLoadMoreListener {
+        binding.smartRefresh.setOnLoadMoreListener {
             rankVM.getRank(false)
         }
     }
 
     override fun loadData() {
         //自动刷新
-        smartRefresh.autoRefresh()
+        binding.smartRefresh.autoRefresh()
         gloding?.loading()
     }
 
     override fun onClick() {
-        setNoRepeatClick(ivBack, ivDetail) {
-            when (it.id) {
-                R.id.ivBack -> nav().navigateUp()
-                //查看积分详情
-                R.id.ivDetail -> {
-                    nav().navigate(R.id.action_rank_fragment_to_web_fragment, Bundle().apply {
-                        putString(Constants.WEB_URL, UrlConstants.INTEGRAL_RULE)
-                        putString(Constants.WEB_TITLE, getString(R.string.integral_rule))
-                    })
-                }
-            }
+        binding.ivBack.clickNoRepeat {
+            nav().navigateUp()
+        }
+        binding.ivDetail.clickNoRepeat {
+            nav().navigate(R.id.action_rank_fragment_to_web_fragment, Bundle().apply {
+                putString(Constants.WEB_URL, UrlConstants.INTEGRAL_RULE)
+                putString(Constants.WEB_TITLE, getString(R.string.integral_rule))
+            })
         }
     }
 
     override fun getLayoutId() = R.layout.fragment_rank
-
-    override fun getDataBindingConfig(): DataBindingConfig? {
-        return DataBindingConfig(R.layout.fragment_rank, rankVM)
-            .addBindingParam(BR.vm, rankVM)
-    }
 }

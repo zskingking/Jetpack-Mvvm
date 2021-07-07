@@ -5,19 +5,17 @@ import android.widget.SeekBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
 import com.zs.base_library.base.BaseVmFragment
-import com.zs.base_library.base.DataBindingConfig
-import com.zs.base_library.common.setNoRepeatClick
+import com.zs.base_library.common.clickNoRepeat
 import com.zs.base_library.common.stringForTime
 import com.zs.base_library.utils.StatusUtils
-import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.PlayViewModel
 import com.zs.zs_jetpack.R
+import com.zs.zs_jetpack.databinding.FragmentPlayerBinding
 import com.zs.zs_jetpack.db.AppDataBase
 import com.zs.zs_jetpack.play.PlayList
 import com.zs.zs_jetpack.play.PlayerManager
 import com.zs.zs_jetpack.ui.PlayBindAdapter
 import com.zs.zs_jetpack.ui.play.collect.CollectAudioBean
-import kotlinx.android.synthetic.main.fragment_player.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -27,12 +25,13 @@ import kotlinx.coroutines.withContext
  * @author zs
  * @date 2020-06-25
  */
-class PlayerFragment : BaseVmFragment() {
+class PlayerFragment : BaseVmFragment<FragmentPlayerBinding>() {
 
     private var playVM: PlayViewModel? = null
     private val playListFragment = PlayListFragment()
 
     override fun init(savedInstanceState: Bundle?) {
+        binding.vm = playVM
         initView()
     }
 
@@ -51,18 +50,18 @@ class PlayerFragment : BaseVmFragment() {
      * 设置顶部信息marginTop,适配状态栏高度
      */
     private fun setMarginTop() {
-        val params = ivBack.layoutParams as ConstraintLayout.LayoutParams
+        val params = binding.ivBack.layoutParams as ConstraintLayout.LayoutParams
         params.topMargin = StatusUtils.getStatusBarHeight(mContext)
-        ivBack.layoutParams = params
+        binding.ivBack.layoutParams = params
     }
 
     /**
      * 初始化seekBar
      */
     private fun initSeek() {
-        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+        binding.seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                tvStartTime.text = seekBar.progress.stringForTime()
+                binding.tvStartTime.text = seekBar.progress.stringForTime()
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
@@ -83,43 +82,33 @@ class PlayerFragment : BaseVmFragment() {
 
     override fun getLayoutId() = R.layout.fragment_player
 
-    override fun getDataBindingConfig(): DataBindingConfig? {
-        return DataBindingConfig(R.layout.fragment_player, playVM)
-            .addBindingParam(BR.vm, playVM)
-    }
-
     override fun onClick() {
-        setNoRepeatClick(ivBack, ivCollect,ivMode, ivPrevious, ivPlay, ivNext, ivList) {
-            when (it.id) {
-                //返回
-                R.id.ivBack -> {
-                    nav().navigateUp()
-                }
-                //收藏
-                R.id.ivCollect -> {
-                    collect()
-                }
-                //切换模式
-                R.id.ivMode -> {
-                    PlayerManager.instance.switchPlayMode()
-                }
-                //上一首
-                R.id.ivPrevious -> {
-                    PlayerManager.instance.previous()
-                }
-                //播放/暂停
-                R.id.ivPlay -> {
-                    PlayerManager.instance.controlPlay()
-                }
-                //下一首
-                R.id.ivNext -> {
-                    PlayerManager.instance.next()
-                }
-                //播放列表
-                R.id.ivList -> {
-                    playListFragment.show(mActivity.supportFragmentManager, "")
-                }
-            }
+        binding.ivBack.clickNoRepeat {
+            nav().navigateUp()
+        }
+        //收藏
+        binding.ivCollect.clickNoRepeat {
+            collect()
+        }
+        //切换模式
+        binding.ivMode.clickNoRepeat {
+            PlayerManager.instance.switchPlayMode()
+        }
+        //上一首
+        binding.ivPrevious.clickNoRepeat {
+            PlayerManager.instance.previous()
+        }
+        //播放/暂停
+        binding.ivPlay.clickNoRepeat {
+            PlayerManager.instance.controlPlay()
+        }
+        //下一首
+        binding.ivNext.clickNoRepeat {
+            PlayerManager.instance.next()
+        }
+        //播放列表
+        binding.ivList.clickNoRepeat {
+            playListFragment.show(mActivity.supportFragmentManager, "")
         }
     }
 
