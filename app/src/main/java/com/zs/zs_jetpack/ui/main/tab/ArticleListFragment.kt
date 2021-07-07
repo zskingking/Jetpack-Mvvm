@@ -1,5 +1,6 @@
 package com.zs.zs_jetpack.ui.main.tab
 
+import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.zs.base_library.base.BaseVmFragment
@@ -119,5 +120,10 @@ class ArticleListFragment : LazyVmFragment() {
     override fun getDataBindingConfig(): DataBindingConfig? {
         return DataBindingConfig(R.layout.fragment_article, articleVM)
             .addBindingParam(BR.vm, articleVM)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        Log.i("zszs","onDestroyView")
     }
 }

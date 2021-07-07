@@ -6,19 +6,22 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.scwang.smartrefresh.layout.header.ClassicsHeader
-import com.zs.base_library.BaseApp
+import com.zs.base_wa_lib.base.BaseWanAndroidApp
+
+
+
 
 
 /**
  * @author zs
  * @data 2020/6/26
  */
-class App: BaseApp() {
+class App: BaseWanAndroidApp() {
 
     override fun onCreate() {
         super.onCreate()
         initSmartHead()
-        MultiDex.install(this);
+        MultiDex.install(this)
     }
 
     /**

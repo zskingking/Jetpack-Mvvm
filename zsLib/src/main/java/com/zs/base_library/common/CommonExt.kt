@@ -24,8 +24,8 @@ fun<T> isGpListEmpty(list: List<T>?): Boolean = list == null || list.isEmpty()
 /**
  * 将毫秒转换为分秒-00:00格式
  */
-fun stringForTime(timeMs:Int):String{
-    val totalSeconds = timeMs/1000
+fun Int.stringForTime():String{
+    val totalSeconds = this/1000
     val seconds = totalSeconds % 60
     val minutes = (totalSeconds/60)%60
 

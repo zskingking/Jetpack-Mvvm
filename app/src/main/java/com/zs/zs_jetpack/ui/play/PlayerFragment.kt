@@ -1,7 +1,6 @@
 package com.zs.zs_jetpack.ui.play
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.SeekBar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.lifecycleScope
@@ -63,7 +62,7 @@ class PlayerFragment : BaseVmFragment() {
     private fun initSeek() {
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                tvStartTime.text = stringForTime(seekBar.progress)
+                tvStartTime.text = seekBar.progress.stringForTime()
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {

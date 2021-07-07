@@ -1,7 +1,6 @@
 package com.zs.zs_jetpack
 
 import androidx.databinding.ObservableField
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
 import com.zs.base_library.common.stringForTime
@@ -102,7 +101,7 @@ class PlayViewModel : BaseViewModel() {
     fun setAudioBean(audioBean: AudioBean) {
         songName.set(audioBean.name)
         singer.set(audioBean.singer)
-        maxDuration.set(stringForTime(audioBean.duration))
+        maxDuration.set(audioBean.duration.stringForTime())
         maxProgress.set(audioBean.duration)
         albumPic.set(audioBean.albumId)
         viewModelScope.launch {
@@ -119,7 +118,7 @@ class PlayViewModel : BaseViewModel() {
      * 更换进度
      */
     fun setProgress(progressBean: ProgressBean) {
-        currentDuration.set(stringForTime(progressBean.currentDuration))
+        currentDuration.set(progressBean.currentDuration.stringForTime())
         playProgress.set(progressBean.currentDuration)
     }
 

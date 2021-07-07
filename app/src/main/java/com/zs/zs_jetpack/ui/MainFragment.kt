@@ -16,6 +16,7 @@ import com.zs.zs_jetpack.ui.main.mine.MineFragment
 import com.zs.zs_jetpack.ui.main.tab.TabFragment
 import com.zs.zs_jetpack.ui.main.square.SquareFragment
 import kotlinx.android.synthetic.main.fragment_main.*
+import kotlinx.coroutines.delay
 
 /**
  * des 主页面
@@ -91,7 +92,9 @@ class MainFragment : BaseVmFragment() {
         btnNav.run {
             setOnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
-                    R.id.menu_home -> vpHome.setCurrentItem(0, false)
+                    R.id.menu_home -> {
+                        vpHome.setCurrentItem(0, false)
+                    }
                     R.id.menu_project -> vpHome.setCurrentItem(1, false)
                     R.id.menu_square -> vpHome.setCurrentItem(2, false)
                     R.id.menu_official_account -> vpHome.setCurrentItem(3, false)

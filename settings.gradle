@@ -1,4 +1,4 @@
-include ':wanandroid-library'
+include ':appLib'
 rootProject.name='ZS-Jetpack'
 include ':app'
-include ':base-library'
+include ':zsLib'

@@ -21,12 +21,9 @@ android {
             }
         }
     }
-
-
-
 }
 
 dependencies {
-    implementation project(':wanandroid-library')
+    implementation project(':appLib')
     kapt "androidx.room:room-compiler:2.2.3"
 }
