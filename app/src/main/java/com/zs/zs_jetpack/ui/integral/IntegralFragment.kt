@@ -28,15 +28,15 @@ class IntegralFragment : BaseLoadingFragment<FragmentIntegralBinding>(){
     }
 
     override fun observe() {
-        integralVM.integralLiveData.observe(this, Observer {
+        integralVM.integralLiveData.observe(viewLifecycleOwner, Observer {
             binding.smartRefresh.smartDismiss()
             gloding?.dismiss()
             adapter.submitList(it)
         })
-        integralVM.footLiveDate.observe(this, Observer {
+        integralVM.footLiveDate.observe(viewLifecycleOwner, Observer {
 
         })
-        integralVM.errorLiveData.observe(this, Observer {
+        integralVM.errorLiveData.observe(viewLifecycleOwner, Observer {
             binding.smartRefresh.smartDismiss()
             if (it.errorCode == -100) {
                 //显示网络错误

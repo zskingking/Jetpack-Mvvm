@@ -30,11 +30,12 @@ abstract class BaseVmFragment<BD : ViewDataBinding> : Fragment() {
     private var fragmentProvider: ViewModelProvider? = null
     private var activityProvider: ViewModelProvider? = null
     protected lateinit var binding: BD
-    private var dataBindingConfig: DataBindingConfig? = null
     private var mBinding: ViewDataBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //由于同一个fragment对象可能被activity attach多次(比如viewPager中)
+        //所以fragmentViewModel不能放在onAttach初始化，否则会产生多个fragmentViewModel
         initFragmentViewModel()
     }
     override fun onAttach(context: Context) {
