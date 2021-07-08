@@ -5,7 +5,7 @@
  */
 object Kotlin {
     const val kotlinVersion = "1.3.61"
-    const val jdk7 = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    const val jdk8 = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
 
     val coroutines = Coroutines
     object Coroutines {

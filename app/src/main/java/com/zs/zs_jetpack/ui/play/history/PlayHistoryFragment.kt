@@ -3,20 +3,18 @@ package com.zs.zs_jetpack.ui.play.history
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.zs.base_library.base.BaseVmFragment
-import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.clickNoRepeat
-import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.PlayViewModel
 import com.zs.zs_jetpack.R
+import com.zs.zs_jetpack.databinding.FragmentPlayListHistoryBinding
 import com.zs.zs_jetpack.play.PlayerManager
-import kotlinx.android.synthetic.main.fragment_play_list_history.*
 
 /**
  * des
  * @author zs
  * @date 2020/10/29
  */
-class PlayHistoryFragment : BaseVmFragment() {
+class PlayHistoryFragment : BaseVmFragment<FragmentPlayListHistoryBinding>() {
 
     private val adapter by lazy { HistoryAudioAdapter() }
     private var playVM: PlayViewModel? = null
@@ -26,8 +24,9 @@ class PlayHistoryFragment : BaseVmFragment() {
     }
 
     override fun init(savedInstanceState: Bundle?) {
+        binding.vm = playVM
         click()
-        tvListSize.text = String.format("(%s)", PlayerManager.instance.getPlayListSize())
+        binding.tvListSize.text = String.format("(%s)", PlayerManager.instance.getPlayListSize())
         setPlayList()
     }
 
@@ -41,16 +40,12 @@ class PlayHistoryFragment : BaseVmFragment() {
     }
 
     override fun getLayoutId() = R.layout.fragment_play_list_history
-    override fun getDataBindingConfig(): DataBindingConfig =
-        DataBindingConfig(R.layout.fragment_player, playVM)
-            .addBindingParam(BR.vm, playVM)
-
     private fun setPlayList() {
-        rvHistoryPlayList.adapter = adapter
+        binding.rvHistoryPlayList.adapter = adapter
     }
 
     private fun click() {
-        llPlayMode.clickNoRepeat {
+        binding.llPlayMode.clickNoRepeat {
             PlayerManager.instance.switchPlayMode()
         }
     }

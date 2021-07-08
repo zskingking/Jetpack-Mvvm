@@ -6,14 +6,12 @@ import android.widget.ImageView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.SimpleItemAnimator
 import cn.bingoogolapple.bgabanner.BGABanner
-import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.*
 import com.zs.base_wa_lib.base.BaseLazyLoadingFragment
-import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.ArticleAdapter
+import com.zs.zs_jetpack.databinding.FragmentHomeBinding
 import com.zs.zs_jetpack.utils.CacheUtil
-import kotlinx.android.synthetic.main.fragment_home.*
 
 
 /**
@@ -21,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
  * @author zs
  * @date 2020-05-14
  */
-class HomeFragment : BaseLazyLoadingFragment(), BGABanner.Adapter<ImageView?, String?>,
+class HomeFragment : BaseLazyLoadingFragment<FragmentHomeBinding>(), BGABanner.Adapter<ImageView?, String?>,
     BGABanner.Delegate<ImageView?, String?> {
 
     private var homeVm: HomeVM? = null
@@ -36,9 +34,9 @@ class HomeFragment : BaseLazyLoadingFragment(), BGABanner.Adapter<ImageView?, St
     override fun observe() {
         //文章列表
         homeVm?.articleList?.observe(this, Observer {
-            smartRefresh.smartDismiss()
+            binding.smartRefresh.smartDismiss()
             adapter.submitList(it)
-            loadingTip?.dismiss()
+            binding.loadingTip.dismiss()
         })
         //banner
         homeVm?.banner?.observe(this, Observer {
@@ -47,7 +45,7 @@ class HomeFragment : BaseLazyLoadingFragment(), BGABanner.Adapter<ImageView?, St
         })
         //请求错误
         homeVm?.errorLiveData?.observe(this, Observer {
-            smartRefresh.smartDismiss()
+            binding.smartRefresh.smartDismiss()
         })
     }
 
@@ -57,19 +55,20 @@ class HomeFragment : BaseLazyLoadingFragment(), BGABanner.Adapter<ImageView?, St
     }
 
     override fun initView() {
+        binding.vm = homeVm
         //关闭更新动画
-        (rvHomeList.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        smartRefresh.setOnRefreshListener {
+        (binding.rvHomeList.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        binding.smartRefresh.setOnRefreshListener {
             homeVm?.getBanner()
             homeVm?.getArticle()
         }
         //上拉加载
-        smartRefresh.setOnLoadMoreListener {
+        binding.smartRefresh.setOnLoadMoreListener {
             homeVm?.loadMoreArticle()
         }
-        smartRefresh.smartConfig()
+        binding.smartRefresh.smartConfig()
         adapter.apply {
-            rvHomeList.adapter = this
+            binding.rvHomeList.adapter = this
             setOnItemClickListener { i, _ ->
                 nav().navigate(
                     R.id.action_main_fragment_to_web_fragment,
@@ -96,7 +95,7 @@ class HomeFragment : BaseLazyLoadingFragment(), BGABanner.Adapter<ImageView?, St
                 }
             }
         }
-        setNoRepeatClick(ivAdd) {
+        setNoRepeatClick(binding.ivAdd) {
             when (it.id) {
                 R.id.ivAdd -> nav().navigate(R.id.action_main_fragment_to_publish_fragment)
             }
@@ -107,23 +106,16 @@ class HomeFragment : BaseLazyLoadingFragment(), BGABanner.Adapter<ImageView?, St
         //自动刷新
         homeVm?.getBanner()
         homeVm?.getArticle()
-        loadingTip?.loading()
+        binding.loadingTip.loading()
     }
 
     override fun onClick() {
-        setNoRepeatClick(clSearch) {
-            when (it.id) {
-                R.id.clSearch -> nav().navigate(R.id.action_main_fragment_to_search_fragment)
-            }
+        binding.clSearch.clickNoRepeat {
+            nav().navigate(R.id.action_main_fragment_to_search_fragment)
         }
     }
 
     override fun getLayoutId() = R.layout.fragment_home
-
-    override fun getDataBindingConfig(): DataBindingConfig? {
-        return DataBindingConfig(R.layout.fragment_home, homeVm)
-            .addBindingParam(BR.vm, homeVm)
-    }
 
     /**
      * 填充banner
@@ -162,7 +154,7 @@ class HomeFragment : BaseLazyLoadingFragment(), BGABanner.Adapter<ImageView?, St
      * 初始化banner
      */
     private fun initBanner() {
-        banner.apply {
+        binding.banner.apply {
             setAutoPlayAble(true)
             val views: MutableList<View> = ArrayList()
             bannerList?.forEach { _ ->

@@ -3,26 +3,24 @@ package com.zs.zs_jetpack.ui
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.zs.base_library.base.BaseVmFragment
-import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.doSelected
 import com.zs.base_library.common.initFragment
-import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.PlayViewModel
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.constants.Constants
+import com.zs.zs_jetpack.databinding.FragmentMainBinding
 import com.zs.zs_jetpack.play.PlayerManager
 import com.zs.zs_jetpack.ui.main.home.HomeFragment
 import com.zs.zs_jetpack.ui.main.mine.MineFragment
 import com.zs.zs_jetpack.ui.main.tab.TabFragment
 import com.zs.zs_jetpack.ui.main.square.SquareFragment
-import kotlinx.android.synthetic.main.fragment_main.*
 
 /**
  * des 主页面
  * @author zs
  * @date 2020-05-14
  */
-class MainFragment : BaseVmFragment() {
+class MainFragment : BaseVmFragment<FragmentMainBinding>() {
     private val fragmentList = arrayListOf<Fragment>()
 
     /**
@@ -78,24 +76,27 @@ class MainFragment : BaseVmFragment() {
     }
 
     override fun init(savedInstanceState: Bundle?) {
+        binding.vm = playViewModel
         //初始化viewpager2
-        vpHome.initFragment(childFragmentManager, fragmentList).run {
+        binding.vpHome.initFragment(childFragmentManager, fragmentList).run {
             //全部缓存,避免切换回重新加载
             offscreenPageLimit = fragmentList.size
         }
 
-        vpHome.doSelected {
-            btnNav.menu.getItem(it).isChecked = true
+        binding.vpHome.doSelected {
+            binding.btnNav.menu.getItem(it).isChecked = true
         }
         //初始化底部导航栏
-        btnNav.run {
+        binding.btnNav.run {
             setOnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
-                    R.id.menu_home -> vpHome.setCurrentItem(0, false)
-                    R.id.menu_project -> vpHome.setCurrentItem(1, false)
-                    R.id.menu_square -> vpHome.setCurrentItem(2, false)
-                    R.id.menu_official_account -> vpHome.setCurrentItem(3, false)
-                    R.id.menu_mine -> vpHome.setCurrentItem(4, false)
+                    R.id.menu_home -> {
+                        binding.vpHome.setCurrentItem(0, false)
+                    }
+                    R.id.menu_project -> binding.vpHome.setCurrentItem(1, false)
+                    R.id.menu_square -> binding.vpHome.setCurrentItem(2, false)
+                    R.id.menu_official_account -> binding.vpHome.setCurrentItem(3, false)
+                    R.id.menu_mine -> binding.vpHome.setCurrentItem(4, false)
                 }
                 // 这里注意返回true,否则点击失效
                 true
@@ -104,18 +105,13 @@ class MainFragment : BaseVmFragment() {
     }
 
     override fun onClick() {
-        floatLayout.playClick {
+        binding.floatLayout.playClick {
             PlayerManager.instance.controlPlay()
         }
-        floatLayout.rootClick {
+        binding.floatLayout.rootClick {
             nav().navigate(R.id.action_main_fragment_to_play_fragment)
         }
     }
 
     override fun getLayoutId() = R.layout.fragment_main
-
-    override fun getDataBindingConfig(): DataBindingConfig? {
-        return DataBindingConfig(R.layout.fragment_main, playViewModel)
-            .addBindingParam(BR.vm, playViewModel)
-    }
 }

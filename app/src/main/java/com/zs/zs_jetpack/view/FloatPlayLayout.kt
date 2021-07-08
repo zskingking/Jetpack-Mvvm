@@ -12,6 +12,7 @@ import com.zs.base_library.common.*
 import com.zs.base_library.utils.ScreenUtils
 import com.zs.zs_jetpack.R
 import kotlinx.android.synthetic.main.play_float_layout.view.*
+import kotlin.math.abs
 
 
 /**
@@ -54,7 +55,10 @@ class FloatPlayLayout : LinearLayout {
                 moveY = ev.y
             }
             MotionEvent.ACTION_MOVE -> {
-                return true
+                //兼容某些机型一碰就触发滑动
+                if (abs(ev.y - moveY) > 100){
+                    return true
+                }
             }
         }
         return false

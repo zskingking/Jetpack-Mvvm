@@ -1,0 +1,63 @@
+apply plugin: 'com.android.library'
+apply from: "../basic.gradle"
+
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+
+    api(Kotlin.jdk8)
+    api(Kotlin.coroutines.core)
+    api(Kotlin.coroutines.android)
+
+    api(Android.viewpager2)
+    api(Android.paging)
+    api(Android.legacy)
+    api(Android.constraintlayout)
+    api(Android.appcompat)
+    api(Android.coreKtx)
+    api(Android.multidex)
+    api(Android.material)
+
+    /**
+     * lifecycle相关包括liveData、viewModel
+     */
+    api(Android.lifecycle.extensions)
+    api(Android.lifecycle.liveDataKtx)
+    api(Android.lifecycle.viewModelKtx)
+
+    /**
+     * navigation相关
+     */
+    api(Android.navigation.fragmentKtx)
+    api(Android.navigation.uiKtx)
+
+    api(Android.room.roomRuntime)
+    api(Android.room.roomKtx)
+    //kapt(Android.room.roomCompiler)
+
+    api(ThirdParty.okhttp)
+    api(ThirdParty.rxjava)
+    api(ThirdParty.rxAndroid)
+    api(ThirdParty.cookieJar)
+    api(ThirdParty.baseQuickAdapter)
+    api(ThirdParty.eventBus)
+    api(ThirdParty.aviUi)
+    api(ThirdParty.banner)
+    api(ThirdParty.magic)
+    api(ThirdParty.easypermissions)
+    api(ThirdParty.labelsView)
+    api(ThirdParty.rxPermission)
+    api(ThirdParty.shadow)
+
+    api(ThirdParty.retrofit.retrofit)
+    api(ThirdParty.retrofit.scalars)
+    api(ThirdParty.retrofit.gson)
+
+    api(ThirdParty.glide.glide)
+    api(ThirdParty.glide.transformations)
+
+    api(ThirdParty.smart.smart)
+    api(ThirdParty.smart.head)
+
+
+}

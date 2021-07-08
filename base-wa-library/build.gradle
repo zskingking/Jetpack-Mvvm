@@ -1,6 +1,0 @@
-apply plugin: 'com.android.library'
-apply from: "../basic.gradle"
-
-dependencies {
-    api project(":base-library")
-}

@@ -1,28 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/main_bg_1"
-    android:orientation="vertical"
-    android:gravity="center_horizontal">
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/ivLogo"
-        android:layout_marginTop="170dp"
-        android:src="@mipmap/logo_green" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="WanAndroid"
-        android:layout_marginTop="6dp"
-        android:textSize="30dp"
-        android:textColor="@color/colorAccent"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/text_1"
-        android:text="一个专业的Android社区"/>
-</LinearLayout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/main_bg_1"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:id="@+id/ivLogo"
+            android:layout_marginTop="170dp"
+            android:src="@mipmap/logo_green" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WanAndroid"
+            android:layout_marginTop="6dp"
+            android:textSize="30dp"
+            android:textColor="@color/colorAccent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_1"
+            android:text="一个专业的Android社区" />
+    </LinearLayout>
+</layout>

@@ -3,22 +3,19 @@ package com.zs.zs_jetpack.ui.collect
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.zs.base_library.base.BaseVmFragment
-import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.common.clickNoRepeat
 import com.zs.base_library.common.smartDismiss
 import com.zs.base_wa_lib.base.BaseLoadingFragment
 import com.zs.zs_jetpack.R
-import com.zs.base_wa_lib.view.LoadingTip
 import com.zs.zs_jetpack.common.ArticleAdapter
-import kotlinx.android.synthetic.main.fragment_collect.*
+import com.zs.zs_jetpack.databinding.FragmentCollectBinding
 
 /**
  * des 收藏
  * @date 2020/7/14
  * @author zs
  */
-class CollectFragment : BaseLoadingFragment() {
+class CollectFragment : BaseLoadingFragment<FragmentCollectBinding>() {
     /**
      * 文章适配器
      */
@@ -32,13 +29,13 @@ class CollectFragment : BaseLoadingFragment() {
 
     override fun observe() {
         collectVM.articleLiveData.observe(this, Observer {
-            smartRefresh.smartDismiss()
+            binding.smartRefresh.smartDismiss()
             gloding?.dismiss()
             adapter.submitList(it)
         })
 
         collectVM.errorLiveData.observe(this, Observer {
-            smartRefresh.smartDismiss()
+            binding.smartRefresh.smartDismiss()
             if (it.errorCode == -100) {
                 //显示网络错误
                 gloding?.showInternetError()
@@ -56,9 +53,9 @@ class CollectFragment : BaseLoadingFragment() {
 
     override fun initView() {
         //关闭更新动画
-        (rvCollect.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        (binding.rvCollect.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         adapter = ArticleAdapter(mActivity).apply {
-            rvCollect.adapter = this
+            binding.rvCollect.adapter = this
             setOnItemClickListener { i, _ ->
                 nav().navigate(
                     R.id.action_collect_fragment_to_web_fragment,
@@ -78,15 +75,15 @@ class CollectFragment : BaseLoadingFragment() {
         }
 
         //刷新
-        smartRefresh.setOnRefreshListener {
+        binding.smartRefresh.setOnRefreshListener {
             collectVM.getCollect()
         }
         //加载更多
-        smartRefresh.setOnLoadMoreListener {
+        binding.smartRefresh.setOnLoadMoreListener {
             collectVM.loadMoreCollect()
         }
 
-        ivBack.clickNoRepeat {
+        binding.ivBack.clickNoRepeat {
             nav().navigateUp()
         }
     }
@@ -97,9 +94,4 @@ class CollectFragment : BaseLoadingFragment() {
     }
 
     override fun getLayoutId() = R.layout.fragment_collect
-
-    override fun getDataBindingConfig(): DataBindingConfig? {
-        return null
-    }
-
 }

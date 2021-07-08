@@ -1,5 +1,6 @@
 package com.zs.zs_jetpack.ui.main.tab
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -65,6 +66,11 @@ class ArticleVM : BaseViewModel() {
         launch {
             collectRequest.unCollect(id)
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.i("zszs","onCleared")
     }
 
 }

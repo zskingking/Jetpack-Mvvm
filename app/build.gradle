@@ -11,9 +11,19 @@ android {
     dataBinding {
         enabled = true
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            if (variant.name == 'release'){
+                outputFileName = "玩安卓.apk"
+            } else {
+                outputFileName = "玩安卓-${variant.name}.apk"
+            }
+        }
+    }
 }
 
 dependencies {
-    implementation project(":base-wa-library")
+    implementation project(':appLib')
     kapt "androidx.room:room-compiler:2.2.3"
 }

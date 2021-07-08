@@ -42,4 +42,9 @@ object ThirdParty {
         const val head = "com.scwang.smartrefresh:SmartRefreshHeader:$smart_version"
     }
 
+    val blockCanary = BlockCanary
+    object BlockCanary {
+        private const val blockCanary_version = "1.5.0"
+        const val blockCanary = "com.github.markzhai:blockcanary-android:$blockCanary_version"
+    }
 }

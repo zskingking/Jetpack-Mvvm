@@ -5,8 +5,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.zs.base_library.base.BaseVmFragment
-import com.zs.base_library.base.DataBindingConfig
-import com.zs.base_library.common.setNoRepeatClick
+import com.zs.base_library.common.clickNoRepeat
 import com.zs.base_library.common.smartDismiss
 import com.zs.base_library.common.toast
 import com.zs.zs_jetpack.R
@@ -14,14 +13,15 @@ import com.zs.zs_jetpack.common.OnChildItemClickListener
 import com.zs.zs_jetpack.constants.Constants
 import com.zs.zs_jetpack.utils.CacheUtil
 import com.zs.base_wa_lib.view.LoadingTip
-import kotlinx.android.synthetic.main.fragment_my_article.*
+import com.zs.zs_jetpack.databinding.FragmentMyArticleBinding
+import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
  * des 我的文章
  * @author zs
  * @data 2020/7/12
  */
-class MyArticleFragment : BaseVmFragment(), OnChildItemClickListener {
+class MyArticleFragment : BaseVmFragment<FragmentMyArticleBinding>(), OnChildItemClickListener {
 
     private val adapter by lazy { MyArticleAdapter() }
     private lateinit var myVM: MyArticleVM
@@ -45,34 +45,32 @@ class MyArticleFragment : BaseVmFragment(), OnChildItemClickListener {
         adapter.apply {
             setOnChildItemClickListener(this@MyArticleFragment)
             emptyView = loadingView
-            rvMyArticleList.adapter = this
+            binding.rvMyArticleList.adapter = this
         }
-        smartRefresh.setOnRefreshListener {
-            myVM.getMyArticle(true)
+        binding.smartRefresh.setOnRefreshListener {
+            myVM.getMyArticle()
         }
-        smartRefresh.setOnLoadMoreListener {
-            myVM.getMyArticle(false)
+        binding.smartRefresh.setOnLoadMoreListener {
+            myVM.loadMore()
         }
     }
 
     override fun onClick() {
-        setNoRepeatClick(ivBack, ivAdd) {
-            when (it.id) {
-                R.id.ivBack -> nav().navigateUp()
-                R.id.ivAdd -> {
-                    if (CacheUtil.isLogin()) {
-                        nav().navigate(R.id.action_my_article_fragment_to_publish_fragment)
-                    } else {
-                        toast("请先登录～")
-                    }
-                }
+        binding.ivBack.clickNoRepeat {
+            nav().navigateUp()
+        }
+        binding.ivAdd.clickNoRepeat {
+            if (CacheUtil.isLogin()) {
+                nav().navigate(R.id.action_my_article_fragment_to_publish_fragment)
+            } else {
+                toast("请先登录～")
             }
         }
     }
 
     override fun observe() {
         myVM.myLiveDate.observe(this, Observer {
-            smartRefresh.smartDismiss()
+            binding.smartRefresh.smartDismiss()
             adapter.setNewData(it)
         })
         myVM.deleteLiveData.observe(this, Observer {
@@ -82,19 +80,15 @@ class MyArticleFragment : BaseVmFragment(), OnChildItemClickListener {
             loadingView.showEmpty()
         })
         myVM.errorLiveData.observe(this, Observer {
-            smartRefresh.smartDismiss()
+            binding.smartRefresh.smartDismiss()
         })
     }
 
     override fun loadData() {
-        smartRefresh.autoRefresh()
+        binding.smartRefresh.autoRefresh()
     }
 
     override fun getLayoutId() = R.layout.fragment_my_article
-
-    override fun getDataBindingConfig(): DataBindingConfig? {
-        return null
-    }
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         this.adapter.data.apply {

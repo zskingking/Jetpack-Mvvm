@@ -11,17 +11,33 @@ import com.zs.zs_jetpack.bean.ArticleBean
  */
 class MyArticleVM :BaseViewModel(){
 
-    private val repo by lazy { MyArticleRepo(viewModelScope,errorLiveData) }
+    private val repo by lazy { MyArticleRepo() }
 
     val myLiveDate = MutableLiveData<MutableList<ArticleBean.DatasBean>>()
 
     val deleteLiveData = MutableLiveData<Int>()
 
-    fun getMyArticle(isRefresh:Boolean){
-        repo.getMyArticle(isRefresh,myLiveDate,emptyLiveDate)
+    fun getMyArticle(){
+        launch {
+            myLiveDate.value = repo.getMyArticle()?.toMutableList()
+        }
+    }
+
+    fun loadMore(){
+        launch {
+            val list = myLiveDate.value
+            repo.loadMore()?.toMutableList()?.let {
+                list?.addAll(it)
+            }
+            myLiveDate.value = list
+            handleList(myLiveDate)
+        }
     }
 
     fun delete(id:Int){
-        repo.delete(id,deleteLiveData)
+        launch {
+            repo.delete(id)
+            deleteLiveData.value = id
+        }
     }
 }

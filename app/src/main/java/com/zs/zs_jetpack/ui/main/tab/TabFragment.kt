@@ -3,14 +3,12 @@ package com.zs.zs_jetpack.ui.main.tab
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
 import com.zs.base_library.common.initFragment
-import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.common.TabNavigatorAdapter
+import com.zs.zs_jetpack.databinding.FragmentTabBinding
 import com.zs.zs_jetpack.view.MagicIndicatorUtils
-import kotlinx.android.synthetic.main.fragment_tab.*
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
 
@@ -20,7 +18,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNav
  * @author zs
  * @date 2020-05-14
  */
-class TabFragment : LazyVmFragment() {
+class TabFragment : LazyVmFragment<FragmentTabBinding>() {
 
     /**
      * fragment 类型
@@ -50,7 +48,7 @@ class TabFragment : LazyVmFragment() {
     }
 
     private fun initViewPager(tabList: MutableList<TabBean>) {
-        vpArticleFragment.initFragment(childFragmentManager, arrayListOf<Fragment>().apply {
+        binding.vpArticleFragment.initFragment(childFragmentManager, arrayListOf<Fragment>().apply {
             tabList.forEach {
                 add(ArticleListFragment().apply {
                     //想各个fragment传递信息
@@ -65,8 +63,8 @@ class TabFragment : LazyVmFragment() {
         //下划线绑定
         val commonNavigator = CommonNavigator(mActivity)
         commonNavigator.adapter = getCommonNavigatorAdapter(tabList)
-        tabLayout.navigator = commonNavigator
-        MagicIndicatorUtils.bindForViewPager(vpArticleFragment, tabLayout)
+        binding.tabLayout.navigator = commonNavigator
+        MagicIndicatorUtils.bindForViewPager(binding.vpArticleFragment, binding.tabLayout)
     }
 
     /**
@@ -79,15 +77,10 @@ class TabFragment : LazyVmFragment() {
                 it.name?.let { it1 -> add(it1) }
             }
         }) {
-            vpArticleFragment.currentItem = it
+            binding.vpArticleFragment.currentItem = it
         }
     }
 
     override fun getLayoutId() = R.layout.fragment_tab
-    override fun getDataBindingConfig(): DataBindingConfig? {
-        return DataBindingConfig(R.layout.fragment_tab, tabVM)
-            .addBindingParam(BR.vm, tabVM)
-    }
-
 }
 

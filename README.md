@@ -1,7 +1,15 @@
+
+### 注意注意
+
+as升级到4.2后jdk location默认是11，而本项目jdk 1.8所以有冲突，会报`java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException`错误。具体解决方案 https://stackoverflow.com/questions/67410927/java-lang-noclassdeffounderror-javax-xml-bind-jaxbexception-after-updating-to-a
+
+### 建议结合本人两篇关于架构的文章去理解项目
+
+[引入Jetpack架构后，你的App会发生哪些变化？](https://juejin.cn/post/6955491901265051661 )
+
+[关于Android架构，你是否还在生搬硬套？](https://juejin.cn/post/6942464122273398820)
+
 ### 1. 背景
-
-
-
 
 
 为了更深入的理解`Jetpack`中各个组件，在前段时间基于`Jetpack MVVM`实现了一版` WanAndroid`。相比上一版的`MVP`增加了`夜间模式`和`音乐播放器`，播放器界面仿照`网易云音乐`。`App`中也大量的使用属性动画让界面简约而不简陋。先上图look一波
@@ -81,11 +89,6 @@ class PlayerManager private constructor() : IPlayerStatus {
 
 ### 写在最后
 此项目中你很难看到不明不白的代码。`Jetpack`和`Kotlin`是大势所趋，既然拒绝不了那何不开心的拥抱。功能目前已完成`90%`，代码也在持续优化，欢迎大家关注、下载源代码，让我们共同学习、共同进步。
-
-
-
-
-
 
 
 

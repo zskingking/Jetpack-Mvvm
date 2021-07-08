@@ -2,7 +2,6 @@ package com.zs.zs_jetpack.ui.login
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
 
 /**
@@ -38,9 +37,11 @@ class LoginVM :BaseViewModel(){
      */
     val loginLiveData = MutableLiveData<UserBean>()
 
-    private val repo by lazy { LoginRepo(viewModelScope,errorLiveData) }
+    private val repo by lazy { LoginRepo() }
 
     fun login(){
-        repo.login(username.get()!!,password.get()!!,loginLiveData)
+        launch {
+            loginLiveData.value = repo.login(username.get()!!,password.get()!!)
+        }
     }
 }

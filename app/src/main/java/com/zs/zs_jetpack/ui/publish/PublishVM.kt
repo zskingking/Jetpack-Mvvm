@@ -29,13 +29,15 @@ class PublishVM :BaseViewModel(){
      */
     val publishLiveData = MutableLiveData<Any>()
 
-    private val repo by lazy { PublishRepo(viewModelScope,errorLiveData) }
+    private val repo by lazy { PublishRepo() }
 
     fun publish(){
         if (TextUtils.isEmpty(articleTitle.get())||TextUtils.isEmpty(articleLink.get())){
             toast("请输入标题跟链接～")
         }else{
-            repo.publish(articleTitle.get()!!,articleLink.get()!!,publishLiveData)
+            launch {
+                publishLiveData.value = repo.publish(articleTitle.get()!!,articleLink.get()!!)
+            }
         }
     }
 }

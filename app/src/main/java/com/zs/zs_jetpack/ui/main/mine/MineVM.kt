@@ -2,10 +2,10 @@ package com.zs.zs_jetpack.ui.main.mine
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
-import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
+import com.zs.base_library.utils.PrefUtils
+import com.zs.zs_jetpack.constants.Constants
+import com.zs.zs_jetpack.utils.CacheUtil
 
 /**
  * des 我的
@@ -42,23 +42,36 @@ class MineVM : BaseViewModel() {
         set("0")
     }
 
-    private val repo by lazy { MineRepo(viewModelScope, errorLiveData) }
+    private val repo by lazy { MineRepo() }
     val internalLiveData = MutableLiveData<IntegralBean>()
 
     fun getInternal() {
-        repo.getInternal(internalLiveData)
+        launch {
+            var integralBean:IntegralBean? = null
+            PrefUtils.getObject(Constants.INTEGRAL_INFO)?.let {
+                //先从本地获取积分，获取不到再通过网络获取
+                integralBean = it as IntegralBean?
+            }
+            if (integralBean == null) {
+                if (CacheUtil.isLogin()) {
+                    val data = repo.getInternal()
+                    setIntegral(data)
+                    PrefUtils.setObject(Constants.INTEGRAL_INFO,data)
+                }
+            } else {
+                setIntegral(integralBean)
+            }
+        }
     }
 
-    fun getFlowInternal() {
-        viewModelScope.launch {
-            repo.getInternal()
-                .catch {
-                    //处理错误
-                    handleError(it)
-                }
-                .collect {
-                    internalLiveData.postValue(it)
-                }
+    private fun setIntegral(integralBean:IntegralBean?){
+        integralBean?.let  { it ->
+            //通过dataBinDing与View绑定
+            username.set(it.username)
+            id.set("${it.userId}")
+            rank.set("${it.rank}")
+            internal.set("${it.coinCount}")
+            internalLiveData.value = it
         }
     }
 

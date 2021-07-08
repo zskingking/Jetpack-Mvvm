@@ -2,19 +2,17 @@ package com.zs.zs_jetpack.ui.main.square.system
 
 import android.os.Bundle
 import androidx.lifecycle.Observer
-import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
-import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.constants.Constants
-import kotlinx.android.synthetic.main.fragment_system.*
+import com.zs.zs_jetpack.databinding.FragmentSystemBinding
 
 /**
  * des 体系
  * @date 2020/7/10
  * @author zs
  */
-class SystemFragment : LazyVmFragment() {
+class SystemFragment : LazyVmFragment<FragmentSystemBinding>() {
 
     private lateinit var systemVM: SystemVM
     private var adapter: SystemAdapter? = null
@@ -42,7 +40,7 @@ class SystemFragment : LazyVmFragment() {
                 })
 
         }
-        rvSystem.adapter = adapter
+        binding.rvSystem.adapter = adapter
     }
 
     override fun loadData() {
@@ -51,8 +49,4 @@ class SystemFragment : LazyVmFragment() {
 
     override fun getLayoutId() = R.layout.fragment_system
 
-    override fun getDataBindingConfig(): DataBindingConfig? {
-        return DataBindingConfig(R.layout.fragment_system, systemVM)
-            .addBindingParam(BR.vm, systemVM)
-    }
 }
