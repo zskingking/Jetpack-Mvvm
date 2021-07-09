@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="com.zs.zs_jetpack.ui.main.mine.MineVM" />
+            type="com.example.mine.MineVM" />
     </data>
 
     <androidx.core.widget.NestedScrollView

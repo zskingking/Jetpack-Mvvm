@@ -1,4 +1,4 @@
-package com.zs.zs_jetpack.ui.main.mine
+package com.example.mine
 
 import com.zs.base_library.base.BaseRepository
 import com.zs.zs_jetpack.http.ApiService

@@ -10,7 +10,7 @@ import com.zs.zs_jetpack.R
 import com.zs.zs_jetpack.constants.Constants
 import com.zs.zs_jetpack.constants.UrlConstants
 import com.zs.zs_jetpack.databinding.FragmentSetBinding
-import com.zs.zs_jetpack.utils.CacheUtil
+import com.zs.base_wa_lib.utils.CacheUtil
 import com.zs.zs_jetpack.view.DialogUtils
 
 /**

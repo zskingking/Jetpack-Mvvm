@@ -1,4 +1,4 @@
-package com.zs.zs_jetpack.event
+package com.zs.base_wa_lib.event
 
 /**
  * des 退出登陆event

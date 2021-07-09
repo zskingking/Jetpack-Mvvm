@@ -11,7 +11,7 @@ import com.zs.base_wa_lib.base.BaseLoadingFragment
 import com.zs.zs_jetpack.R
 import com.zs.base_wa_lib.article.ArticleAdapter
 import com.zs.zs_jetpack.databinding.FragmentSystemListBinding
-import com.zs.zs_jetpack.utils.CacheUtil
+import com.zs.base_wa_lib.utils.CacheUtil
 
 /**
  * @date 2020/7/10

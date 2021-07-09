@@ -1,4 +1,4 @@
-package com.zs.zs_jetpack.ui.main.mine
+package com.example.mine
 
 
 import android.os.Bundle
@@ -6,15 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.zs.base_library.base.LazyVmFragment
-import com.zs.base_library.common.clickNoRepeat
 import com.zs.base_library.common.toast
-import com.zs.zs_jetpack.R
-import com.zs.zs_jetpack.constants.Constants
-import com.zs.zs_jetpack.constants.UrlConstants
+import com.example.mine.constants.Constants
+import com.example.mine.constants.UrlConstants
+import com.zs.base_wa_lib.event.LoginEvent
+import com.zs.base_wa_lib.event.LogoutEvent
+import com.zs.base_wa_lib.utils.CacheUtil
 import com.zs.zs_jetpack.databinding.FragmentMineBinding
-import com.zs.zs_jetpack.event.LoginEvent
-import com.zs.zs_jetpack.event.LogoutEvent
-import com.zs.zs_jetpack.utils.CacheUtil
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode

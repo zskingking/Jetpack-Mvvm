@@ -1,4 +1,4 @@
-package com.zs.zs_jetpack.ui.main.mine
+package com.example.mine
 
 import java.io.Serializable
 

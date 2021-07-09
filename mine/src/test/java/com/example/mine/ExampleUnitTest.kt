@@ -1,4 +1,4 @@
-package com.example.min
+package com.example.mine
 
 import org.junit.Test
 

@@ -9,7 +9,7 @@ import com.zs.base_library.common.smartDismiss
 import com.zs.zs_jetpack.R
 import com.zs.base_wa_lib.article.ArticleAdapter
 import com.zs.zs_jetpack.databinding.FragmentArticleBinding
-import com.zs.zs_jetpack.utils.CacheUtil
+import com.zs.base_wa_lib.utils.CacheUtil
 import kotlinx.android.synthetic.main.fragment_article.*
 
 /**

@@ -20,7 +20,7 @@ import com.zs.base_wa_lib.base.BaseLoadingFragment
 import com.zs.zs_jetpack.R
 import com.zs.base_wa_lib.article.ArticleAdapter
 import com.zs.zs_jetpack.constants.Constants
-import com.zs.zs_jetpack.utils.CacheUtil
+import com.zs.base_wa_lib.utils.CacheUtil
 import com.zs.zs_jetpack.databinding.FragmentSearchBinding
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers

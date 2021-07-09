@@ -1,8 +1,8 @@
-package com.zs.zs_jetpack.utils
+package com.zs.base_wa_lib.utils
 
 import com.zs.base_library.utils.PrefUtils
-import com.zs.zs_jetpack.constants.Constants
-import com.zs.zs_jetpack.event.LogoutEvent
+import com.zs.base_wa_lib.constants.AppLibConstants
+import com.zs.base_wa_lib.event.LogoutEvent
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -17,7 +17,7 @@ class CacheUtil {
          * 登录状态
          */
         fun isLogin(): Boolean {
-            return PrefUtils.getBoolean(Constants.LOGIN, false)
+            return PrefUtils.getBoolean(AppLibConstants.LOGIN, false)
         }
 
         /**
@@ -27,11 +27,11 @@ class CacheUtil {
             //发送退出登录消息
             EventBus.getDefault().post(LogoutEvent())
             //更新登陆状态
-            PrefUtils.setBoolean(Constants.LOGIN, false)
+            PrefUtils.setBoolean(AppLibConstants.LOGIN, false)
             //移除用户信息
-            PrefUtils.removeKey(Constants.USER_INFO)
+            PrefUtils.removeKey(AppLibConstants.USER_INFO)
             //移除积分信息
-            PrefUtils.removeKey(Constants.INTEGRAL_INFO)
+            PrefUtils.removeKey(AppLibConstants.INTEGRAL_INFO)
         }
     }
 }

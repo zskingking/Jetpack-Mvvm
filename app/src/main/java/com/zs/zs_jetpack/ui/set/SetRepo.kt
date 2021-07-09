@@ -3,7 +3,7 @@ package com.zs.zs_jetpack.ui.set
 import com.zs.base_library.base.BaseRepository
 import com.zs.zs_jetpack.http.ApiService
 import com.zs.zs_jetpack.http.RetrofitManager
-import com.zs.zs_jetpack.utils.CacheUtil
+import com.zs.base_wa_lib.utils.CacheUtil
 
 /**
  * des 设置

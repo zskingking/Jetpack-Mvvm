@@ -1,10 +1,10 @@
-package com.zs.zs_jetpack.ui.main.mine
+package com.example.mine
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.zs.base_library.base.BaseViewModel
 import com.zs.base_library.utils.PrefUtils
-import com.zs.zs_jetpack.constants.Constants
+import com.example.mine.constants.Constants
 import com.zs.zs_jetpack.utils.CacheUtil
 
 /**

@@ -3,7 +3,7 @@ package com.zs.zs_jetpack.ui.login
 import com.zs.base_library.base.BaseRepository
 import com.zs.base_library.utils.PrefUtils
 import com.zs.zs_jetpack.constants.Constants
-import com.zs.zs_jetpack.event.LoginEvent
+import com.zs.base_wa_lib.event.LoginEvent
 import com.zs.zs_jetpack.http.ApiService
 import com.zs.zs_jetpack.http.RetrofitManager
 import org.greenrobot.eventbus.EventBus

@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/main_fragment"
+    tools:ignore="UnusedNavigation">
+
+    <fragment
+        android:id="@+id/main_fragment"
+        android:name="com.zs.zs_jetpack.ui.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main">
+        <!--历史-->
+        <action
+            android:id="@+id/action_main_fragment_to_history_fragment"
+            app:destination="@+id/history_fragment" />
+
+        <!--播放-->
+        <action
+            android:id="@+id/action_main_fragment_to_play_fragment"
+            app:destination="@+id/play_fragment" />
+
+        <!--设置-->
+        <action
+            android:id="@+id/action_main_fragment_to_set_fragment"
+            app:destination="@+id/set_fragment" />
+
+        <!--搜索-->
+        <action
+            android:id="@+id/action_main_fragment_to_search_fragment"
+            app:destination="@+id/search_fragment" />
+
+        <!--web-->
+        <action
+            android:id="@+id/action_main_fragment_to_web_fragment"
+            app:destination="@+id/web_fragment" />
+
+        <!--登陆-->
+        <action
+            android:id="@+id/action_main_fragment_to_login_fragment"
+            app:destination="@+id/login_fragment" />
+
+        <!--体系列表-->
+        <action
+            android:id="@+id/action_main_fragment_to_system_list_fragment"
+            app:destination="@+id/system_list_fragment" />
+
+        <!--发布文章-->
+        <action
+            android:id="@+id/action_main_fragment_to_publish_fragment"
+            app:destination="@+id/publish_fragment" />
+
+        <!--排名-->
+        <action
+            android:id="@+id/action_main_fragment_to_rank_fragment"
+            app:destination="@+id/rank_fragment" />
+
+        <!--我的文章-->
+        <action
+            android:id="@+id/action_main_fragment_to_my_article_fragment"
+            app:destination="@+id/my_article_fragment" />
+        <!--收藏-->
+        <action
+            android:id="@+id/action_main_fragment_to_collect_fragment"
+            app:destination="@+id/collect_fragment" />
+        <!--积分-->
+        <action
+            android:id="@+id/action_main_fragment_to_integral_fragment"
+            app:destination="@+id/integral_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/history_fragment"
+        android:name="com.zs.zs_jetpack.ui.history.HistoryFragment"
+        android:label="HistoryFragment"
+        tools:layout="@layout/fragment_history">
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/play_fragment"
+        android:name="com.zs.zs_jetpack.ui.play.PlayerFragment"
+        android:label="PlayerFragment"
+        tools:layout="@layout/fragment_player">
+        <!--历史-->
+        <action
+            android:id="@+id/action_main_fragment_to_history_fragment"
+            app:destination="@+id/history_fragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/set_fragment"
+        android:name="com.zs.zs_jetpack.ui.set.SetFragment"
+        android:label="SetFragment"
+        tools:layout="@layout/fragment_set">
+        <!--历史-->
+        <action
+            android:id="@+id/action_set_fragment_to_web_fragment"
+            app:destination="@+id/web_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/search_fragment"
+        android:name="com.zs.zs_jetpack.ui.search.SearchFragment"
+        android:label="SetFragment"
+        tools:layout="@layout/fragment_search">
+        <!--登陆-->
+        <action
+            android:id="@+id/action_search_fragment_to_login_fragment"
+            app:destination="@+id/login_fragment" />
+        <!--web-->
+        <action
+            android:id="@+id/action_search_fragment_to_web_fragment"
+            app:destination="@+id/web_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/web_fragment"
+        android:name="com.zs.zs_jetpack.ui.web.WebFragment"
+        android:label="WebFragment"
+        tools:layout="@layout/fragment_web" />
+
+    <fragment
+        android:id="@+id/login_fragment"
+        android:name="com.zs.zs_jetpack.ui.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+        <!--注册-->
+        <action
+            android:id="@+id/action_main_fragment_to_register_fragment"
+            app:destination="@+id/register_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/register_fragment"
+        android:name="com.zs.zs_jetpack.ui.register.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register" />
+
+    <fragment
+        android:id="@+id/system_list_fragment"
+        android:name="com.zs.zs_jetpack.ui.main.square.system.SystemListFragment"
+        android:label="SystemListFragment"
+        tools:layout="@layout/fragment_system_list">
+        <!--登陆-->
+        <action
+            android:id="@+id/action_system_list_fragment_to_login_fragment"
+            app:destination="@+id/login_fragment" />
+        <!--web-->
+        <action
+            android:id="@+id/action_system_list_fragment_to_web_fragment"
+            app:destination="@+id/web_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/publish_fragment"
+        android:name="com.zs.zs_jetpack.ui.publish.PublishFragment"
+        android:label="PublishFragment"
+        tools:layout="@layout/fragment_publish" />
+
+    <fragment
+        android:id="@+id/rank_fragment"
+        android:name="com.zs.zs_jetpack.ui.rank.RankFragment"
+        android:label="RankFragment"
+        tools:layout="@layout/fragment_rank">
+        <!--web-->
+        <action
+            android:id="@+id/action_rank_fragment_to_web_fragment"
+            app:destination="@+id/web_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/my_article_fragment"
+        android:name="com.zs.zs_jetpack.ui.my.MyArticleFragment"
+        android:label="MyArticleFragment"
+        tools:layout="@layout/fragment_my_article">
+        <!--添加文章-->
+        <action
+            android:id="@+id/action_my_article_fragment_to_publish_fragment"
+            app:destination="@+id/publish_fragment" />
+
+        <!--web-->
+        <action
+            android:id="@+id/action_my_article_fragment_to_web_fragment"
+            app:destination="@+id/web_fragment" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/collect_fragment"
+        android:name="com.zs.zs_jetpack.ui.collect.CollectFragment"
+        android:label="CollectFragment"
+        tools:layout="@layout/fragment_collect">
+
+        <!--web-->
+        <action
+            android:id="@+id/action_collect_fragment_to_web_fragment"
+            app:destination="@+id/web_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/integral_fragment"
+        android:name="com.zs.zs_jetpack.ui.integral.IntegralFragment"
+        android:label="IntegralFragment"
+        tools:layout="@layout/fragment_integral" />
+</navigation>
