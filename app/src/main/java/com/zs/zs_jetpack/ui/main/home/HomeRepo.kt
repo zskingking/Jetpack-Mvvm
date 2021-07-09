@@ -1,7 +1,7 @@
 package com.zs.zs_jetpack.ui.main.home
 
 import com.zs.base_library.base.BaseRepository
-import com.zs.zs_jetpack.bean.ArticleListBean
+import com.zs.base_wa_lib.article.ArticleListBean
 import com.zs.zs_jetpack.http.ApiService
 import com.zs.zs_jetpack.http.RetrofitManager
 

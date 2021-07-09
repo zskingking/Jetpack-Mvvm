@@ -1,7 +1,8 @@
 package com.zs.zs_jetpack.ui.collect
 
+import android.text.Html
 import com.zs.base_library.base.BaseRepository
-import com.zs.zs_jetpack.bean.ArticleListBean
+import com.zs.base_wa_lib.article.ArticleListBean
 import com.zs.zs_jetpack.http.ApiService
 import com.zs.zs_jetpack.http.RetrofitManager
 
@@ -23,7 +24,7 @@ class CollectListRepo : BaseRepository() {
             .getCollectData(page)
             .data()
             .let {
-                ArticleListBean.transByCollect(it.datas?: mutableListOf())
+                transByCollect(it.datas?: mutableListOf())
             }
     }
 
@@ -36,7 +37,7 @@ class CollectListRepo : BaseRepository() {
             .getCollectData(page)
             .data()
             .let {
-                ArticleListBean.transByCollect(it.datas?: mutableListOf())
+                transByCollect(it.datas?: mutableListOf())
             }
     }
 
@@ -48,5 +49,22 @@ class CollectListRepo : BaseRepository() {
             .unCollect(id)
             //如果data可能为空,可通过此方式通过反射生成对象,避免空判断
             .data(Any::class.java)
+    }
+
+    private  fun transByCollect(list: MutableList<CollectBean.DatasBean>): MutableList<ArticleListBean> {
+        return list.map {
+            ArticleListBean().apply {
+                id = it.originId
+                author = it.author
+                collect = true
+                desc = it.desc
+                picUrl = it.envelopePic
+                link = it.link
+                date = it.niceDate
+                title = Html.fromHtml(it.title).toString()
+                articleTag = it.chapterName
+                topTitle = ""
+            }
+        }.toMutableList()
     }
 }

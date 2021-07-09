@@ -4,13 +4,10 @@ import android.text.TextUtils
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
 import com.zs.base_library.common.toast
-import com.zs.zs_jetpack.bean.ArticleBean
-import com.zs.zs_jetpack.bean.ArticleListBean
+import com.zs.base_wa_lib.article.ArticleListBean
 import com.zs.zs_jetpack.ui.common.CollectRequest
-import org.w3c.dom.Text
 
 /**
  * @date 2020/7/8

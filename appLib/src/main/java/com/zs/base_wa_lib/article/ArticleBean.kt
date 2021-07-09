@@ -1,7 +1,7 @@
-package com.zs.zs_jetpack.bean
+package com.zs.base_wa_lib.article
 
 import com.chad.library.adapter.base.entity.MultiItemEntity
-import com.zs.zs_jetpack.constants.Constants
+import com.zs.base_wa_lib.constants.AppLibConstants
 
 class ArticleBean {
     /**
@@ -32,9 +32,9 @@ class ArticleBean {
 
         override fun getItemType(): Int {
             return if (envelopePic.isNullOrEmpty()) {
-                Constants.ITEM_ARTICLE
+                AppLibConstants.ITEM_ARTICLE
             } else {
-                Constants.ITEM_ARTICLE_PIC
+                AppLibConstants.ITEM_ARTICLE_PIC
             }
         }
 

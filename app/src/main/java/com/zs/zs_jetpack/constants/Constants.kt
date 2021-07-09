@@ -15,14 +15,7 @@ object Constants {
      * 项目/公众号公用一套逻辑。公众号标记
      */
     const val ACCOUNT_TYPE = 20
-    /**
-     * 多布局中带图片
-     */
-    const val ITEM_ARTICLE = 10
-    /**
-     * 多布局中不带图片
-     */
-    const val ITEM_ARTICLE_PIC = 20
+
     /**
      * http持久化保存
      */

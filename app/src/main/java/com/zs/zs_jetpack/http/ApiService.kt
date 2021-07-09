@@ -1,7 +1,7 @@
 package com.zs.zs_jetpack.http
 
-import com.zs.wanandroid.entity.*
-import com.zs.zs_jetpack.bean.ArticleBean
+import com.zs.base_wa_lib.article.ArticleBean
+import com.zs.zs_jetpack.bean.MyArticleEntity
 import com.zs.zs_jetpack.bean.NavigationEntity
 import com.zs.zs_jetpack.ui.collect.CollectBean
 import com.zs.zs_jetpack.ui.integral.IntegralRecordBean

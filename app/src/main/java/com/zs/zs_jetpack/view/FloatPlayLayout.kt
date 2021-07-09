@@ -189,7 +189,7 @@ class FloatPlayLayout : LinearLayout {
             return
         }
         albumId?.apply {
-            ivMusicPic.loadCircle(context.applicationContext, albumById(this))
+            ivMusicPic.loadCircle(context.applicationContext, albumById())
         }
     }
 }

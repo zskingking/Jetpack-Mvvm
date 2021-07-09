@@ -2,7 +2,6 @@ package com.zs.zs_jetpack.ui
 
 import android.animation.ValueAnimator
 import android.os.Build
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.annotation.RequiresApi
@@ -31,7 +30,7 @@ object PlayBindAdapter {
             view.setImageResource(0)
             return
         }
-        view.loadBlurTrans(view.context.applicationContext, albumById(albumId), 90)
+        view.loadBlurTrans(view.context.applicationContext, albumId.albumById(), 90)
     }
 
     /**

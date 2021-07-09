@@ -1,6 +1,6 @@
-package com.zs.wanandroid.entity
+package com.zs.zs_jetpack.bean
 
-import com.zs.zs_jetpack.bean.ArticleBean
+import com.zs.base_wa_lib.article.ArticleBean
 
 /**
  * des 我的文章

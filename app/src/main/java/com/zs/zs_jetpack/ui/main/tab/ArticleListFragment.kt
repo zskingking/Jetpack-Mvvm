@@ -3,17 +3,12 @@ package com.zs.zs_jetpack.ui.main.tab
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.SimpleItemAnimator
-import com.zs.base_library.base.BaseVmFragment
-import com.zs.base_library.base.DataBindingConfig
 import com.zs.base_library.base.LazyVmFragment
 import com.zs.base_library.common.smartConfig
 import com.zs.base_library.common.smartDismiss
-import com.zs.base_wa_lib.base.BaseLazyLoadingFragment
-import com.zs.zs_jetpack.BR
 import com.zs.zs_jetpack.R
-import com.zs.zs_jetpack.common.ArticleAdapter
+import com.zs.base_wa_lib.article.ArticleAdapter
 import com.zs.zs_jetpack.databinding.FragmentArticleBinding
-import com.zs.zs_jetpack.databinding.FragmentArticleBindingImpl
 import com.zs.zs_jetpack.utils.CacheUtil
 import kotlinx.android.synthetic.main.fragment_article.*
 

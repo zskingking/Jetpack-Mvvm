@@ -9,7 +9,7 @@ import com.zs.base_library.common.smartDismiss
 import com.zs.base_library.utils.Param
 import com.zs.base_wa_lib.base.BaseLoadingFragment
 import com.zs.zs_jetpack.R
-import com.zs.zs_jetpack.common.ArticleAdapter
+import com.zs.base_wa_lib.article.ArticleAdapter
 import com.zs.zs_jetpack.databinding.FragmentSystemListBinding
 import com.zs.zs_jetpack.utils.CacheUtil
 
@@ -22,7 +22,7 @@ class SystemListFragment : BaseLoadingFragment<FragmentSystemListBinding>() {
     /**
      * 文章适配器
      */
-    private lateinit var adapter:ArticleAdapter
+    private lateinit var adapter: ArticleAdapter
     private lateinit var systemVM: SystemVM
 
     @Param

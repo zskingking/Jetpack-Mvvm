@@ -7,9 +7,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zs.base_library.common.clickNoRepeat
 import com.zs.zs_jetpack.R
-import com.zs.zs_jetpack.bean.ArticleBean
+import com.zs.base_wa_lib.article.ArticleBean
 import com.zs.zs_jetpack.common.OnChildItemClickListener
-import com.zs.zs_jetpack.constants.Constants
 
 /**
  * 我的文章适配器

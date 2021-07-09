@@ -1,7 +1,7 @@
 package com.zs.zs_jetpack.ui.common
 
 import androidx.lifecycle.MutableLiveData
-import com.zs.zs_jetpack.bean.ArticleListBean
+import com.zs.base_wa_lib.article.ArticleListBean
 
 /**
  * des 收藏／取消收藏。单独抽成request可提升复用性

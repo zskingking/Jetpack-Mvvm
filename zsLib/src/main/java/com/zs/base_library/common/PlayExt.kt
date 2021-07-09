@@ -12,9 +12,7 @@ import android.net.Uri
 /**
  * 通过id获取专辑图片uri
  */
-fun albumById(albumId:Long):Uri{
+fun Long.albumById():Uri{
     return ContentUris.withAppendedId(
-        Uri.parse("content://media/external/audio/albumart"),
-        albumId
-    )
+        Uri.parse("content://media/external/audio/albumart"), this)
 }

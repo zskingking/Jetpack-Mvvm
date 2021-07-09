@@ -1,9 +1,8 @@
 package com.zs.zs_jetpack.ui.my
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
-import com.zs.zs_jetpack.bean.ArticleBean
+import com.zs.base_wa_lib.article.ArticleBean
 
 /**
  * @date 2020/7/13

@@ -3,12 +3,9 @@ package com.zs.zs_jetpack.ui.main.tab
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 import com.zs.base_library.base.BaseViewModel
-import com.zs.zs_jetpack.bean.ArticleListBean
+import com.zs.base_wa_lib.article.ArticleListBean
 import com.zs.zs_jetpack.ui.common.CollectRequest
-import com.zs.zs_jetpack.ui.main.square.system.SystemBean
-import com.zs.zs_jetpack.ui.main.square.system.SystemRepo
 
 /**
  * des 文章vm

@@ -1,6 +1,8 @@
 package com.zs.zs_jetpack.bean;
 
 
+import com.zs.base_wa_lib.article.ArticleBean;
+
 import java.util.List;
 
 /**

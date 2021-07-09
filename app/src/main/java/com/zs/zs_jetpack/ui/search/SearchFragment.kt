@@ -18,7 +18,7 @@ import com.zs.base_library.utils.PrefUtils
 import com.zs.base_library.utils.ScreenUtils
 import com.zs.base_wa_lib.base.BaseLoadingFragment
 import com.zs.zs_jetpack.R
-import com.zs.zs_jetpack.common.ArticleAdapter
+import com.zs.base_wa_lib.article.ArticleAdapter
 import com.zs.zs_jetpack.constants.Constants
 import com.zs.zs_jetpack.utils.CacheUtil
 import com.zs.zs_jetpack.databinding.FragmentSearchBinding

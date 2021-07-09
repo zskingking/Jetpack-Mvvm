@@ -1,10 +1,9 @@
-package com.zs.zs_jetpack.bean
+package com.zs.base_wa_lib.article
 
 import android.text.Html
 import android.text.TextUtils
 import com.chad.library.adapter.base.entity.MultiItemEntity
-import com.zs.zs_jetpack.constants.Constants
-import com.zs.zs_jetpack.ui.collect.CollectBean
+import com.zs.base_wa_lib.constants.AppLibConstants
 
 /**
  * @author zs
@@ -63,9 +62,9 @@ data class ArticleListBean (
 
     override fun getItemType(): Int {
         return if (picUrl.isNullOrEmpty()) {
-            Constants.ITEM_ARTICLE
+            AppLibConstants.ITEM_ARTICLE
         } else {
-            Constants.ITEM_ARTICLE_PIC
+            AppLibConstants.ITEM_ARTICLE_PIC
         }
     }
 
@@ -98,23 +97,5 @@ data class ArticleListBean (
                 }
             }.toMutableList()
         }
-
-        fun transByCollect(list: MutableList<CollectBean.DatasBean>): MutableList<ArticleListBean> {
-            return list.map {
-                ArticleListBean().apply {
-                    id = it.originId
-                    author = it.author
-                    collect = true
-                    desc = it.desc
-                    picUrl = it.envelopePic
-                    link = it.link
-                    date = it.niceDate
-                    title = Html.fromHtml(it.title).toString()
-                    articleTag = it.chapterName
-                    topTitle = ""
-                }
-            }.toMutableList()
-        }
-
     }
 }

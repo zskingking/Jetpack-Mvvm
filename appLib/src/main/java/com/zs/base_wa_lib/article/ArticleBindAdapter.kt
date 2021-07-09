@@ -1,8 +1,8 @@
-package com.zs.zs_jetpack.common
+package com.zs.base_wa_lib.article
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import com.zs.zs_jetpack.R
+import com.example.base_wa_library.R
 
 /**
  * des 文章列表dataBinding适配器

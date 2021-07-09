@@ -46,7 +46,7 @@ object CustomBindAdapter {
             view.setImageResource(0)
             return
         }
-        view.loadCircle(view.context.applicationContext, albumById(albumId))
+        view.loadCircle(view.context.applicationContext, albumId.albumById())
     }
 
     /**
@@ -57,7 +57,6 @@ object CustomBindAdapter {
     fun imgUrlRadiusCircle(view: ImageView, url: String) {
         view.loadRadius(view.context.applicationContext, url)
     }
-
 
 
     @BindingAdapter(value = ["visible"])

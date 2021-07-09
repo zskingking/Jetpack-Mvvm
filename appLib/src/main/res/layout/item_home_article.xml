@@ -5,7 +5,7 @@
     <data>
         <variable
             name="dataBean"
-            type="com.zs.zs_jetpack.bean.ArticleListBean" />
+            type="com.zs.base_wa_lib.article.ArticleListBean" />
     </data>
 
     <RelativeLayout
