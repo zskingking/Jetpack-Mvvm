@@ -2,6 +2,7 @@ package com.zs.zs_jetpack.ui.search
 
 import android.animation.ValueAnimator
 import android.os.Bundle
+import android.os.SystemClock
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
@@ -47,6 +48,7 @@ class SearchFragment : BaseVmFragment() {
      * 空白页，网络出错等默认显示
      */
     private val loadingTip by lazy { LoadingTip(mActivity) }
+    private var firstBackTimeMs = SystemClock.elapsedRealtime()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +56,10 @@ class SearchFragment : BaseVmFragment() {
         val callback: OnBackPressedCallback =
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
+                    if (SystemClock.elapsedRealtime() - firstBackTimeMs < 500) {
+                        return
+                    }
+                    firstBackTimeMs = SystemClock.elapsedRealtime()
                     startSearchAnim(false)
                     val disposable = Single.timer(250, TimeUnit.MILLISECONDS)
                         .observeOn(AndroidSchedulers.mainThread())
@@ -107,7 +113,7 @@ class SearchFragment : BaseVmFragment() {
         adapter = ArticleAdapter(mActivity).apply {
             setOnItemClickListener { i, _ ->
                 nav().navigate(
-                    R.id.action_main_fragment_to_web_fragment,
+                    R.id.action_search_fragment_to_web_fragment,
                     this@SearchFragment.adapter.getBundle(i)
                 )
             }
