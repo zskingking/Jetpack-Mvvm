@@ -69,6 +69,10 @@ data class ArticleListBean (
         }
     }
 
+    override fun equals(other: Any?): Boolean {
+        return super.equals(other)
+    }
+
     /**
      * 将后端数据转换为本地定义的数据结构,原因有三
      *
