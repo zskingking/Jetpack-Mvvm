@@ -47,4 +47,12 @@ object ThirdParty {
         private const val blockCanary_version = "1.5.0"
         const val blockCanary = "com.github.markzhai:blockcanary-android:$blockCanary_version"
     }
+
+    val leakCanary = LeakCanary
+    object LeakCanary {
+        private const val leakCanary_version = "1.6.3"
+        const val leakCanary = "com.squareup.leakcanary:leakcanary-android:$leakCanary_version"
+        const val leakCanaryFragment = "com.squareup.leakcanary:leakcanary-support-fragment:$leakCanary_version"
+        const val leakCanaryClose = "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanary_version"
+    }
 }

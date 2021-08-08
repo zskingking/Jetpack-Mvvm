@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.util.Log
+import android.view.Choreographer
 import android.view.View
 import android.view.animation.LinearInterpolator
 import java.util.*
@@ -34,6 +35,11 @@ class DimPleView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
     private val particleNumber = 2500//粒子数量
     private val particleRadius = 2.0f//粒子半径
     private val diffusionRadius = 268f//扩散圆半径
+
+    fun stopAnim() {
+        Choreographer
+        animator.end()
+    }
 
     init {
         animator.duration = 2000

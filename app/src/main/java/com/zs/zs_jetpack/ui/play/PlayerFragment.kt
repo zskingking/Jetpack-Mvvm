@@ -38,7 +38,9 @@ class PlayerFragment : BaseVmFragment<FragmentPlayerBinding>() {
     override fun onDestroyView() {
         super.onDestroyView()
         //一定要将动画置空，生命周期跟随fragment，否则会引发一致性问题
+        PlayBindAdapter.anim?.end()
         PlayBindAdapter.anim = null
+        binding.dimView.stopAnim()
     }
 
     override fun initView() {
@@ -108,7 +110,7 @@ class PlayerFragment : BaseVmFragment<FragmentPlayerBinding>() {
         }
         //播放列表
         binding.ivList.clickNoRepeat {
-            playListFragment.show(mActivity.supportFragmentManager, "")
+            playListFragment.show(childFragmentManager, "")
         }
     }
 

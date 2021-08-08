@@ -17,7 +17,7 @@ class AppBlockCanaryContext : BlockCanaryContext() {
      * 指定的卡顿阀值 100毫秒
      */
     override fun provideBlockThreshold(): Int {
-        return 1000
+        return 30
     }
 
     /**

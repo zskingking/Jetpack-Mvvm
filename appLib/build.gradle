@@ -4,5 +4,9 @@ apply from: "../basic.gradle"
 dependencies {
     api project(':zsLib')
     api(ThirdParty.blockCanary.blockCanary)
+    debugApi(ThirdParty.leakCanary.leakCanary)
+    debugApi(ThirdParty.leakCanary.leakCanaryFragment)
+    // release版本留一个空壳(关闭leakCanary)，避免编译报错
+    // releaseApi(ThirdParty.leakCanary.leakCanaryClose)
 
 }
