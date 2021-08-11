@@ -37,7 +37,6 @@ class DimPleView(context: Context?, attrs: AttributeSet?) : View(context, attrs)
     private val diffusionRadius = 268f//扩散圆半径
 
     fun stopAnim() {
-        Choreographer
         animator.end()
     }
 
